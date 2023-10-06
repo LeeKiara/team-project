@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export const LayoutContainer = styled.div`
   #center {
-    border: 10px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;

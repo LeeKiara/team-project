@@ -10,10 +10,10 @@ const BookSidebar = () => {
       <aside style={{ width: "200px" }}>
         <ul>
           <li>
-            <Link to="/mall/order">주문목록</Link>
+            <Link to="/order">주문목록</Link>
           </li>
           <li>
-            <Link to="/mall/order/cart">장바구니</Link>
+            <Link to="/order/cart">장바구니</Link>
           </li>
         </ul>
       </aside>
