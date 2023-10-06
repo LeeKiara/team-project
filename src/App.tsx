@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BookList from "./modules/books/BookList";
 import OrderList from "./modules/order/OrderList";
 import BookSearch from "./modules/books/BookSearch";
-import Layout from "./Layout";
 import { lazy } from "react";
 import Cart from "./modules/order/cart";
+import Layout from "./layout/Layout";
 
 const BookSidebar = lazy(() => import("./modules/books/BookSidebar"));
 const OrderSidebar = lazy(() => import("./modules/order/OrderSidebar"));

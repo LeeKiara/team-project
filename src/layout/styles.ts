@@ -16,7 +16,22 @@ export const LayoutContainer = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 70vw;
+    width: 65vw;
+  }
+  header > div > aside {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 5px;
+  }
+  header > div > aside > button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  header > div > aside > button > span {
   }
   .header-nav ul {
     padding: 10px;
