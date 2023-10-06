@@ -34,7 +34,7 @@ const Layout = () => {
                   <Link to="/books">외국도서</Link>
                 </li>
                 <li>
-                  <Link to="/order">도서몰/주문</Link>
+                  <Link to="/cart">장바구니</Link>
                 </li>
               </ul>
             </nav>
