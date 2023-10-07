@@ -19,6 +19,7 @@ export const HomeContainer = styled.div`
   div > section > article:nth-of-type(1) > h3 {
     display: flex;
     gap: 40px;
+    margin: 0;
   }
   div > section > article:nth-of-type(1) > h3 > span {
     display: flex;
@@ -26,9 +27,16 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(1) > div {
     display: flex;
+    gap: 20px;
   }
   div > section > article:nth-of-type(1) > div > span {
-    width: 50px;
+    width: 100px;
+    border: 3px solid blue;
+    margin: 16px;
+  }
+  div > section > article:nth-of-type(1) > div:nth-of-type(2) {
+    display: flex;
+    justify-content: flex-end;
   }
   div > section > article:nth-of-type(2) {
     margin: auto;
