@@ -1,96 +1,140 @@
-import { CartListContainer } from "./styles";
+import Home from "@/pages/Home";
+import { useState } from "react";
+import { CartContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const CartList = () => {
+  const navigate = useNavigate();
+
+  const handleOrder = () => {
+    navigate("/cart/order");
+  };
   return (
-    <CartListContainer>
-      <div className="cart-container">
-        {/* <article>
-          <div>장바구니</div>
-        </article> */}
+    <>
+      <CartContainer>
         <section>
           <article>
-            <h3>blank box</h3>
+            <div className="cart-header">
+              <h3 className="title">장바구니</h3>
+            </div>
           </article>
-          <article>
+          <article className="cart-layer-title">
             <div>
-              <h3>장바구니...</h3>
+              <input type="checkbox" name="productall_seq" className="listCheckBox" />
             </div>
-            <div className="box-list-payment">
-              <form name="cartlistForm" id="cartlistForm" method="post">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>
-                        <label className="form-checkbox">
-                          <input type="checkbox" id="allchecked" />
-                        </label>
-                      </th>
-                      <th>상품 정보</th>
-                      <th>수량</th>
-                      <th>판매가(정가)</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="checkbox">
-                        <label className="form-checkbox" id="seq_32132">
-                          <input type="checkbox" id="product_seq_32132" name="product_seq" className="listCheckBox" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="link-detail">
-                          <span className="image">
-                            <a href="">
-                              <img src="" alt="빠작 고등 국어 고전 문학" />
-                            </a>
-                          </span>
-                          <div className="text">
-                            <div className="box-tag">
-                              <span className="icon-tag">국내도서</span>
-                            </div>
-                            <a href="">빠작 고등 국어 고전 문학</a>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span className="form-number" style={{ width: "100px" }}>
-                          <input id="num32132" name="num" type="number" min="1" max="999" step="1" />
-                          <div className="quantity-nav">
-                            <div className="quantity-button quantity-up">+</div>
-                            <div className="quantity-button quantity-down">-</div>
-                          </div>
-                        </span>
-                      </td>
-                      <td>
-                        <div className="box-price">
-                          <strong id="saleprice_32132">13,950</strong>원<del id="fixedprice_32132">정가15,500원</del>
-                        </div>
-                      </td>
-                      <td>
-                        <span className="btn-delete-item">
-                          <button type="button">삭제</button>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
+            <div>상품정보</div>
+            <div>수량</div>
+            <div>판매가(정가)</div>
+          </article>
+          {/* 장바구니 상품 1 */}
+          <article className="cart-layer">
+            {/* 도서정보(책이미지/도서명) */}
+            <div className="bookinfo">
+              <label className="form-checkbox">
+                <input type="checkbox" name="product_seq" className="listCheckBox" />
+              </label>
+              <figure>
+                <img src="책이미지" alt="책이미지" />
+              </figure>
+              <div>
+                <div className="box-tag-bookgubun">
+                  <span className="icon-tag-bookgubun">국내도서</span>
+                </div>
+                <p>빠작 고등 국어 고전 문학</p>
+              </div>
+            </div>
+            {/* 가격정보 */}
+            <div className="priceinfo">
+              {/* 수량 */}
+              <div>
+                <span className="book-quantity" style={{ width: "100px" }}>
+                  <input name="num" type="number" min="1" max="999" step="1" />
+                  <div className="quantity-nav">
+                    <div className="quantity-button quantity-up">+</div>
+                    <div className="quantity-button quantity-down">-</div>
+                  </div>
+                </span>
+              </div>
+
+              {/* 할인가/정가 */}
+              <div>
+                <div className="box-price">
+                  <strong>13,950</strong>원<del>정가15,500원</del>
+                </div>
+              </div>
+              {/* 삭제버튼 */}
+              <div className="box-delete">X</div>
             </div>
           </article>
+          {/* 장바구니 상품 2 */}
+          <article className="cart-layer">
+            {/* 도서정보(책이미지/도서명) */}
+            <div className="bookinfo">
+              <label className="form-checkbox">
+                <input type="checkbox" name="product_seq" className="listCheckBox" />
+              </label>
+              <figure>
+                <img src="책이미지" alt="책이미지" />
+              </figure>
+              <div>
+                <h3>국내도서</h3>
+                <p>빠작 고등 국어 고전 문학</p>
+              </div>
+            </div>
+            {/* 가격정보 */}
+            <div className="priceinfo">
+              {/* 수량 */}
+              <div>
+                <span className="book-quantity" style={{ width: "100px" }}>
+                  <input name="num" type="number" min="1" max="999" step="1" />
+                  <div className="quantity-nav">
+                    <div className="quantity-button quantity-up">+</div>
+                    <div className="quantity-button quantity-down">-</div>
+                  </div>
+                </span>
+              </div>
+
+              {/* 할인가/정가 */}
+              <div>
+                <div className="box-price">
+                  <strong>13,950</strong>원<del>정가15,500원</del>
+                </div>
+              </div>
+              {/* 삭제버튼 */}
+              <div className="box-delete">X</div>
+            </div>
+          </article>
+
+          {/* 주문합계 */}
           <article>
-            <h3>주문합계</h3>
-            <ul>
-              <li>주문합계</li>
-              <li>상품금액</li>
-              <li>할인금액</li>
-              <li>배송비</li>
-              <li>결제예정금액</li>
-            </ul>
+            <div className="box-total-payment">
+              <div className="total-text">주문합계</div>
+              <div className="total-sum">
+                상품금액 <strong id="fixedsum">1,0000</strong>원 <i>-</i>
+                할인금액 <strong id="discountsum">2000</strong>원 <i>+</i>
+                배송비 <strong id="deliveryfee">2000</strong>원
+              </div>
+              <div className="total-price">
+                결제 예정 금액 <strong id="totalsum">10000</strong>원
+              </div>
+            </div>
+          </article>
+
+          {/* 주문버튼 */}
+          <article className="payment-layer">
+            <div className="box-submit-payment">
+              <dl>
+                <dt>주의하세요.</dt>
+                <dd>· 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
+              </dl>
+              <span className="btn-order">
+                <button onClick={handleOrder}>주문하기</button>
+              </span>
+            </div>
           </article>
         </section>
-      </div>
-    </CartListContainer>
+      </CartContainer>
+    </>
   );
 };
 

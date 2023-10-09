@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 
-export const CartContainer = styled.div`
+// import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
+
+export const OrderContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
@@ -302,6 +304,36 @@ export const CartContainer = styled.div`
     font-size: 13px;
     font-weight: 400;
     line-height: 1.83;
+  }
+
+  /* 주문결제 */
+  .wrap-payment {
+    position: relative;
+  }
+
+  .wrap-payment .box-payment-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* z-index:1; */
+    /* width:258px; */
+  }
+
+  .wrap-payment .box-payment-sidebar .contain-calcpay {
+    display: block;
+    position: relative;
+    padding: 24px;
+    border: 1px solid #e1e1e1;
+    box-sizing: border-box;
+    background: #fff;
+  }
+
+  .wrap-payment .box-payment-sidebar .contain-calcpay.on {
+    display: block;
+  }
+
+  .wrap-payment .contain-payment-body {
+    width: 926px;
   }
 
   /* 모바일 스타일 */
