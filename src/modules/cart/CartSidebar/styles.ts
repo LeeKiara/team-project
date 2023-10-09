@@ -24,27 +24,18 @@ export const CartSidebarContainer = styled.div`
     color: #36364b;
   }
 
-  /*
-  main > aside > ul {
+  input[type^="text"] {
+    display: block;
     margin: 0;
     padding: 0;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  main > aside > h3 {
-    margin: 0;
-    padding-left: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: antiquewhite;
-  }
-  main > section {
     width: 100%;
-  } */
+    height: 40px;
+    color: #36364b;
+    font-size: 14px;
+    text-indent: 16px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+  }
 
   li {
     list-style: none;

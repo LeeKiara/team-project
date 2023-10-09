@@ -111,11 +111,11 @@ const CartList = () => {
               <div className="total-text">주문합계</div>
               <div className="total-sum">
                 상품금액 <strong id="fixedsum">1,0000</strong>원 <i>-</i>
-                할인금액 <strong id="discountsum">2000</strong>원 <i>+</i>
-                배송비 <strong id="deliveryfee">2000</strong>원
+                할인금액 <strong id="discountsum">2,000</strong>원 <i>+</i>
+                배송비 <strong id="deliveryfee">2,000</strong>원
               </div>
               <div className="total-price">
-                결제 예정 금액 <strong id="totalsum">10000</strong>원
+                결제 예정 금액 <strong id="totalsum">10,000</strong>원
               </div>
             </div>
           </article>

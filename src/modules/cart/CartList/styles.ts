@@ -203,6 +203,7 @@ export const CartContainer = styled.div`
   /* 합계금액 */
   .box-total-payment {
     display: flex;
+    margin-top: 50px;
     margin-bottom: 32px;
     padding: 28px 32px;
     font-size: 14px;
@@ -213,8 +214,8 @@ export const CartContainer = styled.div`
   }
 
   .box-total-payment .total-text {
-    width: 200px;
-    font-weight: 500;
+    width: 80px;
+    font-weight: 700;
   }
 
   .box-total-payment .total-sum {

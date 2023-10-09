@@ -3,95 +3,366 @@ import styled from "@emotion/styled";
 // import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
 
 export const OrderContainer = styled.div`
+  input,
+  select {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #36364b;
+  }
+
   section {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 900px;
   }
-  .cart-header {
+
+  .contain-payment-header {
     margin-bottom: 20px;
-  }
-  .cart-header .title {
-    display: inline-block;
-    margin: 0 15px 0 0;
-    font-size: 28px;
-    font-weight: 600;
-    vertical-align: top;
-    line-height: 1;
+
+    .title {
+      display: inline-block;
+      margin: 0 15px 0 0;
+      font-size: 28px;
+      font-weight: 600;
+      vertical-align: top;
+      line-height: 1;
+    }
   }
 
-  .cart-layer-title {
-    display: flex;
-    flex-direction: row;
-    background-color: #f5f6f9;
-    width: 880px;
-    height: 50px;
-    align-items: center;
-    /* justify-content: space-between; */
-    padding-left: 20px;
-    /* padding-right: 20px; */
-    color: #36364b;
+  /* 주문결제 */
+  .wrap-payment {
+    position: relative;
+
+    .contain-payment-body {
+      width: 640px;
+      /* border: 1px solid red; */
+    }
+
+    font-size: 15px;
     font-weight: 400;
-
-    div {
-      /* border: 1px solid black; */
-      text-align: center;
-    }
-    div:nth-of-type(1) {
-      width: 20px;
-    }
-    div:nth-of-type(2) {
-      width: 700px;
-    }
-    div:nth-of-type(3) {
-      width: 120px;
-    }
-    div:nth-of-type(4) {
-      width: 180px;
-    }
   }
-  .cart-layer {
-    display: flex;
-    flex-direction: row;
+
+  .box-list-payment {
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    width: 627px;
     border: 2px solid #f5f6f9;
+    margin-bottom: 10px;
 
-    height: 150px;
-    align-items: center; /* 수직 가운데 정렬 추가 */
-  }
-  .bookinfo {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-  }
-  .priceinfo {
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* 수직 가운데 정렬 추가 */
+    .bookinfo {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
-    gap: 30px;
-    margin: 0px 20px;
+      .priceinfo {
+        /* flex: 1; */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 5px;
+        margin: 10px 0px;
+
+        div {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          gap: 15px;
+          font-size: 14px;
+        }
+        > div:nth-of-type(2) {
+          color: rgb(239, 0, 124);
+        }
+
+        .icon-tag-pricegubun {
+          display: inline-block;
+          /* padding: 0 8px; */
+          width: 60px;
+          height: 22px;
+          line-height: 20px;
+          font-size: 13px;
+          font-weight: 400;
+          color: white;
+          border: 1px solid #bfc1cd;
+          border-radius: 4px;
+          background-color: #bfc1cd;
+          text-align: center;
+        }
+      }
+    }
+
+    .link-detail {
+      display: flex;
+      float: left;
+      padding: 0 15px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.67px;
+    }
+
+    .image {
+      display: inline-block;
+      margin: 0 23px 0 0;
+      width: 110px;
+      vertical-align: top;
+    }
+
+    .image img {
+      display: block;
+      width: 110px;
+      height: 124px;
+      border: 1px solid #e1e1e1;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      font-weight: 400;
+      max-width: 380px;
+    }
+    .box-tag-bookgubun {
+      margin: 8px 0;
+    }
+
+    .icon-tag-bookgubun {
+      display: inline-block;
+      padding: 0 8px;
+      width: auto;
+      height: 22px;
+      line-height: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      color: #0c9cff;
+      border: 1px solid #0c9cff;
+      border-radius: 4px;
+    }
   }
 
-  .bookinfo label {
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-  .box-tag-bookgubun {
-    margin: 8px 0;
+  /* 주문자 정보 */
+  .title-order {
+    margin: 0 0 24px 0;
+    padding: 12px 0 12px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    background: #f5f6f9;
   }
 
-  .icon-tag-bookgubun {
-    display: inline-block;
-    padding: 0 8px;
-    width: auto;
-    height: 22px;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #0c9cff;
-    border: 1px solid #0c9cff;
-    border-radius: 4px;
+  .box-information-order {
+    padding: 0 24px 34px 24px;
+    /* gap: 20px; */
+
+    .box-name {
+      margin-bottom: 16px;
+    }
+
+    .box-phonenum {
+      display: flex;
+      margin-bottom: 16px;
+      gap: 10px;
+      input {
+        width: 120px;
+      }
+    }
+
+    .box-phonenum .form-text {
+      width: 115px;
+    }
+
+    .box-email {
+      display: flex;
+      margin-bottom: 16px;
+      vertical-align: middle;
+      line-height: 45px;
+      gap: 5px;
+      input {
+        width: 200px;
+      }
+    }
+
+    .box-memo select {
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #e1e1e1;
+      cursor: pointer;
+      /* font-size: 16px; */
+      height: 40px;
+      /* margin: 0; */
+      margin-top: 12px;
+      outline: none;
+      padding: 0 30px 3px 16px;
+      position: relative;
+      vertical-align: middle;
+      width: 400px;
+      z-index: 1;
+    }
+
+    .box-radio {
+      margin-bottom: 24px;
+      padding: 10px 0 20px 0;
+      border-bottom: 1px solid #f5f6f9;
+    }
+
+    .text-notice-type1 strong {
+      color: #3d4ed7;
+    }
+
+    .box-address {
+      /* margin-bottom: 16px; */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      button {
+        padding: 0 28px;
+        width: 130px;
+        /* height: 56px; */
+        text-align: center;
+        font-size: 15px;
+        font-weight: 500;
+        /* line-height: 54px; */
+        border: 1px solid #3d4ed7;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+        color: #3d4ed7;
+        background-color: white;
+      }
+
+      div {
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+
+  .box-information-payment {
+    /* margin: -24px 0 48px 0; */
+
+    div:nth-of-type(1) {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+
+      button {
+        padding: 0 28px;
+        width: 200px;
+        height: 56px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 500;
+        /* border: 1px solid #3d4ed7; */
+        border: 1px solid #999aa9;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+        /* color: #3d4ed7; */
+        color: #999aa9;
+        background-color: white;
+      }
+
+      .button-selected {
+        border: 1px solid #3d4ed7;
+        color: #3d4ed7;
+      }
+    }
+
+    .payment-tab-cont {
+      font-size: 14px;
+      strong {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+
+    .payment-tab-cont {
+      display: none;
+    }
+
+    .payment-tab-cont.visible {
+      display: block;
+    }
+  }
+
+  /* 결제 예정금액 sidebar */
+  .wrap-payment .box-payment-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    width: 258px;
+
+    .contain-calcpay {
+      display: block;
+      position: relative;
+      padding: 24px;
+      border: 1px solid #e1e1e1;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .title {
+      margin-bottom: 24px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .payment-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .payment-item.total dt {
+      font-size: 16px;
+      color: #fd342a;
+    }
+
+    .payment-item dt {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .div-type2 {
+      margin-bottom: 24px;
+      display: block;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 1px;
+      background: #e1e1e1;
+      border: none;
+    }
+
+    .box-submit-payment {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+
+      .btn-order {
+        display: block;
+      }
+
+      .btn-order button {
+        display: block;
+        width: 218px;
+        height: 44px;
+        line-height: 1;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        border-radius: 4px;
+        background: #3d4ed7;
+        border: 0;
+      }
+    }
   }
 
   /* 모바일 스타일 */
@@ -120,271 +391,6 @@ export const OrderContainer = styled.div`
       align-items: center; /* 수직 가운데 정렬 추가 */
       gap: 30px;
       margin: 10px 20px;
-    }
-  }
-
-  .book-quantity {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    vertical-align: middle;
-    border: 1px solid #e1e1e1;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 15px;
-  }
-
-  .book-quantity input[type="number"] {
-    display: block;
-    float: left;
-    margin: 0;
-    padding: 0;
-    /* width: calc(100% - 20px); */
-    width: calc(100%);
-    height: 30px;
-    font-size: 14px;
-    text-indent: 16px;
-    border: none;
-    border-radius: 0;
-  }
-
-  .book-quantity .quantity-nav {
-    position: absolute;
-    right: 0;
-    top: 1px;
-    height: 100%;
-  }
-
-  .book-quantity .quantity-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 20px;
-    text-align: center;
-    color: #808fa3;
-    font-size: 13px;
-    line-height: 20px;
-    cursor: pointer;
-    background: #f6f7fb;
-    border-left: 1px solid #e1e1e1;
-    transform: translateX(-100%);
-    user-select: none;
-  }
-
-  .book-quantity .quantity-button.quantity-up {
-    position: absolute;
-    height: 50%;
-    top: 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .book-quantity .quantity-button.quantity-down {
-    position: absolute;
-    bottom: 0;
-    height: 50%;
-  }
-
-  .box-price {
-    font-size: 16px;
-    letter-spacing: -1px;
-    /* border: 1px solid black; */
-  }
-
-  .box-price strong {
-    font-size: 24px;
-  }
-
-  .box-price del {
-    display: block;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    color: #bfc1cd;
-  }
-
-  /* 합계금액 */
-  .box-total-payment {
-    display: flex;
-    margin-bottom: 32px;
-    padding: 28px 32px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-    border: 1px solid #999aa9;
-    justify-content: space-between;
-  }
-
-  .box-total-payment .total-text {
-    width: 200px;
-    font-weight: 500;
-  }
-
-  .box-total-payment .total-sum {
-    line-height: 1;
-    text-align: center;
-    font-weight: 400;
-  }
-
-  .box-total-payment .total-sum strong {
-    display: inline-block;
-    position: relative;
-    top: -2px;
-    margin: 0 0 0 15px;
-    line-height: 1.5;
-    vertical-align: middle;
-    font-size: 18px;
-    letter-spacing: -1px;
-    color: #0091ff;
-  }
-
-  .box-total-payment .total-sum i {
-    display: inline-block;
-    position: relative;
-    top: -2px;
-    margin: 0 20px;
-    font-weight: 400;
-    vertical-align: middle;
-    font-style: normal;
-    font-size: 20px;
-    color: #8d99ae;
-  }
-
-  .box-total-payment .total-price {
-    width: 240px;
-    text-align: right;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .box-total-payment .total-price strong {
-    display: inline-block;
-    vertical-align: middle;
-    margin: -6px 2px 0 15px;
-    font-size: 24px;
-    letter-spacing: -1px;
-    color: #e02020;
-  }
-
-  .box-submit-payment {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 32px;
-  }
-  .box-submit-payment .btn-order {
-    display: block;
-  }
-
-  .box-submit-payment .btn-order button {
-    display: block;
-    width: 218px;
-    height: 74px;
-    line-height: 1;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-    color: #fff;
-    border-radius: 4px;
-    background: #3d4ed7;
-    border: 0;
-  }
-  .box-submit-payment dt {
-    margin: 0 0 16px 0;
-    padding: 0 0 0 30px;
-    line-height: 22px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #e02020;
-    background: url(/images/pc/icon_notice_type1.png) no-repeat left top;
-  }
-
-  element.style {
-  }
-  .box-submit-payment dd {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.83;
-  }
-
-  /* 주문결제 */
-  .wrap-payment {
-    position: relative;
-  }
-
-  .wrap-payment .box-payment-sidebar {
-    position: absolute;
-    right: 0;
-    top: 0;
-    /* z-index:1; */
-    /* width:258px; */
-  }
-
-  .wrap-payment .box-payment-sidebar .contain-calcpay {
-    display: block;
-    position: relative;
-    padding: 24px;
-    border: 1px solid #e1e1e1;
-    box-sizing: border-box;
-    background: #fff;
-  }
-
-  .wrap-payment .box-payment-sidebar .contain-calcpay.on {
-    display: block;
-  }
-
-  .wrap-payment .contain-payment-body {
-    width: 926px;
-  }
-
-  /* 모바일 스타일 */
-  @media (max-width: 768px) {
-    .payment-layer {
-      height: 50px;
-    }
-    .box-total-payment {
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-
-      .total-text {
-        /* border-bottom: 1px dotted gray; */
-        height: 30px;
-      }
-      .total-sum strong {
-        display: inline;
-        text-align: left;
-      }
-
-      .total-price {
-        display: inline;
-        text-align: left;
-      }
-    }
-
-    .box-submit-payment {
-      /* position: relative; */
-      display: flex;
-      flex-direction: column;
-      /* margin-top: 32px; */
-
-      .btn-order button {
-        display: block;
-        width: 330px;
-        height: 60px;
-        line-height: 1;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 500;
-        color: #fff;
-        border-radius: 4px;
-        background: #3d4ed7;
-        border: 0;
-        margin-bottom: 20px;
-      }
-
-      dl {
-        display: none;
-      }
     }
   }
 `;
