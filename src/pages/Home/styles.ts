@@ -45,7 +45,7 @@ export const HomeContainer = styled.div`
     justify-content: flex-end;
   }
   div > section > article:nth-of-type(2) {
-    width: 1200px;
+    width: 470px;
     margin: auto;
     border: 2px solid crimson;
   }
@@ -77,7 +77,12 @@ export const HomeContainer = styled.div`
     width: 200px;
     height: 250px;
   }
-  @media (min-width: 85rem) {
+  @media (min-width: 55rem) {
+    div > section > article:nth-of-type(2) {
+      width: 90%;
+    }
+  }
+  @media (min-width: 90rem) {
     div > section > article:nth-of-type(2) > ul {
       gap: 40px;
     }
