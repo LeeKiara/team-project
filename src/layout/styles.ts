@@ -1,21 +1,29 @@
 import styled from "@emotion/styled";
 
 export const LayoutContainer = styled.div`
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    color: black;
+  }
+  li {
+    list-style: none;
+  }
+  h3, h4 {
+    margin: 0;
+  }
   #center {
-    border: 10px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  header {
-    border: 3px solid blue;
+  /* header {
     display: flex;
-    justify-content: center;
-  }
+    flex-direction: column;
+  } */
   header > div {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+    margin: auto;
     width: 65vw;
   }
   header > div > aside {
@@ -33,18 +41,27 @@ export const LayoutContainer = styled.div`
   }
   header > div > aside > button > span {
   }
+  .header-nav {
+    /* border: 1px solid #97a5ac; */
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 5px;
+  }
   .header-nav ul {
+    width: 65vw;
+    margin: auto;
     padding: 10px;
-    background-color: beige;
     display: flex;
     justify-content: space-evenly;
   }
   .header-nav li {
     list-style: none;
+    font-size: 20px;
+    font-weight: bold;
   }
   #searchForm {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
   }
   header > div > div > form {
@@ -58,10 +75,12 @@ export const LayoutContainer = styled.div`
     border-radius: 30px;
   }
   header > div > div > form > label > input {
-    width: 60%;
-    height: 90%;
-    border: white;
+    width: 70%;
+    height: 60%;
+    border: none;
     vertical-align: top;
+    margin-left: 18px;
+    margin-top: 7px;
   }
   .material-symbols-outlined {
     color: #fdbebe;

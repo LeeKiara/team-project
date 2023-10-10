@@ -29,7 +29,8 @@ const Layout = () => {
                 </label>
               </form>
             </div>
-            <nav className="header-nav">
+          </div>
+          <nav className="header-nav">
               <ul>
                 <li>
                   <Link to="/books">베스트도서</Link>
@@ -44,11 +45,10 @@ const Layout = () => {
                   <Link to="/books">외국도서</Link>
                 </li>
                 <li>
-                  <Link to="/order">도서몰/주문</Link>
+                  <Link to="/cart">장바구니</Link>
                 </li>
               </ul>
             </nav>
-          </div>
         </header>
 
         <main>
