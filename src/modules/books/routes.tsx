@@ -2,7 +2,6 @@ import { Route } from "react-router-dom";
 import BookList from "./BookList";
 import BookBestList from "./BookBestList";
 import BookNewList from "./BookNewList";
-
 import BookForeignList from "./BookForeignList";
 import BookSearch from "./BookSearch";
 import { lazy } from "react";
