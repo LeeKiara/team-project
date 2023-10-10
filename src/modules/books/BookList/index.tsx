@@ -7,7 +7,7 @@ const BookList = () => {
     <>
       <BookContainer>
         <section>
-          {/* <h2>도서몰</h2> */}
+          <h2>국내도서</h2>
           <article>
             <div>
               <figure>
@@ -25,6 +25,9 @@ const BookList = () => {
               </div>
             </div>
             <ul>
+              <del>
+                <li>정가</li>
+              </del>
               <li>판매가</li>
               <li>장바구니 담기</li>
             </ul>
@@ -46,6 +49,7 @@ const BookList = () => {
               </div>
             </div>
             <ul>
+              <li>정가</li>
               <li>판매가</li>
               <li>장바구니 담기</li>
             </ul>
@@ -67,6 +71,7 @@ const BookList = () => {
               </div>
             </div>
             <ul>
+              <li>정가</li>
               <li>판매가</li>
               <li>장바구니 담기</li>
             </ul>

@@ -32,17 +32,16 @@ export const BookContainer = styled.div`
   section > article > ul {
     border: 3px solid red;
     margin: 16px;
-    padding: 0;
     display: flex;
     justify-content: space-between;
   }
-  
+
   @media (min-width: 55rem) {
     section > article > div {
       flex-direction: row;
     }
   }
-  @media (min-width: 85rem){
+  @media (min-width: 85rem) {
     section > article {
       flex-direction: row;
     }
@@ -51,6 +50,4 @@ export const BookContainer = styled.div`
       justify-content: space-evenly;
     }
   }
-
-
 `;

@@ -14,11 +14,10 @@ export const SidebarContainer = styled.div`
   }
   main > aside {
     width: 200px;
+    height: 500px;
     border: 2px solid black;
   }
   main > aside > ul {
-    margin: 0;
-    padding: 0;
     padding-left: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -27,7 +26,6 @@ export const SidebarContainer = styled.div`
     gap: 10px;
   }
   main > aside > h3 {
-    margin: 0;
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
