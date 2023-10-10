@@ -1,0 +1,716 @@
+{
+  "books": [
+    {
+      "version": "20131101",
+      "logo": "http://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif",
+      "title": "알라딘 검색결과 - aladdin",
+      "link": "http://www.aladin.co.kr/search/wsearchresult.aspx?KeyTitle=aladdin&amp;SearchTarget=book&amp;partner=openAPI",
+      "pubDate": "Tue, 05 Nov 2013 07:56:10 GMT",
+      "totalResults": 202,
+      "startIndex": 1,
+      "itemsPerPage": 18,
+      "query": "aladdin",
+      "searchCategoryId": 0,
+      "searchCategoryName": "전체",
+      "item": [
+        {
+          "title": "이보영의 영어 만화 Aladdin's Magic Lamp (책 + 워크북 + CD 1장) - 알라딘의 요술 램프",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8957363335&amp;partner=openAPI",
+          "author": "아랍민화 원작, 이보영 지음, 양승욱 그림",
+          "pubDate": "2007-04-16",
+          "description": "'Kelly's Magic English '시리즈는 초등학생들을 대상으로 한 영어 만화책이다. 그 중 4 번째로 소개된 것이 <알라딘의 요술램프>이다. 본문을 모두 대화체로 구성하여 생활 영어 표현을 익히기에 좋고, 중요한 표현은 반복적으로 다뤄준다. 또 원어민 강사들의 오디오 CD가 포함되어 있어 함께 여러 번 반복하여 들을 수 있다.",
+          "isbn": "8957363335",
+          "isbn13": "9788957363331",
+          "itemId": 907990,
+          "priceSales": 10800,
+          "priceStandard": 13500,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 540,
+          "cover": "http://image.aladin.co.kr/product/90/79/coversum/8957363335_1.jpg",
+          "publisher": "가나출판사",
+          "salesPoint": 317,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 11858,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=11858&amp;partner=openAPI",
+            "seriesName": "Kelly의 영어만화 81"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8957363335&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8957363335&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin and the Magic Lamp (책 + 테이프 1개)",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8917922856&amp;partner=openAPI",
+          "author": "YBMSisa 편집부 엮음",
+          "pubDate": "2008-05-01",
+          "description": "",
+          "isbn": "8917922856",
+          "isbn13": "9788917922851",
+          "itemId": 583083,
+          "priceSales": 5700,
+          "priceStandard": 6000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 180,
+          "cover": "http://image.aladin.co.kr/product/58/30/coversum/8917922856_2.jpg",
+          "publisher": "(주)YBM(와이비엠)",
+          "salesPoint": 313,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 4989,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=4989&amp;partner=openAPI",
+            "seriesName": "Timeless Classics 9"
+          },
+          "subInfo": {
+            "ebookList": [
+              {
+                "itemId": 26345377,
+                "isbn": "E891792285",
+                "priceSales": 3600,
+                "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=E891792285&amp;partner=openAPI"
+              }
+            ],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8917922856&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8917922856&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘과 요술램프",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8934915315&amp;partner=openAPI",
+          "author": "필립 풀먼 지음, 소피 윌리엄스 그림, 홍연미 옮김",
+          "pubDate": "2004-10-30",
+          "description": "15세기경에 완성된 원래의 <아라비안 나이트>에는 실려 있지 않지만, 1703년 프랑스의 갈랑에 의해 소개된 후, 수세기 동안 전 세계 어린이에게 사랑받아온 '알라딘과 요술램프'를 <황금나침반>를 쓴 필립 풀먼이 새롭게 고쳐쓰고, 고풍스러운 삽화를 더해 책을 만들었다.",
+          "isbn": "8934915315",
+          "isbn13": "9788934915317",
+          "itemId": 521683,
+          "priceSales": 9520,
+          "priceStandard": 11900,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 100,
+          "cover": "http://image.aladin.co.kr/product/52/16/coversum/8934915315_1.jpg",
+          "publisher": "주니어김영사",
+          "salesPoint": 290,
+          "fixedPrice": false,
+          "customerReviewRank": 8,
+          "seriesInfo": {
+            "seriesId": 4196,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=4196&amp;partner=openAPI",
+            "seriesName": "저학년을 위한 꼬마도서관 27"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 1,
+                "minPrice": 4300,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8934915315&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 3,
+                "minPrice": 5000,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8934915315&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin's Lamp 알라딘의 램프 (책 + CD 1장) - 개정증보판",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8955724438&amp;partner=openAPI",
+          "author": "유아비전 지음, 최철민 그림, 엔터스 코리아 감수",
+          "pubDate": "2010-03-05",
+          "description": "어린이들의 영어 기초와 실력을 다져주는 영어 교재로, 우리에게 익숙한 재미있는 ‘동화’로 기초 영어 문법과 영어 단어를 쉽게 익히고, 100% 회화체의 ‘연극대본’으로 회화 실력을 한층 높일 수 있도록 구성하였다. 신나는 영어 ‘노래’와 ‘챈트’가 들어 있으며, 생생한 ‘원어민’의 발음으로 녹음된 CD를 반복하여 듣고 따라 읽다 보면, 말하기·쓰기·읽기의 세 과정이 모두 이뤄진다.",
+          "isbn": "8955724438",
+          "isbn13": "9788955724431",
+          "itemId": 6585433,
+          "priceSales": 7120,
+          "priceStandard": 9500,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 80,
+          "cover": "http://image.aladin.co.kr/product/658/54/coversum/8955724438_1.jpg",
+          "publisher": "글송이",
+          "salesPoint": 167,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 13508,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=13508&amp;partner=openAPI",
+            "seriesName": "First story books (퍼스트스토리북스) 24"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8955724438&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 2,
+                "minPrice": 5000,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8955724438&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin and the Magic Lamp (스토리북 + 워크북 + 테이프 2개) - Level 2",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8917925677&amp;partner=openAPI",
+          "author": "YBMSisa 편집부 엮음",
+          "pubDate": "2006-03-10",
+          "description": "",
+          "isbn": "8917925677",
+          "isbn13": "9788917925678",
+          "itemId": 636942,
+          "priceSales": 8820,
+          "priceStandard": 9800,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 270,
+          "cover": "http://image.aladin.co.kr/product/63/69/coversum/8917925677_1.jpg",
+          "publisher": "(주)YBM(와이비엠)",
+          "salesPoint": 117,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 4989,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=4989&amp;partner=openAPI",
+            "seriesName": "Timeless Classics 9"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 1,
+                "minPrice": 4400,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8917925677&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8917925677&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘의 발자취를 찾아서 - 세계 역사.인물 아동 총서 4",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8995337648&amp;partner=openAPI",
+          "author": "티에리 아프릴 지음, 프랑수아 플라스 그림, 김이정 옮김",
+          "pubDate": "2003-02-25",
+          "description": "프랑스 갈리마르 출판사에서 펴낸 '세계 역사.인물 아동 총서' 시리즈의 네번째 책. 널리 알려진 알라딘의 이야기를 따라가면서, 이슬람 세계의 모습을 학습할 수 있다. 아랍 세계에서 여성의 지위, 시장과 광장의 모습, 이슬람교의 특징, 코란과 라마단, 기도와 순례 등에 대해 실려있다.",
+          "isbn": "8995337648",
+          "isbn13": "9788995337646",
+          "itemId": 403061,
+          "priceSales": 8550,
+          "priceStandard": 9000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 260,
+          "cover": "http://image.aladin.co.kr/product/40/30/coversum/8995337648_1.jpg",
+          "publisher": "초록모자",
+          "salesPoint": 30,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 1,
+                "minPrice": 2000,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8995337648&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 3,
+                "minPrice": 2500,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8995337648&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘 Aladdin (워크북 + 드라마북 + 프랙티스북 + CD 2장 + 미니 공연장)",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8994817166&amp;partner=openAPI",
+          "author": "뮤즈위즈 편집부 지음",
+          "pubDate": "2011-01-01",
+          "description": "",
+          "isbn": "8994817166",
+          "isbn13": "9788994817163",
+          "itemId": 16301085,
+          "priceSales": 54000,
+          "priceStandard": 60000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 450,
+          "cover": "http://image.aladin.co.kr/product/1630/10/coversum/8994817166_1.jpg",
+          "publisher": "뮤즈위즈교육",
+          "salesPoint": 15,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 26523,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=26523&amp;partner=openAPI",
+            "seriesName": "뮤즈위즈 영어연극 표현영어 학습 시리즈 "
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8994817166&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8994817166&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin and His Lamp (반양장) - and the Other Stories",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8931514816&amp;partner=openAPI",
+          "author": "Harriette Taylor Treadwel 외 지음",
+          "pubDate": "2009-12-01",
+          "description": "Reading Classics with Redbud 시리즈 8권. 어린이들에게 영어로 된 세계명작 동화들을 읽게 함으로써 영어 문장을 읽고 이해하는 능력을 갖도록 도와주는 시리즈로 어린이들에게 알맞은 동요나 동시를 포함하고 있다. 각각의 스토리마다 어린이들에게 적합한, 결코 지나치지 않는 교훈과 재미가 있다.",
+          "isbn": "8931514816",
+          "isbn13": "9788931514810",
+          "itemId": 6330826,
+          "priceSales": 6400,
+          "priceStandard": 8000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 200,
+          "cover": "http://image.aladin.co.kr/product/633/8/coversum/8931514816_1.jpg",
+          "publisher": "레드버드(Redbud)",
+          "salesPoint": 11,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 16744,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=16744&amp;partner=openAPI",
+            "seriesName": "Reading Classics with Redbud 반양장 시리즈 8"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8931514816&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8931514816&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin and His Lamp (양장) - and the Other Stories",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8931514808&amp;partner=openAPI",
+          "author": "Harriette Taylor Treadwel 외 지음",
+          "pubDate": "2009-12-01",
+          "description": "Reading Classics with Redbud 시리즈 8권. 어린이들에게 영어로 된 세계명작 동화들을 읽게 함으로써 영어 문장을 읽고 이해하는 능력을 갖도록 도와주는 시리즈로 어린이들에게 알맞은 동요나 동시를 포함하고 있다. 각각의 스토리마다 어린이들에게 적합한, 결코 지나치지 않는 교훈과 재미가 있다.",
+          "isbn": "8931514808",
+          "isbn13": "9788931514803",
+          "itemId": 6330794,
+          "priceSales": 7200,
+          "priceStandard": 9000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 220,
+          "cover": "http://image.aladin.co.kr/product/633/7/coversum/8931514808_1.jpg",
+          "publisher": "레드버드(Redbud)",
+          "salesPoint": 0,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 16742,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=16742&amp;partner=openAPI",
+            "seriesName": "Reading Classics with Redbud 양장 시리즈 8"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8931514808&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8931514808&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "Aladdin and the Maic Lamp - Favourite Fairy Tales",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=9831480953&amp;partner=openAPI",
+          "author": "코와이앤영 편집부 엮음",
+          "pubDate": "2001-08-01",
+          "description": "",
+          "isbn": "9831480953",
+          "isbn13": "",
+          "itemId": 293706,
+          "priceSales": 3820,
+          "priceStandard": 4500,
+          "mallType": "BOOK",
+          "stockStatus": "품절",
+          "mileage": 120,
+          "cover": "http://image.aladin.co.kr/product/29/37/coversum/9831480953_1.jpg",
+          "publisher": "Kohwai & Young",
+          "salesPoint": 0,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=9831480953&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=9831480953&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "GB1606:ALADDIN - PAPER DOLL",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=5000178978&amp;partner=openAPI",
+          "author": "편집부",
+          "pubDate": "1998-04-25",
+          "description": "",
+          "isbn": "5000178978",
+          "isbn13": "",
+          "itemId": 178978,
+          "priceSales": 1700,
+          "priceStandard": 2000,
+          "mallType": "BOOK",
+          "stockStatus": "절판",
+          "mileage": 60,
+          "cover": "http://image.aladin.co.kr/img/noimg_sum_b.jpg",
+          "publisher": "세종문고",
+          "salesPoint": 0,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=5000178978&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=5000178978&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘 중고서점 오프라인쿠폰용 2천원 할인",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=6000665423&amp;partner=openAPI",
+          "author": "",
+          "pubDate": "2013-10-08",
+          "description": "",
+          "isbn": "6000665423",
+          "isbn13": "",
+          "itemId": 32026082,
+          "priceSales": -2000,
+          "priceStandard": 2000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 0,
+          "cover": "http://image.aladin.co.kr/img/noimg_sum_b.jpg",
+          "publisher": "알라딘 이벤트",
+          "salesPoint": 380,
+          "fixedPrice": true,
+          "customerReviewRank": 0,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000665423&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000665423&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "[훈민출판사]폭신폭신 명작동화(전5권)잠자는숲속의공주 알라딘 피노키오 헨젤과그레텔 빨간모자",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=6000600062&amp;partner=openAPI",
+          "author": "",
+          "pubDate": "2000-01-01",
+          "description": "",
+          "isbn": "6000600062",
+          "isbn13": "",
+          "itemId": 22316029,
+          "priceSales": 17500,
+          "priceStandard": 40000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 0,
+          "cover": "http://image.aladin.co.kr/product/2231/60/coversum/scm96542296414.jpg",
+          "publisher": "훈민출판사",
+          "salesPoint": 15,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000600062&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000600062&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘과 요술 램프 - 환상과 모험의 동화",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8961553666&amp;partner=openAPI",
+          "author": "이다우 지음, 최영란 그림",
+          "pubDate": "2012-09-21",
+          "description": "알라딘은 소원을 들어주는 요술 램프를 얻으면서 환상적인 모험의 세계에 뛰어들어, 용기를 가지고 자신의 운명을 개척해 나간다. 공주와 결혼한 알라딘은 행복한 나날을 보내지만 못된 마법사가 알라딘의 램프와 공주를 훔쳐 달아나고 마는데….",
+          "isbn": "8961553666",
+          "isbn13": "9788961553667",
+          "itemId": 19950911,
+          "priceSales": 8550,
+          "priceStandard": 9500,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 260,
+          "cover": "http://image.aladin.co.kr/product/1995/9/coversum/8961553666_2.jpg",
+          "publisher": "처음주니어",
+          "salesPoint": 169,
+          "fixedPrice": true,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 38447,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=38447&amp;partner=openAPI",
+            "seriesName": "123 동화 1"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 5,
+                "minPrice": 3800,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8961553666&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 5,
+                "minPrice": 5000,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8961553666&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘, 어디로 가야 하지? - 좌표",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8950937123&amp;partner=openAPI",
+          "author": "서보현 지음, 이정윤 그림, 백석윤 감수",
+          "pubDate": "2012-08-31",
+          "description": "생활 속의 수학이야기를 통해 수학적 사고력을 한껏 확장시킬 수 있는 [톡톡 수리토리 느낌표 수학동화] 논리 단계 시리즈. 딱딱하고 일방적인 기존의 수학적 개념 전달 대신 짜임새가 탄탄한 스토리텔링 구성으로 아이들의 흥미와 집중도를 높였다.",
+          "isbn": "8950937123",
+          "isbn13": "9788950937126",
+          "itemId": 19770395,
+          "priceSales": 12420,
+          "priceStandard": 13800,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 1250,
+          "cover": "http://image.aladin.co.kr/product/1977/3/coversum/8950937123_1.jpg",
+          "publisher": "을파소",
+          "salesPoint": 0,
+          "fixedPrice": true,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 37412,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=37412&amp;partner=openAPI",
+            "seriesName": "느낌표 수학동화 논리단계 "
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8950937123&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8950937123&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "커피는 알라딘 램프다",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8997386166&amp;partner=openAPI",
+          "author": "한석수 지음",
+          "pubDate": "2012-06-09",
+          "description": "'지혜사랑 시인선' 59권. 한석수의 첫 시집. 이번 시집의 시편들은 일상과 시상 사이, 혹은 현실과 이상 사이에서 고민하는 한 시인의 진지한 고뇌의 흔적이라고 할 수가 있다. 즉 '커피 한잔'을 마시는 때는 '빨간 양탄자를 타고' '아라비아 하늘을 날고 싶은' 꿈을 꾸는 시간인 것이다. 혹은 '스머프 인형'처럼 현실 너머의 이상향을 꿈꾸는 시간인 것이다.",
+          "isbn": "8997386166",
+          "isbn13": "9788997386161",
+          "itemId": 17432786,
+          "priceSales": 9500,
+          "priceStandard": 10000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 950,
+          "cover": "http://image.aladin.co.kr/product/1743/27/coversum/8997386166_1.jpg",
+          "publisher": "지혜",
+          "salesPoint": 35,
+          "fixedPrice": true,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 13569,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=13569&amp;partner=openAPI",
+            "seriesName": "지혜사랑 시인선 59"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8997386166&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8997386166&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "디즈니 알라딘",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=8965671655&amp;partner=openAPI",
+          "author": "예림아이 편집부 엮음",
+          "pubDate": "2012-04-10",
+          "description": "디즈니 세계명작 리틀클래식북 시리즈 14권. 디즈니의 명작 중 국내에서 많은 사랑받고 있는 20가지 이야기를 엄선한 시리즈로, 유아들의 눈높이에 맞게 내용을 각색했을 뿐만 아니라 아이 손에 쏙 잡히는 크기로 더욱 편하게 그림책을 볼 수 있다.",
+          "isbn": "8965671655",
+          "isbn13": "9788965671657",
+          "itemId": 16344072,
+          "priceSales": 4550,
+          "priceStandard": 6500,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 50,
+          "cover": "http://image.aladin.co.kr/product/1634/40/coversum/8965671655_1.jpg",
+          "publisher": "예림아이",
+          "salesPoint": 1023,
+          "fixedPrice": false,
+          "customerReviewRank": 0,
+          "seriesInfo": {
+            "seriesId": 17187,
+            "seriesLink": "http://www.aladin.co.kr/shop/common/wseriesitem.aspx?SRID=17187&amp;partner=openAPI",
+            "seriesName": "디즈니 세계명작 리틀클래식북 Little Classic book 14"
+          },
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 1,
+                "minPrice": 2900,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8965671655&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=8965671655&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        },
+        {
+          "title": "알라딘 중고 박스 (구매금액 환불, 책 20권까지 포장 가능)",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=6000536477&amp;partner=openAPI",
+          "author": "",
+          "pubDate": "2010-01-01",
+          "description": "",
+          "isbn": "6000536477",
+          "isbn13": "",
+          "itemId": 15872674,
+          "priceSales": 9800,
+          "priceStandard": 9800,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 0,
+          "cover": "http://image.aladin.co.kr/product/1587/26/coversum/6000536477_2.jpg",
+          "publisher": "알라딘 이벤트",
+          "salesPoint": 470977,
+          "fixedPrice": false,
+          "customerReviewRank": 9,
+          "subInfo": {
+            "ebookList": [],
+            "usedList": {
+              "aladinUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000536477&amp;TabType=2&amp;partner=openAPI"
+              },
+              "userUsed": {
+                "itemCount": 0,
+                "minPrice": 0,
+                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000536477&amp;TabType=1&amp;partner=openAPI"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
