@@ -1,7 +1,7 @@
 import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
 import { BookContainer } from "./styles";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const BookList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +20,12 @@ const BookList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -44,7 +49,12 @@ const BookList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -66,7 +76,12 @@ const BookList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>

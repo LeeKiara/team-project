@@ -16,8 +16,8 @@ export const BookNewContainer = styled.div`
     margin-right: 10px; /* 간격 설정 */
     margin-bottom: 40px; /* 간격 설정 */
   }
-  section > ul > li > figure {
-    border: 2px solid blue;
+  section > ul > li > figure > a > img {
+    width: 100%; /* 각 요소의 가로 너비를 설정 */
     height: 200px;
   }
   section > ul > li > div {

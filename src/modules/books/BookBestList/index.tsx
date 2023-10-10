@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const BookBestList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,11 +20,24 @@ const BookBestList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
-                <h3>책 제목</h3>
-                <p>책 저자</p>
+                <h3>
+                  <Link to="/page">책 제목</Link>
+                </h3>
+                <dl>
+                  <dt>지은이:</dt>
+                  <p>홍길동</p>
+                  <dt>출판사:</dt>
+                  <p>성안당</p>
+                </dl>
+                <h4>책 소개</h4>
                 <p>
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Dolorum animi cum nisi illo vitae tenetur ut? Veniam,
@@ -44,7 +57,12 @@ const BookBestList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -66,7 +84,12 @@ const BookBestList = () => {
           <article>
             <div>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 
 const BookNewList = () => {
@@ -9,7 +10,12 @@ const BookNewList = () => {
           <ul>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -23,7 +29,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -37,7 +48,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -51,7 +67,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -65,7 +86,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -79,7 +105,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -93,7 +124,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>
@@ -107,7 +143,12 @@ const BookNewList = () => {
             </li>
             <li>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <Link to="/page">
+                  <img
+                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
+                    alt="책이미지"
+                  />
+                </Link>
               </figure>
               <div>
                 <h3>책 제목</h3>

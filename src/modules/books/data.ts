@@ -3,8 +3,8 @@ interface BookData {
   cover: string;
   title: string;
   author: string;
-  pricesales: string;
-  pricestandard: string;
+  priceSales: string;
+  priceStandard: string;
   publisher: string;
   link: string;
   description: string;
@@ -16,8 +16,8 @@ interface BestBookData {
   cover: string;
   title: string;
   author: string;
-  pricesales: string;
-  pricestandard: string;
+  priceSales: string;
+  priceStandard: string;
   publisher: string;
   link: string;
   description: string;
