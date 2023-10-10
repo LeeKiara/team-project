@@ -5,7 +5,7 @@ import { SidebarContainer } from "./styles";
 const BookSidebar = () => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
-  const [group, setGroup] = useState("");
+  const [group, setGroup] = useState("국내도서");
 
   useEffect(() => {
     if (path === "best") {
@@ -14,7 +14,7 @@ const BookSidebar = () => {
       setGroup("신간도서");
     } else if (path === "foreign") {
       setGroup("외국도서");
-    } else if (path === "") {
+    } else {
       setGroup("국내도서");
     }
   }, [path]);
