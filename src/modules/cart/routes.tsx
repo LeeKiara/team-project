@@ -5,6 +5,7 @@ import Order from "./Order";
 import CartSidebar from "./CartSidebar";
 import CartListDonga from "./CartList/indexdonga";
 import OrderDone from "./Order/OrderDone";
+import PaymentInfo from "./Order/PaymentInfo";
 
 const AddCart = lazy(() => import("@/modules/cart/AddCart"));
 
@@ -21,8 +22,8 @@ export const cartRoutes = [
     ,
     <Route element={<Order />} index />,
   </Route>,
-  <Route key="orderdone" path="orderdone" element={<CartSidebar />}>
+  <Route key="test" path="test" element={<CartSidebar />}>
     ,
-    <Route element={<OrderDone />} index />,
+    <Route element={<PaymentInfo onCancel={() => {}} />} index />,
   </Route>,
 ];

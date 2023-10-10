@@ -1,14 +1,21 @@
-import Home from "@/pages/Home";
 import { useState } from "react";
 import { OrderDoneContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
-import PaymentDone from "../PaymentDone";
+import PaymentInfo from "../PaymentInfo";
 
 const OrderDone = () => {
   const navigate = useNavigate();
 
   const handleShowModal = () => {
     setShowModal(true);
+  };
+
+  const handleHiddenModal = () => {
+    setShowModal(false);
+  };
+
+  const handleGoHome = () => {
+    navigate("/");
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +44,10 @@ const OrderDone = () => {
                 >
                   결제 정보 확인
                 </button>
-                <button className="box-blue font-blue pointer">
+                <button
+                  className="box-blue font-blue pointer"
+                  onClick={handleGoHome}
+                >
                   메인으로 이동
                 </button>
               </div>
@@ -47,7 +57,9 @@ const OrderDone = () => {
           <article className=""></article>
         </section>
       </OrderDoneContainer>
-      {showModal && <PaymentDone />}
+      {/* 결제 정보 확인 모달창 띄우기 */}
+      {/* 자식의 이벤트를 처리하는 함수를 속성으로 넘겨줘야 함 */}
+      {showModal && <PaymentInfo onCancel={handleHiddenModal} />}
     </>
   );
 };

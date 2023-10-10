@@ -1,4 +1,3 @@
-import Home from "@/pages/Home";
 import { useState } from "react";
 import { CartContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +19,11 @@ const CartList = () => {
           </article>
           <article className="cart-layer-title">
             <div>
-              <input type="checkbox" name="productall_seq" className="listCheckBox" />
+              <input
+                type="checkbox"
+                name="productall_seq"
+                className="listCheckBox"
+              />
             </div>
             <div>상품정보</div>
             <div>수량</div>
@@ -31,14 +34,28 @@ const CartList = () => {
             {/* 도서정보(책이미지/도서명) */}
             <div className="bookinfo">
               <label className="form-checkbox">
-                <input type="checkbox" name="product_seq" className="listCheckBox" />
+                <input
+                  type="checkbox"
+                  name="product_seq"
+                  className="listCheckBox"
+                />
               </label>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <span className="image">
+                  <a
+                    href="/mall/product_view.donga?product_seq=32132"
+                    target="_blank"
+                  >
+                    <img
+                      src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
+                      alt=""
+                    />
+                  </a>
+                </span>
               </figure>
               <div>
-                <div className="box-tag-bookgubun">
-                  <span className="icon-tag-bookgubun">국내도서</span>
+                <div className="box-bookgubun">
+                  <span className="icon-bookgubun">국내도서</span>
                 </div>
                 <p>빠작 고등 국어 고전 문학</p>
               </div>
@@ -48,10 +65,10 @@ const CartList = () => {
               {/* 수량 */}
               <div>
                 <span className="book-quantity" style={{ width: "100px" }}>
-                  <input name="num" type="number" min="1" max="999" step="1" />
+                  <input type="number" readOnly value="1" />
                   <div className="quantity-nav">
-                    <div className="quantity-button quantity-up">+</div>
-                    <div className="quantity-button quantity-down">-</div>
+                    <div className="quantity-up">+</div>
+                    <div className="quantity-down">-</div>
                   </div>
                 </span>
               </div>
@@ -71,14 +88,30 @@ const CartList = () => {
             {/* 도서정보(책이미지/도서명) */}
             <div className="bookinfo">
               <label className="form-checkbox">
-                <input type="checkbox" name="product_seq" className="listCheckBox" />
+                <input
+                  type="checkbox"
+                  name="product_seq"
+                  className="listCheckBox"
+                />
               </label>
               <figure>
-                <img src="책이미지" alt="책이미지" />
+                <span className="image">
+                  <a
+                    href="/mall/product_view.donga?product_seq=32132"
+                    target="_blank"
+                  >
+                    <img
+                      src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
+                      alt=""
+                    />
+                  </a>
+                </span>
               </figure>
               <div>
-                <h3>국내도서</h3>
-                <p>빠작 고등 국어 고전 문학</p>
+                <div className="box-bookgubun">
+                  <span className="icon-bookgubun">국내도서</span>
+                </div>
+                <p>인생은 아름다워</p>
               </div>
             </div>
             {/* 가격정보 */}
@@ -97,7 +130,7 @@ const CartList = () => {
               {/* 할인가/정가 */}
               <div>
                 <div className="box-price">
-                  <strong>13,950</strong>원<del>정가15,500원</del>
+                  <strong>23,950</strong>원<del>정가25,500원</del>
                 </div>
               </div>
               {/* 삭제버튼 */}
@@ -121,7 +154,7 @@ const CartList = () => {
           </article>
 
           {/* 주문버튼 */}
-          <article className="payment-layer">
+          <article>
             <div className="box-submit-payment">
               <dl>
                 <dt>주의하세요.</dt>
