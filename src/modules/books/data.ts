@@ -1,9 +1,27 @@
 interface BookData {
   id?: number;
-  imgURL: string;
+  cover: string;
   title: string;
-  creator: string;
-  price: string;
+  author: string;
+  pricesales: string;
+  pricestandard: string;
+  publisher: string;
+  link: string;
+  description: string;
+  isbn: string;
+}
+
+interface BestBookData {
+  id?: number;
+  cover: string;
+  title: string;
+  author: string;
+  pricesales: string;
+  pricestandard: string;
+  publisher: string;
+  link: string;
+  description: string;
+  isbn: string;
 }
 
 const INIT_DATA: BookData[] = [];
