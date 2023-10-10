@@ -18,13 +18,20 @@ const Home = () => {
               </span>
             </h3>
             <div>
-              <span>이미지</span>
+              <span>
+                <figure>
+                  <img src="책이미지" alt="책이미지" />
+                </figure>
+              </span>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
                 perspiciatis, dolor pariatur nihil suscipit ut atque modi
                 provident excepturi tenetur. Vel labore officiis aliquid
                 corporis voluptatum laborum quibusdam magni dolores.
               </p>
+            </div>
+            <div>
+              가격: 30,000원
             </div>
           </article>
           <article>

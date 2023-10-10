@@ -25,8 +25,8 @@ const BookSidebar = () => {
             {showSearch && <input type="text" />}
           </aside> */}
           <aside>
+          <h3>베스트도서</h3>
             <ul>
-              <h3>베스트도서</h3>
               <li>사전</li>
               <li>문학</li>
               <li>학습</li>
