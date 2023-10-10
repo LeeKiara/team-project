@@ -1,33 +1,34 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import { SidebarContainer } from "./styles";
 
 const BookSidebar = () => {
-  const [showSearch, setShowSearch] = useState(false);
+  const location = useLocation();
+  const path = location.pathname.split("/").pop();
+  const [group, setGroup] = useState("");
 
-  const handleShowSearch = () => {
-    setShowSearch(!showSearch);
-  };
+  useEffect(() => {
+    if (path === "best") {
+      setGroup("베스트도서");
+    } else if (path === "new") {
+      setGroup("신간도서");
+    } else if (path === "foreign") {
+      setGroup("외국도서");
+    } else if (path === "") {
+      setGroup("국내도서");
+    }
+  }, [path]);
 
   return (
     <SidebarContainer>
       <div id="sidebar">
         <main>
-          {/* <aside>
-            <h1>도서검색</h1>
-            <div
-              style={{ cursor: "pointer" }}
-              className="material-symbols-outlined"
-              onClick={handleShowSearch}
-            >
-              search
-            </div>
-            {showSearch && <input type="text" />}
-          </aside> */}
           <aside>
-          <h3>베스트도서</h3>
+            <h3>{group}</h3>
             <ul>
-              <li>사전</li>
+              <li>
+                <Link to="/search">사전</Link>
+              </li>
               <li>문학</li>
               <li>학습</li>
               <li>아동</li>

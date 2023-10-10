@@ -31,14 +31,21 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(1) > div > span {
     width: 100px;
+    height: 110px;
     border: 3px solid blue;
     margin: 16px;
+    flex: 0.2;
+    margin-bottom: 0;
+  }
+  div > section > article:nth-of-type(1) > div > p {
+    flex: 2;
   }
   div > section > article:nth-of-type(1) > div:nth-of-type(2) {
     display: flex;
     justify-content: flex-end;
   }
   div > section > article:nth-of-type(2) {
+    width: 1200px;
     margin: auto;
     border: 2px solid crimson;
   }
@@ -63,8 +70,12 @@ export const HomeContainer = styled.div`
   div > section > article:nth-of-type(2) > ul > div > span > li {
     width: 200px;
     height: 300px;
-    list-style: none;
-    border: 3px solid salmon;
+  }
+  div > section > article:nth-of-type(2) > ul > div > span > li > figure {
+    margin: auto;
+    background-color: aliceblue;
+    width: 200px;
+    height: 250px;
   }
   @media (min-width: 85rem) {
     div > section > article:nth-of-type(2) > ul {
