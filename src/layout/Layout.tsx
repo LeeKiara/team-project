@@ -1,9 +1,17 @@
-import { Link, Outlet } from "react-router-dom";
-import { Suspense } from "react";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { MutableRefObject, Suspense, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 
 const Layout = () => {
+  const navigate = useNavigate();
+  const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`/search?keyword=${searchRef.current.value}`);
+  };
+
   return (
     <LayoutContainer>
       <ResetStyle />
@@ -24,9 +32,9 @@ const Layout = () => {
               <h1>
                 <Link to="/">Bruch Story</Link>
               </h1>
-              <form>
+              <form onSubmit={handleSearch}>
                 <label>
-                  <input type="text" />
+                  <input ref={searchRef} />
                   <span className="material-symbols-outlined">search</span>
                 </label>
               </form>
