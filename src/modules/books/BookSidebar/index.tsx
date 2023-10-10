@@ -27,58 +27,58 @@ const BookSidebar = () => {
             <h3>{group}</h3>
             <ul>
               <li>
-                <Link to={`/${path}?keyword=사전`}>사전</Link>
+                <Link to={`/books/${path}?keyword=사전`}>사전</Link>
               </li>
               <li>
-                <Link to="/search?keyword=문학">문학</Link>
+                <Link to={`/books/${path}?keyword=문학`}>문학</Link>
               </li>
               <li>
-                <Link to="/search?keyword=학습">학습</Link>
+                <Link to={`/books/${path}?keyword=학습`}>학습</Link>
               </li>
               <li>
-                <Link to="/search?keyword=아동">아동</Link>
+                <Link to={`/books/${path}?keyword=아동`}>아동</Link>
               </li>
               <li>
-                <Link to="/search?keyword=취미/실용">취미/실용</Link>
+                <Link to={`/books/${path}?keyword=취미/실용`}>취미/실용</Link>
               </li>
               <li>
-                <Link to="/search?keyword=예체능">예체능</Link>
+                <Link to={`/books/${path}?keyword=예체능`}>예체능</Link>
               </li>
               <li>
-                <Link to="/search?keyword=종교">종교</Link>
+                <Link to={`/books/${path}?keyword=종교`}>종교</Link>
               </li>
               <li>
-                <Link to="/search?keyword=잡지">잡지</Link>
+                <Link to={`/books/${path}?keyword=잡지`}>잡지</Link>
               </li>
               <li>
-                <Link to="/search?keyword=정치.법률">정치.법률</Link>
+                <Link to={`/books/${path}?keyword=정치.법률`}>정치.법률</Link>
               </li>
               <li>
-                <Link to="/search?keyword=경제.경영">경제.경영</Link>
+                <Link to={`/books/${path}?keyword=경제.경영`}>경제.경영</Link>
               </li>
               <li>
-                <Link to="/search?keyword=인문">인문</Link>
+                <Link to={`/books/${path}?keyword=인문`}>인문</Link>
               </li>
               <li>
-                <Link to="/search?keyword=외국어">외국어</Link>
+                <Link to={`/books/${path}?keyword=외국어`}>외국어</Link>
               </li>
               <li>
-                <Link to="/search?keyword=정부간행물">정부간행물</Link>
+                <Link to={`/books/${path}?keyword=정부간행물`}>정부간행물</Link>
               </li>
               <li>
-                <Link to="/search?keyword=컴퓨터">컴퓨터</Link>
+                <Link to={`/books/${path}?keyword=컴퓨터`}>컴퓨터</Link>
               </li>
               <li>
-                <Link to="/search?keyword=공학">공학</Link>
+                <Link to={`/books/${path}?keyword=공학`}>공학</Link>
               </li>
               <li>
-                <Link to="/search?keyword=자연">자연</Link>
+                <Link to={`/books/${path}?keyword=자연`}>자연</Link>
               </li>
               <li>
-                <Link to="/search?keyword=의학">의학</Link>
+                <Link to={`/books/${path}?keyword=의학`}>의학</Link>
               </li>
               <li>
-                <Link to="/search?keyword=수험서">수험서</Link>
+                <Link to={`/books/${path}?keyword=수험서`}>수험서</Link>
               </li>
             </ul>
           </aside>

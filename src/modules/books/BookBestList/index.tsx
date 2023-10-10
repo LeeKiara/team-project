@@ -1,11 +1,22 @@
+import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
+import { useSearchParams } from "react-router-dom";
 
 const BookBestList = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    const queryKeyword = params.get("keyword") || "";
+    setSearchQuery(queryKeyword);
+  }, [params]);
+
   return (
     <>
       <BookBestContainer>
         <section>
           <h2>베스트 셀러</h2>
+          <p>{searchQuery}</p>
           <article>
             <div>
               <figure>
