@@ -1,5 +1,14 @@
 import styled from "@emotion/styled";
 
+// 색상 변수 정의
+const primaryColor = "#36364b";
+const borderColor = "#e1e1e1";
+const grayColor = "#999aa9";
+const lightgrayColor = "#f5f6f9";
+const blueColor = "#3d4ed7";
+const lightblueColor = "#0c9cff";
+const darkRedColor = "#e02020";
+
 export const CartContainer = styled.div`
   section {
     display: flex;
@@ -9,27 +18,22 @@ export const CartContainer = styled.div`
   }
   .cart-header {
     margin-bottom: 20px;
-  }
-  .cart-header .title {
-    display: inline-block;
-    margin: 0 15px 0 0;
-    font-size: 28px;
-    font-weight: 600;
-    vertical-align: top;
-    line-height: 1;
+
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+    }
   }
 
   .cart-layer-title {
     display: flex;
     flex-direction: row;
-    background-color: #f5f6f9;
+    background-color: ${lightgrayColor};
     width: 880px;
     height: 50px;
     align-items: center;
-    /* justify-content: space-between; */
     padding-left: 20px;
-    /* padding-right: 20px; */
-    color: #36364b;
+    color: ${primaryColor};
     font-weight: 400;
 
     div {
@@ -49,47 +53,146 @@ export const CartContainer = styled.div`
       width: 180px;
     }
   }
+
   .cart-layer {
     display: flex;
     flex-direction: row;
-    border: 2px solid #f5f6f9;
-
+    border: 2px solid ${lightgrayColor};
     height: 150px;
-    align-items: center; /* 수직 가운데 정렬 추가 */
+    align-items: center;
   }
+
+  /* 장바구니 도서정보 */
   .bookinfo {
     flex: 1;
     display: flex;
     flex-direction: row;
+    /* border: 1px solid red; */
+    gap: 10px;
+
+    label {
+      margin-top: 0px;
+      margin-left: 10px;
+    }
+    .box-bookgubun {
+      margin: 8px 0;
+    }
+    .icon-bookgubun {
+      display: inline-block;
+      padding: 0 8px;
+      width: auto;
+      height: 22px;
+      line-height: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      color: ${lightblueColor};
+      border: 1px solid ${lightblueColor};
+      border-radius: 4px;
+    }
+
+    .image {
+      display: inline-block;
+      margin: 0 23px 0 0;
+      width: 110px;
+      vertical-align: top;
+    }
+
+    .image img {
+      display: block;
+      width: 110px;
+      height: 124px;
+      border: 1px solid ${lightgrayColor};
+    }
   }
+
+  /* 장바구니 가격정보 */
   .priceinfo {
     display: flex;
     flex-direction: row;
-    align-items: center; /* 수직 가운데 정렬 추가 */
-
+    align-items: center;
     gap: 30px;
     margin: 0px 20px;
-  }
 
-  .bookinfo label {
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-  .box-tag-bookgubun {
-    margin: 8px 0;
-  }
+    .book-quantity {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      vertical-align: middle;
+      border: 1px solid ${borderColor};
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 15px;
 
-  .icon-tag-bookgubun {
-    display: inline-block;
-    padding: 0 8px;
-    width: auto;
-    height: 22px;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #0c9cff;
-    border: 1px solid #0c9cff;
-    border-radius: 4px;
+      input[type="number"] {
+        display: block;
+        float: left;
+        margin: 0;
+        padding: 0;
+        /* width: calc(100% - 20px); */
+        width: calc(100%);
+        height: 30px;
+        font-size: 14px;
+        text-indent: 16px;
+        border: none;
+        border-radius: 0;
+        pointer-events: none;
+      }
+
+      .quantity-nav {
+        position: absolute;
+        right: 0;
+        top: 1px;
+        height: 100%;
+
+        .quantity-up,
+        .quantity-down {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          width: 20px;
+          text-align: center;
+          color: ${primaryColor};
+          font-size: 13px;
+          line-height: 20px;
+          cursor: pointer;
+          background: #f6f7fb;
+          border-left: 1px solid ${borderColor};
+          transform: translateX(-100%);
+          user-select: none;
+        }
+
+        .quantity-up {
+          position: absolute;
+          height: 50%;
+          top: 0;
+          border-bottom: 1px solid #eee;
+        }
+
+        .quantity-down {
+          position: absolute;
+          bottom: 0;
+          height: 50%;
+        }
+      }
+    }
+
+    .box-price {
+      font-size: 16px;
+      letter-spacing: -1px;
+      /* border: 1px solid black; */
+    }
+
+    .box-price strong {
+      font-size: 24px;
+    }
+
+    .box-price del {
+      display: block;
+      font-size: 14px;
+      letter-spacing: -0.5px;
+      color: #bfc1cd;
+    }
   }
 
   /* 모바일 스타일 */
@@ -121,85 +224,6 @@ export const CartContainer = styled.div`
     }
   }
 
-  .book-quantity {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    vertical-align: middle;
-    border: 1px solid #e1e1e1;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 15px;
-  }
-
-  .book-quantity input[type="number"] {
-    display: block;
-    float: left;
-    margin: 0;
-    padding: 0;
-    /* width: calc(100% - 20px); */
-    width: calc(100%);
-    height: 30px;
-    font-size: 14px;
-    text-indent: 16px;
-    border: none;
-    border-radius: 0;
-  }
-
-  .book-quantity .quantity-nav {
-    position: absolute;
-    right: 0;
-    top: 1px;
-    height: 100%;
-  }
-
-  .book-quantity .quantity-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 20px;
-    text-align: center;
-    color: #808fa3;
-    font-size: 13px;
-    line-height: 20px;
-    cursor: pointer;
-    background: #f6f7fb;
-    border-left: 1px solid #e1e1e1;
-    transform: translateX(-100%);
-    user-select: none;
-  }
-
-  .book-quantity .quantity-button.quantity-up {
-    position: absolute;
-    height: 50%;
-    top: 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .book-quantity .quantity-button.quantity-down {
-    position: absolute;
-    bottom: 0;
-    height: 50%;
-  }
-
-  .box-price {
-    font-size: 16px;
-    letter-spacing: -1px;
-    /* border: 1px solid black; */
-  }
-
-  .box-price strong {
-    font-size: 24px;
-  }
-
-  .box-price del {
-    display: block;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    color: #bfc1cd;
-  }
-
   /* 합계금액 */
   .box-total-payment {
     display: flex;
@@ -208,60 +232,60 @@ export const CartContainer = styled.div`
     padding: 28px 32px;
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: ${primaryColor};
     border: 1px solid #999aa9;
     justify-content: space-between;
-  }
 
-  .box-total-payment .total-text {
-    width: 80px;
-    font-weight: 700;
-  }
+    .total-text {
+      width: 80px;
+      font-weight: 700;
+    }
 
-  .box-total-payment .total-sum {
-    line-height: 1;
-    text-align: center;
-    font-weight: 400;
-  }
+    .total-sum {
+      line-height: 1;
+      text-align: center;
+      font-weight: 400;
+    }
 
-  .box-total-payment .total-sum strong {
-    display: inline-block;
-    position: relative;
-    top: -2px;
-    margin: 0 0 0 15px;
-    line-height: 1.5;
-    vertical-align: middle;
-    font-size: 18px;
-    letter-spacing: -1px;
-    color: #0091ff;
-  }
+    .total-sum strong {
+      display: inline-block;
+      position: relative;
+      top: -2px;
+      margin: 0 0 0 15px;
+      line-height: 1.5;
+      vertical-align: middle;
+      font-size: 18px;
+      letter-spacing: -1px;
+      color: #0091ff;
+    }
 
-  .box-total-payment .total-sum i {
-    display: inline-block;
-    position: relative;
-    top: -2px;
-    margin: 0 20px;
-    font-weight: 400;
-    vertical-align: middle;
-    font-style: normal;
-    font-size: 20px;
-    color: #8d99ae;
-  }
+    .total-sum i {
+      display: inline-block;
+      position: relative;
+      top: -2px;
+      margin: 0 20px;
+      font-weight: 400;
+      vertical-align: middle;
+      font-style: normal;
+      font-size: 20px;
+      color: #8d99ae;
+    }
 
-  .box-total-payment .total-price {
-    width: 240px;
-    text-align: right;
-    font-size: 14px;
-    font-weight: 500;
-  }
+    .total-price {
+      width: 240px;
+      text-align: right;
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-  .box-total-payment .total-price strong {
-    display: inline-block;
-    vertical-align: middle;
-    margin: -6px 2px 0 15px;
-    font-size: 24px;
-    letter-spacing: -1px;
-    color: #e02020;
+    .total-price strong {
+      display: inline-block;
+      vertical-align: middle;
+      margin: -6px 2px 0 15px;
+      font-size: 24px;
+      letter-spacing: -1px;
+      color: ${darkRedColor};
+    }
   }
 
   .box-submit-payment {
@@ -269,40 +293,38 @@ export const CartContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 32px;
-  }
-  .box-submit-payment .btn-order {
-    display: block;
-  }
 
-  .box-submit-payment .btn-order button {
-    display: block;
-    width: 218px;
-    height: 74px;
-    line-height: 1;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-    color: #fff;
-    border-radius: 4px;
-    background: #3d4ed7;
-    border: 0;
-  }
-  .box-submit-payment dt {
-    margin: 0 0 16px 0;
-    padding: 0 0 0 30px;
-    line-height: 22px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #e02020;
-    background: url(/images/pc/icon_notice_type1.png) no-repeat left top;
-  }
+    .btn-order {
+      display: block;
+    }
 
-  element.style {
-  }
-  .box-submit-payment dd {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.83;
+    .btn-order button {
+      display: block;
+      width: 218px;
+      height: 74px;
+      line-height: 1;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      border-radius: 4px;
+      background: #3d4ed7;
+      border: 0;
+    }
+    dt {
+      margin: 0 0 16px 0;
+      padding: 0 0 0 30px;
+      line-height: 22px;
+      font-size: 14px;
+      font-weight: 500;
+      color: ${darkRedColor};
+      background: url(/images/pc/icon_notice_type1.png) no-repeat left top;
+    }
+    dd {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.83;
+    }
   }
 
   /* 모바일 스타일 */
@@ -346,7 +368,7 @@ export const CartContainer = styled.div`
         font-weight: 500;
         color: #fff;
         border-radius: 4px;
-        background: #3d4ed7;
+        background: ${blueColor};
         border: 0;
         margin-bottom: 20px;
       }
