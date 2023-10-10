@@ -361,6 +361,7 @@ export const OrderContainer = styled.div`
         border-radius: 4px;
         background: #3d4ed7;
         border: 0;
+        cursor: pointer;
       }
     }
   }

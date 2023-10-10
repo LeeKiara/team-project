@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { OrderContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
   const [isCardSelected, setIsCardSelected] = useState(false);
@@ -24,6 +25,12 @@ const Order = () => {
     setIsCardSelected(false);
   };
 
+  const navigate = useNavigate();
+
+  const handleOrderDone = () => {
+    navigate("/cart/order/done");
+  };
+
   return (
     <OrderContainer>
       <div className="cart-container">
@@ -43,7 +50,10 @@ const Order = () => {
                       <input type="hidden" name="orderdata" />
                       <div className="link-detail">
                         <span className="image">
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             <img
                               src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
                               alt=""
@@ -54,7 +64,10 @@ const Order = () => {
                           <div className="box-tag-bookgubun">
                             <span className="icon-tag-bookgubun">국내도서</span>
                           </div>
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             빠작 고등 국어 고전 문학
                           </a>
                         </div>
@@ -88,7 +101,10 @@ const Order = () => {
                       <input type="hidden" name="orderdata" />
                       <div className="link-detail">
                         <span className="image">
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             <img
                               src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
                               alt=""
@@ -99,7 +115,10 @@ const Order = () => {
                           <div className="box-tag-bookgubun">
                             <span className="icon-tag-bookgubun">국내도서</span>
                           </div>
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             빠작 고등 국어 고전 문학
                           </a>
                         </div>
@@ -133,7 +152,10 @@ const Order = () => {
                       <input type="hidden" name="orderdata" />
                       <div className="link-detail">
                         <span className="image">
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             <img
                               src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
                               alt=""
@@ -144,7 +166,10 @@ const Order = () => {
                           <div className="box-tag-bookgubun">
                             <span className="icon-tag-bookgubun">국내도서</span>
                           </div>
-                          <a href="/mall/product_view.donga?product_seq=32132" target="_blank">
+                          <a
+                            href="/mall/product_view.donga?product_seq=32132"
+                            target="_blank"
+                          >
                             빠작 고등 국어 고전 문학
                           </a>
                         </div>
@@ -176,15 +201,28 @@ const Order = () => {
                   {/* <!-- 이름 입력 --> */}
                   <div className="box-name">
                     <span className="form-text">
-                      <input type="text" name="oname" placeholder="이름" style={{ width: "316px" }} />
+                      <input
+                        type="text"
+                        name="oname"
+                        placeholder="이름"
+                        style={{ width: "316px" }}
+                      />
                     </span>
                   </div>
 
                   {/* <!-- 전화번호 입력 --> */}
                   <div className="box-phonenum">
                     <input type="text" name="ohp1" placeholder="010" />
-                    <input type="text" name="ohp2" placeholder="휴대폰 앞자리" />
-                    <input type="text" name="ohp3" placeholder="휴대폰 뒷자리" />
+                    <input
+                      type="text"
+                      name="ohp2"
+                      placeholder="휴대폰 앞자리"
+                    />
+                    <input
+                      type="text"
+                      name="ohp3"
+                      placeholder="휴대폰 뒷자리"
+                    />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
@@ -218,15 +256,28 @@ const Order = () => {
                   {/* <!-- 이름 입력 --> */}
                   <div className="box-name">
                     <span className="form-text">
-                      <input type="text" name="oname" placeholder="이름" style={{ width: "316px" }} />
+                      <input
+                        type="text"
+                        name="oname"
+                        placeholder="이름"
+                        style={{ width: "316px" }}
+                      />
                     </span>
                   </div>
 
                   {/* <!-- 전화번호 입력 --> */}
                   <div className="box-phonenum">
                     <input type="text" name="ohp1" placeholder="010" />
-                    <input type="text" name="ohp2" placeholder="휴대폰 앞자리" />
-                    <input type="text" name="ohp3" placeholder="휴대폰 뒷자리" />
+                    <input
+                      type="text"
+                      name="ohp2"
+                      placeholder="휴대폰 앞자리"
+                    />
+                    <input
+                      type="text"
+                      name="ohp3"
+                      placeholder="휴대폰 뒷자리"
+                    />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
@@ -262,9 +313,15 @@ const Order = () => {
                   <div className="box-memo">
                     <select>
                       <option value="">배송 메모를 선택해 주세요.</option>
-                      <option value="부재 시 경비실에 맡겨 주세요.">부재 시 경비실에 맡겨 주세요.</option>
-                      <option value="부재 시 문앞에 놓아 주세요.">부재 시 문앞에 놓아 주세요.</option>
-                      <option value="배송 전 미리 연락 바랍니다.">배송 전 미리 연락 바랍니다.</option>
+                      <option value="부재 시 경비실에 맡겨 주세요.">
+                        부재 시 경비실에 맡겨 주세요.
+                      </option>
+                      <option value="부재 시 문앞에 놓아 주세요.">
+                        부재 시 문앞에 놓아 주세요.
+                      </option>
+                      <option value="배송 전 미리 연락 바랍니다.">
+                        배송 전 미리 연락 바랍니다.
+                      </option>
                       <option value="DIRECT">직접입력</option>
                     </select>
                     <input
@@ -293,38 +350,55 @@ const Order = () => {
                     <button
                       type="button"
                       onClick={handleBankTransferSelect}
-                      className={`${isBankTransferSelected ? "button-selected" : ""}`}
+                      className={`${
+                        isBankTransferSelected ? "button-selected" : ""
+                      }`}
                     >
                       실시간 계좌 이체
                     </button>
                     <button
                       type="button"
                       onClick={handleBankDepositSelect}
-                      className={`${isBankDepositSelected ? "button-selected" : ""}`}
+                      className={`${
+                        isBankDepositSelected ? "button-selected" : ""
+                      }`}
                     >
                       무통장 입금
                     </button>
                   </div>
 
                   {/* <!-- 신용카드 --> */}
-                  <div className={`payment-tab-cont kind1 ${isCardSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind1 ${
+                      isCardSelected ? "visible" : ""
+                    }`}
+                  >
                     <p className="text">
-                      <strong>신용카드를 선택하셨습니다.</strong> 보유하신 신용카드로 결제하시는 방법입니다.
+                      <strong>신용카드를 선택하셨습니다.</strong> 보유하신
+                      신용카드로 결제하시는 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //신용카드 --> */}
 
                   {/* <!-- 실시간 계좌 이체 --> */}
-                  <div className={`payment-tab-cont kind2 ${isBankTransferSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind2 ${
+                      isBankTransferSelected ? "visible" : ""
+                    }`}
+                  >
                     <p className="text">
-                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> 고객님 계좌에서 바로 이체시키는 결제
-                      방법입니다.
+                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> 고객님
+                      계좌에서 바로 이체시키는 결제 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //실시간 계좌 이체 --> */}
 
                   {/* <!-- 무통장 입금 --> */}
-                  <div className={`payment-tab-cont kind3 ${isBankDepositSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind3 ${
+                      isBankDepositSelected ? "visible" : ""
+                    }`}
+                  >
                     <p className="text">
                       <strong>무통장 입금을 선택하셨습니다.</strong>
                       가상 계좌로 입금해 주시는 결제 방법입니다.
@@ -373,7 +447,7 @@ const Order = () => {
                   <hr className="div-type2" />
                   <div className="box-submit-payment">
                     <span className="btn-order">
-                      <button>결제하기</button>
+                      <button onClick={handleOrderDone}>결제하기</button>
                     </span>
                   </div>
                 </div>
