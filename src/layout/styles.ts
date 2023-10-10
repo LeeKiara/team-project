@@ -3,15 +3,13 @@ import styled from "@emotion/styled";
 export const LayoutContainer = styled.div`
   a {
     text-decoration: none;
+    color: black;
   }
   a:visited {
     color: black;
   }
   li {
-    list-style: none;
-  }
-  h3, h4 {
-    margin: 0;
+    cursor: pointer;
   }
   #center {
     display: flex;
@@ -63,6 +61,11 @@ export const LayoutContainer = styled.div`
     display: flex;
     gap: 30px;
     justify-content: center;
+    margin-bottom: 20px;
+  }
+  #searchForm > h1 > a {
+    vertical-align: middle;
+    font-size: 30px;
   }
   header > div > div > form {
     display: flex;
@@ -70,7 +73,7 @@ export const LayoutContainer = styled.div`
     justify-content: center;
   }
   header > div > div > form > label {
-    height: 50%;
+    height: 100%;
     border: 3.5px solid #fdbebe;
     border-radius: 30px;
   }
@@ -85,5 +88,6 @@ export const LayoutContainer = styled.div`
   .material-symbols-outlined {
     color: #fdbebe;
     font-size: 40px;
+    font-style: normal;
   }
 `;

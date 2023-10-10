@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { HomeContainer } from "./styles";
 
 const Home = () => {
+  const [todayLetter, setTodayLetter] = useState("");
+  const [best, setBest] = useState("");
+
   return (
     <HomeContainer>
       <div>
@@ -30,31 +34,85 @@ const Home = () => {
                 corporis voluptatum laborum quibusdam magni dolores.
               </p>
             </div>
-            <div>
-              가격: 30,000원
-            </div>
+            <div>가격: 30,000원</div>
           </article>
           <article>
             <h3>베스트셀러</h3>
             <ul>
               <div>
                 <span>
-                  <li>책1</li>
-                  <li>책2</li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
                 </span>
                 <span>
-                  <li>책3</li>
-                  <li>책4</li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
                 </span>
               </div>
               <div>
                 <span>
-                  <li>책1</li>
-                  <li>책2</li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
                 </span>
                 <span>
-                  <li>책3</li>
-                  <li>책4</li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
+                  <li>
+                    <figure>
+                      <img src="책이미지" alt="책이미지" />
+                    </figure>
+                    <h5>책1</h5>
+                    <h6>저자</h6>
+                    <h5>가격</h5>
+                  </li>
                 </span>
               </div>
             </ul>
