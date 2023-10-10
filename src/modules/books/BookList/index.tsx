@@ -1,8 +1,17 @@
 import Home from "@/pages/Home";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BookContainer } from "./styles";
+import { useSearchParams } from "react-router-dom";
 
 const BookList = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    const queryKeyword = params.get("keyword") || "";
+    setSearchQuery(queryKeyword);
+  }, [params]);
+
   return (
     <>
       <BookContainer>
