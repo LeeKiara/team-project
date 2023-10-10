@@ -1,13 +1,11 @@
-import Home from "@/pages/Home";
-import { useState } from "react";
-import { BookContainer } from "./styles";
+import { BookBestContainer } from "./styles";
 
-const BookList = () => {
+const BookBestList = () => {
   return (
     <>
-      <BookContainer>
+      <BookBestContainer>
         <section>
-          <h2>국내도서</h2>
+          <h2>베스트 셀러</h2>
           <article>
             <div>
               <figure>
@@ -77,9 +75,9 @@ const BookList = () => {
             </ul>
           </article>
         </section>
-      </BookContainer>
+      </BookBestContainer>
     </>
   );
 };
 
-export default BookList;
+export default BookBestList;

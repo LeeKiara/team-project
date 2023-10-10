@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BookContainer = styled.div`
+export const BookBestContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;

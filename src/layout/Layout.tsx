@@ -1,10 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { LayoutContainer } from "./styles";
+import ResetStyle from "@/styles/reset";
 
 const Layout = () => {
   return (
     <LayoutContainer>
+      <ResetStyle />
       <div id="center">
         <header>
           <div>
@@ -31,24 +33,24 @@ const Layout = () => {
             </div>
           </div>
           <nav className="header-nav">
-              <ul>
-                <li>
-                  <Link to="/books">베스트도서</Link>
-                </li>
-                <li>
-                  <Link to="/books">신간도서</Link>
-                </li>
-                <li>
-                  <Link to="/books">국내도서</Link>
-                </li>
-                <li>
-                  <Link to="/books">외국도서</Link>
-                </li>
-                <li>
-                  <Link to="/cart">장바구니</Link>
-                </li>
-              </ul>
-            </nav>
+            <ul>
+              <li>
+                <Link to="/books/best">베스트도서</Link>
+              </li>
+              <li>
+                <Link to="/books/new">신간도서</Link>
+              </li>
+              <li>
+                <Link to="/books">국내도서</Link>
+              </li>
+              <li>
+                <Link to="/books/foreign">외국도서</Link>
+              </li>
+              <li>
+                <Link to="/cart">장바구니</Link>
+              </li>
+            </ul>
+          </nav>
         </header>
 
         <main>

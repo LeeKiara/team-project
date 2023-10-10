@@ -108,9 +108,13 @@ const ResetStyle = () => {
         }
         body {
           line-height: 1;
+          font-family: "Noto Sans KR", sans-serif;
+          font-size: 16px;
+          font-weight: 400;
         }
         ol,
-        ul {
+        ul,
+        li {
           list-style: none;
         }
         blockquote,
