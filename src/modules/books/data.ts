@@ -6,20 +6,44 @@ const booksApi = axios.create({
 });
 
 export interface BookData {
-  id?: number;
-  cover: string;
+  version: string;
+  logo: string;
   title: string;
-  author: string;
-  priceSales: string;
-  priceStandard: string;
-  publisher: string;
   link: string;
+  pubDate: string;
+  totalResults: number;
+  startIndex: number;
+  itemsPerPage: number;
+  query: string;
+  searchCategoryId: number;
+  searchCategoryName: string;
+  item: BookItem[];
+}
+
+export interface BookItem {
+  id?: number;
+  title: string;
+  link: string;
+  author: string;
+  pubDate: string;
   description: string;
   isbn: string;
+  isbn13: string;
+  itemId: number;
+  priceSales: number;
+  priceStandard: number;
+  mallType: string;
+  stockStatus: string;
+  mileage: number;
+  cover: string;
+  publisher: string;
+  salesPoint: number;
+  fixedPrice: boolean;
+  customerReviewRank: number;
 }
 
 export interface BestBookData {
-  id?: number;
+  itemId?: number;
   cover: string;
   title: string;
   author: string;
@@ -31,44 +55,30 @@ export interface BestBookData {
   isbn: string;
 }
 
-const INIT_DATA: BookData[] = [];
+const INIT_DATA: BookItem[] = [];
 
 export const BOOKS_DATA_KEY = "/books";
 
 const bookFetcher = async ([key, page]: string | number[]) => {
   try {
-    const response = await booksApi.get<BookData[]>(
+    const response = await booksApi.get<BookData>(
       `${key}?_sort=id&_order=desc`
     );
-    return response.data;
+    return response.data[0].item;
   } catch (e: any) {
     return INIT_DATA;
   }
 };
 
-export const useBooksData = (page: number) => {
+export const useBooksItem = (page: number) => {
   const {
-    data: booksData,
+    data: booksItem,
     mutate,
-    isValidating: isBookDataValidating,
-  } = useSWR<BookData[]>([BOOKS_DATA_KEY, page], bookFetcher, {
+    isValidating: isBookItemValidating,
+  } = useSWR<BookItem[]>([BOOKS_DATA_KEY, page], bookFetcher, {
     fallbackData: INIT_DATA,
     revalidateOnFocus: false,
   });
+
+  return { booksItem, isBookItemValidating };
 };
-
-function createBookData(book: BookData) {
-  mutate(async (preData: BookData[] = [...INIT_DATA]) => {
-    let nextData = [...preData];
-
-    try {
-      const response = await booksApi.post(BOOKS_DATA_KEY, book, {});
-      if (response.status === 201) {
-        nextData.unshift({ ...response.data });
-      }
-    } catch (e: any) {
-      console.log(e);
-    }
-    return nextData;
-  }, false);
-}

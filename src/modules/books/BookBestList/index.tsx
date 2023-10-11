@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
+import { useBooksItem } from "../data";
 
 const BookBestList = () => {
+  const [page, setPage] = useState(0);
+  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
 
@@ -14,95 +17,75 @@ const BookBestList = () => {
   return (
     <>
       <BookBestContainer>
-        <section>
-          <div></div>
-          <h2>베스트 셀러</h2>
-          <p>{searchQuery}</p>
-          <article>
-            <div>
-              <figure>
-                <Link to="/page">
-                  <img
-                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
-                    alt="책이미지"
-                  />
-                </Link>
-              </figure>
-              <div>
-                <h3>
-                  <Link to="/page">책 제목</Link>
-                </h3>
-                <dl>
-                  <dt>지은이:</dt>
-                  <p>홍길동</p>
-                  <dt>출판사:</dt>
-                  <p>성안당</p>
-                </dl>
-                <h4>책 소개</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolorum animi cum nisi illo vitae tenetur ut? Veniam,
-                  repudiandae culpa libero ea, commodi natus totam, ducimus
-                  voluptas earum debitis dicta vel.
-                </p>
-              </div>
-            </div>
-            <ul>
-              <del>
-                <li>정가</li>
-              </del>
-              <li>판매가</li>
-              <li>장바구니 담기</li>
-            </ul>
-          </article>
-          <article>
-            <div>
-              <figure>
-                <Link to="/page">
-                  <img
-                    src="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
-                    alt="책이미지"
-                  />
-                </Link>
-              </figure>
-              <div>
-                <h3>책 제목</h3>
-                <p>책 저자</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolorum animi cum nisi illo vitae tenetur ut? Veniam,
-                  repudiandae culpa libero ea, commodi natus totam, ducimus
-                  voluptas earum debitis dicta vel.
-                </p>
-              </div>
-            </div>
-            <ul>
-              <li>정가</li>
-              <li>판매가</li>
-              <li>장바구니 담기</li>
-            </ul>
-          </article>
-          <nav style={{ display: "flex", justifyContent: "center" }}>
-            <ol style={{ display: "flex" }}>
-              <li className="numberbox">
-                <Link to="/">1</Link>
-              </li>
-              <li className="numberbox">
-                <Link to="/">2</Link>
-              </li>
-              <li className="numberbox">
-                <Link to="/">3</Link>
-              </li>
-              <li className="numberbox">
-                <Link to="/">4</Link>
-              </li>
-              <li className="numberbox">
-                <Link to="/">5</Link>
-              </li>
-              <li className="numberbox">{`>`}</li>
-            </ol>
-          </nav>
-        </section>
+        <p>{searchQuery}</p>
+        {isBookItemValidating ? (
+          <p>로딩 중...</p>
+        ) : (
+          <section>
+            {books.length > 0 ? (
+              books.map((item) => (
+                <article key={`${item.itemId}`}>
+                  <div>
+                    <figure>
+                      <Link to={`/page?keyword=${item.itemId}`}>
+                        <img src={`${item.cover}`} alt={`${item.title}`} />
+                      </Link>
+                    </figure>
+                    <div>
+                      <h3>
+                        <Link
+                          to={`/page?keyword=${item.itemId}`}
+                        >{`${item.title}`}</Link>
+                      </h3>
+                      <dl>
+                        <dt>지은이:</dt>
+                        <p>{`${item.author}`}</p>
+                        <dt>출판사:</dt>
+                        <p>{`${item.publisher}`}</p>
+                      </dl>
+                      <h4>책 소개</h4>
+                      <p>{`${item.description}`}</p>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      정가:
+                      <del>
+                        <p>{`${item.priceStandard}`}원</p>
+                      </del>
+                    </li>
+                    <li>판매가: {`${item.priceSales}`}</li>
+                    <li>
+                      <button>장바구니 담기</button>
+                    </li>
+                  </ul>
+                </article>
+              ))
+            ) : (
+              <p>책을 찾을 수 없습니다.</p>
+            )}
+            <nav style={{ display: "flex", justifyContent: "center" }}>
+              <ol style={{ display: "flex" }}>
+                <li className="numberbox">
+                  <Link to="/">1</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">2</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">3</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">4</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">5</Link>
+                </li>
+                <li className="numberbox">{`>`}</li>
+              </ol>
+            </nav>
+          </section>
+        )}
       </BookBestContainer>
     </>
   );
