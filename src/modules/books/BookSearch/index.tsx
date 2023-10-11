@@ -1,10 +1,22 @@
 import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
+import { useBooksItem } from "../data";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 const BookSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  const [storeHeartStates, setStoreHeartStates] = useState({});
+  const [page, setPage] = useState(0);
+  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+
+  const handleBookSave = (itemId: number) => {
+    setStoreHeartStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
 
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
@@ -14,96 +26,77 @@ const BookSearch = () => {
   return (
     <>
       <SearchContainer>
-        <section>
-          <span>
-            {searchQuery}
-            <h4>검색 결과</h4>
-            <p></p>
-          </span>
-          <article>
-            <div>
-              <figure>
-                <img src="책이미지" alt="책이미지" />
-              </figure>
-              <div id="section">
-                <div>
-                  <h3>책 제목</h3>
-                  <span>
-                    <dl>
-                      <dt>지은이:</dt>
-                      <h5>홍길동</h5>
-                    </dl>
-                    <dl>
-                      <dt>출판사: </dt>
-                      <h5>성안당</h5>
-                    </dl>
-                  </span>
-                  <h5>책소개</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dolorum animi cum nisi illo vitae tenetur ut? Veniam,
-                    repudiandae culpa libero ea, commodi natus totam, ducimus
-                    voluptas earum debitis dicta vel.
-                  </p>
-                </div>
-                <dl>
-                  <dt>정가:</dt>
-                  <del>
-                    <p>10000</p>
-                  </del>
-                  <dt>판매가: </dt>
-                  <p>5000</p>
-                </dl>
-              </div>
-            </div>
-            <div>
-              <dl>장바구니 담기</dl>
-              <dl>바로 구매</dl>
-            </div>
-          </article>
-          <hr />
-          <article>
-            <div>
-              <figure>
-                <img src="책이미지" alt="책이미지" />
-              </figure>
-              <div id="section">
-                <div>
-                  <h3>책 제목</h3>
-                  <span>
-                    <dl>
-                      <dt>지은이:</dt>
-                      <h5>홍길동</h5>
-                    </dl>
-                    <dl>
-                      <dt>출판사: </dt>
-                      <h5>성안당</h5>
-                    </dl>
-                  </span>
-                  <h5>책소개</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dolorum animi cum nisi illo vitae tenetur ut? Veniam,
-                    repudiandae culpa libero ea, commodi natus totam, ducimus
-                    voluptas earum debitis dicta vel.
-                  </p>
-                </div>
-                <dl>
-                  <dt>정가:</dt>
-                  <del>
-                    <p>10000</p>
-                  </del>
-                  <dt>판매가: </dt>
-                  <p>5000</p>
-                </dl>
-              </div>
-            </div>
-            <div>
-              <dl>장바구니 담기</dl>
-              <dl>바로 구매</dl>
-            </div>
-          </article>
-        </section>
+        {isBookItemValidating ? (
+          <p>로딩 중...</p>
+        ) : (
+          <section>
+            <span>
+              {searchQuery}
+              <h4>검색 결과</h4>
+              <p></p>
+            </span>
+            <table>
+              <thead>
+                <tr>
+                  <th>책표지</th>
+                  <th>책제목</th>
+                  <th>저자</th>
+                  <th>출판사</th>
+                  <th>책소개</th>
+                  <th>알라딘 링크</th>
+                  <th>정가</th>
+                  <th>판매가</th>
+                  <th>재고량</th>
+                  <th>선택</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.length > 0 ? (
+                  books.slice(0, 10).map((item) => (
+                    <tr key={`${item.itemId}`}>
+                      <td>
+                        <Link to={`/page?keyword=${item.itemId}`}>
+                          <img src={`${item.cover}`} alt={`${item.title}`} />
+                        </Link>
+                      </td>
+                      <td>" {`${item.title}`} "</td>
+                      <td>{`${item.author}`}</td>
+                      <td>{`${item.publisher}`}</td>
+                      <td>{`${item.description}`}</td>
+                      <td>
+                        <Link to={`${item.link}`}>{`${item.link}`}</Link>
+                      </td>
+                      <td>{`${item.priceStandard}`}</td>
+                      <td>{`${item.priceSales}`}</td>
+                      <td>10</td>
+                      <td>
+                        <div>
+                          <dl
+                            onClick={() => {
+                              handleBookSave(item.itemId);
+                            }}
+                          >
+                            <span>찜하기</span>
+                            {storeHeartStates[item.itemId] ? (
+                              <Favorite className="material-icons-outlined heart" />
+                            ) : (
+                              <FavoriteBorder className="material-icons-outlined" />
+                            )}
+                          </dl>
+                          <dl>
+                            <button>장바구니 담기</button>
+                          </dl>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>책을 찾을 수 없습니다.</p>
+                )}
+              </tbody>
+            </table>
+          </section>
+        )}
       </SearchContainer>
     </>
   );

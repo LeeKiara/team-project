@@ -8,13 +8,16 @@ export const BookBestContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
   section > article {
     padding: 5px;
     display: flex;
     flex-direction: column;
     border: 2px solid #dddddd;
+    border-right: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    margin-bottom: 10px;
   }
   section > article > div {
     flex: 1.5;
@@ -53,8 +56,6 @@ export const BookBestContainer = styled.div`
     flex: 0.2;
   }
   section > article > ul li {
-    /* border: 1px solid #dddddd; */
-    /* padding: 3px; */
     display: flex;
     gap: 2px;
     cursor: auto;

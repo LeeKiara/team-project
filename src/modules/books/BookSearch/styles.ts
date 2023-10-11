@@ -5,51 +5,70 @@ export const SearchContainer = styled.div`
     width: 100%;
     color: black;
   }
+  .heart {
+    color: red;
+  }
   section {
-    width: 60%;
+    padding: 20px;
     margin: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
   }
-  section > article {
-    display: flex;
-    gap: 20px;
+  table {
+    border-collapse: collapse;
+    width: 100%;
   }
-  section > article > div:nth-of-type(1) {
-    display: flex;
-    gap: 20px;
-    flex: 5;
+  table > thead {
+    border: 2px solid #dddddd;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
   }
-  section > article > div:nth-of-type(1) > figure {
-    width: 220px;
-    height: 200px;
-    border: 2px solid salmon;
+  table > tbody > tr {
+    border: 2px solid #dddddd;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
   }
-  section > article > div:nth-of-type(2) {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex: 0.5;
+  table > thead > tr th {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align: middle;
   }
-  dl {
-    display: flex;
-    gap: 10px;
+  table > tbody > tr > a {
+    vertical-align: top;
   }
-  #section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  table > tbody > tr td {
+    padding: 20px;
+    vertical-align: top;
+    text-align: center;
+    font-size: 18px;
   }
-  #section > div {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  table > tbody > tr > td:nth-of-type(1) {
+    padding: 10px;
   }
-  #section > div > span {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  table > tbody > tr > td:nth-of-type(2) {
+    font-size: 18px;
+  }
+  table > tbody > tr > td > a > img {
+    width: 180px;
+    height: 230px;
+  }
+  table > tbody > tr > td > div > dl {
+    margin: 20px 0;
+    cursor: pointer;
+  }
+  table > tbody > tr > td:nth-of-type(4) {
+    width: 7%;
+  }
+  table > tbody > tr > td:nth-of-type(9) {
+    width: 4%;
+  }
+  table > tbody > tr > td:last-child {
+    width: 7%;
+    padding: 20px;
+    vertical-align: middle;
+    text-align: left;
   }
 `;
