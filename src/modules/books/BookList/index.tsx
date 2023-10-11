@@ -67,7 +67,7 @@ const BookList = () => {
                       ) : (
                         <FavoriteBorder className="material-icons-outlined" />
                       )}
-                      <span>찜하기</span>
+                      <span>선호작품</span>
                     </li>
                     <li>
                       <button>장바구니 담기</button>

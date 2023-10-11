@@ -2,17 +2,38 @@ import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { useBooksItem } from "../data";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorder,
+  ThumbDown,
+  ThumbDownOffAlt,
+  ThumbUp,
+  ThumbUpOffAlt,
+} from "@mui/icons-material";
 
 const BookSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
   const [storeHeartStates, setStoreHeartStates] = useState({});
+  const [storeThumbStates, setStoreThumbState] = useState({});
+  const [storeThumbDownStates, setStoreThumbDownState] = useState({});
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
 
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
+  const handleThumbUp = (itemId: number) => {
+    setStoreThumbState((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
+  const handleThumbDown = (itemId: number) => {
+    setStoreThumbDownState((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
@@ -76,11 +97,35 @@ const BookSearch = () => {
                               handleBookSave(item.itemId);
                             }}
                           >
-                            <span>찜하기</span>
+                            <span>선호작품</span>
                             {storeHeartStates[item.itemId] ? (
                               <Favorite className="material-icons-outlined heart" />
                             ) : (
                               <FavoriteBorder className="material-icons-outlined" />
+                            )}
+                          </dl>
+                          <dl
+                            onClick={() => {
+                              handleThumbUp(item.itemId);
+                            }}
+                          >
+                            <span>추천</span>
+                            {storeThumbStates[item.itemId] ? (
+                              <ThumbUp className="material-icons-outlined thumb" />
+                            ) : (
+                              <ThumbUpOffAlt className="material-icons-outlined" />
+                            )}
+                          </dl>
+                          <dl
+                            onClick={() => {
+                              handleThumbDown(item.itemId);
+                            }}
+                          >
+                            <span>싫어요</span>
+                            {storeThumbDownStates[item.itemId] ? (
+                              <ThumbDown className="material-icons-outlined thumb" />
+                            ) : (
+                              <ThumbDownOffAlt className="material-icons-outlined" />
                             )}
                           </dl>
                           <dl>

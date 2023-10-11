@@ -8,6 +8,9 @@ export const SearchContainer = styled.div`
   .heart {
     color: red;
   }
+  /* .thumb {
+    color: black;
+  } */
   section {
     padding: 20px;
     margin: auto;
@@ -45,6 +48,9 @@ export const SearchContainer = styled.div`
     text-align: center;
     font-size: 18px;
   }
+  table > tbody > tr > td:nth-of-type(6) > a {
+    color: blue;
+  }
   table > tbody > tr > td:nth-of-type(1) {
     padding: 10px;
   }
@@ -70,5 +76,10 @@ export const SearchContainer = styled.div`
     padding: 20px;
     vertical-align: middle;
     text-align: left;
+  }
+  table > tbody > tr > td > div > dl > svg {
+    font-size: 20px;
+    vertical-align: top;
+    margin-left: 2px;
   }
 `;
