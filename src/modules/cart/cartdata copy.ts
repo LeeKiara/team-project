@@ -38,7 +38,7 @@ const cartFetcher = async ([key]) => {
   }
 };
 
-export const useCartData = () => {
+export const useCreateCartData = () => {
   const {
     data: cartData,
     mutate,
@@ -99,36 +99,23 @@ export const useCartData = () => {
   };
 };
 
-/*
 export const useCartData = () => {
-  // ...
-
-  async function updateCartItem(itemId, updatedQuantity) {
-    try {
-      const response = await cartApi.post(`/updateCartItem/${itemId}`, {
-        quantity: updatedQuantity,
-      });
-
-      if (response.status === 200) {
-        // Fetch the updated data from the server or wherever it is stored
-        const updatedData = await cartFetcher([CART_DATA_KEY]);
-
-        // Update the cartData and trigger a re-render
-        mutate(CART_DATA_KEY, updatedData, false);
-      }
-    } catch (e) {
-      console.error(e);
+  const { data: cartData, mutate: mutateCartData } = useSWR<CartData[]>(
+    [CART_DATA_KEY],
+    cartFetcher,
+    {
+      // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
+      fallbackData: INIT_DATA,
+      // 포커스될때 fetcher로 가져오기 해제
+      // rebalidate: 캐시와 fetcher로 가져온 데이터를 비교 후 반환
+      revalidateOnFocus: false,
+      // // 특정 주기별로 데이터 가져오기
+      // refreshInterval: 5000,
     }
-  }
+  );
 
   return {
     cartData,
-    createCartData,
-    updateCartItem,
-    isCartDataValidating,
+    mutateCartData,
   };
 };
-
-
-
-*/
