@@ -1,14 +1,21 @@
-import Home from "@/pages/Home";
 import { useState } from "react";
 import { CartContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { useCartData } from "../cartdata";
 
 const CartList = () => {
   const navigate = useNavigate();
 
+  const { cartData: cartlist, isCartDataValidating } = useCartData();
+
+  // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
+  console.log("---validating---");
+  console.log(isCartDataValidating);
+
   const handleOrder = () => {
     navigate("/cart/order");
   };
+
   return (
     <>
       <CartContainer>
@@ -20,90 +27,74 @@ const CartList = () => {
           </article>
           <article className="cart-layer-title">
             <div>
-              <input type="checkbox" name="productall_seq" className="listCheckBox" />
+              <input
+                type="checkbox"
+                name="productall_seq"
+                className="listCheckBox"
+              />
             </div>
             <div>상품정보</div>
             <div>수량</div>
             <div>판매가(정가)</div>
           </article>
-          {/* 장바구니 상품 1 */}
-          <article className="cart-layer">
-            {/* 도서정보(책이미지/도서명) */}
-            <div className="bookinfo">
-              <label className="form-checkbox">
-                <input type="checkbox" name="product_seq" className="listCheckBox" />
-              </label>
-              <figure>
-                <img src="책이미지" alt="책이미지" />
-              </figure>
-              <div>
-                <div className="box-tag-bookgubun">
-                  <span className="icon-tag-bookgubun">국내도서</span>
-                </div>
-                <p>빠작 고등 국어 고전 문학</p>
-              </div>
-            </div>
-            {/* 가격정보 */}
-            <div className="priceinfo">
-              {/* 수량 */}
-              <div>
-                <span className="book-quantity" style={{ width: "100px" }}>
-                  <input name="num" type="number" min="1" max="999" step="1" />
-                  <div className="quantity-nav">
-                    <div className="quantity-button quantity-up">+</div>
-                    <div className="quantity-button quantity-down">-</div>
+          {/* 장바구니 상품 리스트(Loop) */}
+          {cartlist.map((cartCashData) => (
+            <article className="cart-layer">
+              {/* 도서정보(책이미지/도서명) */}
+              <div className="bookinfo">
+                <label className="form-checkbox">
+                  <input
+                    type="checkbox"
+                    name="product_seq"
+                    className="listCheckBox"
+                    key={`item-${cartCashData.id}`}
+                  />
+                </label>
+                <figure>
+                  <span className="image">
+                    <a href="" target="_blank">
+                      <img src={cartCashData.cover} alt={cartCashData.title} />
+                    </a>
+                  </span>
+                </figure>
+                <div>
+                  <div className="box-bookgubun">
+                    <span className="icon-bookgubun">{cartCashData.gubun}</span>
                   </div>
-                </span>
-              </div>
-
-              {/* 할인가/정가 */}
-              <div>
-                <div className="box-price">
-                  <strong>13,950</strong>원<del>정가15,500원</del>
+                  <p>
+                    {cartCashData.id},{cartCashData.title}
+                  </p>
                 </div>
               </div>
-              {/* 삭제버튼 */}
-              <div className="box-delete">X</div>
-            </div>
-          </article>
-          {/* 장바구니 상품 2 */}
-          <article className="cart-layer">
-            {/* 도서정보(책이미지/도서명) */}
-            <div className="bookinfo">
-              <label className="form-checkbox">
-                <input type="checkbox" name="product_seq" className="listCheckBox" />
-              </label>
-              <figure>
-                <img src="책이미지" alt="책이미지" />
-              </figure>
-              <div>
-                <h3>국내도서</h3>
-                <p>빠작 고등 국어 고전 문학</p>
-              </div>
-            </div>
-            {/* 가격정보 */}
-            <div className="priceinfo">
-              {/* 수량 */}
-              <div>
-                <span className="book-quantity" style={{ width: "100px" }}>
-                  <input name="num" type="number" min="1" max="999" step="1" />
-                  <div className="quantity-nav">
-                    <div className="quantity-button quantity-up">+</div>
-                    <div className="quantity-button quantity-down">-</div>
+              {/* 가격정보 */}
+              <div className="priceinfo">
+                {/* 수량 */}
+                <div>
+                  <span className="book-quantity" style={{ width: "100px" }}>
+                    <input
+                      type="number"
+                      readOnly
+                      value={cartCashData.quantity}
+                    />
+                    <div className="quantity-nav">
+                      <div className="quantity-up">+</div>
+                      <div className="quantity-down">-</div>
+                    </div>
+                  </span>
+                </div>
+
+                {/* 할인가/정가 */}
+                <div>
+                  <div className="box-price">
+                    <strong>{cartCashData.priceSales}</strong>원
+                    <del>정가{cartCashData.priceStandard}원</del>
                   </div>
-                </span>
-              </div>
-
-              {/* 할인가/정가 */}
-              <div>
-                <div className="box-price">
-                  <strong>13,950</strong>원<del>정가15,500원</del>
                 </div>
+                {/* 삭제버튼 */}
+                <div className="box-delete">X</div>
               </div>
-              {/* 삭제버튼 */}
-              <div className="box-delete">X</div>
-            </div>
-          </article>
+            </article>
+          ))}
 
           {/* 주문합계 */}
           <article>
@@ -121,7 +112,7 @@ const CartList = () => {
           </article>
 
           {/* 주문버튼 */}
-          <article className="payment-layer">
+          <article>
             <div className="box-submit-payment">
               <dl>
                 <dt>주의하세요.</dt>

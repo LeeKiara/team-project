@@ -607,5 +607,34 @@
         }
       ]
     }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "gubun": "KOR",
+      "title": "어린왕자",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      "priceStandard": "20000",
+      "priceSales": "18000",
+      "quantity": "1"
+    },
+    {
+      "gubun": "KOR",
+      "title": "이보영의 영어 만화 Aladdin's Magic Lamp",
+      "cover": "http://image.aladin.co.kr/product/90/79/coversum/8957363335_1.jpg",
+      "priceStandard": "13500",
+      "priceSales": "10800",
+      "quantity": "1",
+      "id": 2
+    },
+    {
+      "gubun": "KOR",
+      "title": "커피는 알라딘 램프다",
+      "cover": "http://image.aladin.co.kr/product/1743/27/coversum/8997386166_1.jpg",
+      "priceStandard": "10000",
+      "priceSales": "9500",
+      "quantity": "1",
+      "id": 3
+    }
   ]
 }
