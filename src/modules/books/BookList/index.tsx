@@ -3,12 +3,21 @@ import { useEffect, useState } from "react";
 import { BookContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 const BookList = () => {
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  const [storeHeartStates, setStoreHeartStates] = useState({});
+
+  const handleBookSave = (itemId: number) => {
+    setStoreHeartStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
 
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
@@ -48,6 +57,18 @@ const BookList = () => {
                       </del>
                     </li>
                     <li>판매가: {`${item.priceSales}`}</li>
+                    <li
+                      onClick={() => {
+                        handleBookSave(item.itemId);
+                      }}
+                    >
+                      {storeHeartStates[item.itemId] ? (
+                        <Favorite className="material-icons-outlined heart" />
+                      ) : (
+                        <FavoriteBorder className="material-icons-outlined" />
+                      )}
+                      <span>찜하기</span>
+                    </li>
                     <li>
                       <button>장바구니 담기</button>
                     </li>
@@ -58,6 +79,26 @@ const BookList = () => {
               // 데이터가 없거나 오류 상태를 처리하는 부분
               <p>책을 찾을 수 없습니다.</p>
             )}
+            <nav style={{ display: "flex", justifyContent: "center" }}>
+              <ol style={{ display: "flex" }}>
+                <li className="numberbox">
+                  <Link to="/">1</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">2</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">3</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">4</Link>
+                </li>
+                <li className="numberbox">
+                  <Link to="/">5</Link>
+                </li>
+                <li className="numberbox">{`>`}</li>
+              </ol>
+            </nav>
           </section>
         )}
       </BookContainer>

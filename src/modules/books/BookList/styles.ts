@@ -44,22 +44,30 @@ export const BookContainer = styled.div`
   section > article > div > div > p:nth-of-type(1) {
     font-size: 14px;
   }
-
   section > article > ul {
-    /* border: 3px solid red; */
     margin: 16px;
     display: flex;
     justify-content: space-between;
   }
   section > article > ul li {
-    /* border: 1px solid #dddddd; */
-    /* padding: 3px; */
     display: flex;
     gap: 2px;
     cursor: auto;
   }
+  section > article > ul > li:nth-of-type(3) {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+  section > article > ul > li:nth-of-type(3) > span:nth-of-type(1) {
+    font-size: 16px;
+    padding-top: 3px;
+  }
   button {
     cursor: pointer;
+  }
+  .heart {
+    color: red;
   }
 
   @media (min-width: 55rem) {

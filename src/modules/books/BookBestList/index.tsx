@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 const BookBestList = () => {
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  const [storeHeartStates, setStoreHeartStates] = useState({});
+
+  const handleBookSave = (itemId: number) => {
+    setStoreHeartStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
 
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
@@ -23,7 +32,7 @@ const BookBestList = () => {
         ) : (
           <section>
             {books.length > 0 ? (
-              books.map((item) => (
+              books.slice(0, 5).map((item) => (
                 <article key={`${item.itemId}`}>
                   <div>
                     <figure>
@@ -54,7 +63,19 @@ const BookBestList = () => {
                         <p>{`${item.priceStandard}`}원</p>
                       </del>
                     </li>
-                    <li>판매가: {`${item.priceSales}`}</li>
+                    <li>판매가: {`${item.priceSales}`}원</li>
+                    <li
+                      onClick={() => {
+                        handleBookSave(item.itemId);
+                      }}
+                    >
+                      {storeHeartStates[item.itemId] ? (
+                        <Favorite className="material-icons-outlined heart" />
+                      ) : (
+                        <FavoriteBorder className="material-icons-outlined" />
+                      )}
+                      <span>찜하기</span>
+                    </li>
                     <li>
                       <button>장바구니 담기</button>
                     </li>
@@ -64,26 +85,6 @@ const BookBestList = () => {
             ) : (
               <p>책을 찾을 수 없습니다.</p>
             )}
-            <nav style={{ display: "flex", justifyContent: "center" }}>
-              <ol style={{ display: "flex" }}>
-                <li className="numberbox">
-                  <Link to="/">1</Link>
-                </li>
-                <li className="numberbox">
-                  <Link to="/">2</Link>
-                </li>
-                <li className="numberbox">
-                  <Link to="/">3</Link>
-                </li>
-                <li className="numberbox">
-                  <Link to="/">4</Link>
-                </li>
-                <li className="numberbox">
-                  <Link to="/">5</Link>
-                </li>
-                <li className="numberbox">{`>`}</li>
-              </ol>
-            </nav>
           </section>
         )}
       </BookBestContainer>
