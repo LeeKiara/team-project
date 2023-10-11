@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CartContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
+import axios from "axios";
 
 const CartList = () => {
   const navigate = useNavigate();
@@ -15,6 +16,87 @@ const CartList = () => {
   const handleOrder = () => {
     navigate("/cart/order");
   };
+
+  const [quantityStates, setQuantityStates] = useState({});
+
+  // 장바구니 수량 변경
+  const handleUpdateQty = (itemId) => {
+    console.log("---------handleUpdateQty -----------itemId:" + itemId);
+
+    const parsedItemId = parseInt(itemId, 10);
+    console.log(
+      "---------handleUpdateQty -----------parsedItemId:" + parsedItemId
+    );
+
+    if (!isNaN(parsedItemId)) {
+      // 수량 변경 상태
+      setQuantityStates((prevStates) => {
+        // Find the item with the matching itemId
+        // itemid로 item 을 찾기
+        const updatedCartList = cartlist.map((cartItem) => {
+          if (cartItem.id === parsedItemId) {
+            // Calculate the updated quantity
+            const updatedQuantity = Number(cartItem.quantity) + 1;
+
+            // Update the quantity for this item
+            return {
+              ...cartItem,
+              quantity: updatedQuantity,
+            };
+          }
+          return cartItem;
+        });
+
+        return {
+          ...prevStates,
+          [parsedItemId]:
+            updatedCartList.find((item) => item.id === parsedItemId)
+              ?.quantity || 0,
+        };
+      });
+    }
+  };
+
+  // const handleUpdateQty = async (itemId) => {
+  //   console.log("---------handleUpdateQty -----------itemId:" + itemId);
+
+  //   const parsedItemId = parseInt(itemId, 10);
+  //   console.log(
+  //     "---------handleUpdateQty -----------parsedItemId:" + parsedItemId
+  //   );
+
+  //   if (!isNaN(parsedItemId)) {
+  //     // Find the item with the matching itemId
+  //     const updatedCartList = cartData.map((cartItem) => {
+  //       if (cartItem.id === parsedItemId) {
+  //         // Calculate the updated quantity
+  //         const updatedQuantity = Number(cartItem.quantity) + 1;
+
+  //         // Update the quantity for this item
+  //         return {
+  //           ...cartItem,
+  //           quantity: updatedQuantity,
+  //         };
+  //       }
+  //       return cartItem;
+  //     });
+
+  //     try {
+  //       // Now, update the cartData with the updatedCartList
+  //       await axios.post(`/updateCartItem/${parsedItemId}`, {
+  //         quantity:
+  //           updatedCartList.find((item) => item.id === parsedItemId)
+  //             ?.quantity || 0,
+  //       });
+
+  //       // Use mutate to update cartData and trigger a re-render
+  //       const CART_DATA_KEY = "/cart";
+  //       mutate(CART_DATA_KEY, updatedCartList, false);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -70,14 +152,24 @@ const CartList = () => {
               <div className="priceinfo">
                 {/* 수량 */}
                 <div>
+                  <h3>[수량변경:{quantityStates[cartCashData.id]}]</h3>
+                  <button
+                    onClick={() => handleUpdateQty(cartCashData.id)}
+                    data-item-id={cartCashData.id}
+                  >
+                    +
+                  </button>
+                </div>
+                <div>
                   <span className="book-quantity" style={{ width: "100px" }}>
                     <input
                       type="number"
                       readOnly
                       value={cartCashData.quantity}
                     />
+
                     <div className="quantity-nav">
-                      <div className="quantity-up">+</div>
+                      <div className="quantity-up"></div>
                       <div className="quantity-down">-</div>
                     </div>
                   </span>
