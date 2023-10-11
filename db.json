@@ -114,7 +114,7 @@
           "mallType": "BOOK",
           "stockStatus": "",
           "mileage": 100,
-          "cover": "http://image.aladin.co.kr/product/52/16/coversum/8934915315_1.jpg",
+          "cover": "https://play-lh.googleusercontent.com/YhIr_gLeuYW7Ev98sxSo8AW9MORAlewQv71noOywRVnSEpWUD_zLE-eqGddxNEiSE_A",
           "publisher": "주니어김영사",
           "salesPoint": 290,
           "fixedPrice": false,
@@ -154,7 +154,7 @@
           "mallType": "BOOK",
           "stockStatus": "",
           "mileage": 80,
-          "cover": "http://image.aladin.co.kr/product/658/54/coversum/8955724438_1.jpg",
+          "cover": "https://play-lh.googleusercontent.com/YhIr_gLeuYW7Ev98sxSo8AW9MORAlewQv71noOywRVnSEpWUD_zLE-eqGddxNEiSE_A",
           "publisher": "글송이",
           "salesPoint": 167,
           "fixedPrice": false,
@@ -234,7 +234,7 @@
           "mallType": "BOOK",
           "stockStatus": "",
           "mileage": 260,
-          "cover": "http://image.aladin.co.kr/product/40/30/coversum/8995337648_1.jpg",
+          "cover": "https://image.aladin.co.kr/product/27/18/cover500/8945117822_1.jpg",
           "publisher": "초록모자",
           "salesPoint": 30,
           "fixedPrice": false,
@@ -269,7 +269,7 @@
           "mallType": "BOOK",
           "stockStatus": "",
           "mileage": 450,
-          "cover": "http://image.aladin.co.kr/product/1630/10/coversum/8994817166_1.jpg",
+          "cover": "https://image.aladin.co.kr/product/27/18/cover500/8945117822_1.jpg",
           "publisher": "뮤즈위즈교육",
           "salesPoint": 15,
           "fixedPrice": false,
@@ -389,7 +389,7 @@
           "mallType": "BOOK",
           "stockStatus": "품절",
           "mileage": 120,
-          "cover": "http://image.aladin.co.kr/product/29/37/coversum/9831480953_1.jpg",
+          "cover": "https://play-lh.googleusercontent.com/YhIr_gLeuYW7Ev98sxSo8AW9MORAlewQv71noOywRVnSEpWUD_zLE-eqGddxNEiSE_A",
           "publisher": "Kohwai & Young",
           "salesPoint": 0,
           "fixedPrice": false,
@@ -406,76 +406,6 @@
                 "itemCount": 0,
                 "minPrice": 0,
                 "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=9831480953&amp;TabType=1&amp;partner=openAPI"
-              }
-            }
-          }
-        },
-        {
-          "title": "GB1606:ALADDIN - PAPER DOLL",
-          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=5000178978&amp;partner=openAPI",
-          "author": "편집부",
-          "pubDate": "1998-04-25",
-          "description": "",
-          "isbn": "5000178978",
-          "isbn13": "",
-          "itemId": 178978,
-          "priceSales": 1700,
-          "priceStandard": 2000,
-          "mallType": "BOOK",
-          "stockStatus": "절판",
-          "mileage": 60,
-          "cover": "http://image.aladin.co.kr/img/noimg_sum_b.jpg",
-          "publisher": "세종문고",
-          "salesPoint": 0,
-          "fixedPrice": false,
-          "customerReviewRank": 0,
-          "subInfo": {
-            "ebookList": [],
-            "usedList": {
-              "aladinUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=5000178978&amp;TabType=2&amp;partner=openAPI"
-              },
-              "userUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=5000178978&amp;TabType=1&amp;partner=openAPI"
-              }
-            }
-          }
-        },
-        {
-          "title": "알라딘 중고서점 오프라인쿠폰용 2천원 할인",
-          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=6000665423&amp;partner=openAPI",
-          "author": "",
-          "pubDate": "2013-10-08",
-          "description": "",
-          "isbn": "6000665423",
-          "isbn13": "",
-          "itemId": 32026082,
-          "priceSales": -2000,
-          "priceStandard": 2000,
-          "mallType": "BOOK",
-          "stockStatus": "",
-          "mileage": 0,
-          "cover": "http://image.aladin.co.kr/img/noimg_sum_b.jpg",
-          "publisher": "알라딘 이벤트",
-          "salesPoint": 380,
-          "fixedPrice": true,
-          "customerReviewRank": 0,
-          "subInfo": {
-            "ebookList": [],
-            "usedList": {
-              "aladinUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000665423&amp;TabType=2&amp;partner=openAPI"
-              },
-              "userUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000665423&amp;TabType=1&amp;partner=openAPI"
               }
             }
           }
@@ -674,43 +604,37 @@
               }
             }
           }
-        },
-        {
-          "title": "알라딘 중고 박스 (구매금액 환불, 책 20권까지 포장 가능)",
-          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ISBN=6000536477&amp;partner=openAPI",
-          "author": "",
-          "pubDate": "2010-01-01",
-          "description": "",
-          "isbn": "6000536477",
-          "isbn13": "",
-          "itemId": 15872674,
-          "priceSales": 9800,
-          "priceStandard": 9800,
-          "mallType": "BOOK",
-          "stockStatus": "",
-          "mileage": 0,
-          "cover": "http://image.aladin.co.kr/product/1587/26/coversum/6000536477_2.jpg",
-          "publisher": "알라딘 이벤트",
-          "salesPoint": 470977,
-          "fixedPrice": false,
-          "customerReviewRank": 9,
-          "subInfo": {
-            "ebookList": [],
-            "usedList": {
-              "aladinUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000536477&amp;TabType=2&amp;partner=openAPI"
-              },
-              "userUsed": {
-                "itemCount": 0,
-                "minPrice": 0,
-                "link": "http://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ISBN=6000536477&amp;TabType=1&amp;partner=openAPI"
-              }
-            }
-          }
         }
       ]
+    }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "gubun": "KOR",
+      "title": "어린왕자",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      "priceStandard": "20000",
+      "priceSales": "18000",
+      "quantity": "1"
+    },
+    {
+      "gubun": "KOR",
+      "title": "이보영의 영어 만화 Aladdin's Magic Lamp",
+      "cover": "http://image.aladin.co.kr/product/90/79/coversum/8957363335_1.jpg",
+      "priceStandard": "13500",
+      "priceSales": "10800",
+      "quantity": "1",
+      "id": 2
+    },
+    {
+      "gubun": "KOR",
+      "title": "커피는 알라딘 램프다",
+      "cover": "http://image.aladin.co.kr/product/1743/27/coversum/8997386166_1.jpg",
+      "priceStandard": "10000",
+      "priceSales": "9500",
+      "quantity": "1",
+      "id": 3
     }
   ]
 }
