@@ -24,7 +24,7 @@ export const CartSidebarContainer = styled.div`
   }
 
   input[type^="text"] {
-    display: block;
+    /* display: block; */
     margin: 0;
     padding: 0;
     width: 100%;

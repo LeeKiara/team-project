@@ -22,8 +22,8 @@ export const cartRoutes = [
     ,
     <Route element={<Order />} index />,
   </Route>,
-  <Route key="test" path="test" element={<CartSidebar />}>
+  <Route key="addcart" path="addcart" element={<CartSidebar />}>
     ,
-    <Route element={<PaymentInfo onCancel={() => {}} />} index />,
+    <Route element={<AddCart />} index />,
   </Route>,
 ];
