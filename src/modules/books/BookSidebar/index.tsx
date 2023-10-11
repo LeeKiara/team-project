@@ -5,7 +5,7 @@ import { SidebarContainer } from "./styles";
 const BookSidebar = () => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
-  const [group, setGroup] = useState("");
+  const [group, setGroup] = useState("국내도서");
 
   useEffect(() => {
     if (path === "best") {
@@ -14,7 +14,7 @@ const BookSidebar = () => {
       setGroup("신간도서");
     } else if (path === "foreign") {
       setGroup("외국도서");
-    } else if (path === "") {
+    } else {
       setGroup("국내도서");
     }
   }, [path]);
@@ -27,25 +27,59 @@ const BookSidebar = () => {
             <h3>{group}</h3>
             <ul>
               <li>
-                <Link to="/search">사전</Link>
+                <Link to={`/books/${path}?keyword=사전`}>사전</Link>
               </li>
-              <li>문학</li>
-              <li>학습</li>
-              <li>아동</li>
-              <li>취미/실용</li>
-              <li>예체능</li>
-              <li>종교</li>
-              <li>잡지</li>
-              <li>정치.법률</li>
-              <li>경제.경영</li>
-              <li>인문</li>
-              <li>외국어</li>
-              <li>정부간행물</li>
-              <li>컴퓨터</li>
-              <li>공학</li>
-              <li>자연</li>
-              <li>의학</li>
-              <li>수험서</li>
+              <li>
+                <Link to={`/books/${path}?keyword=문학`}>문학</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=학습`}>학습</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=아동`}>아동</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=취미/실용`}>취미/실용</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=예체능`}>예체능</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=종교`}>종교</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=잡지`}>잡지</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=정치.법률`}>정치.법률</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=경제.경영`}>경제.경영</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=인문`}>인문</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=외국어`}>외국어</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=정부간행물`}>정부간행물</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=컴퓨터`}>컴퓨터</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=공학`}>공학</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=자연`}>자연</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=의학`}>의학</Link>
+              </li>
+              <li>
+                <Link to={`/books/${path}?keyword=수험서`}>수험서</Link>
+              </li>
             </ul>
           </aside>
           <section>

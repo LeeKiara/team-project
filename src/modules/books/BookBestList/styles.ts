@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
 export const BookBestContainer = styled.div`
+  dl {
+    display: flex;
+    gap: 20px;
+  }
   section {
     display: flex;
     flex-direction: column;
@@ -12,28 +16,41 @@ export const BookBestContainer = styled.div`
     border: 1px solid olive;
   }
   section > article > div {
-    flex: 2;
+    flex: 1.5;
     display: flex;
     flex-direction: column;
   }
   section > article > div > figure {
     border: 1px solid salmon;
-    width: 120px;
-    height: 150px;
     margin: 16px;
+  }
+  section > article > div > figure > a > img {
+    width: 200px;
+    height: 300px;
+    cursor: pointer;
   }
   section > article > div > div {
     flex: 1;
     border: 2px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+  section > article > div > div > h3 {
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
   }
   section > article > div > div > p {
-    font-size: small;
+    font-size: 18px;
   }
   section > article > ul {
     border: 3px solid red;
     margin: 16px;
     display: flex;
     justify-content: space-between;
+    flex: 0.2;
   }
 
   @media (min-width: 55rem) {

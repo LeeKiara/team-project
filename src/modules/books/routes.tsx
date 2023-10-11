@@ -5,6 +5,7 @@ import BookNewList from "./BookNewList";
 import BookForeignList from "./BookForeignList";
 import BookSearch from "./BookSearch";
 import { lazy } from "react";
+import BookPage from "./BookPage";
 
 const BookSidebar = lazy(() => import("./BookSidebar"));
 
@@ -17,4 +18,5 @@ export const booksRouts = [
     <Route key="foregin" path="foreign" element={<BookForeignList />} />,
   </Route>,
   <Route key="search" path="/search" element={<BookSearch />} />,
+  <Route key="page" path="/page" element={<BookPage />} />,
 ];
