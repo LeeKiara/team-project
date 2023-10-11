@@ -21,12 +21,14 @@ export const SearchContainer = styled.div`
   }
   table {
     border-collapse: collapse;
-    width: 100%;
+    width: 1700px;
   }
   table > thead {
     border: 2px solid #dddddd;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    /* box-shadow: 3px 3px 5px #dddddd; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.2);
   }
   table > tbody > tr {
     border: 2px solid #dddddd;
@@ -81,5 +83,12 @@ export const SearchContainer = styled.div`
     font-size: 20px;
     vertical-align: top;
     margin-left: 2px;
+  }
+
+  @media (min-width: 100rem) {
+    table {
+      width: 100%;
+      margin: auto;
+    }
   }
 `;

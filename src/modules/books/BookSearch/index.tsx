@@ -87,7 +87,9 @@ const BookSearch = () => {
                       <td>
                         <Link to={`${item.link}`}>{`${item.link}`}</Link>
                       </td>
-                      <td>{`${item.priceStandard}`}</td>
+                      <td>
+                        <del>{`${item.priceStandard}`}</del>
+                      </td>
                       <td>{`${item.priceSales}`}</td>
                       <td>10</td>
                       <td>
