@@ -5,7 +5,9 @@ import { SidebarContainer } from "./styles";
 const BookSidebar = () => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
-  const [group, setGroup] = useState("국내도서");
+  const [group, setGroup] = useState<
+    "베스트도서" | "신간도서" | "국내도서" | "외국도서"
+  >("국내도서");
 
   useEffect(() => {
     if (path === "best") {
@@ -24,7 +26,7 @@ const BookSidebar = () => {
       <div id="sidebar">
         <main>
           <aside>
-            <h3>{group}</h3>
+            <Sidebar group={`${group}`} />
             <ul>
               <li>
                 <Link to={`/books/${path}?keyword=사전`}>사전</Link>
@@ -90,6 +92,44 @@ const BookSidebar = () => {
         </main>
       </div>
     </SidebarContainer>
+  );
+};
+
+const Sidebar = ({ group }: { group: string }) => {
+  let sidebarStyle: React.CSSProperties = {
+    paddingLeft: "20px",
+    paddingTop: "10px",
+    paddingBottom: "10px",
+    fontSize: "18px",
+  }; // 초기화
+
+  if (group === "외국도서") {
+    sidebarStyle = {
+      ...sidebarStyle,
+      backgroundColor: "blue",
+    };
+  } else if (group === "신간도서") {
+    sidebarStyle = {
+      ...sidebarStyle,
+      backgroundColor: "lightgray",
+    };
+  } else if (group === "베스트도서") {
+    sidebarStyle = {
+      ...sidebarStyle,
+      backgroundColor: "black",
+      color: "white",
+    };
+  } else {
+    sidebarStyle = {
+      ...sidebarStyle,
+      backgroundColor: "#fde7e7",
+    };
+  }
+
+  return (
+    <div style={sidebarStyle}>
+      <h3>{group}</h3>
+    </div>
   );
 };
 

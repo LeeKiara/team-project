@@ -13,7 +13,7 @@ export const SidebarContainer = styled.div`
   }
   main > aside {
     width: 200px;
-    height: 500px;
+    height: 520px;
     border: 2px solid black;
   }
   main > aside > ul {
@@ -26,8 +26,8 @@ export const SidebarContainer = styled.div`
   }
   main > aside > h3 {
     padding-left: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #fde7e7;
   }
   main > section {

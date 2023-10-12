@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { BookContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ShoppingCart } from "@mui/icons-material";
+import Button from "@/components/Button";
 
 const BookList = () => {
   const [page, setPage] = useState(0);
@@ -62,16 +63,21 @@ const BookList = () => {
                         handleBookSave(item.itemId);
                       }}
                     >
-                      {storeHeartStates[item.itemId] ? (
-                        <Favorite className="material-icons-outlined heart" />
-                      ) : (
-                        <FavoriteBorder className="material-icons-outlined" />
-                      )}
-                      <span>선호작품</span>
+                      <button className="btn">
+                        {storeHeartStates[item.itemId] ? (
+                          <Favorite className="material-icons-outlined heart" />
+                        ) : (
+                          <FavoriteBorder className="material-icons-outlined" />
+                        )}
+                        선호작품
+                      </button>
                     </li>
-                    <li>
-                      <button>장바구니 담기</button>
-                    </li>
+                    <div>
+                      <button className="btn last">
+                        <ShoppingCart className="material-icons-outlined" />
+                        장바구니
+                      </button>
+                    </div>
                   </ul>
                 </article>
               ))
