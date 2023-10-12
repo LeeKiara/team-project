@@ -40,6 +40,13 @@ export interface BookItem {
   salesPoint: number;
   fixedPrice: boolean;
   customerReviewRank: number;
+  seriseInfo: SeriesInfo;
+}
+
+export interface SeriesInfo {
+  seriesId: number;
+  seriesLink: string;
+  seriesName: string;
 }
 
 export interface BestBookData {

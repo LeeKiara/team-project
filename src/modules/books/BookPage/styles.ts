@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const PageContainer = styled.div`
-  #amount {
-    display: flex;
+  hr {
+    width: 100%;
+    color: black;
   }
-  #amount > div {
-    display: flex;
-    flex-direction: column;
+  p {
+    font-size: 18px;
   }
   section {
     width: 60%;
@@ -30,13 +30,24 @@ export const PageContainer = styled.div`
   section > article > aside {
     flex: 1;
     padding: 25px;
-    border: 2px solid cadetblue;
-  }
-  section > article > aside > div:nth-of-type(1) {
-    border: 2px solid olive;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+  }
+  section > article > aside > div:nth-of-type(1) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  #amount {
+    flex: 0.2;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+  }
+  #amount > div {
+    display: flex;
+    flex-direction: column;
   }
   section > article > aside > div dl {
     display: flex;
@@ -49,9 +60,112 @@ export const PageContainer = styled.div`
   section > article > nav {
     flex: 0.5;
     padding: 25px;
-    border: 2px solid crimson;
+    border-left: 2px solid #dddddd;
   }
   section > article > aside > h2 {
     font-size: 30px;
+  }
+  article > nav > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80%;
+    padding-left: 30px;
+    margin: auto;
+  }
+  button {
+    font-size: 20px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 15px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 200px;
+    background-color: #708b95;
+    color: #fff;
+  }
+  button > svg {
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  article > nav > ul > li:last-child > button {
+    background-color: #e97171;
+  }
+  .heart {
+    color: red;
+  }
+  footer {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    height: 500px;
+  }
+  footer > h2 {
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  footer > section {
+    margin: 40px;
+    width: 90%;
+    height: 30%;
+    /* border: 2px solid violet; */
+    display: flex;
+  }
+  footer > section > h3 {
+    font-size: 23px;
+    width: 10%;
+  }
+  footer > section > p {
+    width: 80%;
+    margin: auto;
+    line-height: 1.5;
+  }
+  footer > form {
+    width: 70%;
+    gap: 10px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    padding-bottom: 30px;
+  }
+  footer > form > h4 {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-bottom: 5px;
+  }
+  footer > form > h4 > sub {
+    font-size: small;
+    margin-left: 5px;
+    font-weight: lighter;
+  }
+  footer > form > label {
+    display: flex;
+    justify-content: center;
+  }
+  footer > form > label > textarea {
+    padding: 8px;
+    line-height: 1.5;
+    height: 100px;
+    resize: none;
+    overflow: hidden;
+  }
+  footer > form > label > button {
+    font-size: 16px;
   }
 `;

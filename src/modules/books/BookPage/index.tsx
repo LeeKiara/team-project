@@ -1,11 +1,12 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookData, BookItem, useBooksItem } from "../data";
+import { BookData, BookItem, useBooksItem, SeriesInfo } from "../data";
 import axios from "axios";
 import {
   Favorite,
   FavoriteBorder,
+  ShoppingCart,
   ThumbDown,
   ThumbDownOffAlt,
   ThumbUp,
@@ -19,6 +20,7 @@ const BookPage = () => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
+  const [seriesInfo, setSeriesInfo] = useState<SeriesInfo | null>(null);
 
   const keyword = searchParams.get("keyword");
 
@@ -96,6 +98,10 @@ const BookPage = () => {
                     <dt>지은이: </dt>
                     <p>{`${detail.author}`}</p>
                   </dl>
+                  <dl>
+                    <dt>isbn: </dt>
+                    <p>{`${detail.isbn}`}</p>
+                  </dl>
                 </div>
                 <div id="amount">
                   수량:
@@ -126,39 +132,48 @@ const BookPage = () => {
                       handleBookSave(detail.itemId);
                     }}
                   >
-                    <span>선호작품</span>
-                    {storeHeartStates[detail.itemId] ? (
-                      <Favorite className="material-icons-outlined heart" />
-                    ) : (
-                      <FavoriteBorder className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeHeartStates[detail.itemId] ? (
+                        <Favorite className="material-icons-outlined heart" />
+                      ) : (
+                        <FavoriteBorder className="material-icons-outlined" />
+                      )}
+                      선호작품
+                    </button>
                   </li>
                   <li
                     onClick={() => {
                       handleThumbUp(detail.itemId);
                     }}
                   >
-                    <span>추천</span>
-                    {storeThumbStates[detail.itemId] ? (
-                      <ThumbUp className="material-icons-outlined thumb" />
-                    ) : (
-                      <ThumbUpOffAlt className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeThumbStates[detail.itemId] ? (
+                        <ThumbUp className="material-icons-outlined thumb" />
+                      ) : (
+                        <ThumbUpOffAlt className="material-icons-outlined" />
+                      )}
+                      추천
+                    </button>
                   </li>
                   <li
                     onClick={() => {
                       handleThumbDown(detail.itemId);
                     }}
                   >
-                    <span>싫어요</span>
-                    {storeThumbDownStates[detail.itemId] ? (
-                      <ThumbDown className="material-icons-outlined thumb" />
-                    ) : (
-                      <ThumbDownOffAlt className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeThumbDownStates[detail.itemId] ? (
+                        <ThumbDown className="material-icons-outlined thumb" />
+                      ) : (
+                        <ThumbDownOffAlt className="material-icons-outlined" />
+                      )}
+                      싫어요
+                    </button>
                   </li>
                   <li>
-                    <button>장바구니 담기</button>
+                    <button className="btn">
+                      <ShoppingCart className="material-icons-outlined" />
+                      장바구니
+                    </button>
                   </li>
                 </ul>
               </nav>
@@ -167,11 +182,35 @@ const BookPage = () => {
             <p>책을 찾을 수 없습니다.</p>
           )}
           <footer>
+            <h2>도서정보</h2>
+            <hr />
+            {detail ? (
+              <section>
+                <h3>책소개</h3>
+                <p>{detail.description}</p>
+                {detail.seriseInfo ? (
+                  <div>
+                    <h3>연관된 책 소개</h3>
+                    <h5>{detail.seriseInfo.seriesName}</h5>
+                  </div>
+                ) : null}
+              </section>
+            ) : (
+              <p>책 소개 글이 없습니다.</p>
+            )}
             <form>
+              <h4>
+                독자서평쓰기
+                <sub>로그인을 하시면 댓글을 작성할 수 있습니다.</sub>
+              </h4>
               <label>
-                <input type="text" placeholder="댓글을 입력해주세요." />
+                <textarea
+                  placeholder="댓글을 입력해주세요"
+                  cols={100}
+                  rows={10}
+                ></textarea>
+                <button>등록</button>
               </label>
-              <button>등록</button>
             </form>
           </footer>
         </section>
