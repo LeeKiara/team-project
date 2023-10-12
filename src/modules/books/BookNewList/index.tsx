@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useState } from "react";
 import { useBooksItem } from "../data";
+import Button from "@/components/Button";
 
 const BookNewList = () => {
   const [page, setPage] = useState(0);
@@ -39,9 +40,7 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <dl>
-                        <button>장바구니 담기</button>
-                      </dl>
+                      <Button />
                     </div>
                   </li>
                 ))

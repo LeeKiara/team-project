@@ -105,14 +105,12 @@ export const PageContainer = styled.div`
     width: 200px;
     background-color: #708b95;
     color: #fff;
+    font-size: 18px;
   }
   button > svg {
     vertical-align: middle;
     font-size: 20px;
     margin-right: 5px;
-  }
-  article > nav > ul > li:last-child > button {
-    background-color: #e97171;
   }
   .heart {
     color: red;

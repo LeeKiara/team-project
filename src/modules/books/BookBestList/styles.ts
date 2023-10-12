@@ -65,7 +65,7 @@ export const BookBestContainer = styled.div`
   }
   .btn {
     display: inline-block;
-    padding: 10px 12px;
+    padding: 12px 15px;
     margin-bottom: 0;
     font-weight: 400;
     line-height: 1.42857143;
@@ -79,17 +79,10 @@ export const BookBestContainer = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    color: #fff;
-  }
-  section > article > ul > li:nth-of-type(3) {
-    cursor: pointer;
-    display: flex;
+    width: 200px;
     background-color: #708b95;
-  }
-  section > article > ul > li:nth-of-type(4) {
-    cursor: pointer;
-    display: flex;
-    background-color: #e97171;
+    color: #fff;
+    font-size: 18px;
   }
   button > svg {
     vertical-align: middle;

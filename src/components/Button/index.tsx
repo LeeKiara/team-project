@@ -4,12 +4,12 @@ import { ButtonStyle } from "./styles";
 const Button = () => {
   return (
     <ButtonStyle>
-      <li>
+      <div>
         <button>
           <ShoppingCart className="material-icons-outlined" />
           장바구니
         </button>
-      </li>
+      </div>
     </ButtonStyle>
   );
 };

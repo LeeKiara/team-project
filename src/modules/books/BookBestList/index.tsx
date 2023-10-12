@@ -66,17 +66,18 @@ const BookBestList = () => {
                     </li>
                     <li>판매가: {`${item.priceSales}`}원</li>
                     <li
-                      className="btn"
                       onClick={() => {
                         handleBookSave(item.itemId);
                       }}
                     >
-                      {storeHeartStates[item.itemId] ? (
-                        <Favorite className="material-icons-outlined heart" />
-                      ) : (
-                        <FavoriteBorder className="material-icons-outlined" />
-                      )}
-                      선호작품
+                      <button className="btn">
+                        {storeHeartStates[item.itemId] ? (
+                          <Favorite className="material-icons-outlined heart" />
+                        ) : (
+                          <FavoriteBorder className="material-icons-outlined" />
+                        )}
+                        선호작품
+                      </button>
                     </li>
                     <Button />
                   </ul>
