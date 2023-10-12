@@ -202,21 +202,26 @@ const BookPage = () => {
             </figure>
             {detail ? (
               <section>
-                <hr />
                 {detail.description ? (
-                  <div>
-                    <h3>책소개</h3>
-                    <p>{detail.description}</p>
-                  </div>
+                  <>
+                    <hr />
+                    <div>
+                      <h3>책소개</h3>
+                      <p>{detail.description}</p>
+                    </div>
+                  </>
                 ) : null}
-                <hr />
                 {detail.seriesInfo ? (
-                  <div>
-                    <h3>시리즈</h3>
-                    <Link to={detail.seriesInfo.seriesLink}>
-                      <p>{detail.seriesInfo.seriesName}</p>
-                    </Link>
-                  </div>
+                  <>
+                    <hr />
+                    <div>
+                      <h3>시리즈</h3>
+                      <Link to={detail.seriesInfo.seriesLink}>
+                        <p>{detail.seriesInfo.seriesName}</p>
+                      </Link>
+                    </div>
+                    <hr />
+                  </>
                 ) : null}
               </section>
             ) : (

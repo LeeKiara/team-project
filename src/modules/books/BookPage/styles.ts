@@ -11,6 +11,7 @@ export const PageContainer = styled.div`
   section {
     width: 60%;
     margin: auto;
+    margin-top: 20px;
   }
   section > article {
     display: flex;
