@@ -1,12 +1,11 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookData, BookItem, useBooksItem, SeriesInfo } from "../data";
+import { BookData, BookItem } from "../data";
 import axios from "axios";
 import {
   Favorite,
   FavoriteBorder,
-  ShoppingCart,
   ThumbDown,
   ThumbDownOffAlt,
   ThumbUp,
