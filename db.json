@@ -624,7 +624,7 @@
       "cover": "http://image.aladin.co.kr/product/90/79/coversum/8957363335_1.jpg",
       "priceStandard": "13500",
       "priceSales": "10800",
-      "quantity": "1",
+      "quantity": "2",
       "id": 2
     },
     {
@@ -633,7 +633,7 @@
       "cover": "http://image.aladin.co.kr/product/1743/27/coversum/8997386166_1.jpg",
       "priceStandard": "10000",
       "priceSales": "9500",
-      "quantity": "1",
+      "quantity": "3",
       "id": 3
     }
   ]
