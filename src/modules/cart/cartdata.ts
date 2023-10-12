@@ -41,7 +41,7 @@ const cartFetcher = async ([key]) => {
 export const useCartData = () => {
   const {
     data: cartData,
-    mutate,
+    mutate: mutateCartData,
     isValidating: isCartDataValidating,
   } = useSWR<CartData[]>([CART_DATA_KEY], cartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
@@ -94,6 +94,7 @@ export const useCartData = () => {
 
   return {
     cartData,
+    mutateCartData,
     createCartData,
     isCartDataValidating,
   };

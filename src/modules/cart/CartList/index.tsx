@@ -6,15 +6,26 @@ import axios from "axios";
 import * as React from "react";
 
 const CartList = () => {
-  const { cartData: cartlist, isCartDataValidating } = useCartData();
+  // 장바구니 캐시 데이터
+  const {
+    cartData: cartlist,
+    mutateCartData,
+    isCartDataValidating,
+  } = useCartData();
+
+  // 장바구니 수량 상태
   const [qtys, setQtys] = useState([]);
+  // 정가 상태
   const [priceStandards, setPriceStandards] = useState([]);
+  // 할인가 상태
   const [priceSales, setPriceSales] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [selectedData, setSelectedData] = useState([]);
 
   const navigate = useNavigate();
   const quantityRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  // cartData가 로드되면 initialNumbers 배열을 설정
+  // 장바구니 캐시 데이터로 수량/정가/할인가 초기화 배열 설정
   useEffect(() => {
     if (cartlist && cartlist.length > 0) {
       // 장바구니 수량 cartData에 저장된 값으로 초기화
@@ -37,31 +48,27 @@ const CartList = () => {
     }
   }, [cartlist]);
 
-  // 장바구니 수량이 변경되면 처리 되는 함수
+  // 장바구니 수량이 변경되면 정가와 할인가 변경 처리
   useEffect(() => {
-    // qtys가 변경되면 처리...
     console.log("!! qtys useEffect  ");
-    console.log(qtys);
-    console.log(priceStandards);
+    console.log(qtys + ", " + priceStandards);
 
-    // 정가 변경 : (수량이 변경되면 정가 다시 계산)
+    // 정가 다시 계산
     const calcuPriceStandard = qtys.map((item, index) => {
       return item * Number(cartlist[index].priceStandard);
     });
 
     setPriceStandards(calcuPriceStandard);
 
-    console.log("calcuPriceStandard:", calcuPriceStandard);
-    console.log("priceStandards:", priceStandards);
+    // console.log("calcuPriceStandard:", calcuPriceStandard);
+    // console.log("priceStandards:", priceStandards);
 
-    // 할인가 다시 계산 : (수량이 변경되면)
+    // 할인가 다시 계산
     const calcuPriceSales = qtys.map((item, index) => {
       return item * Number(cartlist[index].priceSales);
     });
 
     setPriceSales(calcuPriceSales);
-
-    //
   }, [qtys]);
 
   // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
@@ -79,15 +86,6 @@ const CartList = () => {
       newQtys[index] = itemQty;
       return newQtys;
     });
-
-    // // 정가 상태 변경 처리 (수량이 변경되면 정가 다시 계산)
-    // setPriceStandards((prevPriceStandards) => {
-    //   const newPriceStandards = [...prevPriceStandards];
-    //   newPriceStandards[index] = itemQty * prevPriceStandards[index];
-    //   return newPriceStandards;
-    // });
-
-    // console.log("** handleQtyChange  priceStandards : " + priceStandards[0]);
   };
 
   // 수량 1씩 증가
@@ -99,14 +97,6 @@ const CartList = () => {
       newQtys[index] = newQtys[index] + 1;
       return newQtys;
     });
-
-    // // 정가 상태 변경 처리 (수량이 변경되면 정가 다시 계산)
-    // setPriceStandards((prevPriceStandards) => {
-    //   const newPriceStandards = [...prevPriceStandards];
-    //   // 정가 다시 계산 : 수량 * 정가
-    //   newPriceStandards[index] = qtys[index] * newPriceStandards[index];
-    //   return newPriceStandards;
-    // });
 
     console.log(
       "●●●●● handleIncrement qtys:" +
@@ -120,8 +110,8 @@ const CartList = () => {
   const handleDecrement = (index) => {
     setQtys((prevQtys) => {
       const newQtys = [...prevQtys];
-      if (newQtys[index] < 1) {
-        newQtys[index] = 0;
+      if (newQtys[index] <= 1) {
+        newQtys[index] = 1;
       } else {
         newQtys[index] = newQtys[index] - 1;
       }
@@ -130,7 +120,67 @@ const CartList = () => {
     });
   };
 
+  const handleCheckBox = (index) => {
+    console.log("==== 1. handleCheckBox ");
+    const selectedItems = qtys
+      .map((qty, index) => ({
+        qty,
+        priceStandard: priceStandards[index],
+        priceSales: priceSales[index],
+      }))
+      .filter((_, index) => checkedItems[index]);
+    setSelectedData(selectedItems);
+
+    const newCheckedItems = [...checkedItems];
+    newCheckedItems[index] = !newCheckedItems[index];
+
+    console.log("==== 2. handleCheckBox :" + newCheckedItems[index]);
+
+    setCheckedItems(newCheckedItems);
+  };
+
+  // 체크박스 선택 값이 변경되었을때 처리되는 함수
+  useEffect(() => {
+    console.log("!! 체크박스 selectedData useEffect  ");
+
+    const selectedItems = qtys
+      .map((qty, index) => ({
+        qty,
+        priceStandard: priceStandards[index],
+        priceSales: priceSales[index],
+      }))
+      .filter((_, index) => checkedItems[index]);
+
+    console.log(
+      "!! 체크박스 selectedData useEffect ==> selectedItems : " +
+        selectedItems +
+        ", length : " +
+        selectedItems.length
+    );
+
+    selectedData.map((selectedItem, index) => {
+      console.log(
+        "   >>> " + selectedItem.qty + ", " + selectedItem.priceStandard
+      );
+    });
+  }, [selectedData]);
+
+  const handleShowCheckedItems = () => {
+    console.log("▶▶▶ handleShowCheckedItems");
+
+    const selectedItems = qtys
+      .map((qty, index) => ({
+        qty,
+        priceStandard: priceStandards[index],
+        priceSales: priceSales[index],
+      }))
+      .filter((_, index) => checkedItems[index]);
+    setSelectedData(selectedItems);
+  };
+
   const handleOrder = () => {
+    // 장바구니 저장
+    // 주문하기 화면으로 이동
     navigate("/cart/order");
   };
 
@@ -140,7 +190,26 @@ const CartList = () => {
         <section>
           <article>
             <div className="cart-header">
-              <h3 className="title">장바구니</h3>
+              <h3 className="title">
+                장바구니 :{" "}
+                <button onClick={handleShowCheckedItems}>
+                  선택된 항목 보기
+                </button>
+              </h3>
+            </div>
+            <div>{<h2>체크박스 선택된 값을 보여줍니다.</h2>}</div>
+            <div>
+              <h3>선택된 항목:</h3>
+              <ul>
+                {selectedData.map((selectedItem, index) => (
+                  <li key={`selected-${index}`}>
+                    {/* 여기에 선택된 항목의 정보를 표시하세요 */}
+                    {`항목 ${index + 1} => 수량 : ${selectedItem.qty}, 정가 : ${
+                      selectedItem.priceStandard
+                    }, 할인가 : ${selectedItem.priceSales}`}
+                  </li>
+                ))}
+              </ul>
             </div>
           </article>
           <article className="cart-layer-title">
@@ -165,7 +234,9 @@ const CartList = () => {
                     type="checkbox"
                     name="product_seq"
                     className="listCheckBox"
-                    key={`item-${cartCashData.id}`}
+                    key={cartCashData.id}
+                    // onClick={() => handleCheckBox(index)}
+                    // checked={checkedItems[index] || false}
                   />
                 </label>
                 <figure>
@@ -181,10 +252,14 @@ const CartList = () => {
                   </div>
                   <p>
                     {cartCashData.id},{cartCashData.title}
+                    <br />
+                    (할인가:
+                    {cartCashData.priceSales},정가:{cartCashData.priceStandard})
                   </p>
                 </div>
               </div>
               {/* 가격정보 */}
+
               <div className="priceinfo">
                 {/* 수량 */}
                 <div style={{ width: "150px" }}>
@@ -215,6 +290,25 @@ const CartList = () => {
 
           {/* 주문합계 */}
           <article>
+            <div>
+              {selectedData.length > 0 && (
+                <div>
+                  <h3>선택된 항목:</h3>
+                  <ul>
+                    {selectedData.map((selectedItem, index) => (
+                      <li key={`selected-${index}`}>
+                        {/* 여기에 선택된 항목의 정보를 표시하세요 */}
+                        {`항목 ${index + 1} => 수량 : ${
+                          selectedItem.qty
+                        }, 정가 : ${selectedItem.priceStandard}, 할인가 : ${
+                          selectedItem.priceSales
+                        }`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
             <div className="box-total-payment">
               <div className="total-text">주문합계</div>
               <div className="total-sum">
