@@ -7,40 +7,126 @@ import * as React from "react";
 
 const CartList = () => {
   const { cartData: cartlist, isCartDataValidating } = useCartData();
-  const [numbers, setNumbers] = useState([]);
+  const [qtys, setQtys] = useState([]);
+  const [priceStandards, setPriceStandards] = useState([]);
+  const [priceSales, setPriceSales] = useState([]);
 
   const navigate = useNavigate();
   const quantityRef = useRef() as MutableRefObject<HTMLInputElement>;
 
+  // cartData가 로드되면 initialNumbers 배열을 설정
   useEffect(() => {
-    // cartData가 로드되면 initialNumbers 배열을 설정
     if (cartlist && cartlist.length > 0) {
+      // 장바구니 수량 cartData에 저장된 값으로 초기화
       const initialNumbers = cartlist.map((item) =>
         parseInt(item.quantity, 10)
       );
-      setNumbers(initialNumbers);
+      setQtys(initialNumbers);
+
+      // 정가
+      const initialPriceStandard = cartlist.map((item) =>
+        parseInt(item.priceStandard, 10)
+      );
+      setPriceStandards(initialPriceStandard);
+
+      // 할인가
+      const initialPriceSales = cartlist.map((item) =>
+        parseInt(item.priceSales, 10)
+      );
+      setPriceSales(initialPriceSales);
     }
   }, [cartlist]);
+
+  // 장바구니 수량이 변경되면 처리 되는 함수
+  useEffect(() => {
+    // qtys가 변경되면 처리...
+    console.log("!! qtys useEffect  ");
+    console.log(qtys);
+    console.log(priceStandards);
+
+    // 정가 변경 : (수량이 변경되면 정가 다시 계산)
+    const calcuPriceStandard = qtys.map((item, index) => {
+      return item * Number(cartlist[index].priceStandard);
+    });
+
+    setPriceStandards(calcuPriceStandard);
+
+    console.log("calcuPriceStandard:", calcuPriceStandard);
+    console.log("priceStandards:", priceStandards);
+
+    // 할인가 다시 계산 : (수량이 변경되면)
+    const calcuPriceSales = qtys.map((item, index) => {
+      return item * Number(cartlist[index].priceSales);
+    });
+
+    setPriceSales(calcuPriceSales);
+
+    //
+  }, [qtys]);
 
   // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
   console.log("---validating---");
   console.log(isCartDataValidating);
 
+  // 장바구니 수량 변경 이벤트 핸들러
   const handleQtyChange = (e, index) => {
+    console.log("** handleQtyChange ");
+
     const itemQty = parseInt(e.target.value, 10);
 
-    setNumbers((prevNumbers) => {
-      const newNumbers = [...prevNumbers];
-      newNumbers[index] = itemQty;
-      return newNumbers;
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      newQtys[index] = itemQty;
+      return newQtys;
     });
+
+    // // 정가 상태 변경 처리 (수량이 변경되면 정가 다시 계산)
+    // setPriceStandards((prevPriceStandards) => {
+    //   const newPriceStandards = [...prevPriceStandards];
+    //   newPriceStandards[index] = itemQty * prevPriceStandards[index];
+    //   return newPriceStandards;
+    // });
+
+    // console.log("** handleQtyChange  priceStandards : " + priceStandards[0]);
   };
 
+  // 수량 1씩 증가
   const handleIncrement = (index) => {
-    setNumbers((prevNumbers) => {
-      const newNumbers = [...prevNumbers];
-      newNumbers[index] = newNumbers[index] + 1;
-      return newNumbers;
+    console.log("●●●●● handleIncrement ");
+
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      newQtys[index] = newQtys[index] + 1;
+      return newQtys;
+    });
+
+    // // 정가 상태 변경 처리 (수량이 변경되면 정가 다시 계산)
+    // setPriceStandards((prevPriceStandards) => {
+    //   const newPriceStandards = [...prevPriceStandards];
+    //   // 정가 다시 계산 : 수량 * 정가
+    //   newPriceStandards[index] = qtys[index] * newPriceStandards[index];
+    //   return newPriceStandards;
+    // });
+
+    console.log(
+      "●●●●● handleIncrement qtys:" +
+        qtys[index] +
+        ", priceStandards : " +
+        priceStandards[index]
+    );
+  };
+
+  // 수량 1씩 감소
+  const handleDecrement = (index) => {
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      if (newQtys[index] < 1) {
+        newQtys[index] = 0;
+      } else {
+        newQtys[index] = newQtys[index] - 1;
+      }
+
+      return newQtys;
     });
   };
 
@@ -105,18 +191,20 @@ const CartList = () => {
                   <input
                     type="text"
                     placeholder="0"
-                    value={numbers[index]}
+                    value={qtys[index]}
                     onChange={(e) => handleQtyChange(e, index)}
                   />
                   <button onClick={() => handleIncrement(index)}>1 증가</button>
+                  <button onClick={() => handleDecrement(index)}>1 감소</button>
                 </div>
 
                 {/* 할인가/정가 */}
                 <div>
                   <div className="box-price">
-                    <strong>{cartCashData.priceSales}</strong>원
-                    <del>정가{cartCashData.priceStandard}원</del>
+                    <strong>{priceSales[index]}</strong>원
+                    <del>정가{priceStandards[index]}원</del>
                   </div>
+                  {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
                 </div>
 
                 {/* 삭제버튼 */}

@@ -33,6 +33,19 @@ function MyComponent() {
     });
   };
 
+  const handleDecrement = (index) => {
+    setNumbers((prevNumbers) => {
+      const newNumbers = [...prevNumbers];
+      if (newNumbers[index] < 1) {
+        newNumbers[index] = 0;
+      } else {
+        newNumbers[index] = newNumbers[index] - 1;
+      }
+
+      return newNumbers;
+    });
+  };
+
   return (
     <div>
       {cartData.map((item, index) => (
@@ -44,6 +57,7 @@ function MyComponent() {
             onChange={(e) => handleQtyChange(e, index)}
           />
           <button onClick={() => handleIncrement(index)}>1 증가</button>
+          <button onClick={() => handleDecrement(index)}>1 감소</button>
         </div>
       ))}
     </div>
