@@ -1,13 +1,13 @@
 import { Route } from "react-router-dom";
 import { lazy } from "react";
+import BookSearch from "./BookSearch";
+import BookPage from "./BookPage";
 
 const BookSidebar = lazy(() => import("./BookSidebar"));
 const BookList = lazy(() => import("./BookList"));
 const BookNewList = lazy(() => import("./BookNewList"));
 const BookBestList = lazy(() => import("./BookBestList"));
 const BookForeignList = lazy(() => import("./BookForeignList"));
-const BookSearch = lazy(() => import("./BookSearch"));
-const BookPage = lazy(() => import("./BookPage"));
 
 export const booksRouts = [
   <Route key="books" path="books" element={<BookSidebar />}>

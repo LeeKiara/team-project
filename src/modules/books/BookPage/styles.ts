@@ -51,6 +51,7 @@ export const PageContainer = styled.div`
   #amount > input {
     vertical-align: middle;
     height: 38px;
+    padding-left: 8px;
   }
   #amount > div {
     margin-left: -9px;
