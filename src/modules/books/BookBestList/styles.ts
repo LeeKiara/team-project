@@ -8,12 +8,16 @@ export const BookBestContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
   section > article {
+    padding: 5px;
     display: flex;
     flex-direction: column;
-    border: 1px solid olive;
+    border: 2px solid #dddddd;
+    border-right: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    margin-bottom: 10px;
   }
   section > article > div {
     flex: 1.5;
@@ -21,24 +25,24 @@ export const BookBestContainer = styled.div`
     flex-direction: column;
   }
   section > article > div > figure {
-    border: 1px solid salmon;
     margin: 16px;
   }
   section > article > div > figure > a > img {
-    width: 200px;
-    height: 300px;
+    width: 150px;
+    height: 180px;
     cursor: pointer;
   }
   section > article > div > div {
     flex: 1;
-    border: 2px solid green;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20px;
+    padding-right: 10px;
+    border-right: 2px solid #dddddd;
   }
   section > article > div > div > h3 {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
   }
@@ -46,11 +50,29 @@ export const BookBestContainer = styled.div`
     font-size: 18px;
   }
   section > article > ul {
-    border: 3px solid red;
-    margin: 16px;
+    margin: 10px;
     display: flex;
     justify-content: space-between;
     flex: 0.2;
+  }
+  section > article > ul li {
+    display: flex;
+    gap: 2px;
+    cursor: auto;
+  }
+  section > article > ul > li:nth-of-type(3) {
+    cursor: pointer;
+    display: flex;
+  }
+  section > article > ul > li:nth-of-type(3) > span:nth-of-type(1) {
+    font-size: 16px;
+    padding-top: 3px;
+  }
+  button {
+    cursor: pointer;
+  }
+  .heart {
+    color: red;
   }
 
   @media (min-width: 55rem) {

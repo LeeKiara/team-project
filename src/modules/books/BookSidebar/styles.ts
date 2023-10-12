@@ -9,7 +9,6 @@ export const SidebarContainer = styled.div`
   main {
     display: flex;
     width: 60%;
-    /* border: 1px solid blue; */
     gap: 20px;
   }
   main > aside {
@@ -29,7 +28,7 @@ export const SidebarContainer = styled.div`
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: antiquewhite;
+    background-color: #fde7e7;
   }
   main > section {
     width: 100%;
