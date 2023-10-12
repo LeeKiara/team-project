@@ -13,6 +13,7 @@ import {
   ThumbUpOffAlt,
 } from "@mui/icons-material";
 import BookComment from "../BookComment";
+import Button from "@/components/Button";
 
 interface BookComment {
   comment: string;
@@ -178,12 +179,7 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  <li>
-                    <button className="btn">
-                      <ShoppingCart className="material-icons-outlined" />
-                      장바구니
-                    </button>
-                  </li>
+                  <Button />
                 </ul>
               </nav>
             </article>

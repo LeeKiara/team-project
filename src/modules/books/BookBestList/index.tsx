@@ -3,6 +3,7 @@ import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, ShoppingBag } from "@mui/icons-material";
+import Button from "@/components/Button";
 
 const BookBestList = () => {
   const [page, setPage] = useState(0);
@@ -77,10 +78,7 @@ const BookBestList = () => {
                       )}
                       선호작품
                     </li>
-                    <li className="btn">
-                      <ShoppingBag className="material-icons-outlined" />
-                      장바구니
-                    </li>
+                    <Button />
                   </ul>
                 </article>
               ))
