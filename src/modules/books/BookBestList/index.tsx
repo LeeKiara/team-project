@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
-import { Favorite, FavoriteBorder, ShoppingBag } from "@mui/icons-material";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Button from "@/components/Button";
 
 const BookBestList = () => {
@@ -66,18 +66,17 @@ const BookBestList = () => {
                     </li>
                     <li>판매가: {`${item.priceSales}`}원</li>
                     <li
+                      className="btn"
                       onClick={() => {
                         handleBookSave(item.itemId);
                       }}
                     >
-                      <button className="btn">
-                        {storeHeartStates[item.itemId] ? (
-                          <Favorite className="material-icons-outlined heart" />
-                        ) : (
-                          <FavoriteBorder className="material-icons-outlined" />
-                        )}
-                        선호작품
-                      </button>
+                      {storeHeartStates[item.itemId] ? (
+                        <Favorite className="material-icons-outlined heart" />
+                      ) : (
+                        <FavoriteBorder className="material-icons-outlined" />
+                      )}
+                      선호작품
                     </li>
                     <Button />
                   </ul>
