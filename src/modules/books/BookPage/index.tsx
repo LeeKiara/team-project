@@ -12,6 +12,11 @@ import {
   ThumbUp,
   ThumbUpOffAlt,
 } from "@mui/icons-material";
+import BookComment from "../BookComment";
+
+interface BookComment {
+  comment: string;
+}
 
 const BookPage = () => {
   const [detail, setDetail] = useState<BookItem | null>(null);
@@ -20,7 +25,9 @@ const BookPage = () => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
-  const [seriesInfo, setSeriesInfo] = useState<SeriesInfo | null>(null);
+  const [comment, setComment] = useState<BookComment | null>(null);
+
+  const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   const keyword = searchParams.get("keyword");
 
@@ -51,7 +58,10 @@ const BookPage = () => {
     }));
   };
 
-  console.log("tt");
+  const handleSaveComment = () => {
+    setComment({ comment: `${commentText}` });
+  };
+
   const handleSandCart = () => {};
 
   useEffect(() => {
@@ -76,7 +86,6 @@ const BookPage = () => {
     <>
       <PageContainer>
         <section>
-          <h6>상세페이지</h6>
           {detail ? (
             <article>
               <figure>
@@ -184,14 +193,29 @@ const BookPage = () => {
           <footer>
             <h2>도서정보</h2>
             <hr />
+            <figure style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                style={{ margin: "auto" }}
+                src="https://contents.kyobobook.co.kr/sih/fit-in/814x0/dtl/illustrate/151/i9791159242151.jpg"
+                alt="이벤트사진"
+              />
+            </figure>
             {detail ? (
               <section>
-                <h3>책소개</h3>
-                <p>{detail.description}</p>
-                {detail.seriseInfo ? (
+                <hr />
+                {detail.description ? (
                   <div>
-                    <h3>연관된 책 소개</h3>
-                    <h5>{detail.seriseInfo.seriesName}</h5>
+                    <h3>책소개</h3>
+                    <p>{detail.description}</p>
+                  </div>
+                ) : null}
+                <hr />
+                {detail.seriesInfo ? (
+                  <div>
+                    <h3>시리즈</h3>
+                    <Link to={detail.seriesInfo.seriesLink}>
+                      <p>{detail.seriesInfo.seriesName}</p>
+                    </Link>
                   </div>
                 ) : null}
               </section>
@@ -208,9 +232,11 @@ const BookPage = () => {
                   placeholder="댓글을 입력해주세요"
                   cols={100}
                   rows={10}
+                  ref={commentText}
                 ></textarea>
-                <button>등록</button>
+                <button onClick={handleSaveComment}>등록</button>
               </label>
+              <BookComment />
             </form>
           </footer>
         </section>

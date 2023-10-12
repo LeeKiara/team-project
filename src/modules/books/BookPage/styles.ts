@@ -42,12 +42,21 @@ export const PageContainer = styled.div`
   #amount {
     flex: 0.2;
     display: flex;
-    gap: 20px;
+    gap: 10px;
     justify-content: flex-end;
+    font-size: 20px;
+    line-height: 2;
+  }
+  #amount > input {
+    vertical-align: middle;
+    height: 38px;
   }
   #amount > div {
+    margin-left: -9px;
+    vertical-align: middle;
     display: flex;
     flex-direction: column;
+    gap: 0;
   }
   section > article > aside > div dl {
     display: flex;
@@ -121,17 +130,25 @@ export const PageContainer = styled.div`
   footer > section {
     margin: 40px;
     width: 90%;
-    height: 30%;
-    /* border: 2px solid violet; */
+    margin-bottom: 60px;
+  }
+  footer > section div {
     display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
-  footer > section > h3 {
+  footer > section > div h3 {
     font-size: 23px;
-    width: 10%;
+    width: 30%;
   }
-  footer > section > p {
-    width: 80%;
-    margin: auto;
+  footer > section > div p {
+    width: 60%;
+    line-height: 1.5;
+  }
+  footer > section > div > a {
+    width: 60%;
+  }
+  footer > section > div > a > p {
     line-height: 1.5;
   }
   footer > form {
@@ -161,11 +178,12 @@ export const PageContainer = styled.div`
   footer > form > label > textarea {
     padding: 8px;
     line-height: 1.5;
-    height: 100px;
+    height: 80px;
     resize: none;
     overflow: hidden;
   }
   footer > form > label > button {
     font-size: 16px;
+    background-color: #fafafa;
   }
 `;

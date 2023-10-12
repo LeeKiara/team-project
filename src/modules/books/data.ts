@@ -40,7 +40,7 @@ export interface BookItem {
   salesPoint: number;
   fixedPrice: boolean;
   customerReviewRank: number;
-  seriseInfo: SeriesInfo;
+  seriesInfo: SeriesInfo;
 }
 
 export interface SeriesInfo {
