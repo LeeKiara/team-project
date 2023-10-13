@@ -178,7 +178,15 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  <Button />
+                  <Button
+                    gubun="KOR"
+                    itemId={detail.itemId}
+                    title={detail.title}
+                    cover={detail.cover}
+                    priceStandard={detail.priceStandard.toString()}
+                    priceSales={detail.priceSales.toString()}
+                    quantity={commentText.current.value}
+                  />
                 </ul>
               </nav>
             </article>
