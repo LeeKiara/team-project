@@ -40,7 +40,15 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <Button />
+                      <Button
+                        gubun="KOR"
+                        itemId={item.itemId}
+                        title={item.title}
+                        cover={item.cover}
+                        priceStandard={item.priceStandard.toString()}
+                        priceSales={item.priceSales.toString()}
+                        quantity="1"
+                      />
                     </div>
                   </li>
                 ))

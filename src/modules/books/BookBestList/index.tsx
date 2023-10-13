@@ -12,7 +12,7 @@ const BookBestList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
   const [storeHeartStates, setStoreHeartStates] = useState({});
-  const { cartData, createCartData } = useCartData();
+  const { createCartData } = useCartData();
 
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
@@ -81,7 +81,15 @@ const BookBestList = () => {
                         선호작품
                       </button>
                     </li>
-                    {/* <Button /> */}
+                    <Button
+                      gubun="KOR"
+                      itemId={item.itemId}
+                      title={item.title}
+                      cover={item.cover}
+                      priceStandard={item.priceStandard.toString()}
+                      priceSales={item.priceSales.toString()}
+                      quantity="1"
+                    />
                   </ul>
                 </article>
               ))
