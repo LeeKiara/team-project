@@ -77,7 +77,7 @@ const bookFetcher = async ([key, page]: string | number[]) => {
   }
 };
 
-export const useBooksItem = (page: number) => {
+export const useBooksItem = (page?: number) => {
   const {
     data: booksItem,
     mutate,

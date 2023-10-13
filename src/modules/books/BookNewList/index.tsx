@@ -5,8 +5,7 @@ import { useBooksItem } from "../data";
 import Button from "@/components/Button";
 
 const BookNewList = () => {
-  const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  const { booksItem: books, isBookItemValidating } = useBooksItem();
 
   return (
     <>

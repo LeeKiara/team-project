@@ -13,11 +13,15 @@ import {
 import Button from "@/components/Button";
 
 const BookSearch = () => {
+  //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+
+  //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
+  //페이징
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
 
@@ -40,6 +44,7 @@ const BookSearch = () => {
     }));
   };
 
+  //검색어 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);

@@ -5,10 +5,12 @@ import { SidebarContainer } from "./styles";
 const BookSidebar = () => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
+  //구분별 사이드값
   const [group, setGroup] = useState<
     "베스트도서" | "신간도서" | "국내도서" | "외국도서"
   >("국내도서");
 
+  //각 구분별 사이드바 상태 변화
   useEffect(() => {
     if (path === "best") {
       setGroup("베스트도서");

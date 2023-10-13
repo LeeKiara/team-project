@@ -6,12 +6,13 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Button from "@/components/Button";
 
 const BookBestList = () => {
-  const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  const { booksItem: books, isBookItemValidating } = useBooksItem();
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  //선호작품 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
 
+  //선호작품 추가
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
       ...prevStates,
@@ -19,6 +20,7 @@ const BookBestList = () => {
     }));
   };
 
+  //카테고리 이동 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);

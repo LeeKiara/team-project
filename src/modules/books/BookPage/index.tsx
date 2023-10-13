@@ -19,38 +19,51 @@ interface BookComment {
 }
 
 const BookPage = () => {
+  //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
+  //디테일 페이지 itemId값
   const [searchParams] = useSearchParams();
+
+  //카트데이터 수량값
   const [number, setNumber] = useState(0);
+
+  //선호작품 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
+  // 추천 상태값
   const [storeThumbStates, setStoreThumbState] = useState({});
+  //싫어요 상태값
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
+  //댓글 상태값
   const [comment, setComment] = useState<BookComment | null>(null);
 
   const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
+  //디테일 페이지 itemId값 가져오기
   const keyword = searchParams.get("keyword");
 
+  //수량 더하기 빼기
   const handlePlus = () => {
     setNumber(number + 1);
   };
-
   const handleMinus = () => {
     setNumber(number - 1);
   };
 
+  //선호작품
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
   };
+  //추천
   const handleThumbUp = (itemId: number) => {
     setStoreThumbState((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
   };
+  //비추천
   const handleThumbDown = (itemId: number) => {
     setStoreThumbDownState((prevStates) => ({
       ...prevStates,
@@ -58,12 +71,14 @@ const BookPage = () => {
     }));
   };
 
+  //댓글추가
   const handleSaveComment = () => {
     setComment({ comment: `${commentText}` });
   };
 
   const handleSandCart = () => {};
 
+  //화면 조회
   useEffect(() => {
     (async () => {
       try {
