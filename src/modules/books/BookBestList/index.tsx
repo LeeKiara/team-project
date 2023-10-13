@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Button from "@/components/Button";
+import { useCartData } from "@/modules/cart/cartdata";
 
 const BookBestList = () => {
   const [page, setPage] = useState(0);
@@ -11,6 +12,7 @@ const BookBestList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
   const [storeHeartStates, setStoreHeartStates] = useState({});
+  const { cartData, createCartData } = useCartData();
 
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
@@ -79,7 +81,7 @@ const BookBestList = () => {
                         선호작품
                       </button>
                     </li>
-                    <Button />
+                    {/* <Button /> */}
                   </ul>
                 </article>
               ))

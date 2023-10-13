@@ -94,6 +94,7 @@ export const HomeContainer = styled.div`
     margin: auto;
     width: 230px;
     height: 270px;
+    box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
   @media (min-width: 55rem) {
     div > section > article:nth-of-type(2) {

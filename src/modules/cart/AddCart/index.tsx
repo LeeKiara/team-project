@@ -2,6 +2,7 @@ import { MutableRefObject, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import { AddCartContainer } from "./styles";
+import MyComponent from "@/components/MyComponent";
 
 const AddCart = () => {
   // programatic방식으로 라우팅 처리
@@ -40,6 +41,8 @@ const AddCart = () => {
   return (
     <AddCartContainer>
       <section>
+        MyComponent : <MyComponent />
+        <hr />
         <h6>도서정보</h6>
         <hr />
         <article>

@@ -1,8 +1,34 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { ButtonStyle } from "./styles";
+import { useCartData } from "@/modules/cart/cartdata";
+import { CartData } from "@/modules/cart/cartdata";
+import { useNavigate } from "react-router-dom";
 
-const Button = () => {
-  const handleAddCart = () => {};
+const Button = ({
+  gubun,
+  itemId,
+  title,
+  cover,
+  priceStandard,
+  priceSales,
+  quantity,
+}: CartData) => {
+  const { createCartData } = useCartData();
+  const navigate = useNavigate();
+
+  const handleAddCart = () => {
+    createCartData({
+      gubun,
+      itemId,
+      title,
+      cover,
+      priceStandard,
+      priceSales,
+      quantity,
+    });
+    navigate(`/cart`);
+  };
+
   return (
     <ButtonStyle>
       <div>
