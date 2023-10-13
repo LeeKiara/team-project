@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { OrderContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { useCartData } from "../cartdata";
 
 const Order = () => {
+  // 장바구니 캐시 데이터
+  const { cartData: cartlist, isCartDataValidating } = useCartData();
+
   const [isCardSelected, setIsCardSelected] = useState(false);
   const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
   const [isBankDepositSelected, setIsBankDepositSelected] = useState(false);
@@ -41,160 +45,59 @@ const Order = () => {
             </div>
             <div className="wrap-payment">
               <div className="contain-payment-body">
-                {/* 상품목록 */}
-                {/* 주문 상품 1 */}
-                <article className="box-list-payment">
-                  {/* 도서정보(책이미지/도서명) */}
-                  <div className="bookinfo">
-                    <div>
-                      <input type="hidden" name="orderdata" />
-                      <div className="link-detail">
-                        <span className="image">
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            <img
-                              src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
-                              alt=""
-                            />
-                          </a>
-                        </span>
-                        <div className="text">
-                          <div className="box-tag-bookgubun">
-                            <span className="icon-tag-bookgubun">국내도서</span>
+                {/* 주문 리스트(Loop)  */}
+                {cartlist.map((cartCashData, index) => (
+                  <article
+                    className="box-list-payment"
+                    key={`item-${cartCashData.id}`}
+                  >
+                    <div className="bookinfo">
+                      <div>
+                        <input type="hidden" name="orderdata" />
+                        <div className="link-detail">
+                          <span className="image">
+                            {/* 도서정보(책이미지/도서명) */}
+                            <a href="" target="_blank">
+                              <img
+                                src={cartCashData.cover}
+                                alt={cartCashData.title}
+                              />
+                            </a>
+                          </span>
+                          <div className="text">
+                            <div className="box-tag-bookgubun">
+                              <span className="icon-tag-bookgubun">
+                                {cartCashData.gubun}
+                              </span>
+                            </div>
+                            <a href="" target="_blank">
+                              {cartCashData.id},{cartCashData.title}
+                            </a>
                           </div>
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            빠작 고등 국어 고전 문학
-                          </a>
+                        </div>
+                      </div>
+                      <div className="priceinfo">
+                        <div>
+                          <div className="icon-tag-pricegubun">정가</div>
+                          <div>{cartCashData.priceStandard}원</div>
+                        </div>
+                        <div>
+                          <div className="icon-tag-pricegubun">할인가</div>
+                          <div>{cartCashData.priceSales}원</div>
+                        </div>
+                        <div>
+                          <div className="icon-tag-pricegubun">수량</div>
+                          <div>{cartCashData.quantity}</div>
+                        </div>
+                        <div>
+                          <div className="icon-tag-pricegubun">주문금액</div>
+                          <div>13,950원</div>
                         </div>
                       </div>
                     </div>
-                    <div className="priceinfo">
-                      <div>
-                        <div className="icon-tag-pricegubun">정가</div>
-                        <div>15,000원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">할인가</div>
-                        <div>13,950원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">수량</div>
-                        <div>1</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">주문금액</div>
-                        <div>13,950원</div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-                {/* 주문 상품 2 */}
-                <article className="box-list-payment">
-                  {/* 도서정보(책이미지/도서명) */}
-                  <div className="bookinfo">
-                    <div>
-                      <input type="hidden" name="orderdata" />
-                      <div className="link-detail">
-                        <span className="image">
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            <img
-                              src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
-                              alt=""
-                            />
-                          </a>
-                        </span>
-                        <div className="text">
-                          <div className="box-tag-bookgubun">
-                            <span className="icon-tag-bookgubun">국내도서</span>
-                          </div>
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            빠작 고등 국어 고전 문학
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="priceinfo">
-                      <div>
-                        <div className="icon-tag-pricegubun">정가</div>
-                        <div>15,000원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">할인가</div>
-                        <div>13,950원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">수량</div>
-                        <div>1</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">주문금액</div>
-                        <div>13,950원</div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-                {/* 주문 상품 3 */}
-                <article className="box-list-payment">
-                  {/* 도서정보(책이미지/도서명) */}
-                  <div className="bookinfo">
-                    <div>
-                      <input type="hidden" name="orderdata" />
-                      <div className="link-detail">
-                        <span className="image">
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            <img
-                              src="/file/image/product/2_(고등)빠작 고등 국어 고전 문학_표1_9788900470420_20220921151240_84.jpg"
-                              alt=""
-                            />
-                          </a>
-                        </span>
-                        <div className="text">
-                          <div className="box-tag-bookgubun">
-                            <span className="icon-tag-bookgubun">국내도서</span>
-                          </div>
-                          <a
-                            href="/mall/product_view.donga?product_seq=32132"
-                            target="_blank"
-                          >
-                            빠작 고등 국어 고전 문학
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="priceinfo">
-                      <div>
-                        <div className="icon-tag-pricegubun">정가</div>
-                        <div>15,000원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">할인가</div>
-                        <div>13,950원</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">수량</div>
-                        <div>1</div>
-                      </div>
-                      <div>
-                        <div className="icon-tag-pricegubun">주문금액</div>
-                        <div>13,950원</div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
+                  </article>
+                ))}
+
                 {/* <!-- 주문자 정보 --> */}
                 <h4 className="title-order">주문자 정보</h4>
                 <div className="box-information-order">
