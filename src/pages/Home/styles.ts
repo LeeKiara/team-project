@@ -10,6 +10,9 @@ export const HomeContainer = styled.div`
     display: flex;
     justify-content: center;
   }
+  div > article:nth-of-type(1) > figure > img {
+    margin: 0 10px;
+  }
   div > section {
     width: 65vw;
     margin: auto;
@@ -51,10 +54,9 @@ export const HomeContainer = styled.div`
     line-height: 1.5;
   }
   div > section > article:nth-of-type(2) {
-    width: 400px;
+    width: 80%;
     margin: auto;
-    background-color: #e3f0f8;
-    border-radius: 10px;
+    background-color: #f8edeb;
   }
   div > section > article:nth-of-type(2) > a > h3 {
     margin-left: 55px;
@@ -75,7 +77,7 @@ export const HomeContainer = styled.div`
     white-space: nowrap; /* 내용을 한 줄로 유지 */
   }
   div > section > article:nth-of-type(2) > ul > li {
-    width: 230px;
+    width: 200px;
     height: 333px;
     padding: 15px;
     margin-bottom: 30px; /* 간격 설정 */
@@ -92,10 +94,23 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(2) > ul > li > a > img {
     margin: auto;
-    width: 230px;
+    width: 200px;
     height: 270px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
+  div > article > figure > button {
+    background-color: #ffebed;
+    border: 1px solid white;
+    height: 65px;
+    border-radius: 50px;
+    margin-top: 170px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  div > article > figure > button > svg {
+    font-size: 50px;
+    color: white;
+  }
+
   @media (min-width: 55rem) {
     div > section > article:nth-of-type(2) {
       width: 90%;

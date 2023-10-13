@@ -9,22 +9,36 @@ const Home = () => {
   const [best, setBest] = useState("");
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  const [showButton, setShowButton] = useState(true);
+
+  const handleMouseOver = () => {
+    setShowButton(true);
+  };
+  const handleMouseOut = () => {
+    setShowButton(false);
+  };
 
   return (
     <HomeContainer>
       <div>
         <article>
           <figure>
-            <button>
-              <ArrowBack className="material-icons-outlined" />
-            </button>
+            {showButton ? (
+              <button>
+                <ArrowBack className="material-icons-outlined" />
+              </button>
+            ) : null}
             <img
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
               src="https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg"
               alt="배너"
             />
-            <button>
-              <ArrowForward className="material-icons-outlined" />
-            </button>
+            {showButton ? (
+              <button>
+                <ArrowForward className="material-icons-outlined" />
+              </button>
+            ) : null}
           </figure>
         </article>
         <section>
