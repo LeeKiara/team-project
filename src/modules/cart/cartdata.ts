@@ -5,8 +5,9 @@ const INIT_DATA: CartData[] = [];
 const CART_DATA_KEY = "/cart";
 // const CONTACTS_DATA_KEY = "@data/contacts";
 
-interface CartData {
+export interface CartData {
   id?: number; // id값은 나중에 생성
+  itemId: number;
   gubun: string;
   title: string;
   cover: string;
