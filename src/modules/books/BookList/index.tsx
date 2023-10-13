@@ -1,10 +1,9 @@
 import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
-import { BookContainer } from "./styles";
+import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, ShoppingCart } from "@mui/icons-material";
-import Button from "@/components/Button";
 
 const BookList = () => {
   const [page, setPage] = useState(0);
@@ -27,7 +26,7 @@ const BookList = () => {
 
   return (
     <>
-      <BookContainer>
+      <BookListContainer>
         {isBookItemValidating ? (
           // 로딩 상태를 처리하는 부분
           <p>로딩 중...</p>
@@ -107,7 +106,7 @@ const BookList = () => {
             </nav>
           </section>
         )}
-      </BookContainer>
+      </BookListContainer>
     </>
   );
 };

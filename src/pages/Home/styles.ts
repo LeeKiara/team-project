@@ -18,7 +18,7 @@ export const HomeContainer = styled.div`
     margin: auto;
   }
   div > section > article:nth-of-type(1) {
-    width: 80%;
+    width: 468px;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -54,9 +54,10 @@ export const HomeContainer = styled.div`
     line-height: 1.5;
   }
   div > section > article:nth-of-type(2) {
-    width: 80%;
+    width: 510px;
     margin: auto;
     background-color: #f8edeb;
+    border-radius: 10px;
   }
   div > section > article:nth-of-type(2) > a > h3 {
     margin-left: 55px;
@@ -78,7 +79,7 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(2) > ul > li {
     width: 200px;
-    height: 333px;
+    height: 330px;
     padding: 15px;
     margin-bottom: 30px; /* 간격 설정 */
     margin: auto;
@@ -95,7 +96,7 @@ export const HomeContainer = styled.div`
   div > section > article:nth-of-type(2) > ul > li > a > img {
     margin: auto;
     width: 200px;
-    height: 270px;
+    height: 260px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
   div > article > figure > button {
@@ -112,8 +113,11 @@ export const HomeContainer = styled.div`
   }
 
   @media (min-width: 55rem) {
+    div > section > article:nth-of-type(1) {
+      width: 80%;
+    }
     div > section > article:nth-of-type(2) {
-      width: 90%;
+      width: 83%;
     }
     div > section > article:nth-of-type(2) > ul {
       flex-direction: row;

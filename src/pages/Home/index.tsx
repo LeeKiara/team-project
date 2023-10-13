@@ -22,15 +22,13 @@ const Home = () => {
     <HomeContainer>
       <div>
         <article>
-          <figure>
+          <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             {showButton ? (
               <button>
                 <ArrowBack className="material-icons-outlined" />
               </button>
             ) : null}
             <img
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
               src="https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg"
               alt="배너"
             />

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BookContainer = styled.div`
+export const BookListContainer = styled.div`
   hr {
     border-color: #fff;
     width: 100%;
@@ -21,9 +21,6 @@ export const BookContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-  /* section > article > div > figure {
-
-  } */
   section > article > div > figure > a > img {
     width: 150px;
     height: 180px;
