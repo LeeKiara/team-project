@@ -41,7 +41,7 @@ export const PageContainer = styled.div`
     justify-content: space-evenly;
   }
   #amount {
-    flex: 0.2;
+    flex: 0.1;
     display: flex;
     gap: 10px;
     justify-content: flex-end;

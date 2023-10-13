@@ -111,6 +111,16 @@ const BookPage = () => {
                     <dt>isbn: </dt>
                     <p>{`${detail.isbn}`}</p>
                   </dl>
+                  <dl>
+                    <dt>정가: </dt>
+                    <p>
+                      <del>{`${detail.priceStandard}`} 원</del>
+                    </p>
+                  </dl>
+                  <dl>
+                    <dt>판매가: </dt>
+                    <p>{`${detail.priceSales}`} 원</p>
+                  </dl>
                 </div>
                 <div id="amount">
                   수량:
