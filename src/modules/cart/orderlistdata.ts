@@ -10,6 +10,7 @@ export interface OrderItemData {
   itemId: number;
   title: string;
   cover: string;
+  priceStandard: string;
   priceSales: string;
   quantity: string;
 }
@@ -26,7 +27,9 @@ const orderItemFetcher = async ([key]) => {
     const response = await orderItemApi.get<OrderItemData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
 
     for (const res of response.data) {
-      console.log(res.id + "," + res.itemId + "," + res.title + "," + res.cover + "," + res.priceSales + "," + res.quantity);
+      console.log(
+        res.id + "," + res.itemId + "," + res.title + "," + res.priceStandard + "," + res.priceSales + "," + res.quantity + "," + res.cover,
+      );
     }
 
     console.log("--call orderItemFetcher response data >> " + response.data.length);

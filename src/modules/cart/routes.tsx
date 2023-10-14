@@ -28,8 +28,8 @@ export const cartRoutes = [
     ,
     <Route element={<AddCart />} index />,
   </Route>,
-  <Route key="addorder" path="addorder" element={<CartSidebar />}>
+  <Route key="test" path="test" element={<CartSidebar />}>
     ,
-    <Route element={<AddOrder />} index />,
+    <Route element={<Order />} index />,
   </Route>,
 ];

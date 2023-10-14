@@ -3,6 +3,8 @@ import { CartContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
+import ConfirmModal from "@/components/ConfirmModal";
+import ShowMessageModal from "@/components/ShowMessageModal";
 
 const CartList = () => {
   // 장바구니 캐시 데이터
@@ -22,9 +24,7 @@ const CartList = () => {
 
   const [checkboxes, setCheckboxes] = useState(cartlist.map(() => false));
 
-  const [checkedItems, setCheckedItems] = useState([]);
-  const [selectedData, setSelectedData] = useState([]);
-  const [selectedCartList, setSelectedCartList] = useState([]);
+  // const [selectedData, setSelectedData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -47,8 +47,8 @@ const CartList = () => {
 
   // 장바구니 수량이 변경되면 정가와 할인가 변경 처리
   useEffect(() => {
-    console.log("!! qtys useEffect  ");
-    console.log(qtys + ", " + priceStandards);
+    // console.log("!! qtys useEffect  ");
+    // console.log(qtys + ", " + priceStandards);
 
     // 정가 다시 계산
     const calcuPriceStandard = qtys.map((item, index) => {
@@ -67,6 +67,34 @@ const CartList = () => {
 
     setPriceSales(calcuPriceSales);
   }, [qtys]);
+
+  // 주문할 상품 선택박스 상태변경 부가처리
+  useEffect(() => {
+    if (cartlist && cartlist.length > 0) {
+      console.log("++++++++++ useEffect checkboxes");
+
+      const checkedCartItems = cartlist
+        .map((selectedItem, index) => ({
+          itemId: selectedItem.itemId,
+          title: selectedItem.title,
+          cover: selectedItem.cover,
+          priceStandard: selectedItem.priceStandard,
+          priceSales: selectedItem.priceSales,
+          quantity: qtys[index],
+          isChecked: checkboxes[index], // 체크박스 상태 사용
+          gubun: "",
+        }))
+        .filter((selectedItem) => selectedItem.isChecked);
+
+      checkedCartItems.map((item, index) => {
+        console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+      });
+
+      setStateCartData(checkedCartItems);
+
+      setIsOrder(true);
+    }
+  }, [checkboxes]);
 
   // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
   console.log("---validating---");
@@ -134,6 +162,9 @@ const CartList = () => {
   const gotoOrder = () => {
     console.log("++++++++++ gotoOrder");
 
+    // alert("상품을 선택하세요.");
+    setShowMessageModal(true);
+
     const checkedCartItems = cartlist
       .map((selectedItem, index) => ({
         itemId: selectedItem.itemId,
@@ -156,36 +187,14 @@ const CartList = () => {
     setIsOrder(true);
   };
 
-  const handleCheckBox = (index) => {
-    console.log("==== 1. handleCheckBox ");
-    const selectedItems = qtys
-      .map((qty, index) => ({
-        qty,
-        priceStandard: priceStandards[index],
-        priceSales: priceSales[index],
-      }))
-      .filter((_, index) => checkedItems[index]);
-    setSelectedData(selectedItems);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = !newCheckedItems[index];
-
-    console.log("==== 2. handleCheckBox :" + newCheckedItems[index]);
-
-    setCheckedItems(newCheckedItems);
+  const handleShowMessageButton = () => {
+    setShowMessageModal(true);
   };
 
-  const handleShowCheckedItems = () => {
-    console.log("▶▶▶ handleShowCheckedItems");
-
-    const selectedItems = qtys
-      .map((qty, index) => ({
-        qty,
-        priceStandard: priceStandards[index],
-        priceSales: priceSales[index],
-      }))
-      .filter((_, index) => checkedItems[index]);
-    setSelectedData(selectedItems);
+  const handleCancel = () => {
+    setShowMessageModal(false);
   };
 
   function createSelectedCartList(stateCartData, qtys) {
@@ -206,21 +215,7 @@ const CartList = () => {
         <section>
           <article>
             <div className="cart-header">
-              <h3 className="title">
-                장바구니 : <button onClick={handleShowCheckedItems}>선택된 항목 보기</button>
-              </h3>
-            </div>
-            <div>{<h2>체크박스 선택된 값을 보여줍니다.</h2>}</div>
-            <div>
-              <h3>선택된 항목:</h3>
-              <ul>
-                {selectedData.map((selectedItem, index) => (
-                  <li key={`selected-${index}`}>
-                    {/* 여기에 선택된 항목의 정보를 표시하세요 */}
-                    {`항목 ${index + 1} => 수량 : ${selectedItem.qty}, 정가 : ${selectedItem.priceStandard}, 할인가 : ${selectedItem.priceSales}`}
-                  </li>
-                ))}
-              </ul>
+              <h3 className="title">장바구니</h3>
             </div>
           </article>
           <article className="cart-layer-title">
@@ -244,8 +239,6 @@ const CartList = () => {
                       className="listCheckBox"
                       key={cartCashData.id}
                       onChange={() => handleCheckboxChange(index)}
-                      // onClick={() => handleCheckBox(index)}
-                      // checked={checkedItems[index] || false}
                     />
                   </label>
                   <figure>
@@ -296,19 +289,19 @@ const CartList = () => {
           {/* 주문합계 */}
           <article>
             <div>
-              {selectedData.length > 0 && (
+              {/* {selectedData.length > 0 && (
                 <div>
                   <h3>선택된 항목:</h3>
                   <ul>
                     {selectedData.map((selectedItem, index) => (
                       <li key={`selected-${index}`}>
-                        {/* 여기에 선택된 항목의 정보를 표시하세요 */}
+                       
                         {`항목 ${index + 1} => 수량 : ${selectedItem.qty}, 정가 : ${selectedItem.priceStandard}, 할인가 : ${selectedItem.priceSales}`}
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
+              )} */}
             </div>
             <div className="box-total-payment">
               <div className="total-text">주문합계</div>
@@ -330,14 +323,19 @@ const CartList = () => {
                 <dt>주의하세요.</dt>
                 <dd>· 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
               </dl>
-              {/* "주문하기" 버튼을 클릭하면 주문 처리 컴포넌트를 렌더링하고 'selectedCartList'를 전달합니다. */}
+
               {/* <span className="btn-order">
                 <button onClick={handleOrder}>주문하기</button>
               </span> */}
-              <button className={"box-blue"} onClick={gotoOrder}>
-                주문하기 활성화
-              </button>
+              {!isOrder && (
+                <button className={"box-blue"} onClick={gotoOrder}>
+                  주문하기
+                </button>
+              )}
+
               {isOrder && <OrderButton cartBooks={stateCartData} />}
+
+              {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
             </div>
           </article>
         </section>

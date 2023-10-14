@@ -55,6 +55,21 @@ export const CartSidebarContainer = styled.div`
     line-height: 56px;
   }
 
+  .box-gray-full {
+    background-color: ${grayColor};
+    border: 1px solid ${grayColor};
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 28px;
+    text-align: center;
+    width: 200px;
+    height: 56px;
+    line-height: 56px;
+  }
+
   .box-blue {
     background-color: white;
     border: 1px solid ${blueColor};
