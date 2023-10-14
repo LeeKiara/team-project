@@ -610,30 +610,68 @@
   ],
   "cart": [
     {
-      "id": 1,
       "gubun": "KOR",
-      "title": "어린왕자",
+      "itemId": 907990,
+      "title": "어린왕자1",
       "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
-      "priceStandard": "20000",
-      "priceSales": "18000",
-      "quantity": "1"
+      "priceStandard": "10000",
+      "priceSales": "8000",
+      "quantity": "1",
+      "id": 1
     },
     {
       "gubun": "KOR",
-      "title": "이보영의 영어 만화 Aladdin's Magic Lamp",
-      "cover": "http://image.aladin.co.kr/product/90/79/coversum/8957363335_1.jpg",
+      "itemId": 907991,
+      "title": "어린왕자2",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
       "priceStandard": "10000",
-      "priceSales": "5000",
-      "quantity": "2",
+      "priceSales": "8000",
+      "quantity": "3",
       "id": 2
     },
     {
       "gubun": "KOR",
-      "title": "커피는 알라딘 램프다",
-      "cover": "http://image.aladin.co.kr/product/1743/27/coversum/8997386166_1.jpg",
+      "itemId": 907993,
+      "title": "어린왕자3",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      "priceStandard": "30000",
+      "priceSales": "18000",
+      "quantity": "2",
+      "id": 3
+    }
+  ],
+  "orderitem": [
+    {
+      "itemId": 907991,
+      "title": "어린왕자2",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
       "priceStandard": "10000",
-      "priceSales": "9500",
-      "quantity": "3",
+      "priceSales": "8000",
+      "quantity": 4,
+      "isChecked": true,
+      "gubun": "",
+      "id": 1
+    },
+    {
+      "itemId": 907990,
+      "title": "어린왕자1",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      "priceStandard": "10000",
+      "priceSales": "8000",
+      "quantity": 2,
+      "isChecked": true,
+      "gubun": "",
+      "id": 2
+    },
+    {
+      "itemId": 907993,
+      "title": "어린왕자3",
+      "cover": "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      "priceStandard": "30000",
+      "priceSales": "18000",
+      "quantity": 4,
+      "isChecked": true,
+      "gubun": "",
       "id": 3
     }
   ]

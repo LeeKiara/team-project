@@ -5,6 +5,7 @@ import { lazy } from "react";
 import CartSidebar from "./CartSidebar";
 // import OrderDone from "./Order/OrderDone";
 import PaymentInfo from "./Order/PaymentInfo";
+import AddOrder from "./AddOrder";
 
 const AddCart = lazy(() => import("@/modules/cart/AddCart"));
 const Order = lazy(() => import("@/modules/cart/Order"));
@@ -26,5 +27,9 @@ export const cartRoutes = [
   <Route key="addcart" path="addcart" element={<CartSidebar />}>
     ,
     <Route element={<AddCart />} index />,
+  </Route>,
+  <Route key="addorder" path="addorder" element={<CartSidebar />}>
+    ,
+    <Route element={<AddOrder />} index />,
   </Route>,
 ];
