@@ -3,6 +3,7 @@ import { OrderContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import { useOrderListData } from "../orderlistdata";
+import Payment from "./Payment";
 
 const Order = () => {
   // 주문 데이터
@@ -312,10 +313,9 @@ const Order = () => {
 
                   <hr className="div-type2" />
                   <div className="box-submit-payment">
-                    <span className="btn-order">
-                      <button onClick={handlePayment}>결제하기</button>
-                    </span>
+                    <span className="btn-order">{/* <button onClick={handlePayment}>결제하기</button> */}</span>
                   </div>
+                  <Payment />
                 </div>
               </div>
             </div>

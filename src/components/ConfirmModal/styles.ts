@@ -1,40 +1,43 @@
 import styled from "@emotion/styled";
 
 export const ConfirmModalStyle = styled.div`
-  div {
-    position: fixed;
+  .modal-container {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 20px;
+    padding-top: 30px;
     box-shadow: 0px 0px 10px gray;
+    width: 300px;
+    height: 150px;
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+    }
   }
 
-  div > button {
-    display: inline-block;
-    padding: 12px 15px;
-    margin-bottom: 0;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    width: 200px;
-    background-color: #e97171;
-    color: #fff;
-    font-size: 18px;
-  }
-  div > button > svg {
-    vertical-align: middle;
-    font-size: 20px;
-    margin-right: 5px;
+  .modal-box-layer {
+    display: fixed;
+    flex-direction: column;
+    justify-content: center;
+
+    button {
+      width: 100px;
+      height: 40px;
+
+      background-color: #bfc1cd;
+      border-radius: 4px;
+      border: 0;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+      cursor: pointer;
+      margin: 10px;
+      margin-top: 50px;
+    }
   }
 `;

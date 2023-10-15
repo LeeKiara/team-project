@@ -10,15 +10,19 @@ interface SampleProps {
 const handleButtonClick = () => {};
 
 // ConfirmModal 컴포넌트
-const ConfirmModal = ({ isVisible, onConfirm, onCancel }) => {
+const ConfirmModal = ({ isVisible, message, onConfirm, onCancel }) => {
   if (!isVisible) return null;
 
   return (
     <ConfirmModalStyle>
-      <div>
-        <p> 개의 상품을 주문하시겠습니까?</p>
-        <button onClick={onConfirm}>확인</button>&nbsp;&nbsp;
-        <button onClick={onCancel}>취소</button>
+      <div className="modal-container">
+        <p> {message} </p>
+        <div className="modal-box-layer">
+          <button className="modal-box-confirm" onClick={onConfirm}>
+            확인
+          </button>
+          <button onClick={onCancel}>취소</button>
+        </div>
         {/* <OrderButton cartBooks={stateCartData} /> */}
       </div>
     </ConfirmModalStyle>
