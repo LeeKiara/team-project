@@ -4,15 +4,7 @@ import { useCartData } from "@/modules/cart/cartdata";
 import { CartData } from "@/modules/cart/cartdata";
 import { useNavigate } from "react-router-dom";
 
-const Button = ({
-  gubun,
-  itemId,
-  title,
-  cover,
-  priceStandard,
-  priceSales,
-  quantity,
-}: CartData) => {
+const Button = ({ gubun, itemId, title, cover, priceStandard, priceSales, quantity }: CartData) => {
   const { createCartData } = useCartData();
   const navigate = useNavigate();
 
