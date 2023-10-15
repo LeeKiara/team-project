@@ -1,0 +1,1 @@
+json-server --port 9090 --watch db.json

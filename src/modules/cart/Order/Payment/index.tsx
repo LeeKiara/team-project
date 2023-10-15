@@ -1,8 +1,10 @@
 import axios from "axios";
-import { OrderItemData } from "../../orderlistdata";
+import { OrderItemData, useOrderListData } from "../../orderlistdata";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useState } from "react";
 import { PaymentContainer } from "./styles";
+import http from "utils/http";
+import { useNavigate } from "react-router-dom";
 
 export interface PaymentData {
   id?: number; // id값은 나중에 생성
@@ -54,7 +56,6 @@ const paymentApi = axios.create({
   baseURL: "http://localhost:9090",
 });
 
-const handlePayment = () => {};
 // const handleModifyModalConfirm = ({
 //   index,
 //   memo,
@@ -91,17 +92,76 @@ const handlePayment = () => {};
 const Payment = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
+  // 주문 가능 상태
+  const [isOrder, setIsOrder] = useState(false);
+
+  // 주문 데이터
+  const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
+
+  const navigate = useNavigate();
+
+  const savePayment = () => {
+    orderItems.map((item) => {
+      console.log(
+        item.id +
+          "," +
+          item.itemId +
+          "," +
+          item.title +
+          "," +
+          item.priceStandard +
+          "," +
+          item.priceSales +
+          "," +
+          item.quantity +
+          "," +
+          item.cover,
+      );
+    });
+    // 서버에 주무/배송 정보 등록
+    // handlePost()참고
+    navigate("/cart/order/done");
+  };
+
+  // const handlePost = (e: React.FormEvent) => {
+  //   // 이걸 안하면 현제 페이지에 폼데이터 전송
+  //   e.preventDefault();
+
+  //   // multipart/form-data 파일업로드하려면
+  //   const formData = new FormData();
+
+  //   Array.from(fileRef.current.files).forEach((file) => {
+  //     formData.append("files", file);
+  //   });
+
+  //   formData.append("title", titleRef.current.value);
+  //   formData.append("content", contentRef.current.value);
+
+  //   (async () => {
+  //     const response = await http.post<PostItem>("/posts/with-file", formData);
+  //     console.log(response);
+  //     if (response.status === 201) {
+  //       formRef.current.reset();
+  //       setPosts([{ ...response.data }, ...posts]);
+  //     }
+  //   })();
+  // };
+
   const handleOpenModal = () => {
     setModalVisible(true);
   };
 
+  // 결제하기
   const handleConfirm = () => {
     // alert("확인되었습니다.");
+    setIsOrder(true);
     setModalVisible(false);
+    savePayment();
   };
 
   const handleCancel = () => {
     // alert("취소되었습니다.");
+    setIsOrder(false);
     setModalVisible(false);
   };
 
@@ -111,7 +171,13 @@ const Payment = () => {
         <button className="btn-payment" onClick={handleOpenModal}>
           결제하기
         </button>
-        <ConfirmModal isVisible={isModalVisible} onConfirm={handleConfirm} onCancel={handleCancel} message="주문하시겠습니까?" />
+
+        <ConfirmModal
+          isVisible={isModalVisible}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          message="주문하시겠습니까?"
+        />
       </div>
     </PaymentContainer>
   );

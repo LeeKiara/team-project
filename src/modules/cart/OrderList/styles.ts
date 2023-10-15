@@ -9,176 +9,13 @@ const blueColor = "#3d4ed7";
 const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
 
-export const OrderDetailContainer = styled.div`
+export const OrderListContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 900px;
   }
-
-  .order_summary_box {
-    display: block;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 16px;
-    overflow: hidden;
-    word-break: break-all;
-  }
-
-  .order_date {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.01em;
-    font-weight: 700;
-  }
-
-  .order_summary_box .box_header .label .gap {
-    display: inline-block;
-    font-size: 0;
-    width: 1px;
-    height: 10px;
-    background-color: #d5d5d5;
-    margin: 6px 10px 0 10px;
-    vertical-align: top;
-    box-sizing: border-box;
-  }
-
-  .order_num {
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.01em;
-    font-weight: 500;
-    .num {
-      margin-left: 5px;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.01em;
-    }
-  }
-
-  .order-layer {
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #ccc;
-    height: 60px;
-    line-height: 60px;
-    font-weight: 600;
-    padding-left: 50px;
-    margin-top: 30px;
-  }
-  .order-item-layer {
-    display: flex;
-    flex-direction: row;
-    /* border: 2px solid ${lightgrayColor}; */
-    height: 100px;
-    align-items: center;
-  }
-
-  .order-item-layer-title {
-    display: flex;
-    flex-direction: row;
-    background-color: ${lightgrayColor};
-    width: 880px;
-    height: 50px;
-    align-items: center;
-    padding-left: 20px;
-    color: ${primaryColor};
-    font-weight: 400;
-  }
-
-  .bookinfo {
-    /* flex: 1; */
-    display: flex;
-    flex-direction: row;
-    /* border: 1px solid red; */
-    /* gap: 50px; */
-
-    label {
-      margin-top: 0px;
-      margin-left: 10px;
-    }
-    .box-bookgubun {
-      margin: 8px 0;
-    }
-    .icon-bookgubun {
-      display: inline-block;
-      padding: 0 8px;
-      width: auto;
-      height: 22px;
-      line-height: 20px;
-      font-size: 12px;
-      font-weight: 400;
-      color: ${lightblueColor};
-      border: 1px solid ${lightblueColor};
-      border-radius: 4px;
-    }
-
-    .image {
-      display: inline-block;
-      margin: 0 23px 0 0;
-      width: 110px;
-      vertical-align: top;
-    }
-
-    .image img {
-      display: block;
-      width: 82px;
-      height: 109px;
-      border: 1px solid ${lightgrayColor};
-    }
-
-    .subject {
-      display: block;
-      font-size: 18px;
-      line-height: 26px;
-      font-weight: 500;
-      width: 370px;
-      max-height: 55px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  .box-payment-wrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding-top: 30px;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #eaeaea;
-    box-sizing: border-box;
-    margin-bottom: 30px;
-
-    div {
-      /* border: 1px solid red; */
-      width: 80%;
-      padding-right: 80px;
-    }
-    div dl {
-      /* border: 1px dotted gray; */
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      justify-content: space-between;
-      height: 30px;
-    }
-  }
-
-  /* ---------------------------- */
-  .box_header {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    min-height: 60px;
-    padding: 15px 24px;
-    background-color: rgba(80, 85, 177, 0.06);
-    box-sizing: border-box;
-  }
-
   .order-header {
     margin-bottom: 20px;
 
@@ -336,6 +173,79 @@ export const OrderDetailContainer = styled.div`
     }
   }
 
+  .cart-layer-title {
+    display: flex;
+    flex-direction: row;
+    background-color: ${lightgrayColor};
+    width: 880px;
+    height: 50px;
+    align-items: center;
+    padding-left: 20px;
+    color: ${primaryColor};
+    font-weight: 400;
+  }
+
+  .cart-layer {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid ${lightgrayColor};
+    height: 150px;
+    align-items: center;
+  }
+
+  .bookinfo {
+    /* flex: 1; */
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid red; */
+    /* gap: 50px; */
+
+    label {
+      margin-top: 0px;
+      margin-left: 10px;
+    }
+    .box-bookgubun {
+      margin: 8px 0;
+    }
+    .icon-bookgubun {
+      display: inline-block;
+      padding: 0 8px;
+      width: auto;
+      height: 22px;
+      line-height: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      color: ${lightblueColor};
+      border: 1px solid ${lightblueColor};
+      border-radius: 4px;
+    }
+
+    .image {
+      display: inline-block;
+      margin: 0 23px 0 0;
+      width: 110px;
+      vertical-align: top;
+    }
+
+    .image img {
+      display: block;
+      width: 110px;
+      height: 124px;
+      border: 1px solid ${lightgrayColor};
+    }
+
+    .subject {
+      display: block;
+      font-size: 18px;
+      line-height: 26px;
+      font-weight: 500;
+      width: 370px;
+      max-height: 55px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .order-number {
     /* font-family: Roboto; */
     color: #717fa3;
@@ -346,6 +256,28 @@ export const OrderDetailContainer = styled.div`
     letter-spacing: -0.5px;
     font-weight: 500;
     color: #0091ff;
+  }
+
+  .box-submit-payment {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+
+    .btn-payment {
+      width: 218px;
+      height: 44px;
+      background: #3d4ed7;
+      border: 0;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      line-height: 1;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+    }
   }
 
   /* 모바일 스타일 */
