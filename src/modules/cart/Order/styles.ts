@@ -275,6 +275,7 @@ export const OrderContainer = styled.div`
         font-size: 18px;
         font-weight: 500;
       }
+      margin-bottom: 10px;
     }
 
     .payment-tab-cont {
@@ -339,7 +340,7 @@ export const OrderContainer = styled.div`
       border: none;
     }
 
-    .box-submit-payment {
+    /* .box-submit-payment {
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -363,7 +364,7 @@ export const OrderContainer = styled.div`
         border: 0;
         cursor: pointer;
       }
-    }
+    } */
   }
 
   /* 모바일 스타일 */

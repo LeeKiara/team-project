@@ -1,18 +1,20 @@
 import axios from "axios";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 const INIT_DATA: CartData[] = [];
 const CART_DATA_KEY = "/cart";
 // const CONTACTS_DATA_KEY = "@data/contacts";
 
-interface CartData {
+export interface CartData {
   id?: number; // id값은 나중에 생성
+  itemId: number;
   gubun: string;
   title: string;
   cover: string;
   priceStandard: string;
   priceSales: string;
   quantity: string;
+  isChecked?: boolean;
 }
 
 const cartApi = axios.create({
@@ -24,9 +26,7 @@ const cartFetcher = async ([key]) => {
   console.log("--call fetcher--");
 
   try {
-    const response = await cartApi.get<CartData[]>(
-      `${key}?_sort=id?_sort=id&_order=desc`
-    );
+    const response = await cartApi.get<CartData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
 
     console.log("--call fetcher response data--");
     console.log(response.data);
@@ -41,7 +41,7 @@ const cartFetcher = async ([key]) => {
 export const useCartData = () => {
   const {
     data: cartData,
-    mutate,
+    mutate: mutateCartData,
     isValidating: isCartDataValidating,
   } = useSWR<CartData[]>([CART_DATA_KEY], cartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
@@ -60,7 +60,7 @@ export const useCartData = () => {
     mutate(
       async (
         // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
-        prevData: CartData[] = [...INIT_DATA]
+        prevData: CartData[] = [...INIT_DATA],
       ) => {
         console.log("--cart 매개변수 객체--");
         console.log(prevData);
@@ -85,7 +85,7 @@ export const useCartData = () => {
         // 변경된 데이터(상태값)를 반환
         return nextData;
       },
-      false
+      false,
     );
 
     // *comment :  mutate(처리함수, false);
@@ -94,41 +94,8 @@ export const useCartData = () => {
 
   return {
     cartData,
+    mutateCartData,
     createCartData,
     isCartDataValidating,
   };
 };
-
-/*
-export const useCartData = () => {
-  // ...
-
-  async function updateCartItem(itemId, updatedQuantity) {
-    try {
-      const response = await cartApi.post(`/updateCartItem/${itemId}`, {
-        quantity: updatedQuantity,
-      });
-
-      if (response.status === 200) {
-        // Fetch the updated data from the server or wherever it is stored
-        const updatedData = await cartFetcher([CART_DATA_KEY]);
-
-        // Update the cartData and trigger a re-render
-        mutate(CART_DATA_KEY, updatedData, false);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  return {
-    cartData,
-    createCartData,
-    updateCartItem,
-    isCartDataValidating,
-  };
-};
-
-
-
-*/

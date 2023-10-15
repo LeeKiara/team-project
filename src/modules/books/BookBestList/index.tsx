@@ -3,14 +3,16 @@ import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import Button from "@/components/Button";
 
 const BookBestList = () => {
-  const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  const { booksItem: books, isBookItemValidating } = useBooksItem();
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  //선호작품 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
 
+  //선호작품 추가
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
       ...prevStates,
@@ -18,6 +20,7 @@ const BookBestList = () => {
     }));
   };
 
+  //카테고리 이동 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);
@@ -69,16 +72,24 @@ const BookBestList = () => {
                         handleBookSave(item.itemId);
                       }}
                     >
-                      {storeHeartStates[item.itemId] ? (
-                        <Favorite className="material-icons-outlined heart" />
-                      ) : (
-                        <FavoriteBorder className="material-icons-outlined" />
-                      )}
-                      <span>선호작품</span>
+                      <button className="btn">
+                        {storeHeartStates[item.itemId] ? (
+                          <Favorite className="material-icons-outlined heart" />
+                        ) : (
+                          <FavoriteBorder className="material-icons-outlined" />
+                        )}
+                        선호작품
+                      </button>
                     </li>
-                    <li>
-                      <button>장바구니 담기</button>
-                    </li>
+                    <Button
+                      gubun="KOR"
+                      itemId={item.itemId}
+                      title={item.title}
+                      cover={item.cover}
+                      priceStandard={item.priceStandard.toString()}
+                      priceSales={item.priceSales.toString()}
+                      quantity="1"
+                    />
                   </ul>
                 </article>
               ))

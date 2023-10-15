@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BookContainer = styled.div`
+export const BookListContainer = styled.div`
   hr {
     border-color: #fff;
     width: 100%;
@@ -21,9 +21,6 @@ export const BookContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-  /* section > article > div > figure {
-
-  } */
   section > article > div > figure > a > img {
     width: 150px;
     height: 180px;
@@ -63,8 +60,34 @@ export const BookContainer = styled.div`
     font-size: 16px;
     padding-top: 3px;
   }
-  button {
+  .btn {
+    display: inline-block;
+    padding: 12px 15px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
     cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 130px;
+    background-color: #708b95;
+    color: #fff;
+    font-size: 16px;
+  }
+  .last {
+    background-color: #e97171;
+  }
+  button > svg {
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right: 5px;
   }
   .heart {
     color: red;

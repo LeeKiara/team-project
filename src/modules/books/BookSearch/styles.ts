@@ -8,9 +8,32 @@ export const SearchContainer = styled.div`
   .heart {
     color: red;
   }
-  /* .thumb {
-    color: black;
-  } */
+  .btn {
+    display: inline-block;
+    padding: 12px 15px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 200px;
+    background-color: #708b95;
+    color: #fff;
+    font-size: 18px;
+  }
+  button > svg {
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right: 5px;
+  }
   section {
     padding: 20px;
     margin: auto;
@@ -61,10 +84,10 @@ export const SearchContainer = styled.div`
   }
   table > tbody > tr > td > a > img {
     width: 180px;
-    height: 230px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
   table > tbody > tr > td > div > dl {
-    margin: 20px 0;
+    margin: 5px 0;
     cursor: pointer;
   }
   table > tbody > tr > td:nth-of-type(4) {
@@ -78,11 +101,6 @@ export const SearchContainer = styled.div`
     padding: 20px;
     vertical-align: middle;
     text-align: left;
-  }
-  table > tbody > tr > td > div > dl > svg {
-    font-size: 20px;
-    vertical-align: top;
-    margin-left: 2px;
   }
 
   @media (min-width: 100rem) {

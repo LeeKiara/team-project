@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookData, BookItem, useBooksItem } from "../data";
+import { BookData, BookItem } from "../data";
 import axios from "axios";
 import {
   Favorite,
@@ -11,37 +11,59 @@ import {
   ThumbUp,
   ThumbUpOffAlt,
 } from "@mui/icons-material";
+import BookComment from "../BookComment";
+import Button from "@/components/Button";
+
+interface BookComment {
+  comment: string;
+}
 
 const BookPage = () => {
+  //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
+  //디테일 페이지 itemId값
   const [searchParams] = useSearchParams();
-  const [number, setNumber] = useState(0);
-  const [storeHeartStates, setStoreHeartStates] = useState({});
-  const [storeThumbStates, setStoreThumbState] = useState({});
-  const [storeThumbDownStates, setStoreThumbDownState] = useState({});
 
+  //카트데이터 수량값
+  const [number, setNumber] = useState(0);
+
+  //선호작품 상태값
+  const [storeHeartStates, setStoreHeartStates] = useState({});
+  // 추천 상태값
+  const [storeThumbStates, setStoreThumbState] = useState({});
+  //싫어요 상태값
+  const [storeThumbDownStates, setStoreThumbDownState] = useState({});
+  //댓글 상태값
+  const [comment, setComment] = useState<BookComment | null>(null);
+
+  const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
+
+  //디테일 페이지 itemId값 가져오기
   const keyword = searchParams.get("keyword");
 
+  //수량 더하기 빼기
   const handlePlus = () => {
     setNumber(number + 1);
   };
-
   const handleMinus = () => {
     setNumber(number - 1);
   };
 
+  //선호작품
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
   };
+  //추천
   const handleThumbUp = (itemId: number) => {
     setStoreThumbState((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
   };
+  //비추천
   const handleThumbDown = (itemId: number) => {
     setStoreThumbDownState((prevStates) => ({
       ...prevStates,
@@ -49,9 +71,14 @@ const BookPage = () => {
     }));
   };
 
-  console.log("tt");
+  //댓글추가
+  const handleSaveComment = () => {
+    setComment({ comment: `${commentText}` });
+  };
+
   const handleSandCart = () => {};
 
+  //화면 조회
   useEffect(() => {
     (async () => {
       try {
@@ -74,7 +101,6 @@ const BookPage = () => {
     <>
       <PageContainer>
         <section>
-          <h6>상세페이지</h6>
           {detail ? (
             <article>
               <figure>
@@ -95,6 +121,20 @@ const BookPage = () => {
                   <dl>
                     <dt>지은이: </dt>
                     <p>{`${detail.author}`}</p>
+                  </dl>
+                  <dl>
+                    <dt>isbn: </dt>
+                    <p>{`${detail.isbn}`}</p>
+                  </dl>
+                  <dl>
+                    <dt>정가: </dt>
+                    <p>
+                      <del>{`${detail.priceStandard}`} 원</del>
+                    </p>
+                  </dl>
+                  <dl>
+                    <dt>판매가: </dt>
+                    <p>{`${detail.priceSales}`} 원</p>
                   </dl>
                 </div>
                 <div id="amount">
@@ -126,40 +166,52 @@ const BookPage = () => {
                       handleBookSave(detail.itemId);
                     }}
                   >
-                    <span>선호작품</span>
-                    {storeHeartStates[detail.itemId] ? (
-                      <Favorite className="material-icons-outlined heart" />
-                    ) : (
-                      <FavoriteBorder className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeHeartStates[detail.itemId] ? (
+                        <Favorite className="material-icons-outlined heart" />
+                      ) : (
+                        <FavoriteBorder className="material-icons-outlined" />
+                      )}
+                      선호작품
+                    </button>
                   </li>
                   <li
                     onClick={() => {
                       handleThumbUp(detail.itemId);
                     }}
                   >
-                    <span>추천</span>
-                    {storeThumbStates[detail.itemId] ? (
-                      <ThumbUp className="material-icons-outlined thumb" />
-                    ) : (
-                      <ThumbUpOffAlt className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeThumbStates[detail.itemId] ? (
+                        <ThumbUp className="material-icons-outlined thumb" />
+                      ) : (
+                        <ThumbUpOffAlt className="material-icons-outlined" />
+                      )}
+                      추천
+                    </button>
                   </li>
                   <li
                     onClick={() => {
                       handleThumbDown(detail.itemId);
                     }}
                   >
-                    <span>싫어요</span>
-                    {storeThumbDownStates[detail.itemId] ? (
-                      <ThumbDown className="material-icons-outlined thumb" />
-                    ) : (
-                      <ThumbDownOffAlt className="material-icons-outlined" />
-                    )}
+                    <button className="btn">
+                      {storeThumbDownStates[detail.itemId] ? (
+                        <ThumbDown className="material-icons-outlined thumb" />
+                      ) : (
+                        <ThumbDownOffAlt className="material-icons-outlined" />
+                      )}
+                      싫어요
+                    </button>
                   </li>
-                  <li>
-                    <button>장바구니 담기</button>
-                  </li>
+                  <Button
+                    gubun="KOR"
+                    itemId={detail.itemId}
+                    title={detail.title}
+                    cover={detail.cover}
+                    priceStandard={detail.priceStandard.toString()}
+                    priceSales={detail.priceSales.toString()}
+                    quantity={commentText.current.value}
+                  />
                 </ul>
               </nav>
             </article>
@@ -167,11 +219,57 @@ const BookPage = () => {
             <p>책을 찾을 수 없습니다.</p>
           )}
           <footer>
+            <h2>도서정보</h2>
+            <hr />
+            <figure style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                style={{ margin: "auto" }}
+                src="https://contents.kyobobook.co.kr/sih/fit-in/814x0/dtl/illustrate/151/i9791159242151.jpg"
+                alt="이벤트사진"
+              />
+            </figure>
+            {detail ? (
+              <section>
+                {detail.description ? (
+                  <>
+                    <hr />
+                    <div>
+                      <h3>책소개</h3>
+                      <p>{detail.description}</p>
+                    </div>
+                  </>
+                ) : null}
+                {detail.seriesInfo ? (
+                  <>
+                    <hr />
+                    <div>
+                      <h3>시리즈</h3>
+                      <Link to={detail.seriesInfo.seriesLink}>
+                        <p>{detail.seriesInfo.seriesName}</p>
+                      </Link>
+                    </div>
+                    <hr />
+                  </>
+                ) : null}
+              </section>
+            ) : (
+              <p>책 소개 글이 없습니다.</p>
+            )}
             <form>
+              <h4>
+                독자서평쓰기
+                <sub>로그인을 하시면 댓글을 작성할 수 있습니다.</sub>
+              </h4>
               <label>
-                <input type="text" placeholder="댓글을 입력해주세요." />
+                <textarea
+                  placeholder="댓글을 입력해주세요"
+                  cols={100}
+                  rows={10}
+                  ref={commentText}
+                ></textarea>
+                <button onClick={handleSaveComment}>등록</button>
               </label>
-              <button>등록</button>
+              <BookComment />
             </form>
           </footer>
         </section>

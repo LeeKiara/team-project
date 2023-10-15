@@ -60,19 +60,34 @@ export const BookBestContainer = styled.div`
     gap: 2px;
     cursor: auto;
   }
-  section > article > ul > li:nth-of-type(3) {
-    cursor: pointer;
-    display: flex;
-  }
-  section > article > ul > li:nth-of-type(3) > span:nth-of-type(1) {
-    font-size: 16px;
-    padding-top: 3px;
-  }
-  button {
-    cursor: pointer;
-  }
   .heart {
     color: red;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 15px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 200px;
+    background-color: #708b95;
+    color: #fff;
+    font-size: 18px;
+  }
+  button > svg {
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right: 5px;
   }
 
   @media (min-width: 55rem) {

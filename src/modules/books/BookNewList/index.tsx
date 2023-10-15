@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useState } from "react";
 import { useBooksItem } from "../data";
+import Button from "@/components/Button";
 
 const BookNewList = () => {
-  const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  const { booksItem: books, isBookItemValidating } = useBooksItem();
 
   return (
     <>
@@ -39,9 +39,15 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <dl>
-                        <button>장바구니 담기</button>
-                      </dl>
+                      <Button
+                        gubun="KOR"
+                        itemId={item.itemId}
+                        title={item.title}
+                        cover={item.cover}
+                        priceStandard={item.priceStandard.toString()}
+                        priceSales={item.priceSales.toString()}
+                        quantity="1"
+                      />
                     </div>
                   </li>
                 ))

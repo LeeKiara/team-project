@@ -10,13 +10,18 @@ import {
   ThumbUp,
   ThumbUpOffAlt,
 } from "@mui/icons-material";
+import Button from "@/components/Button";
 
 const BookSearch = () => {
+  //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+
+  //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
+  //페이징
   const [page, setPage] = useState(0);
   const { booksItem: books, isBookItemValidating } = useBooksItem(page);
 
@@ -39,6 +44,7 @@ const BookSearch = () => {
     }));
   };
 
+  //검색어 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);
@@ -99,40 +105,52 @@ const BookSearch = () => {
                               handleBookSave(item.itemId);
                             }}
                           >
-                            <span>선호작품</span>
-                            {storeHeartStates[item.itemId] ? (
-                              <Favorite className="material-icons-outlined heart" />
-                            ) : (
-                              <FavoriteBorder className="material-icons-outlined" />
-                            )}
+                            <button className="btn">
+                              {storeHeartStates[item.itemId] ? (
+                                <Favorite className="material-icons-outlined heart" />
+                              ) : (
+                                <FavoriteBorder className="material-icons-outlined" />
+                              )}
+                              선호작품
+                            </button>
                           </dl>
                           <dl
                             onClick={() => {
                               handleThumbUp(item.itemId);
                             }}
                           >
-                            <span>추천</span>
-                            {storeThumbStates[item.itemId] ? (
-                              <ThumbUp className="material-icons-outlined thumb" />
-                            ) : (
-                              <ThumbUpOffAlt className="material-icons-outlined" />
-                            )}
+                            <button className="btn">
+                              {storeThumbStates[item.itemId] ? (
+                                <ThumbUp className="material-icons-outlined thumb" />
+                              ) : (
+                                <ThumbUpOffAlt className="material-icons-outlined" />
+                              )}
+                              추천
+                            </button>
                           </dl>
                           <dl
                             onClick={() => {
                               handleThumbDown(item.itemId);
                             }}
                           >
-                            <span>싫어요</span>
-                            {storeThumbDownStates[item.itemId] ? (
-                              <ThumbDown className="material-icons-outlined thumb" />
-                            ) : (
-                              <ThumbDownOffAlt className="material-icons-outlined" />
-                            )}
+                            <button className="btn">
+                              {storeThumbDownStates[item.itemId] ? (
+                                <ThumbDown className="material-icons-outlined thumb" />
+                              ) : (
+                                <ThumbDownOffAlt className="material-icons-outlined" />
+                              )}
+                              싫어요
+                            </button>
                           </dl>
-                          <dl>
-                            <button>장바구니 담기</button>
-                          </dl>
+                          <Button
+                            gubun="KOR"
+                            itemId={item.itemId}
+                            title={item.title}
+                            cover={item.cover}
+                            priceStandard={item.priceStandard.toString()}
+                            priceSales={item.priceSales.toString()}
+                            quantity="1"
+                          />
                         </div>
                       </td>
                     </tr>

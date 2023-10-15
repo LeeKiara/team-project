@@ -1,9 +1,9 @@
 import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
-import { BookContainer } from "./styles";
+import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBooksItem } from "../data";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ShoppingCart } from "@mui/icons-material";
 
 const BookList = () => {
   const [page, setPage] = useState(0);
@@ -26,7 +26,7 @@ const BookList = () => {
 
   return (
     <>
-      <BookContainer>
+      <BookListContainer>
         {isBookItemValidating ? (
           // 로딩 상태를 처리하는 부분
           <p>로딩 중...</p>
@@ -62,16 +62,21 @@ const BookList = () => {
                         handleBookSave(item.itemId);
                       }}
                     >
-                      {storeHeartStates[item.itemId] ? (
-                        <Favorite className="material-icons-outlined heart" />
-                      ) : (
-                        <FavoriteBorder className="material-icons-outlined" />
-                      )}
-                      <span>선호작품</span>
+                      <button className="btn">
+                        {storeHeartStates[item.itemId] ? (
+                          <Favorite className="material-icons-outlined heart" />
+                        ) : (
+                          <FavoriteBorder className="material-icons-outlined" />
+                        )}
+                        선호작품
+                      </button>
                     </li>
-                    <li>
-                      <button>장바구니 담기</button>
-                    </li>
+                    <div>
+                      <button className="btn last">
+                        <ShoppingCart className="material-icons-outlined" />
+                        장바구니
+                      </button>
+                    </div>
                   </ul>
                 </article>
               ))
@@ -101,7 +106,7 @@ const BookList = () => {
             </nav>
           </section>
         )}
-      </BookContainer>
+      </BookListContainer>
     </>
   );
 };

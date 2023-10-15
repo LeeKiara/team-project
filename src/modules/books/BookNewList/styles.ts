@@ -29,7 +29,7 @@ export const BookNewContainer = styled.div`
   }
   section > ul > li > figure > a > img {
     width: 200px; /* 각 요소의 가로 너비를 설정 */
-    height: 267px;
+    height: 247px;
     margin: auto;
   }
   section > ul > li > div {
