@@ -30,7 +30,7 @@ export const LayoutContainer = styled.div`
     gap: 20px;
     margin-top: 5px;
   }
-  header > div > aside > button {
+  header > div > aside > a > button {
     border: none;
     background-color: transparent;
     padding: 0;

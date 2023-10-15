@@ -19,14 +19,20 @@ const Layout = () => {
         <header>
           <div>
             <aside>
-              <button>
-                <span className="material-symbols-outlined">
-                  account_circle
-                </span>
-              </button>
-              <button>
-                <span className="material-symbols-outlined">shopping_cart</span>
-              </button>
+              <Link to="/login">
+                <button>
+                  <span className="material-symbols-outlined">
+                    account_circle
+                  </span>
+                </button>
+              </Link>
+              <Link to="cart">
+                <button>
+                  <span className="material-symbols-outlined">
+                    shopping_cart
+                  </span>
+                </button>
+              </Link>
             </aside>
             <div id="searchForm">
               <h1>
