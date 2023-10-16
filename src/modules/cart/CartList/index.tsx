@@ -8,7 +8,11 @@ import ShowMessageModal from "@/components/ShowMessageModal";
 
 const CartList = () => {
   // 장바구니 캐시 데이터
-  const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData();
+  const {
+    cartData: cartlist,
+    mutateCartData,
+    isCartDataValidating,
+  } = useCartData();
 
   // 주문할 장바구니 도서 상태관리
   const [stateCartData, setStateCartData] = useState(cartlist);
@@ -22,7 +26,9 @@ const CartList = () => {
 
   const [isOrder, setIsOrder] = useState(false);
 
-  const [checkboxes, setCheckboxes] = useState(cartlist.map(() => false));
+  const [checkboxes, setCheckboxes] = useState(
+    cartlist && cartlist.length > 0 && cartlist.map(() => false),
+  );
 
   // const [selectedData, setSelectedData] = useState([]);
 
@@ -32,15 +38,21 @@ const CartList = () => {
   useEffect(() => {
     if (cartlist && cartlist.length > 0) {
       // 장바구니 수량 cartData에 저장된 값으로 초기화
-      const initialNumbers = cartlist.map((item) => parseInt(item.quantity, 10));
+      const initialNumbers = cartlist.map((item) =>
+        parseInt(item.quantity, 10),
+      );
       setQtys(initialNumbers);
 
       // 정가
-      const initialPriceStandard = cartlist.map((item) => parseInt(item.priceStandard, 10));
+      const initialPriceStandard = cartlist.map((item) =>
+        parseInt(item.priceStandard, 10),
+      );
       setPriceStandards(initialPriceStandard);
 
       // 할인가
-      const initialPriceSales = cartlist.map((item) => parseInt(item.priceSales, 10));
+      const initialPriceSales = cartlist.map((item) =>
+        parseInt(item.priceSales, 10),
+      );
       setPriceSales(initialPriceSales);
     }
   }, [cartlist]);
@@ -87,7 +99,14 @@ const CartList = () => {
         .filter((selectedItem) => selectedItem.isChecked);
 
       checkedCartItems.map((item, index) => {
-        console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+        console.log(
+          "  최종 장바구니 상품 목록 >>> " +
+            item.title +
+            ", " +
+            item.quantity +
+            ", " +
+            item.isChecked,
+        );
       });
 
       setStateCartData(checkedCartItems);
@@ -123,7 +142,12 @@ const CartList = () => {
       return newQtys;
     });
 
-    console.log("●●●●● handleIncrement qtys:" + qtys[index] + ", priceStandards : " + priceStandards[index]);
+    console.log(
+      "●●●●● handleIncrement qtys:" +
+        qtys[index] +
+        ", priceStandards : " +
+        priceStandards[index],
+    );
   };
 
   // 수량 1씩 감소
@@ -179,7 +203,14 @@ const CartList = () => {
       .filter((selectedItem) => selectedItem.isChecked);
 
     checkedCartItems.map((item, index) => {
-      console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+      console.log(
+        "  최종 장바구니 상품 목록 >>> " +
+          item.title +
+          ", " +
+          item.quantity +
+          ", " +
+          item.isChecked,
+      );
     });
 
     setStateCartData(checkedCartItems);
@@ -220,7 +251,11 @@ const CartList = () => {
           </article>
           <article className="cart-layer-title">
             <div>
-              <input type="checkbox" name="productall_seq" className="listCheckBox" />
+              <input
+                type="checkbox"
+                name="productall_seq"
+                className="listCheckBox"
+              />
             </div>
             <div>상품정보</div>
             <div>수량</div>
@@ -228,6 +263,7 @@ const CartList = () => {
           </article>
           {/* 장바구니 상품 리스트(Loop) */}
           {cartlist &&
+            cartlist.length > 0 &&
             cartlist.map((cartCashData, index) => (
               <article className="cart-layer" key={`item-${cartCashData.id}`}>
                 {/* 도서정보(책이미지/도서명) */}
@@ -243,22 +279,32 @@ const CartList = () => {
                   </label>
                   <figure>
                     <span className="image">
-                      <a href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
-                        <img src={cartCashData.cover} alt={cartCashData.title} />
+                      <a
+                        href={`/page?keyword=${cartCashData.itemId}`}
+                        target="_blank">
+                        <img
+                          src={cartCashData.cover}
+                          alt={cartCashData.title}
+                        />
                       </a>
                     </span>
                   </figure>
                   <div>
                     <div className="box-bookgubun">
-                      <span className="icon-bookgubun">{cartCashData.gubun}</span>
+                      <span className="icon-bookgubun">
+                        {cartCashData.gubun}
+                      </span>
                     </div>
                     <p>
-                      <a href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
+                      <a
+                        href={`/page?keyword=${cartCashData.itemId}`}
+                        target="_blank">
                         {cartCashData.id},{cartCashData.title}
                       </a>
                       <br />
                       (할인가:
-                      {cartCashData.priceSales},정가:{cartCashData.priceStandard})
+                      {cartCashData.priceSales},정가:
+                      {cartCashData.priceStandard})
                     </p>
                   </div>
                 </div>
@@ -267,15 +313,25 @@ const CartList = () => {
                 <div className="priceinfo">
                   {/* 수량 */}
                   <div style={{ width: "150px" }}>
-                    <input type="text" placeholder="0" value={qtys[index]} onChange={(e) => handleQtyChange(e, index)} />
-                    <button onClick={() => handleIncrement(index)}>1 증가</button>
-                    <button onClick={() => handleDecrement(index)}>1 감소</button>
+                    <input
+                      type="text"
+                      placeholder="0"
+                      value={qtys[index]}
+                      onChange={(e) => handleQtyChange(e, index)}
+                    />
+                    <button onClick={() => handleIncrement(index)}>
+                      1 증가
+                    </button>
+                    <button onClick={() => handleDecrement(index)}>
+                      1 감소
+                    </button>
                   </div>
 
                   {/* 할인가/정가 */}
                   <div>
                     <div className="box-price">
-                      <strong>{priceSales[index]}</strong>원<del>정가{priceStandards[index]}원</del>
+                      <strong>{priceSales[index]}</strong>원
+                      <del>정가{priceStandards[index]}원</del>
                     </div>
                     {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
                   </div>
@@ -335,7 +391,12 @@ const CartList = () => {
 
               {isOrder && <OrderButton cartBooks={stateCartData} />}
 
-              {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
+              {showMessageModal && (
+                <ShowMessageModal
+                  message="상품을 선택하세요."
+                  onCancel={handleCancel}
+                />
+              )}
             </div>
           </article>
         </section>
