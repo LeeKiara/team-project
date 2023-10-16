@@ -2,7 +2,7 @@
   "scripts": {
     "start": "webpack serve --mode development --port 5000",
     "build": "webpack --mode production",
-    "preview": "serve dist"
+    "preview": "serve dist"    
   },
   "devDependencies": {
     "@styled/typescript-styled-plugin": "^1.0.0",
