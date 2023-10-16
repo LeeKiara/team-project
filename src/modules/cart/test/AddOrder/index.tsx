@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderItemData, useOrderListData } from "../orderlistdata";
+import { OrderItemData, useOrderListData } from "../../orderlistdata";
 import OrderButton from "@/components/OrderButton";
 import { AddOrderContainer } from "./styles";
 
@@ -23,14 +23,16 @@ const AddOrder = () => {
     {
       itemId: 907990,
       title: "어린왕자1",
-      cover: "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      cover:
+        "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
       priceSales: "8000",
       quantity: "3",
     },
     {
       itemId: 907991,
       title: "어린왕자2",
-      cover: "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
+      cover:
+        "https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg",
       priceSales: "10000",
       quantity: "5",
     },

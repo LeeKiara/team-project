@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartData } from "../cartdata";
+import { useCartData } from "../../cartdata";
 import { AddCartContainer } from "./styles";
 import MyComponent from "@/components/MyComponent";
 import Button from "@/components/Button";
@@ -71,7 +71,6 @@ const AddCart = () => {
   return (
     <AddCartContainer>
       <section>
-        MyComponent : <MyComponent />
         <hr />
         <h6>도서정보</h6>
         <hr />

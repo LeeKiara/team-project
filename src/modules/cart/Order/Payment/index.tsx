@@ -96,7 +96,8 @@ const Payment = () => {
   const [isOrder, setIsOrder] = useState(false);
 
   // 주문 데이터
-  const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
+  const { orderListData: orderItems, isOrderListValidating } =
+    useOrderListData();
 
   const navigate = useNavigate();
 
@@ -120,7 +121,7 @@ const Payment = () => {
     });
     // 서버에 주무/배송 정보 등록
     // handlePost()참고
-    navigate("/cart/order/done");
+    navigate("/order/done");
   };
 
   // const handlePost = (e: React.FormEvent) => {

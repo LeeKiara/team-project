@@ -15,7 +15,7 @@ const OrderDone = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/order/orderlist");
+    navigate("/order/list");
   };
 
   const [showModal, setShowModal] = useState(false);

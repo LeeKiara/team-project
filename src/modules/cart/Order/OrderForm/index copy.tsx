@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { OrderContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
-import { useCartData } from "../cartdata";
-import { useOrderListData } from "../orderlistdata";
+import { useCartData } from "../../cartdata";
+import { useOrderListData } from "../../orderlistdata";
 
 const Order = () => {
   // 주문 데이터
-  const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
+  const { orderListData: orderItems, isOrderListValidating } =
+    useOrderListData();
 
   const [isCardSelected, setIsCardSelected] = useState(false);
   const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
@@ -49,14 +50,19 @@ const Order = () => {
                 {/* 주문 리스트(Loop)  */}
                 {orderItems &&
                   orderItems.map((cartCashData, index) => (
-                    <article className="box-list-payment" key={`item-${cartCashData.id}`}>
+                    <article
+                      className="box-list-payment"
+                      key={`item-${cartCashData.id}`}>
                       <div className="bookinfo">
                         <div>
                           <input type="hidden" name="orderdata" />
                           <div className="link-detail">
                             <span className="image">
                               <a href="" target="_blank">
-                                <img src={cartCashData.cover} alt={cartCashData.title} />
+                                <img
+                                  src={cartCashData.cover}
+                                  alt={cartCashData.title}
+                                />
                               </a>
                             </span>
                             <div className="text">
@@ -97,15 +103,28 @@ const Order = () => {
                   {/* <!-- 이름 입력 --> */}
                   <div className="box-name">
                     <span className="form-text">
-                      <input type="text" name="oname" placeholder="이름" style={{ width: "316px" }} />
+                      <input
+                        type="text"
+                        name="oname"
+                        placeholder="이름"
+                        style={{ width: "316px" }}
+                      />
                     </span>
                   </div>
 
                   {/* <!-- 전화번호 입력 --> */}
                   <div className="box-phonenum">
                     <input type="text" name="ohp1" placeholder="010" />
-                    <input type="text" name="ohp2" placeholder="휴대폰 앞자리" />
-                    <input type="text" name="ohp3" placeholder="휴대폰 뒷자리" />
+                    <input
+                      type="text"
+                      name="ohp2"
+                      placeholder="휴대폰 앞자리"
+                    />
+                    <input
+                      type="text"
+                      name="ohp3"
+                      placeholder="휴대폰 뒷자리"
+                    />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
@@ -139,15 +158,28 @@ const Order = () => {
                   {/* <!-- 이름 입력 --> */}
                   <div className="box-name">
                     <span className="form-text">
-                      <input type="text" name="oname" placeholder="이름" style={{ width: "316px" }} />
+                      <input
+                        type="text"
+                        name="oname"
+                        placeholder="이름"
+                        style={{ width: "316px" }}
+                      />
                     </span>
                   </div>
 
                   {/* <!-- 전화번호 입력 --> */}
                   <div className="box-phonenum">
                     <input type="text" name="ohp1" placeholder="010" />
-                    <input type="text" name="ohp2" placeholder="휴대폰 앞자리" />
-                    <input type="text" name="ohp3" placeholder="휴대폰 뒷자리" />
+                    <input
+                      type="text"
+                      name="ohp2"
+                      placeholder="휴대폰 앞자리"
+                    />
+                    <input
+                      type="text"
+                      name="ohp3"
+                      placeholder="휴대폰 뒷자리"
+                    />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
@@ -155,20 +187,43 @@ const Order = () => {
                   <div className="box-address">
                     <div>
                       <button type="button">주소찾기</button>
-                      <input type="text" name="zipcode" placeholder="우편번호" readOnly={true} style={{ width: "180px" }} />
+                      <input
+                        type="text"
+                        name="zipcode"
+                        placeholder="우편번호"
+                        readOnly={true}
+                        style={{ width: "180px" }}
+                      />
                     </div>
 
-                    <input type="text" name="address" placeholder="기본주소" readOnly={true} style={{ width: "550px" }} />
-                    <input type="text" name="street_detail" placeholder="상세 주소 및 상세 건물명" style={{ width: "550px" }} />
+                    <input
+                      type="text"
+                      name="address"
+                      placeholder="기본주소"
+                      readOnly={true}
+                      style={{ width: "550px" }}
+                    />
+                    <input
+                      type="text"
+                      name="street_detail"
+                      placeholder="상세 주소 및 상세 건물명"
+                      style={{ width: "550px" }}
+                    />
                   </div>
                   {/* <!-- //주소찾기 --> */}
                   {/* <!-- 배송메모 --> */}
                   <div className="box-memo">
                     <select>
                       <option value="">배송 메모를 선택해 주세요.</option>
-                      <option value="부재 시 경비실에 맡겨 주세요.">부재 시 경비실에 맡겨 주세요.</option>
-                      <option value="부재 시 문앞에 놓아 주세요.">부재 시 문앞에 놓아 주세요.</option>
-                      <option value="배송 전 미리 연락 바랍니다.">배송 전 미리 연락 바랍니다.</option>
+                      <option value="부재 시 경비실에 맡겨 주세요.">
+                        부재 시 경비실에 맡겨 주세요.
+                      </option>
+                      <option value="부재 시 문앞에 놓아 주세요.">
+                        부재 시 문앞에 놓아 주세요.
+                      </option>
+                      <option value="배송 전 미리 연락 바랍니다.">
+                        배송 전 미리 연락 바랍니다.
+                      </option>
                       <option value="DIRECT">직접입력</option>
                     </select>
                     <input
@@ -187,35 +242,59 @@ const Order = () => {
                 <div className="box-information-payment">
                   {/* <!-- 결제 수단 선택 --> */}
                   <div>
-                    <button type="button" onClick={handleCardSelect} className={`${isCardSelected ? "button-selected" : ""}`}>
+                    <button
+                      type="button"
+                      onClick={handleCardSelect}
+                      className={`${isCardSelected ? "button-selected" : ""}`}>
                       신용카드
                     </button>
-                    <button type="button" onClick={handleBankTransferSelect} className={`${isBankTransferSelected ? "button-selected" : ""}`}>
+                    <button
+                      type="button"
+                      onClick={handleBankTransferSelect}
+                      className={`${
+                        isBankTransferSelected ? "button-selected" : ""
+                      }`}>
                       실시간 계좌 이체
                     </button>
-                    <button type="button" onClick={handleBankDepositSelect} className={`${isBankDepositSelected ? "button-selected" : ""}`}>
+                    <button
+                      type="button"
+                      onClick={handleBankDepositSelect}
+                      className={`${
+                        isBankDepositSelected ? "button-selected" : ""
+                      }`}>
                       무통장 입금
                     </button>
                   </div>
 
                   {/* <!-- 신용카드 --> */}
-                  <div className={`payment-tab-cont kind1 ${isCardSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind1 ${
+                      isCardSelected ? "visible" : ""
+                    }`}>
                     <p className="text">
-                      <strong>신용카드를 선택하셨습니다.</strong> 보유하신 신용카드로 결제하시는 방법입니다.
+                      <strong>신용카드를 선택하셨습니다.</strong> 보유하신
+                      신용카드로 결제하시는 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //신용카드 --> */}
 
                   {/* <!-- 실시간 계좌 이체 --> */}
-                  <div className={`payment-tab-cont kind2 ${isBankTransferSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind2 ${
+                      isBankTransferSelected ? "visible" : ""
+                    }`}>
                     <p className="text">
-                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> 고객님 계좌에서 바로 이체시키는 결제 방법입니다.
+                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> 고객님
+                      계좌에서 바로 이체시키는 결제 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //실시간 계좌 이체 --> */}
 
                   {/* <!-- 무통장 입금 --> */}
-                  <div className={`payment-tab-cont kind3 ${isBankDepositSelected ? "visible" : ""}`}>
+                  <div
+                    className={`payment-tab-cont kind3 ${
+                      isBankDepositSelected ? "visible" : ""
+                    }`}>
                     <p className="text">
                       <strong>무통장 입금을 선택하셨습니다.</strong>
                       가상 계좌로 입금해 주시는 결제 방법입니다.

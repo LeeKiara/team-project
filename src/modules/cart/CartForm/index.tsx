@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
-import { CartContainer } from "./styles";
+import { CartFormContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
@@ -7,7 +7,7 @@ import ConfirmModal from "@/components/ConfirmModal";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
 
-const CartList = () => {
+const CartForm = () => {
   // 장바구니 캐시 데이터
   const {
     cartData: cartlist,
@@ -220,7 +220,7 @@ const CartList = () => {
 
   return (
     <>
-      <CartContainer>
+      <CartFormContainer>
         <section>
           <article>
             <div className="cart-header">
@@ -380,9 +380,9 @@ const CartList = () => {
             </div>
           </article>
         </section>
-      </CartContainer>
+      </CartFormContainer>
     </>
   );
 };
 
-export default CartList;
+export default CartForm;

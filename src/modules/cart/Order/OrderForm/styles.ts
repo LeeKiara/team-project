@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 // import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
 
-export const OrderContainer = styled.div`
+export const OrderFormContainer = styled.div`
   input,
   select {
     font-family: "Roboto", sans-serif;
