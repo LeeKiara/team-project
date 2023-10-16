@@ -39,9 +39,6 @@ const OrderDone = () => {
               {/* 결제정보확인/메인으로 이동 버튼 */}
               <div className="box-pagemove">
                 <button className="box-blue font-blue pointer" onClick={handleShowModal}>
-                <button
-                  className="box-blue font-blue pointer"
-                  onClick={handleShowModal}>
                   결제 정보 확인
                 </button>
                 <button className="box-blue font-blue pointer" onClick={handleGoHome}>

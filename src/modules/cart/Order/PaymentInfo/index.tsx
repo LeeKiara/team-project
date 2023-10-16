@@ -3,7 +3,7 @@ import { OrderContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "@/modules/cart/cartdata";
 import { useOrderListData } from "@/modules/cart/orderlistdata";
-import Payment from "@/modules/cart/Order";
+import Payment from "@/modules/cart/Order/Payment";
 
 const Order = () => {
   // 주문 데이터
