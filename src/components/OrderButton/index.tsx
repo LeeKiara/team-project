@@ -32,13 +32,18 @@ const OrderButton = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
 
     cartBooks &&
       cartBooks.map((selectedItem, index) => {
-        console.log("   주문대상 ^^^^^^^^^ " + selectedItem.title + ", " + selectedItem.quantity);
+        console.log(
+          "   주문대상 ^^^^^^^^^ " +
+            selectedItem.title +
+            ", " +
+            selectedItem.quantity,
+        );
       });
 
     createOrderListData(cartBooks);
 
     // 주문하기 화면으로 이동
-    navigate("/cart/order");
+    navigate("/order");
   };
 
   return (
@@ -49,7 +54,12 @@ const OrderButton = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
           주문하기
         </button>
 
-        {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
+        {showMessageModal && (
+          <ShowMessageModal
+            message="상품을 선택하세요."
+            onCancel={handleCancel}
+          />
+        )}
       </div>
     </OrderButtonStyle>
   );

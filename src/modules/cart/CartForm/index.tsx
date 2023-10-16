@@ -1,12 +1,13 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
-import { CartContainer } from "./styles";
+import { CartFormContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
 import ConfirmModal from "@/components/ConfirmModal";
 import ShowMessageModal from "@/components/ShowMessageModal";
+import CalcuTotalPayment from "./CalcuTotalPayment";
 
-const CartList = () => {
+const CartForm = () => {
   // 장바구니 캐시 데이터
   const {
     cartData: cartlist,
@@ -24,15 +25,20 @@ const CartList = () => {
   // 할인가 상태
   const [priceSales, setPriceSales] = useState([]);
 
+  // 주문 가능 여부
   const [isOrder, setIsOrder] = useState(false);
 
-  const [checkboxes, setCheckboxes] = useState(
-    cartlist && cartlist.length > 0 && cartlist.map(() => false),
-  );
-
-  // const [selectedData, setSelectedData] = useState([]);
+  // 장바구니 상품 선택 박스
+  const [checkboxes, setCheckboxes] = useState([]);
+  // const [checkboxes, setCheckboxes] = useState(
+  //   cartlist && cartlist.length > 0 && cartlist.map(() => false),
+  // );
 
   const navigate = useNavigate();
+
+  // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
+  console.log("---validating---");
+  console.log(isCartDataValidating);
 
   // 장바구니 데이터로 수량/정가/할인가 초기화 배열 설정
   useEffect(() => {
@@ -59,7 +65,9 @@ const CartList = () => {
 
   // 장바구니 수량이 변경되면 정가와 할인가 변경 처리
   useEffect(() => {
-    // console.log("!! qtys useEffect  ");
+    console.log(
+      "!! qtys useEffect : 장바구니 수량이 변경되면 정가와 할인가 변경 처리 ",
+    );
     // console.log(qtys + ", " + priceStandards);
 
     // 정가 다시 계산
@@ -78,6 +86,10 @@ const CartList = () => {
     });
 
     setPriceSales(calcuPriceSales);
+
+    // 주문상품 상태 관리
+    // const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+    // setStateCartData(checkedCartItems);
   }, [qtys]);
 
   // 주문할 상품 선택박스 상태변경 부가처리
@@ -85,29 +97,7 @@ const CartList = () => {
     if (cartlist && cartlist.length > 0) {
       console.log("++++++++++ useEffect checkboxes");
 
-      const checkedCartItems = cartlist
-        .map((selectedItem, index) => ({
-          itemId: selectedItem.itemId,
-          title: selectedItem.title,
-          cover: selectedItem.cover,
-          priceStandard: selectedItem.priceStandard,
-          priceSales: selectedItem.priceSales,
-          quantity: qtys[index],
-          isChecked: checkboxes[index], // 체크박스 상태 사용
-          gubun: "",
-        }))
-        .filter((selectedItem) => selectedItem.isChecked);
-
-      checkedCartItems.map((item, index) => {
-        console.log(
-          "  최종 장바구니 상품 목록 >>> " +
-            item.title +
-            ", " +
-            item.quantity +
-            ", " +
-            item.isChecked,
-        );
-      });
+      const checkedCartItems = createSelectedCartList(stateCartData, qtys);
 
       setStateCartData(checkedCartItems);
 
@@ -115,80 +105,21 @@ const CartList = () => {
     }
   }, [checkboxes]);
 
-  // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
-  console.log("---validating---");
-  console.log(isCartDataValidating);
-
-  // 장바구니 수량 변경 이벤트 핸들러
-  const handleQtyChange = (e, index) => {
-    console.log("** handleQtyChange ");
-
-    const itemQty = parseInt(e.target.value, 10);
-
-    setQtys((prevQtys) => {
-      const newQtys = [...prevQtys];
-      newQtys[index] = itemQty;
-      return newQtys;
-    });
-  };
-
-  // 수량 1씩 증가
-  const handleIncrement = (index) => {
-    console.log("●●●●● handleIncrement ");
-
-    setQtys((prevQtys) => {
-      const newQtys = [...prevQtys];
-      newQtys[index] = newQtys[index] + 1;
-      return newQtys;
-    });
-
-    console.log(
-      "●●●●● handleIncrement qtys:" +
-        qtys[index] +
-        ", priceStandards : " +
-        priceStandards[index],
-    );
-  };
-
-  // 수량 1씩 감소
-  const handleDecrement = (index) => {
-    setQtys((prevQtys) => {
-      const newQtys = [...prevQtys];
-      if (newQtys[index] <= 1) {
-        newQtys[index] = 1;
-      } else {
-        newQtys[index] = newQtys[index] - 1;
-      }
-
-      return newQtys;
-    });
-  };
-
-  // 체크박스 변경에 따른 장바구니 상품목록 상태관리
-  const handleCheckboxChange = (index) => {
-    const newCheckboxes = [...checkboxes];
-    newCheckboxes[index] = !newCheckboxes[index];
-    setCheckboxes(newCheckboxes);
-  };
-
-  // const handleCheckboxChange = (index) => {
-  //   console.log("++++++++++ handleCheckboxChange");
-  //   const updatedCartList = [...cartlist];
-  //   updatedCartList[index].isChecked = !cartlist[index].isChecked;
-
-  //   updatedCartList.map((selectedItem, index) => {
-  //     console.log("   주문대상 상품 목록 >>> " + selectedItem.title + ", " + selectedItem.quantity + ", " + selectedItem.isChecked);
-  //   });
-
-  //   setStateCartData(updatedCartList);
-  // };
-
   const gotoOrder = () => {
     console.log("++++++++++ gotoOrder");
 
     // alert("상품을 선택하세요.");
     setShowMessageModal(true);
 
+    const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+
+    setStateCartData(checkedCartItems);
+
+    setIsOrder(true);
+  };
+
+  // 체크박스 선택 및 수량 변경에 따른 대상 최종 정보 생성
+  function createSelectedCartList(stateCartData, qtys) {
     const checkedCartItems = cartlist
       .map((selectedItem, index) => ({
         itemId: selectedItem.itemId,
@@ -213,9 +144,68 @@ const CartList = () => {
       );
     });
 
-    setStateCartData(checkedCartItems);
+    return checkedCartItems;
+  }
 
-    setIsOrder(true);
+  // 체크박스 변경에 따른 장바구니 상품목록 상태관리
+  const handleCheckboxChange = (index) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index] = !newCheckboxes[index];
+    setCheckboxes(newCheckboxes);
+  };
+
+  // 장바구니 수량 변경 이벤트 핸들러
+  const handleQtyChange = (e, index) => {
+    console.log("** handleQtyChange ");
+
+    const itemQty = parseInt(e.target.value, 10);
+
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      newQtys[index] = itemQty;
+      return newQtys;
+    });
+  };
+
+  // 수량 1씩 증가
+  const handleIncrement = (index) => {
+    console.log("●●●●● handleIncrement ");
+
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      newQtys[index] = newQtys[index] + 1;
+      return newQtys;
+    });
+
+    // 수량 증가 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index] = !newCheckboxes[index];
+    setCheckboxes(newCheckboxes);
+
+    // console.log(
+    //   "●●●●● handleIncrement qtys:" +
+    //     qtys[index] +
+    //     ", priceStandards : " +
+    //     priceStandards[index],
+    // );
+  };
+
+  // 수량 1씩 감소
+  const handleDecrement = (index) => {
+    setQtys((prevQtys) => {
+      const newQtys = [...prevQtys];
+      if (newQtys[index] <= 1) {
+        newQtys[index] = 1;
+      } else {
+        newQtys[index] = newQtys[index] - 1;
+      }
+      return newQtys;
+    });
+
+    // 수량 감소 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index] = !newCheckboxes[index];
+    setCheckboxes(newCheckboxes);
   };
 
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -228,21 +218,9 @@ const CartList = () => {
     setShowMessageModal(false);
   };
 
-  function createSelectedCartList(stateCartData, qtys) {
-    return stateCartData
-      .filter((selectedItem) => selectedItem.isChecked)
-      .map((selectedItem, index) => ({
-        itemId: selectedItem.itemId,
-        title: selectedItem.title,
-        cover: selectedItem.cover,
-        priceSales: selectedItem.priceSales,
-        quantity: qtys[index],
-      }));
-  }
-
   return (
     <>
-      <CartContainer>
+      <CartFormContainer>
         <section>
           <article>
             <div className="cart-header">
@@ -277,7 +255,7 @@ const CartList = () => {
                       onChange={() => handleCheckboxChange(index)}
                     />
                   </label>
-                  <figure>
+                  <div>
                     <span className="image">
                       <a
                         href={`/page?keyword=${cartCashData.itemId}`}
@@ -288,8 +266,8 @@ const CartList = () => {
                         />
                       </a>
                     </span>
-                  </figure>
-                  <div>
+                  </div>
+                  <div className="bookinfo-title">
                     <div className="box-bookgubun">
                       <span className="icon-bookgubun">
                         {cartCashData.gubun}
@@ -312,19 +290,31 @@ const CartList = () => {
 
                 <div className="priceinfo">
                   {/* 수량 */}
-                  <div style={{ width: "150px" }}>
+                  <div>
                     <input
                       type="text"
                       placeholder="0"
                       value={qtys[index]}
                       onChange={(e) => handleQtyChange(e, index)}
                     />
-                    <button onClick={() => handleIncrement(index)}>
-                      1 증가
-                    </button>
-                    <button onClick={() => handleDecrement(index)}>
-                      1 감소
-                    </button>
+                    <div className="btn-qty-change">
+                      {/* <button onClick={() => handleIncrement(index)}>
+                        1 증가
+                      </button>
+                      <button onClick={() => handleDecrement(index)}>
+                        1 감소
+                      </button> */}
+                      <img
+                        onClick={() => handleIncrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
+                        alt="위 화살표"
+                      />
+                      <img
+                        onClick={() => handleDecrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
+                        alt="아래화살표"
+                      />
+                    </div>
                   </div>
 
                   {/* 할인가/정가 */}
@@ -344,32 +334,22 @@ const CartList = () => {
 
           {/* 주문합계 */}
           <article>
-            <div>
-              {/* {selectedData.length > 0 && (
-                <div>
-                  <h3>선택된 항목:</h3>
-                  <ul>
-                    {selectedData.map((selectedItem, index) => (
-                      <li key={`selected-${index}`}>
-                       
-                        {`항목 ${index + 1} => 수량 : ${selectedItem.qty}, 정가 : ${selectedItem.priceStandard}, 할인가 : ${selectedItem.priceSales}`}
-                      </li>
-                    ))}
-                  </ul>
+            {stateCartData && stateCartData.length && (
+              <CalcuTotalPayment cartBooks={stateCartData} />
+            )}
+            {stateCartData.length === 0 && (
+              <div className="box-total-payment">
+                <div className="total-text">주문합계</div>
+                <div className="total-sum">
+                  상품금액 <strong id="fixedsum">0</strong>원 <i>-</i>
+                  할인금액 <strong id="discountsum">0</strong>원 <i>+</i>
+                  배송비 <strong id="deliveryfee">0</strong>원
                 </div>
-              )} */}
-            </div>
-            <div className="box-total-payment">
-              <div className="total-text">주문합계</div>
-              <div className="total-sum">
-                상품금액 <strong id="fixedsum">1,0000</strong>원 <i>-</i>
-                할인금액 <strong id="discountsum">2,000</strong>원 <i>+</i>
-                배송비 <strong id="deliveryfee">2,000</strong>원
+                <div className="total-price">
+                  결제 예정 금액 <strong id="totalsum">0</strong>원
+                </div>
               </div>
-              <div className="total-price">
-                결제 예정 금액 <strong id="totalsum">10,000</strong>원
-              </div>
-            </div>
+            )}
           </article>
 
           {/* 주문버튼 */}
@@ -400,9 +380,9 @@ const CartList = () => {
             </div>
           </article>
         </section>
-      </CartContainer>
+      </CartFormContainer>
     </>
   );
 };
 
-export default CartList;
+export default CartForm;

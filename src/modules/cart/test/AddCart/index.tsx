@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartData } from "../cartdata";
+import { useCartData } from "../../cartdata";
 import { AddCartContainer } from "./styles";
 import MyComponent from "@/components/MyComponent";
 import Button from "@/components/Button";
@@ -71,7 +71,6 @@ const AddCart = () => {
   return (
     <AddCartContainer>
       <section>
-        MyComponent : <MyComponent />
         <hr />
         <h6>도서정보</h6>
         <hr />
@@ -81,7 +80,12 @@ const AddCart = () => {
               <dl>
                 <dt>itemId</dt>
                 <dd>
-                  <input type="text" name="itemId" ref={itemIdRef} value="907990" />
+                  <input
+                    type="text"
+                    name="itemId"
+                    ref={itemIdRef}
+                    value="907990"
+                  />
                 </dd>
               </dl>
 
@@ -100,20 +104,35 @@ const AddCart = () => {
               <dl>
                 <dt>책제목</dt>
                 <dd>
-                  <input type="text" name="title" ref={titleRef} value="어린왕자" />
+                  <input
+                    type="text"
+                    name="title"
+                    ref={titleRef}
+                    value="어린왕자"
+                  />
                 </dd>
               </dl>
 
               <dl>
                 <dt>정가</dt>
                 <dd>
-                  <input type="text" name="priceStandard" ref={priceStandardRef} value="10000" />
+                  <input
+                    type="text"
+                    name="priceStandard"
+                    ref={priceStandardRef}
+                    value="10000"
+                  />
                 </dd>
               </dl>
               <dl>
                 <dt>할인가</dt>
                 <dd>
-                  <input type="text" name="priceSales" ref={priceSalesRef} value="8000" />
+                  <input
+                    type="text"
+                    name="priceSales"
+                    ref={priceSalesRef}
+                    value="8000"
+                  />
                 </dd>
               </dl>
               <dl>

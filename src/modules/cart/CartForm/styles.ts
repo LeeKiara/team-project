@@ -9,7 +9,7 @@ const blueColor = "#3d4ed7";
 const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
 
-export const CartContainer = styled.div`
+export const CartFormContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
@@ -64,18 +64,19 @@ export const CartContainer = styled.div`
 
   /* 장바구니 도서정보 */
   .bookinfo {
-    flex: 1;
+    /* flex: 1; */
     display: flex;
     flex-direction: row;
     /* border: 1px solid red; */
-    gap: 10px;
+    /* gap: 10px; */
+    width: 60%;
 
     label {
       margin-top: 0px;
       margin-left: 10px;
     }
-    .box-bookgubun {
-      margin: 8px 0;
+    .bookinfo-title {
+      margin-left: 0px;
     }
     .icon-bookgubun {
       display: inline-block;
@@ -92,7 +93,7 @@ export const CartContainer = styled.div`
 
     .image {
       display: inline-block;
-      margin: 0 23px 0 0;
+      margin: 0 10px 0 0;
       width: 110px;
       vertical-align: top;
     }
@@ -113,74 +114,25 @@ export const CartContainer = styled.div`
     gap: 30px;
     margin: 0px 20px;
 
-    .book-quantity {
-      display: inline-block;
-      position: relative;
-      width: 100%;
-      vertical-align: middle;
-      border: 1px solid ${borderColor};
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 15px;
+    div {
+      display: flex;
+      flex-direction: row;
+    }
+    .btn-qty-change {
+      display: flex;
+      flex-direction: column;
+    }
 
-      input[type="number"] {
-        display: block;
-        float: left;
-        margin: 0;
-        padding: 0;
-        /* width: calc(100% - 20px); */
-        width: calc(100%);
-        height: 30px;
-        font-size: 14px;
-        text-indent: 16px;
-        border: none;
-        border-radius: 0;
-        pointer-events: none;
-      }
-
-      .quantity-nav {
-        position: absolute;
-        right: 0;
-        top: 1px;
-        height: 100%;
-
-        .quantity-up,
-        .quantity-down {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          text-align: center;
-          width: 20px;
-          text-align: center;
-          color: ${primaryColor};
-          font-size: 13px;
-          line-height: 20px;
-          cursor: pointer;
-          background: #f6f7fb;
-          border-left: 1px solid ${borderColor};
-          transform: translateX(-100%);
-          user-select: none;
-        }
-
-        .quantity-up {
-          position: absolute;
-          height: 50%;
-          top: 0;
-          border-bottom: 1px solid #eee;
-        }
-
-        .quantity-down {
-          position: absolute;
-          bottom: 0;
-          height: 50%;
-        }
-      }
+    input {
+      width: 100px;
     }
 
     .box-price {
       font-size: 16px;
       letter-spacing: -1px;
       /* border: 1px solid black; */
+      display: flex;
+      flex-direction: column;
     }
 
     .box-price strong {

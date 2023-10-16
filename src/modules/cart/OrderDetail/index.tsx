@@ -1,11 +1,19 @@
 import Home from "@/pages/Home";
 import { OrderDetailContainer } from "./styles";
 import { useCartData } from "../cartdata";
+import { useNavigate } from "react-router-dom";
 
 const OrderDetail = () => {
+  const navigate = useNavigate();
+
   // 주문/결제 데이터
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
   const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
+
+  // 주문목록 화면으로 이동
+  const handleOrderList = () => {
+    navigate(`/order/list`);
+  };
 
   return (
     <>
@@ -103,14 +111,14 @@ const OrderDetail = () => {
               {/* 결제 정보 */}
               <div className="box-payment-info">
                 <dl>
-                  <dt>이현미 </dt>
+                  <dt>홍길동 &nbsp;&nbsp;&nbsp;010-9090-8080</dt>
                   <dd>
-                    <span className="val">01046083414</span>
+                    <span className="val"></span>
                     <span className="unit"></span>
                   </dd>
                 </dl>
                 <dl>
-                  <dt>[14224] 경기도 광명시 사성로103번길 14(철산동, 광복현대아파트), 106동 903호</dt>
+                  <dt>[14224] 서울특별시 종로구 종로 1 (종로1가 서린동 1228번지)</dt>
                 </dl>
               </div>
             </div>
@@ -118,58 +126,48 @@ const OrderDetail = () => {
           <article>
             <div className="order-layer">주문 상품</div>
           </article>
-          {/* 주문내역 (Loop) */}
-          {orderList &&
-            orderList.map((cartCashData, index) => (
-              <article className="order-item-layer" key={`item-${cartCashData.id}`}>
-                {/* 도서정보(책이미지/도서명) */}
-
-                <div className="bookinfo">
-                  <figure>
-                    <span className="image">
+          {/* 도서정보 (Loop) */}
+          <div className="order-item-container">
+            {orderList &&
+              orderList.map((cartCashData, index) => (
+                <article className="order-item-layer" key={`item-${cartCashData.id}`}>
+                  <div className="bookinfo">
+                    {/* 도서이미지 */}
+                    <div className="image">
                       <a href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
                         <img src={cartCashData.cover} alt={cartCashData.title} />
                       </a>
-                    </span>
-                  </figure>
-                  <div>
-                    <div>
-                      <span>&nbsp;</span>
                     </div>
-                    <p>
-                      <a className="subject" href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
-                        {cartCashData.title}
-                      </a>
-                      <br />
-                      <p className="order-number">
-                        <strong>수량</strong>
-                        &nbsp;&nbsp;1
+                    {/* 도서제목 / 수량 */}
+                    <div style={{ textAlign: "center" }}>
+                      <p>
+                        <a className="subject" href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
+                          {cartCashData.title}
+                        </a>
+                        <br />
+                        <p className="order-number">
+                          {/* <strong>수량</strong>
+                        &nbsp;&nbsp;1 */}
+                        </p>
                       </p>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="priceinfo">
-                  {/* 주문금액 */}
-                  <div>
-                    <div className="box-price">
-                      <strong>{cartCashData.priceSales}</strong>원
                     </div>
+                    {/* 주문금액 */}
+                    {/* <div className="priceinfo">
+                    <strong>{cartCashData.priceSales}</strong>원
+                  </div> */}
                   </div>
-                </div>
-                <div style={{ width: "100px" }}>&nbsp;</div>
-                {/* 주문상태 */}
-                {/* <div>
-                  <div className="order-state">
-                    <strong>주문완료</strong>
-                  </div>
-                </div> */}
-              </article>
-            ))}
+                </article>
+              ))}
+          </div>
           <article>
             <div className="box-submit-payment">
-              <button>주문/배송 목록</button>
+              <span className="btn-order">
+                <button onClick={handleOrderList}>주문/배송 조회</button>
+              </span>
             </div>
+          </article>
+          <article>
+            <div style={{ height: "50px" }}></div>
           </article>
         </section>
       </OrderDetailContainer>

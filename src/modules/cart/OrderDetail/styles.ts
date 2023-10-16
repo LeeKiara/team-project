@@ -65,13 +65,26 @@ export const OrderDetailContainer = styled.div`
     font-weight: 600;
     padding-left: 50px;
     margin-top: 30px;
-  }
-  .order-item-layer {
     display: flex;
     flex-direction: row;
-    /* border: 2px solid ${lightgrayColor}; */
-    height: 100px;
+  }
+  .order-item-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+  .order-item-layer > div {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    width: 200px;
+    height: 300px;
+    border: 1px solid #eaeaea;
+    border-radius: 16px;
+
+    div {
+      /* width: 100px; */
+    }
   }
 
   .order-item-layer-title {
@@ -87,55 +100,29 @@ export const OrderDetailContainer = styled.div`
   }
 
   .bookinfo {
-    /* flex: 1; */
     display: flex;
     flex-direction: row;
-    /* border: 1px solid red; */
-    /* gap: 50px; */
 
     label {
       margin-top: 0px;
       margin-left: 10px;
     }
-    .box-bookgubun {
-      margin: 8px 0;
-    }
-    .icon-bookgubun {
-      display: inline-block;
-      padding: 0 8px;
-      width: auto;
-      height: 22px;
-      line-height: 20px;
-      font-size: 12px;
-      font-weight: 400;
-      color: ${lightblueColor};
-      border: 1px solid ${lightblueColor};
-      border-radius: 4px;
-    }
-
-    .image {
-      display: inline-block;
-      margin: 0 23px 0 0;
-      width: 110px;
-      vertical-align: top;
-    }
 
     .image img {
-      display: block;
-      width: 82px;
-      height: 109px;
-      border: 1px solid ${lightgrayColor};
+      width: 160px;
+      margin: 10px 5px;
+      /* border: 1px solid ${lightgrayColor}; */
     }
 
     .subject {
-      display: block;
-      font-size: 18px;
+      font-size: 15px;
       line-height: 26px;
       font-weight: 500;
       width: 370px;
       max-height: 55px;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin: 10px 5px;
     }
   }
 
@@ -151,7 +138,7 @@ export const OrderDetailContainer = styled.div`
 
     div {
       /* border: 1px solid red; */
-      width: 80%;
+      /* width: 80%; */
       padding-right: 80px;
     }
     div dl {
@@ -161,6 +148,32 @@ export const OrderDetailContainer = styled.div`
       gap: 30px;
       justify-content: space-between;
       height: 30px;
+    }
+  }
+
+  .box-submit-payment {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+
+    .btn-order {
+      display: block;
+    }
+
+    .btn-order button {
+      display: block;
+      width: 218px;
+      height: 44px;
+      line-height: 1;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      border-radius: 4px;
+      background: #3d4ed7;
+      border: 0;
+      cursor: pointer;
     }
   }
 

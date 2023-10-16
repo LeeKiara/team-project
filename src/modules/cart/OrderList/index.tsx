@@ -2,6 +2,7 @@ import Home from "@/pages/Home";
 import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useCartData } from "../cartdata";
+import { useNavigate } from "react-router-dom";
 
 const OrderList = () => {
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월 선택관리
@@ -9,6 +10,8 @@ const OrderList = () => {
   const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체 선택관리
   const [startDate, setStartDate] = useState(""); // 시작일에 대한 상태 추가
   const [endDate, setEndDate] = useState(""); // 종료일에 대한 상태 추가
+
+  const navigate = useNavigate();
 
   // 주문/결제 데이터
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
@@ -52,6 +55,12 @@ const OrderList = () => {
   // 주문상태(전체/주문완료/취소) 변경 함수
   const changeStatus = (status) => {
     setSelectedStatus(status);
+  };
+
+  // 주문상세 화면으로 이동
+  const handleOrderDtail = (orderno: string) => {
+    // navigate(`/order/orderdetail/$orderno`);
+    navigate(`/order/detail`);
   };
 
   return (
@@ -151,7 +160,14 @@ const OrderList = () => {
                       <br />
                       <p className="order-number">
                         <strong>주문번호</strong>
-                        &nbsp;&nbsp;20231015213531-0001285883
+                        &nbsp;&nbsp;
+                        <span
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            handleOrderDtail("20231015213531-0001285883");
+                          }}>
+                          20231015213531-0001285883
+                        </span>
                       </p>
                     </p>
                   </div>
