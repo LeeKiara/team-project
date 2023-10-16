@@ -197,7 +197,10 @@ const OrderList = () => {
                       <br />
                       <p className="order-number">
                         <strong>주문번호</strong>
-                        &nbsp;&nbsp;20231015213531-0001285883
+                        &nbsp;&nbsp;
+                        <a href="/order/orderdetail">
+                          20231015213531-0001285883
+                        </a>
                       </p>
                     </p>
                   </div>

@@ -15,7 +15,7 @@ const OrderDone = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/");
+    navigate("/order/orderlist");
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -40,15 +40,13 @@ const OrderDone = () => {
               <div className="box-pagemove">
                 <button
                   className="box-blue font-blue pointer"
-                  onClick={handleShowModal}
-                >
+                  onClick={handleShowModal}>
                   결제 정보 확인
                 </button>
                 <button
                   className="box-blue font-blue pointer"
-                  onClick={handleGoHome}
-                >
-                  메인으로 이동
+                  onClick={handleGoHome}>
+                  주문/배송 목록 조회
                 </button>
               </div>
             </div>
