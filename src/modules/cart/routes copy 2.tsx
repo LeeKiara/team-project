@@ -6,7 +6,7 @@ import CartSidebar from "./CartSidebar";
 // import OrderDone from "./Order/OrderDone";
 import PaymentInfo from "./Order/PaymentInfo";
 import AddOrder from "./AddOrder";
-import ComponentA from "./test/ComponentA";
+import ComponentA from "@/modules/cart/test/ComponentA";
 import ComponentB from "./test/ComponentB";
 
 const AddCart = lazy(() => import("@/modules/cart/AddCart"));
@@ -35,10 +35,12 @@ export const cartRoutes = [
     ,
     <Route element={<AddCart />} index />,
   </Route>,
-  <Route key="test" path="test" element={<CartSidebar />}>
-    ,
-    <Route element={<OrderDetail />} index />,
+  // <Route key="test" path="test" element={<CartSidebar />}>
+  //   ,
+  //   <Route element={<OrderDetail />} index />,
+  // </Route>,
+  <Route key="test2" path="test2" element={<CartSidebar />}>
+    <Route element={<ComponentA />} />
+    <Route key="ComponentB" path="componentB" element={<ComponentB />} />
   </Route>,
-  <Route key="test3" path="test3" element={<ComponentA />} />,
-  <Route key="ComponentB" path="ComponentB" element={<ComponentB />} />,
 ];
