@@ -67,18 +67,28 @@ export const LayoutContainer = styled.div`
     vertical-align: middle;
     font-size: 30px;
   }
-  header > div > div > form {
+  #searchForm > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  header > div > div > form > label {
+  #searchForm > form > label {
     height: 100%;
     border: 3.5px solid #fdbebe;
     border-radius: 30px;
   }
-  header > div > div > form > label > input {
-    width: 70%;
+  #searchForm > form > label > select {
+    height: 80%;
+    border: none;
+    border-right: 2px solid #fdbebe;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #767676;
+  }
+  #searchForm > form > label > input {
+    width: 45%;
     height: 60%;
     border: none;
     vertical-align: top;

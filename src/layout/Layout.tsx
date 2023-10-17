@@ -21,16 +21,12 @@ const Layout = () => {
             <aside>
               <Link to="/login">
                 <button>
-                  <span className="material-symbols-outlined">
-                    account_circle
-                  </span>
+                  <span className="material-symbols-outlined">account_circle</span>
                 </button>
               </Link>
               <Link to="cart">
                 <button>
-                  <span className="material-symbols-outlined">
-                    shopping_cart
-                  </span>
+                  <span className="material-symbols-outlined">shopping_cart</span>
                 </button>
               </Link>
             </aside>
@@ -40,6 +36,11 @@ const Layout = () => {
               </h1>
               <form onSubmit={handleSearch}>
                 <label>
+                  <select>
+                    <option value="통합검색">통합검색</option>
+                    <option value="국내도서">국내도서</option>
+                    <option value="리뷰">리뷰</option>
+                  </select>
                   <input ref={searchRef} />
                   <span className="material-symbols-outlined">search</span>
                 </label>

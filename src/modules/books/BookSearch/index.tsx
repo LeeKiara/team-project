@@ -2,14 +2,7 @@ import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { useBooksItem } from "../data";
-import {
-  Favorite,
-  FavoriteBorder,
-  ThumbDown,
-  ThumbDownOffAlt,
-  ThumbUp,
-  ThumbUpOffAlt,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 
 const BookSearch = () => {
@@ -73,6 +66,7 @@ const BookSearch = () => {
                   <th>알라딘 링크</th>
                   <th>정가</th>
                   <th>판매가</th>
+                  {/* <th>리뷰수</th> */}
                   <th>재고량</th>
                   <th>선택</th>
                 </tr>
@@ -103,8 +97,7 @@ const BookSearch = () => {
                           <dl
                             onClick={() => {
                               handleBookSave(item.itemId);
-                            }}
-                          >
+                            }}>
                             <button className="btn">
                               {storeHeartStates[item.itemId] ? (
                                 <Favorite className="material-icons-outlined heart" />
@@ -117,8 +110,7 @@ const BookSearch = () => {
                           <dl
                             onClick={() => {
                               handleThumbUp(item.itemId);
-                            }}
-                          >
+                            }}>
                             <button className="btn">
                               {storeThumbStates[item.itemId] ? (
                                 <ThumbUp className="material-icons-outlined thumb" />
@@ -131,8 +123,7 @@ const BookSearch = () => {
                           <dl
                             onClick={() => {
                               handleThumbDown(item.itemId);
-                            }}
-                          >
+                            }}>
                             <button className="btn">
                               {storeThumbDownStates[item.itemId] ? (
                                 <ThumbDown className="material-icons-outlined thumb" />
