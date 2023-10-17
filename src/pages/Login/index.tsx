@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [userId, setUserId] = useState("");
+  const [userid, setUserid] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
   const handleCheckbox = () => {
     if (checkbox) {
-      localStorage.removeItem("userId");
+      localStorage.removeItem("userid");
     } else {
-      localStorage.setItem("userId", userId);
+      localStorage.setItem("userid", userid);
     }
     setCheckbox(!checkbox);
   };
@@ -21,7 +21,7 @@ const Login = () => {
   useEffect(() => {
     const savedUserId = localStorage.getItem("userId");
     if (savedUserId) {
-      setUserId(savedUserId);
+      setUserid(savedUserId);
       setCheckbox(true);
     }
   }, []);
@@ -36,7 +36,7 @@ const Login = () => {
           <form action="http://localhost:8081/auth/signin" method="post">
             <label>
               <AccountCircle className="material-icons-outlined" />
-              <input type="text" value={userId} name="userId" onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력하세요" />
+              <input type="text" value={userid} name="userid" onChange={(e) => setUserid(e.target.value)} placeholder="아이디를 입력하세요" />
             </label>
             <label>
               <Lock className="material-icons-outlined" />
