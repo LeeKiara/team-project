@@ -17,11 +17,12 @@ export interface BookData {
   query: string;
   searchCategoryId: number;
   searchCategoryName: string;
-  item: BookItem[];
+  content: BookItem[];
 }
 
 export interface BookItem {
   id?: number;
+  publisher: string;
   title: string;
   link: string;
   author: string;
@@ -32,13 +33,8 @@ export interface BookItem {
   itemId: number;
   priceSales: number;
   priceStandard: number;
-  mallType: string;
   stockStatus: string;
-  mileage: number;
   cover: string;
-  publisher: string;
-  salesPoint: number;
-  fixedPrice: boolean;
   customerReviewRank: number;
   seriesInfo: SeriesInfo;
 }
@@ -68,9 +64,7 @@ export const BOOKS_DATA_KEY = "/books";
 
 const bookFetcher = async ([key, page]: string | number[]) => {
   try {
-    const response = await booksApi.get<BookData>(
-      `${key}?_sort=id&_order=desc`
-    );
+    const response = await booksApi.get<BookData>(`${key}?_sort=id&_order=desc`);
     return response.data[0].item;
   } catch (e: any) {
     return INIT_DATA;
