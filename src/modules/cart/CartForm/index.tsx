@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
 import { CartFormContainer } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -9,11 +9,7 @@ import CalcuTotalPayment from "./CalcuTotalPayment";
 
 const CartForm = () => {
   // 장바구니 캐시 데이터
-  const {
-    cartData: cartlist,
-    mutateCartData,
-    isCartDataValidating,
-  } = useCartData();
+  const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
 
   // 주문할 장바구니 도서 상태관리
   const [stateCartData, setStateCartData] = useState(cartlist);
@@ -44,30 +40,22 @@ const CartForm = () => {
   useEffect(() => {
     if (cartlist && cartlist.length > 0) {
       // 장바구니 수량 cartData에 저장된 값으로 초기화
-      const initialNumbers = cartlist.map((item) =>
-        parseInt(item.quantity, 10),
-      );
+      const initialNumbers = cartlist.map((item) => parseInt(item.quantity, 10));
       setQtys(initialNumbers);
 
       // 정가
-      const initialPriceStandard = cartlist.map((item) =>
-        parseInt(item.priceStandard, 10),
-      );
+      const initialPriceStandard = cartlist.map((item) => parseInt(item.priceStandard, 10));
       setPriceStandards(initialPriceStandard);
 
       // 할인가
-      const initialPriceSales = cartlist.map((item) =>
-        parseInt(item.priceSales, 10),
-      );
+      const initialPriceSales = cartlist.map((item) => parseInt(item.priceSales, 10));
       setPriceSales(initialPriceSales);
     }
   }, [cartlist]);
 
   // 장바구니 수량이 변경되면 정가와 할인가 변경 처리
   useEffect(() => {
-    console.log(
-      "!! qtys useEffect : 장바구니 수량이 변경되면 정가와 할인가 변경 처리 ",
-    );
+    console.log("!! qtys useEffect : 장바구니 수량이 변경되면 정가와 할인가 변경 처리 ");
     // console.log(qtys + ", " + priceStandards);
 
     // 정가 다시 계산
@@ -134,14 +122,7 @@ const CartForm = () => {
       .filter((selectedItem) => selectedItem.isChecked);
 
     checkedCartItems.map((item, index) => {
-      console.log(
-        "  최종 장바구니 상품 목록 >>> " +
-          item.title +
-          ", " +
-          item.quantity +
-          ", " +
-          item.isChecked,
-      );
+      console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
     });
 
     return checkedCartItems;
@@ -229,11 +210,7 @@ const CartForm = () => {
           </article>
           <article className="cart-layer-title">
             <div>
-              <input
-                type="checkbox"
-                name="productall_seq"
-                className="listCheckBox"
-              />
+              <input type="checkbox" name="productall_seq" className="listCheckBox" />
             </div>
             <div>상품정보</div>
             <div>수량</div>
@@ -257,32 +234,22 @@ const CartForm = () => {
                   </label>
                   <div>
                     <span className="image">
-                      <a
-                        href={`/page?keyword=${cartCashData.itemId}`}
-                        target="_blank">
-                        <img
-                          src={cartCashData.cover}
-                          alt={cartCashData.title}
-                        />
-                      </a>
+                      <Link to={`/page?keyword=${cartCashData.itemId}`}>
+                        <img src={`${cartCashData.cover}`} alt={`${cartCashData.title}`} />
+                      </Link>
                     </span>
                   </div>
                   <div className="bookinfo-title">
-                    <div className="box-bookgubun">
-                      <span className="icon-bookgubun">
-                        {cartCashData.gubun}
-                      </span>
-                    </div>
+                    {/* <div className="box-bookgubun">
+                      <span className="icon-bookgubun">{cartCashData.categoryName}</span>
+                    </div> */}
+                    <div>{cartCashData.categoryName}</div>
                     <p>
-                      <a
-                        href={`/page?keyword=${cartCashData.itemId}`}
-                        target="_blank">
-                        {cartCashData.id},{cartCashData.title}
-                      </a>
+                      <Link to={`/page?keyword=${cartCashData.itemId}`}>{cartCashData.title}</Link>
                       <br />
-                      (할인가:
+                      {/* (할인가:
                       {cartCashData.priceSales},정가:
-                      {cartCashData.priceStandard})
+                      {cartCashData.priceStandard}) */}
                     </p>
                   </div>
                 </div>
@@ -320,8 +287,7 @@ const CartForm = () => {
                   {/* 할인가/정가 */}
                   <div>
                     <div className="box-price">
-                      <strong>{priceSales[index]}</strong>원
-                      <del>정가{priceStandards[index]}원</del>
+                      <strong>{priceSales[index]}</strong>원<del>정가{priceStandards[index]}원</del>
                     </div>
                     {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
                   </div>
@@ -334,9 +300,7 @@ const CartForm = () => {
 
           {/* 주문합계 */}
           <article>
-            {stateCartData && stateCartData.length && (
-              <CalcuTotalPayment cartBooks={stateCartData} />
-            )}
+            {stateCartData && stateCartData.length && <CalcuTotalPayment cartBooks={stateCartData} />}
             {stateCartData.length === 0 && (
               <div className="box-total-payment">
                 <div className="total-text">주문합계</div>
@@ -371,12 +335,7 @@ const CartForm = () => {
 
               {isOrder && <OrderButton cartBooks={stateCartData} />}
 
-              {showMessageModal && (
-                <ShowMessageModal
-                  message="상품을 선택하세요."
-                  onCancel={handleCancel}
-                />
-              )}
+              {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
             </div>
           </article>
         </section>
