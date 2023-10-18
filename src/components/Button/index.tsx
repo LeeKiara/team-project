@@ -18,7 +18,7 @@ const Button = ({ gubun, itemId, title, cover, priceStandard, priceSales, quanti
       priceSales,
       quantity,
     });
-    navigate(`/cart`);
+    // navigate(`/cart`);
   };
 
   return (

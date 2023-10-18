@@ -61,6 +61,9 @@ const AddCart = () => {
     setIsOrder(true);
   };
 
+  let tmpItemId1 = 125722399;
+  let tmpItemId2 = 98307968;
+
   return (
     <AddCartContainer>
       <section>
@@ -129,8 +132,9 @@ const AddCart = () => {
               <button className={"box-blue"} onClick={gotoCart}>
                 장바구니 컴퍼넌트 버튼show
               </button>
-              {isOrder && (
-                <Button
+              {/* {isOrder && ( */}
+              <div>
+                {/* <Button
                   gubun="KOR"
                   itemId={Number(itemIdRef.current.value)}
                   title={titleRef.current.value}
@@ -138,10 +142,18 @@ const AddCart = () => {
                   priceStandard={priceStandardRef.current.value}
                   priceSales={priceSalesRef.current.value}
                   quantity={quantityRef.current.value}
-                />
+                /> */}
+                <Button gubun="KOR" itemId={tmpItemId1} quantity="5" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+              </div>
 
-                // <OrderButton {...cartItem} />
-              )}
+              {/* // <OrderButton {...cartItem} /> */}
+              {/* )} */}
               <br />
               <br />
             </div>

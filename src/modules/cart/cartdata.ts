@@ -75,8 +75,8 @@ export const useCartData = (shouldFetchData?: boolean) => {
         // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
         prevData: CartData[] = [...INIT_DATA],
       ) => {
-        console.log("--cart 매개변수 객체--");
-        console.log(prevData);
+        console.log("--cart createCartData 매개변수 객체--");
+        console.log(cart.itemId + "," + cart.title);
 
         // 기존 데이터로 신규 배열 생성
         const nextData = [...prevData];
