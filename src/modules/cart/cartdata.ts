@@ -1,3 +1,4 @@
+import http from "@/utils/http";
 import axios from "axios";
 import useSWR, { mutate } from "swr";
 
@@ -5,45 +6,57 @@ const INIT_DATA: CartData[] = [];
 const CART_DATA_KEY = "/cart";
 // const CONTACTS_DATA_KEY = "@data/contacts";
 
+export interface CartDataJoinBook {
+  itemId: number;
+  quantity: string;
+}
+
 export interface CartData {
   id?: number; // id값은 나중에 생성
   itemId: number;
-  gubun: string;
-  title: string;
-  cover: string;
-  priceStandard: string;
-  priceSales: string;
+  gubun?: string;
+  title?: string;
+  cover?: string;
+  priceStandard?: string;
+  priceSales?: string;
   quantity: string;
   isChecked?: boolean;
+  // isFetch?: boolean;
 }
 
-const cartApi = axios.create({
-  baseURL: "http://localhost:9090",
-});
+// const cartApi = axios.create({
+//   baseURL: "http://localhost:9090",
+// });
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
-const cartFetcher = async ([key]) => {
-  console.log("--call fetcher--");
+const cartFetcher = async ([key, shouldFetchData]) => {
+  console.log("--call cartFetcher--");
 
-  try {
-    const response = await cartApi.get<CartData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
+  if (shouldFetchData) {
+    try {
+      const response = await http.get<CartData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
 
-    console.log("--call fetcher response data--");
-    console.log(response.data);
+      console.log("--call cartFetcher response data--");
+      console.log(response.data);
 
-    return response.data;
-  } catch (e: any) {
-    // 캐시에 없으면 초기값 반환
-    return INIT_DATA;
+      return response.data;
+    } catch (e: any) {
+      // 캐시에 없으면 초기값 반환
+      return INIT_DATA;
+    }
+  } else {
+    console.log("--not call server fetch !!!----");
   }
+
+  return INIT_DATA;
 };
 
-export const useCartData = () => {
+export const useCartData = (shouldFetchData?: boolean) => {
   const {
     data: cartData,
     mutate: mutateCartData,
     isValidating: isCartDataValidating,
-  } = useSWR<CartData[]>([CART_DATA_KEY], cartFetcher, {
+  } = useSWR<CartData[]>([CART_DATA_KEY, shouldFetchData], cartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
     fallbackData: INIT_DATA,
     // 포커스될때 fetcher로 가져오기 해제
@@ -66,11 +79,11 @@ export const useCartData = () => {
         console.log(prevData);
 
         // 기존 데이터로 신규 배열 생성
-        let nextData = [...prevData];
+        const nextData = [...prevData];
 
         try {
-          // ex) 서버연동 fetch cart -> id
-          const response = await cartApi.post(CART_DATA_KEY, cart);
+          // 서버연동 fetch : 장바구니 담기
+          const response = await http.post(CART_DATA_KEY + "/add", cart);
 
           if (response.status === 201) {
             // 배열 앞쪽에 추가 (서버에서 추가된 데이터로 상태 변경)

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-const http = axios.create({ baseURL: "http://localhost:8080" });
+const http = axios.create({ baseURL: "http://localhost:8081" });
 //요청값에 대해서 사전처리
 http.interceptors.request.use((config) => {
   const token = getCookie("token");
@@ -30,7 +30,7 @@ http.interceptors.response.use(
     }
     // return Promise.reject(error); <<화면에 error가 뜸.
     return; //이렇게 하면 오류를 캐치만 하고 끝냄.
-  }
+  },
 );
 
 export default http;

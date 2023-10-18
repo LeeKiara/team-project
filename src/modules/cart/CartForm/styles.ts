@@ -76,7 +76,12 @@ export const CartFormContainer = styled.div`
       margin-left: 10px;
     }
     .bookinfo-title {
-      margin-left: 0px;
+      > div {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: ${grayColor};
+      }
     }
     .icon-bookgubun {
       display: inline-block;
