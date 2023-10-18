@@ -108,6 +108,7 @@ const CartForm = () => {
 
   // 체크박스 선택 및 수량 변경에 따른 대상 최종 정보 생성
   function createSelectedCartList(stateCartData, qtys) {
+    // alert("createSelectedCartList:" + checkboxes[0] + "," + checkboxes[1]);
     const checkedCartItems = cartlist
       .map((selectedItem, index) => ({
         itemId: selectedItem.itemId,
@@ -132,6 +133,7 @@ const CartForm = () => {
   const handleCheckboxChange = (index) => {
     const newCheckboxes = [...checkboxes];
     newCheckboxes[index] = !newCheckboxes[index];
+    // alert("handleCheckboxChange:" + newCheckboxes[index]);
     setCheckboxes(newCheckboxes);
   };
 
@@ -159,9 +161,9 @@ const CartForm = () => {
     });
 
     // 수량 증가 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
-    const newCheckboxes = [...checkboxes];
-    newCheckboxes[index] = !newCheckboxes[index];
-    setCheckboxes(newCheckboxes);
+    // const newCheckboxes = [...checkboxes];
+    // newCheckboxes[index] = !newCheckboxes[index];
+    // setCheckboxes(newCheckboxes);
 
     // console.log(
     //   "●●●●● handleIncrement qtys:" +
@@ -184,9 +186,9 @@ const CartForm = () => {
     });
 
     // 수량 감소 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
-    const newCheckboxes = [...checkboxes];
-    newCheckboxes[index] = !newCheckboxes[index];
-    setCheckboxes(newCheckboxes);
+    // const newCheckboxes = [...checkboxes];
+    // newCheckboxes[index] = !newCheckboxes[index];
+    // setCheckboxes(newCheckboxes);
   };
 
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -220,7 +222,7 @@ const CartForm = () => {
           {cartlist &&
             cartlist.length > 0 &&
             cartlist.map((cartCashData, index) => (
-              <article className="cart-layer" key={`item-${cartCashData.id}`}>
+              <article className="cart-layer" key={`item-${cartCashData.itemId}`}>
                 {/* 도서정보(책이미지/도서명) */}
                 <div className="bookinfo">
                   <label className="form-checkbox">
@@ -228,7 +230,7 @@ const CartForm = () => {
                       type="checkbox"
                       name="product_seq"
                       className="listCheckBox"
-                      key={cartCashData.id}
+                      key={cartCashData.itemId}
                       onChange={() => handleCheckboxChange(index)}
                     />
                   </label>
@@ -303,7 +305,7 @@ const CartForm = () => {
             {stateCartData && stateCartData.length && <CalcuTotalPayment cartBooks={stateCartData} />}
             {stateCartData.length === 0 && (
               <div className="box-total-payment">
-                <div className="total-text">주문합계</div>
+                <div className="total-text">stateCartData.length === 0 주문합계</div>
                 <div className="total-sum">
                   상품금액 <strong id="fixedsum">0</strong>원 <i>-</i>
                   할인금액 <strong id="discountsum">0</strong>원 <i>+</i>

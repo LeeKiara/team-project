@@ -24,11 +24,38 @@ const orderItemFetcher = async ([key]) => {
   console.log("--call orderItemFetcher (contactsApi.get)--");
 
   try {
+    // localStorage에서 데이터를 가져와서 다시 역직렬화합니다.
+    const retrievedOrderItemsJSON = localStorage.getItem("orderItems");
+
+    if (retrievedOrderItemsJSON) {
+      const retrievedOrderItems: OrderItemData[] = JSON.parse(retrievedOrderItemsJSON);
+      console.log("localStorage에 저장된 데이터 확인 ===>");
+      console.log(retrievedOrderItems);
+
+      for (const res of retrievedOrderItems) {
+        console.log(res.itemId + "," + res.quantity);
+      }
+    } else {
+      console.log("저장된 데이터가 없습니다.");
+    }
+
     const response = await orderItemApi.get<OrderItemData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
 
     for (const res of response.data) {
       console.log(
-        res.id + "," + res.itemId + "," + res.title + "," + res.priceStandard + "," + res.priceSales + "," + res.quantity + "," + res.cover,
+        res.id +
+          "," +
+          res.itemId +
+          "," +
+          res.title +
+          "," +
+          res.priceStandard +
+          "," +
+          res.priceSales +
+          "," +
+          res.quantity +
+          "," +
+          res.cover,
       );
     }
 
@@ -78,6 +105,27 @@ export const useOrderListData = () => {
         let nextData = [...prevData];
 
         try {
+          // localStorage clear
+          // localStorage.setItem("orderItems", "");
+
+          // OrderItemData 배열을 JSON 문자열로 직렬화합니다.
+          const serializedOrderItems = JSON.stringify(orderItems);
+
+          // localStorage에 저장합니다.
+          localStorage.setItem("orderItems", serializedOrderItems);
+
+          if (serializedOrderItems) {
+            const retrievedOrderItems: OrderItemData[] = JSON.parse(serializedOrderItems);
+            console.log("localStorage에 저장 대상 데이터 확인 ===>");
+            console.log(retrievedOrderItems);
+
+            for (const res of retrievedOrderItems) {
+              console.log(res.itemId + "," + res.quantity);
+            }
+          } else {
+            console.log("저장된 데이터가 없습니다.");
+          }
+
           // 기존에 저장된 주문대상 목록을 삭제한다
           const response = await orderItemApi.delete(ORDER_DATA_KEY);
 
