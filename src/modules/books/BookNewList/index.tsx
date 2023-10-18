@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { BookData, BookItem, useBooksItem } from "../data";
+import { BookData, BookItem } from "../data";
 import Button from "@/components/Button";
 import axios from "axios";
+import { ButtonStyle } from "@/components/Button/styles";
+import { ShoppingCart } from "@mui/icons-material";
 
 const BookNewList = () => {
   const [newBookList, setNewBookList] = useState<BookItem[]>([]);
+  // const [showButton, setShowButton] = useState(false);
+  // const [confirmed, setConfirmed] = useState(false);
+
+  // const handleShow = () => {
+  //   const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
+
+  //   if (isConfirmed) {
+  //     setConfirmed(true); // 확인을 받았다면 confirmed 상태를 true로 설정
+  //   }
+
+  //   setShowButton(true); // 버튼을 표시
+  // };
 
   useEffect(() => {
     (async () => {
