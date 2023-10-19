@@ -43,12 +43,15 @@ const BookSearch = () => {
   //검색어 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
-    setSearchQuery(queryKeyword);
-    console.log(queryKeyword);
+    const queryOption = params.get("option") || "";
+    console.log(queryOption + "검색어옵션");
+    console.log(queryKeyword + "검색어");
     setSearchQuery(queryKeyword);
     (async () => {
       try {
-        const response = await axios.get<BookData>(`http://localhost:8081/books/paging/search?&size=8&page=0&keyword=${searchQuery}`);
+        const response = await axios.get<BookData>(
+          `http://localhost:8081/books/paging/search?&size=8&page=0&option=${queryOption}&keyword=${searchQuery}`,
+        );
         if (response.status === 200) {
           setSearchList(response.data.content);
         }
