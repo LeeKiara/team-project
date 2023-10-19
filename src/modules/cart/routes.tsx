@@ -4,11 +4,13 @@ import { lazy } from "react";
 // import Order from "./Order";
 import CartSidebar from "./CartSidebar";
 // import OrderDone from "./Order/OrderDone";
-import PaymentInfo from "./Order/PaymentInfo";
-import AddOrder from "./test/AddOrder";
+
 import ComponentA from "./test/ComponentA";
 import ComponentB from "./test/ComponentB";
 import OrderForm from "@/modules/cart/Order/OrderForm";
+import AddressSearch from "./AddressSearch/Search";
+import AddressSucceed from "./AddressSearch/Success";
+import AddressSearchForm from "./AddressSearch";
 
 const AddCart = lazy(() => import("@/modules/cart/test/AddCart"));
 const Order = lazy(() => import("@/modules/cart/Order/OrderForm"));
@@ -20,8 +22,7 @@ const OrderDetail = lazy(() => import("@/modules/cart/OrderDetail"));
 export const cartRoutes = [
   <Route key="cart" path="cart" element={<CartSidebar />}>
     ,
-    <Route element={<CartForm />} index />,
-    {/* <Route key="order" path="order" element={<Order />} />, */}
+    <Route element={<CartForm />} index />,{/* <Route key="order" path="order" element={<Order />} />, */}
     {/* <Route key="order/done" path="order/done" element={<OrderDone />} />, */}
   </Route>,
   <Route key="order" path="order" element={<CartSidebar />}>
@@ -35,6 +36,12 @@ export const cartRoutes = [
     ,
     <Route element={<AddCart />} index />,
     <Route key="orderdetail" path="orderdetail" element={<OrderDetail />} />,
+  </Route>,
+  <Route key="address" path="address" element={<CartSidebar />}>
+    ,
+    <Route element={<AddressSearchForm />} index />,
+    <Route key="search" path="search" element={<AddressSearch />} />,
+    <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
   <Route key="test3" path="test3" element={<ComponentA />} />,
   <Route key="ComponentB" path="ComponentB" element={<ComponentB />} />,

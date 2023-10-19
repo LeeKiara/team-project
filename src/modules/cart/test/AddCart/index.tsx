@@ -132,6 +132,8 @@ const AddCart = () => {
               <button className={"box-blue"} onClick={gotoCart}>
                 장바구니 컴퍼넌트 버튼show
               </button>
+              <br />
+              <br />
               {/* {isOrder && ( */}
               <div>
                 {/* <Button
@@ -143,13 +145,8 @@ const AddCart = () => {
                   priceSales={priceSalesRef.current.value}
                   quantity={quantityRef.current.value}
                 /> */}
-                <Button gubun="KOR" itemId={tmpItemId1} quantity="5" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
-                <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
+                {tmpItemId1} : <Button gubun="KOR" itemId={tmpItemId1} quantity="5" />
+                {tmpItemId2} : <Button gubun="KOR" itemId={tmpItemId2} quantity="10" />
               </div>
 
               {/* // <OrderButton {...cartItem} /> */}

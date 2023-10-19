@@ -45,9 +45,7 @@ const BookBestList = () => {
                     </figure>
                     <div>
                       <h3>
-                        <Link
-                          to={`/page?keyword=${item.itemId}`}
-                        >{`${item.title}`}</Link>
+                        <Link to={`/page?keyword=${item.itemId}`}>{`${item.title}`}</Link>
                       </h3>
                       <dl>
                         <dt>지은이:</dt>
@@ -70,8 +68,7 @@ const BookBestList = () => {
                     <li
                       onClick={() => {
                         handleBookSave(item.itemId);
-                      }}
-                    >
+                      }}>
                       <button className="btn">
                         {storeHeartStates[item.itemId] ? (
                           <Favorite className="material-icons-outlined heart" />
