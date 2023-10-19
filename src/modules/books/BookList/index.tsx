@@ -52,11 +52,6 @@ const BookList = ({ fetchUrl }) => {
   //   setCategory(params.get('option'));
   // }, [fetchUrl]);
 
-  useEffect(() => {
-    const queryKeyword = params.get("keyword") || "";
-    setSearchQuery(queryKeyword);
-  }, [params]);
-
   //화살표 상태에 따라 변화
   useEffect(() => {
     if (currentPage > 0) {
@@ -70,6 +65,27 @@ const BookList = ({ fetchUrl }) => {
       setShowArrowRight(true);
     }
   }, [currentPage, totalPages]);
+
+  //카테고리 이동
+  useEffect(() => {
+    const queryKeyword = params.get("option") || "";
+    console.log(queryKeyword + "카테고리 키워드");
+    setSearchQuery(queryKeyword);
+    (async () => {
+      try {
+        const response = await axios.get<BookData>(
+          `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
+        );
+        if (response.status === 200) {
+          setTotalPages(response.data.totalPages);
+          setBookList(response.data.content);
+          setCategory(fetchUrl.split("=")[1]);
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
+  }, [searchQuery, params]);
 
   //북리스트서버 연동
   useEffect(() => {

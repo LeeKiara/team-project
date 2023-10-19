@@ -13,7 +13,7 @@ export const SidebarContainer = styled.div`
   }
   main > aside {
     width: 200px;
-    height: 520px;
+    height: 500px;
     border: 2px solid black;
   }
   main > aside > ul {

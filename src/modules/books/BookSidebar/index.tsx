@@ -1,25 +1,52 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import { SidebarContainer } from "./styles";
+import CategoryButton from "@/components/CategoryButton";
 
 const BookSidebar = () => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
   //구분별 사이드값
-  const [group, setGroup] = useState<
-    "베스트도서" | "신간도서" | "국내도서" | "외국도서"
-  >("국내도서");
+  const [option, setOption] = useState<"베스트도서" | "신간도서" | "국내도서" | "외국도서">("국내도서");
+  const [categorys, setCategorys] = useState([]);
+
+  //국내도서 카테고리 키워드
+  const keywords = [
+    "소설/시/희곡",
+    "사회과학",
+    "에세이",
+    "여행",
+    "역사",
+    "예술/대중문화",
+    "어린이",
+    "외국어",
+    "요리/살림",
+    "유아",
+    "인문학",
+    "자기계발",
+    "종교/역학",
+    "과학",
+    "경제경영",
+    "건강/취미",
+    "만화",
+  ];
+
+  //외국도서 카테고리 키워드
+  const foreignKeywords = ["컴퓨터", "전기/자서전", "인문/사회", "역사", "언어학", "소설/시/희곡", "경제경영"];
 
   //각 구분별 사이드바 상태 변화
   useEffect(() => {
     if (path === "best") {
-      setGroup("베스트도서");
+      setOption("베스트도서");
     } else if (path === "new") {
-      setGroup("신간도서");
+      setOption("신간도서");
+      setCategorys(keywords);
     } else if (path === "foreign") {
-      setGroup("외국도서");
+      setOption("외국도서");
+      setCategorys(foreignKeywords);
     } else {
-      setGroup("국내도서");
+      setOption("국내도서");
+      setCategorys(keywords);
     }
   }, [path]);
 
@@ -28,62 +55,73 @@ const BookSidebar = () => {
       <div id="sidebar">
         <main>
           <aside>
-            <Sidebar group={`${group}`} />
+            <Sidebar group={`${option}`} />
             <ul>
-              <li>
-                <Link to={`/books/${path}?keyword=사전`}>사전</Link>
+              {categorys.map((category) => (
+                <li key={category}>
+                  <CategoryButton path={path} option={`${option}>${category}`}>
+                    {category}
+                  </CategoryButton>
+                </li>
+              ))}
+              {/* <li>
+                {path !== "books" ? (
+                  <Link to={`/books/${path}?option=${option}&keyword=사전`}>사전</Link>
+                ) : (
+                  <Link to={`/${path}?option=${option}&keyword=사전`}>사전</Link>
+                )}
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=문학`}>문학</Link>
+                <Link to={`/${path}?keyword=문학`}>문학</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=학습`}>학습</Link>
+                <Link to={`/${path}?keyword=학습`}>학습</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=아동`}>아동</Link>
+                <Link to={`/${path}?keyword=아동`}>아동</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=취미/실용`}>취미/실용</Link>
+                <Link to={`/${path}?keyword=취미/실용`}>취미/실용</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=예체능`}>예체능</Link>
+                <Link to={`/${path}?keyword=예체능`}>예체능</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=종교`}>종교</Link>
+                <Link to={`/${path}?keyword=종교`}>종교</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=잡지`}>잡지</Link>
+                <Link to={`/${path}?keyword=잡지`}>잡지</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=정치.법률`}>정치.법률</Link>
+                <Link to={`/${path}?keyword=정치.법률`}>정치.법률</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=경제.경영`}>경제.경영</Link>
+                <Link to={`/${path}?keyword=경제.경영`}>경제.경영</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=인문`}>인문</Link>
+                <Link to={`/${path}?keyword=인문`}>인문</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=외국어`}>외국어</Link>
+                <Link to={`/${path}?keyword=외국어`}>외국어</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=정부간행물`}>정부간행물</Link>
+                <Link to={`/${path}?keyword=정부간행물`}>정부간행물</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=컴퓨터`}>컴퓨터</Link>
+                <Link to={`/${path}?keyword=컴퓨터`}>컴퓨터</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=공학`}>공학</Link>
+                <Link to={`/${path}?keyword=공학`}>공학</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=자연`}>자연</Link>
+                <Link to={`/${path}?keyword=자연`}>자연</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=의학`}>의학</Link>
+                <Link to={`/${path}?keyword=의학`}>의학</Link>
               </li>
               <li>
-                <Link to={`/books/${path}?keyword=수험서`}>수험서</Link>
-              </li>
+                <Link to={`/${path}?keyword=수험서`}>수험서</Link>
+              </li> */}
             </ul>
           </aside>
           <section>
@@ -136,3 +174,7 @@ const Sidebar = ({ group }: { group: string }) => {
 };
 
 export default BookSidebar;
+
+const SideTeb = () => {
+  return;
+};
