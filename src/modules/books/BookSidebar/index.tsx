@@ -146,7 +146,8 @@ const Sidebar = ({ group }: { group: string }) => {
   if (group === "외국도서") {
     sidebarStyle = {
       ...sidebarStyle,
-      backgroundColor: "blue",
+      backgroundColor: "#3D4ED7",
+      color: "white",
     };
   } else if (group === "신간도서") {
     sidebarStyle = {

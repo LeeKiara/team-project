@@ -2,22 +2,30 @@ import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
+import { getCookie } from "@/utils/cookie";
 
 const Layout = () => {
   const navigate = useNavigate();
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const [selectedOption, setSelectedOption] = useState("");
+  const [cookie, SetCookie] = useState("");
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     navigate(`/search?option=${selectedOption}&keyword=${searchRef.current.value}`);
+    setSelectedOption("");
+    searchRef.current.value = "";
   };
 
   const handleChange = (event) => {
     console.log(event.target.value + "옵션 선택 결과");
     setSelectedOption(event.target.value);
   };
+
+  useEffect(() => {
+    SetCookie(getCookie("token"));
+  }, [getCookie("token")]);
 
   return (
     <LayoutContainer>
@@ -26,12 +34,14 @@ const Layout = () => {
         <header>
           <div>
             <aside>
-              <Link to="/login">
-                <button>
-                  <span className="material-symbols-outlined">account_circle</span>
-                </button>
-              </Link>
-              <Link to="cart">
+              {!cookie && (
+                <Link to="/login">
+                  <button>
+                    <span className="material-symbols-outlined">account_circle</span>
+                  </button>
+                </Link>
+              )}
+              <Link to="/order/list">
                 <button>
                   <span className="material-symbols-outlined">shopping_cart</span>
                 </button>
@@ -50,7 +60,9 @@ const Layout = () => {
                     {/* <option value="리뷰">리뷰</option> */}
                   </select>
                   <input ref={searchRef} />
-                  <span className="material-symbols-outlined">search</span>
+                  <button type="submit" className="material-symbols-outlined">
+                    search
+                  </button>
                 </label>
               </form>
             </div>

@@ -44,7 +44,7 @@ export const BookNewContainer = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  section > ul > li > div > h3 {
+  section > ul > li > div > a > h3 {
     font-size: 18px;
     font-weight: bold;
   }

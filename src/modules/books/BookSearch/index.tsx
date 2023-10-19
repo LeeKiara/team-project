@@ -7,12 +7,16 @@ import Button from "@/components/Button";
 import axios from "axios";
 
 const BookSearch = () => {
+  const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
   //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
 
   //검색 페이지
   const [searchList, setSearchList] = useState<BookItem[]>([]);
+
+  //검색 총 페이지
+  const [totalPages, setTotalPages] = useState(0);
 
   //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
@@ -50,9 +54,10 @@ const BookSearch = () => {
     (async () => {
       try {
         const response = await axios.get<BookData>(
-          `http://localhost:8081/books/paging/search?&size=8&page=0&option=${queryOption}&keyword=${searchQuery}`,
+          `http://localhost:8081/books/paging/search?&size=${MAX_SEARCH}&page=0&option=${queryOption}&keyword=${queryKeyword}`,
         );
         if (response.status === 200) {
+          setTotalPages(response.data.totalPages);
           setSearchList(response.data.content);
         }
       } catch (e: any) {
@@ -69,9 +74,8 @@ const BookSearch = () => {
         ) : (
           <section>
             <span>
-              {searchQuery}
-              <h4>검색 결과</h4>
-              <p></p>
+              "{searchQuery}"<h4>검색 결과</h4>
+              <p>총 {totalPages} 페이지</p>
             </span>
             <table>
               <thead>
@@ -165,7 +169,11 @@ const BookSearch = () => {
                     </tr>
                   ))
                 ) : (
-                  <p>책을 찾을 수 없습니다.</p>
+                  <tr>
+                    <td colSpan={10}>
+                      <p>책을 찾을 수 없습니다.</p>
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>

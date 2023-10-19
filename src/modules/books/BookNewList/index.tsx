@@ -89,13 +89,15 @@ const BookNewList = () => {
                       </Link>
                     </figure>
                     <div>
-                      <h3>{`${item.title}`.length > 12 ? `${item.title}`.slice(0, 12) + "..." : `${item.title}`}</h3>
+                      <Link to={`/page?new=${item.id}`}>
+                        <h3>{`${item.title}`.length > 12 ? `${item.title}`.slice(0, 12) + "..." : `${item.title}`}</h3>
+                      </Link>
                       <p>{`${item.author}`.length > 8 ? `${item.author}`.slice(0, 8) + "..." : `${item.author}`}</p>
                       <dl>
                         정가
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
-                      <dl>판매가: {`${item.priceSales}`}원</dl>
+                      <dl>판매가: {`${item.priceSales.toLocaleString()}`}원</dl>
                       <Button
                         gubun="KOR"
                         itemId={item.itemId}

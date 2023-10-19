@@ -24,7 +24,7 @@ export const SearchContainer = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 200px;
+    width: 180px;
     background-color: #708b95;
     color: #fff;
     font-size: 18px;
@@ -42,6 +42,10 @@ export const SearchContainer = styled.div`
     gap: 10px;
     margin-top: 20px;
   }
+  section > span {
+    display: flex;
+    gap: 10px;
+  }
   table {
     border-collapse: collapse;
     width: 1700px;
@@ -50,8 +54,7 @@ export const SearchContainer = styled.div`
     border: 2px solid #dddddd;
     /* box-shadow: 3px 3px 5px #dddddd; */
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.2);
   }
   table > tbody > tr {
     border: 2px solid #dddddd;

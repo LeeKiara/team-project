@@ -37,8 +37,6 @@ export const LayoutContainer = styled.div`
     margin: 0;
     cursor: pointer;
   }
-  header > div > aside > button > span {
-  }
   .header-nav {
     /* border: 1px solid #97a5ac; */
     border-top: 1px solid #dddddd;
@@ -78,9 +76,9 @@ export const LayoutContainer = styled.div`
     border-radius: 30px;
   }
   #searchForm > form > label > select {
-    height: 80%;
+    height: 75%;
     border: none;
-    border-right: 2px solid #fdbebe;
+    border-right: 1.5px solid #fdbebe;
     vertical-align: top;
     margin-left: 20px;
     margin-top: 5px;
@@ -95,9 +93,16 @@ export const LayoutContainer = styled.div`
     margin-left: 18px;
     margin-top: 7px;
   }
+  #searchForm > form > label > button {
+    margin-left: 2px;
+    background-color: white;
+    border-radius: 30px;
+    border: none;
+  }
   .material-symbols-outlined {
     color: #fdbebe;
     font-size: 40px;
     font-style: normal;
+    cursor: pointer;
   }
 `;

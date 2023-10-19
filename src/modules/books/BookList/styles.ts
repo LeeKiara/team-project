@@ -20,11 +20,13 @@ export const BookListContainer = styled.div`
     flex: 2;
     display: flex;
     flex-direction: column;
+    margin-left: 12px;
   }
   section > article > div > figure > a > img {
     width: 150px;
     height: 180px;
     margin-right: 16px;
+    margin-top: 5px;
   }
   section > article > div > div {
     flex: 1;
@@ -32,8 +34,8 @@ export const BookListContainer = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
   }
-  section > article > div > div > h3 {
-    font-size: 20px;
+  section > article > div > div > a > h3 {
+    font-weight: bold;
   }
   section > article > div > div > p {
     font-size: 16px;
@@ -44,7 +46,8 @@ export const BookListContainer = styled.div`
   section > article > ul {
     margin: 16px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
   }
   section > article > ul li {
     display: flex;
@@ -92,6 +95,10 @@ export const BookListContainer = styled.div`
   .heart {
     color: red;
   }
+  nav {
+    display: flex;
+    justify-content: center;
+  }
   nav > ol {
     width: 238px;
     display: flex;
@@ -112,7 +119,7 @@ export const BookListContainer = styled.div`
   .numberbox:nth-of-type(1) {
     border-radius: 5px 0 0 5px;
   }
-  .numberbox:nth-of-type(5) {
+  .numberbox:last-of-type {
     border-radius: 0 5px 5px 0;
   }
   .numberbox > a {
@@ -125,10 +132,7 @@ export const BookListContainer = styled.div`
     background-color: #dddddd;
     border-radius: 5px 0 0 5px;
   }
-  .numberbox:nth-of-type(5):hover {
-    background-color: #dddddd;
-    border-radius: 0 5px 5px 0;
-  }
+
   .numberbox > button {
     border-radius: 5px;
     border: none;
@@ -142,6 +146,9 @@ export const BookListContainer = styled.div`
     background-color: #dddddd;
     border-radius: 5px;
     cursor: pointer;
+  }
+  .numberbox:last-of-type:hover {
+    background-color: #dddddd;
   }
 
   @media (min-width: 55rem) {
