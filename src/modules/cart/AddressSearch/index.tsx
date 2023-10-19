@@ -14,8 +14,11 @@ import styled from "styled-components";
 import { AddressSearchStyle } from "./styles";
 import AddressSearch from "./Search";
 
+interface AddressSearchModalProps {
+  onCancel: () => void;
+}
 // const AddressSearchForm = ({ onConfirm, onCancel }) => {
-const AddressSearchForm = ({ onConfirm }) => {
+const AddressSearchForm = ({ onCancel }: AddressSearchModalProps) => {
   const [isFormComplete, setIsFormComplete] = useState<boolean>(false);
   const [addressSearchVisible, setAddressSearchVisible] = useState<boolean>(true);
   const [kakaoApiVisible, setKakaoApiSearchVisible] = useState<boolean>(true);
@@ -48,6 +51,7 @@ const AddressSearchForm = ({ onConfirm }) => {
     }
   }, [postcode, address, detailAddress]);
 
+  // 주소 검색 후 결과 값을 주문 폼에 전달
   const handleComplete = (data: any) => {
     const address = getAddress(data);
 
@@ -60,7 +64,7 @@ const AddressSearchForm = ({ onConfirm }) => {
       },
     });
 
-    onConfirm();
+    onCancel();
   };
 
   return (
@@ -68,26 +72,25 @@ const AddressSearchForm = ({ onConfirm }) => {
     <Container className="modal-container">
       <form onSubmit={handleSubmit}>
         <AdressWrapper>
-          {/* <!-- layer : 주소 검색 --> */}
+          <div className="AdressWrapper-header">
+            <div>주소찾기</div>
+
+            {/* 닫기 버튼 */}
+            <div className="box-close" onClick={onCancel}>
+              X
+            </div>
+          </div>
+          <hr />
+          {/* <!-- layer : kakaoApi 주소 검색 --> */}
           {kakaoApiVisible && (
             <div className="kakaoApitForm">
               <DaumPostcode onComplete={handleComplete} />
             </div>
           )}
           <br />
-          <input type="text" placeholder="우편번호" value={postcode} style={{ width: "150px" }} />
-          <input type="text" placeholder="주소" value={address} readOnly style={{ width: "500px" }} />
-          <input
-            type="text"
-            placeholder="상세주소"
-            value={detailAddress}
-            onChange={(e) => setDetailAddress(e.target.value)}
-          />
-
-          {/* <input type="button" placeholder="우편번호" value="주소 검색" onClick={handleSearch} /> */}
         </AdressWrapper>
         <ButtonWrapper>
-          <button type="submit">배송지 저장하기</button>
+          {/* <button type="submit">배송지 저장하기</button> */}
           {/* <Button colorScheme="twitter" isDisabled={!isFormComplete} type="submit">
             배송지 저장하기
           </Button> */}
@@ -116,20 +119,36 @@ const Container = styled.div`
 const AdressWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   border: 1px solid #3e3c50;
   background: #fff;
   z-index: 1;
+  padding-left: 45px;
+
+  .AdressWrapper-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0px;
+    /* border: 1px solid red; */
+    width: 460px;
+    font-size: 18px;
+    font-weight: 600;
+
+    .box-close {
+      cursor: pointer;
+    }
+  }
 
   .kakaoApitForm {
-    width: 500px;
-    margin: 10px 10px;
+    width: 470px;
+    /* margin: 10px 50px; */
     border: 1px solid gray;
   }
 `;

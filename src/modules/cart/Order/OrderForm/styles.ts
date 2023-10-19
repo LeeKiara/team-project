@@ -63,7 +63,7 @@ export const OrderFormContainer = styled.div`
         flex-direction: column;
         justify-content: flex-start;
         gap: 5px;
-        margin: 10px 0px;
+        margin: 5px 0px;
 
         div {
           display: flex;
@@ -121,7 +121,7 @@ export const OrderFormContainer = styled.div`
       display: flex;
       flex-direction: column;
       font-weight: 400;
-      max-width: 380px;
+      max-width: 300px;
     }
     .box-tag-bookgubun {
       margin: 8px 0;
@@ -392,7 +392,7 @@ export const OrderFormContainer = styled.div`
       flex-direction: row;
       align-items: center; /* 수직 가운데 정렬 추가 */
       gap: 30px;
-      margin: 10px 20px;
+      margin: 0px 20px;
     }
   }
 `;

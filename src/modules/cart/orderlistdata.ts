@@ -13,6 +13,7 @@ export interface OrderItemData {
   priceStandard: string;
   priceSales: string;
   quantity: string;
+  orderPrice?: string;
 }
 
 const INIT_DATA: OrderItemData[] = [];

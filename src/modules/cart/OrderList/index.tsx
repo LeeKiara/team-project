@@ -87,12 +87,24 @@ const OrderList = () => {
                 </label>
                 <label className={`form-radio ${isPeriodType2 ? "checked" : ""}`}>
                   {/* onclick="changeSearchPeriod('6MONTH', true)" */}
-                  <input type="radio" name="p_period" id="p_period_6" value="6MONTH" onClick={() => changeSearchPeriod("6MONTH")} />
+                  <input
+                    type="radio"
+                    name="p_period"
+                    id="p_period_6"
+                    value="6MONTH"
+                    onClick={() => changeSearchPeriod("6MONTH")}
+                  />
                   6개월
                 </label>
                 <label className={`form-radio ${isPeriodTypeAll ? "checked" : ""}`}>
                   {/* onclick="changeSearchPeriod('ALL', true)" */}
-                  <input type="radio" name="p_period" id="p_period_all" value="ALL" onClick={() => changeSearchPeriod("ALL")} />
+                  <input
+                    type="radio"
+                    name="p_period"
+                    id="p_period_all"
+                    value="ALL"
+                    onClick={() => changeSearchPeriod("ALL")}
+                  />
                   전체
                 </label>
               </div>

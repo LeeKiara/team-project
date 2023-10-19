@@ -1,15 +1,15 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { OrderFormContainer } from "./styles";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useCartData } from "../../cartdata";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useOrderListData } from "../../orderlistdata";
+import { useProfileData } from "@/modules/cart/userdata";
 import Payment from "../Payment";
 import AddressSearchForm from "../../AddressSearch";
 
 const OrderForm = () => {
   // 주문 데이터
   const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
-
+  const { profileData: profileData, isCartDataValidating } = useProfileData();
   const [addressFormVisible, setAddressFormVisible] = useState(false);
 
   // 주소 검색 데이터 받아오기
@@ -17,6 +17,14 @@ const OrderForm = () => {
   const searchAddress = location.state;
   const postcode = searchAddress?.postcode;
   const address = searchAddress?.address;
+
+  // 장바구니 데이터 받아오기
+  const cartBooks = searchAddress?.cartBooks;
+
+  cartBooks.map((item) => {
+    console.log(" // 장바구니 데이터 받아오기");
+    console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+  });
 
   const [isCardSelected, setIsCardSelected] = useState(false);
   const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
@@ -29,6 +37,28 @@ const OrderForm = () => {
   const orderHp3Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const orderEmail1Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const orderEmail2Ref = useRef() as MutableRefObject<HTMLInputElement>;
+
+  const profileHp = profileData.phone;
+  let profileHpParts = [];
+
+  // 핸드폰 번호 - 단위로 자르기
+  if (profileHp) {
+    profileHpParts = profileHp.split("-");
+    console.log(profileHpParts); // ["010", "1234", "1234"]
+  } else {
+    profileHpParts = ["", "", ""];
+  }
+
+  const profileEmail = profileData.email;
+  let profileEmails = [];
+
+  // 이메일 @ 단위로 자르기
+  if (profileEmail) {
+    profileEmails = profileEmail.split("@");
+    console.log(profileEmails); // ["hong", "naver.com"]
+  } else {
+    profileEmails = ["", ""];
+  }
 
   // 배송지 정보
   const deliveryNameRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -107,9 +137,9 @@ const OrderForm = () => {
             <div className="wrap-payment">
               <div className="contain-payment-body">
                 {/* 주문 상품 리스트(Loop)  */}
-                {orderItems &&
-                  orderItems.map((cartCashData, index) => (
-                    <article className="box-list-payment" key={`item-${cartCashData.id}`}>
+                {cartBooks &&
+                  cartBooks.map((cartCashData, index) => (
+                    <article className="box-list-payment" key={`item-${cartCashData.itemId}`}>
                       <div className="bookinfo">
                         <div>
                           <input type="hidden" name="orderdata" />
@@ -120,12 +150,12 @@ const OrderForm = () => {
                               </a>
                             </span>
                             <div className="text">
-                              <div className="box-tag-bookgubun">
-                                <span className="icon-tag-bookgubun"></span>
-                              </div>
-                              <a href="" target="_blank">
-                                {cartCashData.id},{cartCashData.title}
-                              </a>
+                              <div>{cartCashData.categoryName}</div>
+                              <br />
+                              <p>
+                                <Link to={`/page?keyword=${cartCashData.itemId}`}>{cartCashData.title}</Link>
+                                <br />
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -144,7 +174,7 @@ const OrderForm = () => {
                           </div>
                           <div>
                             <div className="icon-tag-pricegubun">주문금액</div>
-                            <div>13,950원</div>
+                            <div></div>
                           </div>
                         </div>
                       </div>
@@ -163,24 +193,42 @@ const OrderForm = () => {
                         placeholder="이름"
                         style={{ width: "316px" }}
                         ref={orderNameRef}
-                        value="홍길동"
+                        value={profileData.nickname}
                       />
                     </span>
                   </div>
 
                   {/* <!-- 전화번호 입력 --> */}
                   <div className="box-phonenum">
-                    <input type="text" name="ohp1" placeholder="010" ref={orderHp1Ref} value="010" />
-                    <input type="text" name="ohp2" placeholder="휴대폰 앞자리" ref={orderHp2Ref} value="1234" />
-                    <input type="text" name="ohp3" placeholder="휴대폰 뒷자리" ref={orderHp3Ref} value="5678" />
+                    <input
+                      type="text"
+                      name="ohp1"
+                      placeholder="휴대폰 앞자리"
+                      ref={orderHp1Ref}
+                      value={profileHpParts[0]}
+                    />
+                    <input
+                      type="text"
+                      name="ohp2"
+                      placeholder="휴대폰 앞자리"
+                      ref={orderHp2Ref}
+                      value={profileHpParts[1]}
+                    />
+                    <input
+                      type="text"
+                      name="ohp3"
+                      placeholder="휴대폰 뒷자리"
+                      ref={orderHp3Ref}
+                      value={profileHpParts[2]}
+                    />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
                   {/* <!-- 이메일 입력 --> */}
                   <div className="box-email">
-                    <input type="text" name="email1" id="email1" ref={orderEmail1Ref} value="hong" />
+                    <input type="text" name="email1" id="email1" ref={orderEmail1Ref} value={profileEmails[0]} />
                     @
-                    <input type="text" name="email2" id="email2" ref={orderEmail2Ref} value="gmail.com" />
+                    <input type="text" name="email2" id="email2" ref={orderEmail2Ref} value={profileEmails[1]} />
                     <div className="form-select">
                       <select name="email2_temp">
                         <option>직접입력</option>
@@ -212,28 +260,15 @@ const OrderForm = () => {
                         placeholder="이름"
                         style={{ width: "316px" }}
                         ref={deliveryNameRef}
-                        value="홍길동"
                       />
                     </span>
                   </div>
 
                   {/* <!-- 배송지 전화번호 입력 --> */}
                   <div className="box-phonenum">
-                    <input type="text" name="delivery-hp1" placeholder="010" ref={deliveryHp1Ref} value="010" />
-                    <input
-                      type="text"
-                      name="delivery-hp2"
-                      placeholder="휴대폰 앞자리"
-                      ref={deliveryHp2Ref}
-                      value="1234"
-                    />
-                    <input
-                      type="text"
-                      name="delivery-hp3"
-                      placeholder="휴대폰 뒷자리"
-                      ref={deliveryHp3Ref}
-                      value="5678"
-                    />
+                    <input type="text" name="delivery-hp1" placeholder="010" ref={deliveryHp1Ref} />
+                    <input type="text" name="delivery-hp2" placeholder="휴대폰 앞자리" ref={deliveryHp2Ref} />
+                    <input type="text" name="delivery-hp3" placeholder="휴대폰 뒷자리" ref={deliveryHp3Ref} />
                   </div>
                   {/* <!-- //전화번호 입력 --> */}
 
@@ -267,7 +302,6 @@ const OrderForm = () => {
                       placeholder="상세 주소 및 상세 건물명"
                       style={{ width: "550px" }}
                       ref={deliveryAddr2Ref}
-                      value="길동 건물123"
                     />
                   </div>
                   {/* <!-- //주소찾기 --> */}
@@ -399,7 +433,7 @@ const OrderForm = () => {
 
       {/* <!-- layer : 주소 검색 --> */}
       {/* {addrSearchVisible && <AddressSearchForm onConfirm={handleConfirm} onCancel={handleCancel} />} */}
-      {addressFormVisible && <AddressSearchForm onConfirm={handleConfirm} />}
+      {addressFormVisible && <AddressSearchForm onCancel={handleConfirm} />}
     </OrderFormContainer>
   );
 };
