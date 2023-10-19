@@ -1,22 +1,25 @@
 import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { useBooksItem } from "../data";
+import { BookData, BookItem, useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
+import axios from "axios";
 
 const BookSearch = () => {
   //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
 
+  //검색 페이지
+  const [searchList, setSearchList] = useState<BookItem[]>([]);
+
   //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
-  //페이징
-  const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  // const [page, setPage] = useState(0);
+  // const { booksItem: books, isBookItemValidating } = useBooksItem(page);
 
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
@@ -41,12 +44,24 @@ const BookSearch = () => {
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);
+    console.log(queryKeyword);
+    setSearchQuery(queryKeyword);
+    (async () => {
+      try {
+        const response = await axios.get<BookData>(`http://localhost:8081/books/paging/search?&size=8&page=0&keyword=${searchQuery}`);
+        if (response.status === 200) {
+          setSearchList(response.data.content);
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
   }, [params]);
 
   return (
     <>
       <SearchContainer>
-        {isBookItemValidating ? (
+        {!searchList ? (
           <p>로딩 중...</p>
         ) : (
           <section>
@@ -72,8 +87,8 @@ const BookSearch = () => {
                 </tr>
               </thead>
               <tbody>
-                {books.length > 0 ? (
-                  books.slice(0, 10).map((item) => (
+                {searchList.length > 0 ? (
+                  searchList.slice(0, 10).map((item) => (
                     <tr key={`${item.itemId}`}>
                       <td>
                         <Link to={`/page?keyword=${item.itemId}`}>
