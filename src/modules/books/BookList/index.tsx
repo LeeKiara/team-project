@@ -97,10 +97,10 @@ const BookList = ({ fetchUrl }) => {
           <section>
             {bookList.length > 0 ? (
               bookList.map((item) => (
-                <article key={`${item.itemId}`}>
+                <article key={`${item.id}`}>
                   <div>
                     <figure>
-                      <Link to={`/page?keyword=${item.itemId}`}>
+                      <Link to={`/page?id=${item.id}`}>
                         <img src={`${item.cover}`} alt={`${item.title}`} />
                       </Link>
                     </figure>

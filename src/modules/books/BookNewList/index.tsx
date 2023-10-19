@@ -45,9 +45,9 @@ const BookNewList = () => {
             <ul>
               {newBookList.length > 0 ? (
                 newBookList.map((item) => (
-                  <li key={`${item.itemId}`}>
+                  <li key={`${item.id}`}>
                     <figure>
-                      <Link to={`/page?keyword=${item.itemId}`}>
+                      <Link to={`/page?new=${item.id}`}>
                         <img src={`${item.cover}`} alt={`${item.title}`} />
                       </Link>
                     </figure>

@@ -12,12 +12,15 @@ export const BookNewContainer = styled.div`
     padding: 15px;
     border: 2px solid #dddddd;
     background-color: #fafafa;
-    width: 200px; /* 각 요소의 가로 너비를 설정 */
-    height: 400px;
+    /* width: 200px;
+    height: 400px; */
+    width: 180px;
+    height: 380px;
     margin-bottom: 40px; /* 간격 설정 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 5px;
   }
   section > ul > li p {
     font-size: small;
@@ -28,8 +31,12 @@ export const BookNewContainer = styled.div`
     color: crimson;
   }
   section > ul > li > figure > a > img {
-    width: 200px; /* 각 요소의 가로 너비를 설정 */
-    height: 247px;
+    width: 150px; /* 각 요소의 가로 너비를 설정 */
+    height: 200px;
+    /* width: 200px;
+    height: 247px; */
+    display: flex;
+    justify-content: center;
     margin: auto;
   }
   section > ul > li > div {
@@ -38,7 +45,7 @@ export const BookNewContainer = styled.div`
     gap: 10px;
   }
   section > ul > li > div > h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
   }
 
