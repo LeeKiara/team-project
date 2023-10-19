@@ -1,5 +1,5 @@
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { MutableRefObject, Suspense, useRef, useState } from "react";
+import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 
@@ -7,9 +7,16 @@ const Layout = () => {
   const navigate = useNavigate();
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
 
+  const [selectedOption, setSelectedOption] = useState("");
+
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/search?keyword=${searchRef.current.value}`);
+    navigate(`/search?option=${selectedOption}&keyword=${searchRef.current.value}`);
+  };
+
+  const handleChange = (event) => {
+    console.log(event.target.value + "옵션 선택 결과");
+    setSelectedOption(event.target.value);
   };
 
   return (
@@ -36,10 +43,11 @@ const Layout = () => {
               </h1>
               <form onSubmit={handleSearch}>
                 <label>
-                  <select>
-                    <option value="통합검색">통합검색</option>
+                  <select value={selectedOption} onChange={handleChange}>
+                    <option value="">통합검색</option>
                     <option value="국내도서">국내도서</option>
-                    <option value="리뷰">리뷰</option>
+                    <option value="외국도서">외국도서</option>
+                    {/* <option value="리뷰">리뷰</option> */}
                   </select>
                   <input ref={searchRef} />
                   <span className="material-symbols-outlined">search</span>

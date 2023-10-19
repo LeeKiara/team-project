@@ -41,6 +41,7 @@ const BookSearch = () => {
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
     setSearchQuery(queryKeyword);
+    const queryOption = params.get("option") || "";
   }, [params]);
 
   return (
