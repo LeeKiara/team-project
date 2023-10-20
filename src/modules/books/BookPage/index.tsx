@@ -36,6 +36,9 @@ const BookPage = () => {
   //디테일 페이지 id값 가져오기
   const newId = searchParams.get("new");
 
+  //quantity
+  // const numberValue = useRef() as MutableRefObject<HTMLInputElement>;
+
   //수량 더하기 빼기
   const handlePlus = () => {
     setNumber(number + 1);
@@ -68,6 +71,7 @@ const BookPage = () => {
 
   //댓글추가
   const handleSaveComment = () => {
+    console.log(commentText.current.value);
     setComment({ comment: `${commentText}` });
   };
 
@@ -158,10 +162,24 @@ const BookPage = () => {
                 </div>
                 <div id="amount">
                   수량:
-                  <input type="number" placeholder="0" value={number} onChange={(e) => setNumber(parseInt(e.target.value, 10))} />
+                  <input
+                    type="number"
+                    // ref={numberValue}
+                    placeholder="0"
+                    value={number}
+                    onChange={(e) => setNumber(parseInt(e.target.value, 10))}
+                  />
                   <div>
-                    <img onClick={handlePlus} src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png" alt="위 화살표" />
-                    <img onClick={handleMinus} src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png" alt="아래화살표" />
+                    <img
+                      onClick={handlePlus}
+                      src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
+                      alt="위 화살표"
+                    />
+                    <img
+                      onClick={handleMinus}
+                      src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
+                      alt="아래화살표"
+                    />
                   </div>
                 </div>
               </aside>
@@ -213,7 +231,7 @@ const BookPage = () => {
                     cover={detail.cover}
                     priceStandard={detail.priceStandard.toString()}
                     priceSales={detail.priceSales.toString()}
-                    quantity={commentText.current.value}
+                    quantity={number.toString()}
                   />
                 </ul>
               </nav>
@@ -267,7 +285,6 @@ const BookPage = () => {
                 <textarea placeholder="댓글을 입력해주세요" cols={100} rows={10} ref={commentText}></textarea>
                 <button onClick={handleSaveComment}>등록</button>
               </label>
-              <BookComment />
             </form>
           </footer>
         </section>

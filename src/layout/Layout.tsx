@@ -35,6 +35,14 @@ const Layout = () => {
     setSelectedOption(event.target.value);
   };
 
+  const handleMoveCart = () => {
+    if (cookie) {
+      navigate("/order/list"); // token이 있는 경우에만 이동
+    } else {
+      alert("로그인 후 이용해주세요.");
+    }
+  };
+
   useEffect(() => {
     SetCookie(getCookie("token"));
   }, [getCookie("token")]);
@@ -57,11 +65,9 @@ const Layout = () => {
                   <ExitToApp className="material-symbols-outlined" />
                 </button>
               )}
-              <Link to="/order/list">
-                <button>
-                  <ShoppingCartOutlined className="material-symbols-outlined" />
-                </button>
-              </Link>
+              <button onClick={handleMoveCart}>
+                <ShoppingCartOutlined className="material-symbols-outlined" />
+              </button>
             </aside>
             <div id="searchForm">
               <h1>
