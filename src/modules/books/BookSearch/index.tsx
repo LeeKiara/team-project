@@ -8,6 +8,9 @@ import axios from "axios";
 
 const BookSearch = () => {
   const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
+  //현재 페이지
+  const [currentPage, setCurrentPage] = useState(0);
+
   //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
@@ -18,12 +21,29 @@ const BookSearch = () => {
   //검색 총 페이지
   const [totalPages, setTotalPages] = useState(0);
 
+  //페이징 화살표 상태값
+  const [showArrowLeft, setShowArrowLeft] = useState(false);
+  const [showArrowRight, setShowArrowRight] = useState(true);
+
   //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
   // const [page, setPage] = useState(0);
   // const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+
+  //페이징
+  const handleSetPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  //페이징 화살표 마이너스
+  const handlePageMinus = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  //페이징 화살표 플러스
+  const handlePagePlus = () => {
+    setCurrentPage(currentPage + 1);
+  };
 
   const handleBookSave = (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
@@ -44,6 +64,20 @@ const BookSearch = () => {
     }));
   };
 
+  //화살표 상태에 따라 변화
+  useEffect(() => {
+    if (currentPage > 0) {
+      setShowArrowLeft(true);
+    } else if (currentPage === 0) {
+      setShowArrowLeft(false);
+    }
+    if (currentPage >= totalPages - 1) {
+      setShowArrowRight(false);
+    } else {
+      setShowArrowRight(true);
+    }
+  }, [currentPage, totalPages]);
+
   //검색어 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
@@ -54,7 +88,7 @@ const BookSearch = () => {
     (async () => {
       try {
         const response = await axios.get<BookData>(
-          `http://localhost:8081/books/paging/search?&size=${MAX_SEARCH}&page=0&option=${queryOption}&keyword=${queryKeyword}`,
+          `http://localhost:8081/books/paging/search?&size=${MAX_SEARCH}&page=${currentPage}&option=${queryOption}&keyword=${queryKeyword}`,
         );
         if (response.status === 200) {
           setTotalPages(response.data.totalPages);
@@ -64,7 +98,7 @@ const BookSearch = () => {
         console.log(e);
       }
     })();
-  }, [params]);
+  }, [params, currentPage]);
 
   return (
     <>
@@ -95,7 +129,7 @@ const BookSearch = () => {
               </thead>
               <tbody>
                 {searchList.length > 0 ? (
-                  searchList.slice(0, 10).map((item) => (
+                  searchList.map((item) => (
                     <tr key={`${item.itemId}`}>
                       <td>
                         <Link to={`/page?keyword=${item.itemId}`}>
@@ -177,6 +211,62 @@ const BookSearch = () => {
                 )}
               </tbody>
             </table>
+            {totalPages > 2 && (
+              <nav>
+                <ol>
+                  {showArrowLeft && (
+                    <li className="numberbox">
+                      <button onClick={handlePageMinus}>{`<`}</button>
+                    </li>
+                  )}
+                  {/* {Array.from({ length: Math.min(MAX_LIST, totalPage - currentPage) }, (_, i) => i + currentPage).map((pageNumber) => (
+                  <li key={pageNumber} className="numberbox" onClick={() => handleSetPage(pageNumber)}>
+                    {pageNumber + 1}
+                  </li>
+                ))} */}
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(0);
+                    }}>
+                    1
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(1);
+                    }}>
+                    2
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(2);
+                    }}>
+                    3
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(3);
+                    }}>
+                    4
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(4);
+                    }}>
+                    5
+                  </li>
+                  {showArrowRight && (
+                    <li className="numberbox">
+                      <button onClick={handlePagePlus}>{`>`}</button>
+                    </li>
+                  )}
+                </ol>
+              </nav>
+            )}
           </section>
         )}
       </SearchContainer>

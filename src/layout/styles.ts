@@ -30,20 +30,20 @@ export const LayoutContainer = styled.div`
     gap: 20px;
     margin-top: 5px;
   }
-  header > div > aside > button {
+  header > div > aside button {
     border: none;
     background-color: transparent;
     padding: 0;
     margin: 0;
     cursor: pointer;
   }
-  header > div > aside > a > button {
+  /* header > div > aside > a > button {
     border: none;
     background-color: transparent;
     padding: 0;
     margin: 0;
     cursor: pointer;
-  }
+  } */
   .header-nav {
     /* border: 1px solid #97a5ac; */
     border-top: 1px solid #dddddd;
