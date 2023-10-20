@@ -1,5 +1,228 @@
+import { Link, useNavigate } from "react-router-dom";
+import { SignUpContainer } from "./styles";
+import {
+  PersonOutline,
+  Lock,
+  LockOpen,
+  Portrait,
+  PhoneAndroid,
+  MailOutline,
+  CalendarMonth,
+  Bookmarks,
+  LockPerson,
+} from "@mui/icons-material";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
+import axios from "axios";
+
 const SignUp = () => {
-  return <></>;
+  const navigate = useNavigate();
+
+  //회원정보값
+  const userid = useRef() as MutableRefObject<HTMLInputElement>;
+  const password = useRef() as MutableRefObject<HTMLInputElement>;
+  const verifiedPassword = useRef() as MutableRefObject<HTMLInputElement>;
+  const nickname = useRef() as MutableRefObject<HTMLInputElement>;
+  const phone = useRef() as MutableRefObject<HTMLInputElement>;
+  const email = useRef() as MutableRefObject<HTMLInputElement>;
+  const birth = useRef() as MutableRefObject<HTMLInputElement>;
+  const bookmarks = useRef() as MutableRefObject<HTMLInputElement>;
+
+  //제대로 입력이 됐는지 확인하는 상태값
+  const [verify, setVerify] = useState(false);
+
+  const [passwordValue, setPasswordValue] = useState(null);
+  const [verifiedPasswordValue, setVerifiedPasswordValue] = useState(null);
+  const [userIdValue, setUserIdValue] = useState(null);
+
+  const [nicknameValue, setNicknameValue] = useState(null);
+  const [phoneValue, setPhoneValue] = useState(null);
+  const [emailValue, setEmailValue] = useState(null);
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    console.log(userIdValue);
+    console.log(passwordValue);
+    console.log(nicknameValue);
+    console.log(phoneValue);
+    console.log(emailValue);
+    const signupRequest = {
+      userid: userIdValue,
+      password: passwordValue,
+      nickname: nicknameValue,
+      phone: phoneValue,
+      email: emailValue,
+    };
+    (async () => {
+      if (
+        userIdValue !== "" &&
+        passwordValue !== "" &&
+        nicknameValue !== "" &&
+        phoneValue !== "" &&
+        emailValue !== ""
+      ) {
+        try {
+          const response = await axios.post(`http://localhost:8081/auth/signup`, signupRequest);
+          console.log(response.status);
+          if (response.status === 201) {
+            alert("회원가입을 축하합니다.");
+            navigate("/");
+          }
+        } catch (e: any) {
+          console.log(e);
+          if (e.response && e.response.status === 409) {
+            alert("기존 회원 정보와 일치합니다. 다시 입력해주세요.");
+          } else {
+            alert("회원가입에 실패했습니다.");
+          }
+        }
+      }
+    })();
+  };
+
+  useEffect(() => {
+    // input 값이 변경될 때 상태 업데이트
+    if (password.current.value !== null) {
+      setPasswordValue(password.current.value);
+    }
+    if (verifiedPassword.current.value !== null) {
+      setVerifiedPasswordValue(verifiedPassword.current.value);
+    }
+    if (password.current.value !== "" && password.current.value === verifiedPassword.current.value) {
+      setVerify(true);
+      setPasswordValue(password.current.value);
+    }
+  }, [passwordValue, verifiedPasswordValue]);
+
+  return (
+    <>
+      <SignUpContainer>
+        <section>
+          <Link to="/">
+            <h1>brunchStory</h1>
+          </Link>
+          <form>
+            <div>
+              <label className={userIdValue === "" ? "verify" : ""}>
+                <PersonOutline className="material-icons-outlined" />
+                <input
+                  type="text"
+                  placeholder="아이디"
+                  ref={userid}
+                  onChange={(e) => {
+                    setUserIdValue(e.target.value);
+                  }}
+                />
+              </label>
+              <label className={passwordValue === "" && verify ? "verify" : ""}>
+                <Lock className="material-icons-outlined" />
+                <input
+                  type="password"
+                  placeholder="비밀번호"
+                  ref={password}
+                  onChange={(e) => {
+                    setPasswordValue(e.target.value);
+                  }}
+                />
+              </label>
+              {/* <label className={passwordValue === verifiedPasswordValue ? "verifiedPassword" : "password"}>
+                  <LockOpen className="material-icons-outlined" />
+                  <input
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    ref={verifiedPassword}
+                    onChange={(e) => {
+                      setVerifiedPasswordValue(e.target.value);
+                    }}
+                  />
+                </label> */}
+              {passwordValue === verifiedPasswordValue ? (
+                <label className={`verifiedPassword ${verify ? "" : "verify"}`}>
+                  <LockPerson className="material-icons-outlined" />
+                  <input
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    ref={verifiedPassword}
+                    onChange={(e) => {
+                      setVerifiedPasswordValue(e.target.value);
+                    }}
+                  />
+                </label>
+              ) : (
+                <label className={`password ${verify ? "" : "verify"}`}>
+                  <LockOpen className="material-icons-outlined" />
+                  <input
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    ref={verifiedPassword}
+                    onChange={(e) => {
+                      setVerifiedPasswordValue(e.target.value);
+                    }}
+                  />
+                </label>
+              )}
+            </div>
+            <div>
+              {userIdValue === "" && <p>* 아이디를 입력해주세요.</p>}
+              {passwordValue === "" && verify && <p>* 비밀번호를 입력해주세요.</p>}
+            </div>
+            <div>
+              <label className={nicknameValue === "" ? "verify" : ""}>
+                <Portrait className="material-icons-outlined" />
+                <input
+                  type="text"
+                  placeholder="닉네임"
+                  ref={nickname}
+                  onChange={(e) => {
+                    setNicknameValue(e.target.value);
+                  }}
+                />
+              </label>
+              <label className={phoneValue === "" ? "verify" : ""}>
+                <PhoneAndroid className="material-icons-outlined" />
+                <input
+                  type="text"
+                  placeholder="전화번호"
+                  ref={phone}
+                  onChange={(e) => {
+                    setPhoneValue(e.target.value);
+                  }}
+                />
+              </label>
+              <label className={emailValue === "" ? "verify" : ""}>
+                <MailOutline className="material-icons-outlined" />
+                <input
+                  type="text"
+                  placeholder="이메일"
+                  ref={email}
+                  onChange={(e) => {
+                    setEmailValue(e.target.value);
+                  }}
+                />
+              </label>
+              <label>
+                <CalendarMonth className="material-icons-outlined" />
+                <input type="text" placeholder="생년월일 7자리" ref={birth} />
+              </label>
+              <label>
+                <Bookmarks className="material-icons-outlined" />
+                <input type="text" placeholder="선호장르" ref={bookmarks} />
+              </label>
+              <div>
+                {userIdValue === "" && <p>* 아이디를 입력해주세요.</p>}
+                {passwordValue === "" && verify && <p>* 비밀번호를 입력해주세요.</p>}
+              </div>
+            </div>
+            <button
+              onClick={(e) => {
+                handleSignUp(e);
+              }}>
+              회원가입
+            </button>
+          </form>
+        </section>
+      </SignUpContainer>
+    </>
+  );
 };
 
 export default SignUp;
