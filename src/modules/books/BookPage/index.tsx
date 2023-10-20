@@ -3,14 +3,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
 import { BookData, BookItem } from "../data";
 import axios from "axios";
-import {
-  Favorite,
-  FavoriteBorder,
-  ThumbDown,
-  ThumbDownOffAlt,
-  ThumbUp,
-  ThumbUpOffAlt,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import BookComment from "../BookComment";
 import Button from "@/components/Button";
 
@@ -21,7 +14,7 @@ interface BookComment {
 const BookPage = () => {
   //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
-  //디테일 페이지 itemId값
+  //디테일 페이지 id가져오기
   const [searchParams] = useSearchParams();
 
   //카트데이터 수량값
@@ -38,8 +31,10 @@ const BookPage = () => {
 
   const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
-  //디테일 페이지 itemId값 가져오기
-  const keyword = searchParams.get("keyword");
+  //디테일 페이지 id값 가져오기
+  const id = searchParams.get("id");
+  //디테일 페이지 id값 가져오기
+  const newId = searchParams.get("new");
 
   //수량 더하기 빼기
   const handlePlus = () => {
@@ -78,24 +73,48 @@ const BookPage = () => {
 
   const handleSandCart = () => {};
 
-  //화면 조회
+  //화면 조회 swr
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(
+  //         `http://localhost:9090/books`
+  //       );
+  //       if (response.status === 200) {
+  //         const bookItem: BookItem | undefined = response.data[0].item.find(
+  //           (book) => book.itemId === Number(keyword)
+  //         );
+  //         setDetail(bookItem);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, [keyword]);
+
+  //서버 화면 조회
   useEffect(() => {
-    (async () => {
+    const fetchBookDetail = async (itemId: string, isNew: boolean) => {
       try {
-        const response = await axios.get<BookData>(
-          `http://localhost:9090/books`
-        );
+        const url = `http://localhost:8081/books/${isNew ? "new/" : ""}${itemId}`;
+        const response = await axios.get<BookItem>(url);
+
         if (response.status === 200) {
-          const bookItem: BookItem | undefined = response.data[0].item.find(
-            (book) => book.itemId === Number(keyword)
-          );
-          setDetail(bookItem);
+          setDetail(response.data);
         }
       } catch (e: any) {
         console.log(e);
       }
-    })();
-  }, [keyword]);
+    };
+
+    if (id) {
+      console.log(id + "도서");
+      fetchBookDetail(id, false);
+    } else if (newId) {
+      console.log(newId + "신간");
+      fetchBookDetail(newId, true);
+    }
+  }, []);
 
   return (
     <>
@@ -139,23 +158,10 @@ const BookPage = () => {
                 </div>
                 <div id="amount">
                   수량:
-                  <input
-                    type="number"
-                    placeholder="0"
-                    value={number}
-                    onChange={(e) => setNumber(parseInt(e.target.value, 10))}
-                  />
+                  <input type="number" placeholder="0" value={number} onChange={(e) => setNumber(parseInt(e.target.value, 10))} />
                   <div>
-                    <img
-                      onClick={handlePlus}
-                      src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
-                      alt="위 화살표"
-                    />
-                    <img
-                      onClick={handleMinus}
-                      src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
-                      alt="아래화살표"
-                    />
+                    <img onClick={handlePlus} src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png" alt="위 화살표" />
+                    <img onClick={handleMinus} src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png" alt="아래화살표" />
                   </div>
                 </div>
               </aside>
@@ -164,8 +170,7 @@ const BookPage = () => {
                   <li
                     onClick={() => {
                       handleBookSave(detail.itemId);
-                    }}
-                  >
+                    }}>
                     <button className="btn">
                       {storeHeartStates[detail.itemId] ? (
                         <Favorite className="material-icons-outlined heart" />
@@ -178,8 +183,7 @@ const BookPage = () => {
                   <li
                     onClick={() => {
                       handleThumbUp(detail.itemId);
-                    }}
-                  >
+                    }}>
                     <button className="btn">
                       {storeThumbStates[detail.itemId] ? (
                         <ThumbUp className="material-icons-outlined thumb" />
@@ -192,8 +196,7 @@ const BookPage = () => {
                   <li
                     onClick={() => {
                       handleThumbDown(detail.itemId);
-                    }}
-                  >
+                    }}>
                     <button className="btn">
                       {storeThumbDownStates[detail.itemId] ? (
                         <ThumbDown className="material-icons-outlined thumb" />
@@ -261,12 +264,7 @@ const BookPage = () => {
                 <sub>로그인을 하시면 댓글을 작성할 수 있습니다.</sub>
               </h4>
               <label>
-                <textarea
-                  placeholder="댓글을 입력해주세요"
-                  cols={100}
-                  rows={10}
-                  ref={commentText}
-                ></textarea>
+                <textarea placeholder="댓글을 입력해주세요" cols={100} rows={10} ref={commentText}></textarea>
                 <button onClick={handleSaveComment}>등록</button>
               </label>
               <BookComment />

@@ -2,7 +2,7 @@ import axios from "axios";
 import useSWR, { mutate } from "swr";
 
 const booksApi = axios.create({
-  baseURL: "http://localhost:9090",
+  baseURL: "http://localhost:8081",
 });
 
 export interface BookData {
@@ -11,7 +11,7 @@ export interface BookData {
   title: string;
   link: string;
   pubDate: string;
-  totalResults: number;
+  totalPages: number;
   startIndex: number;
   itemsPerPage: number;
   query: string;
@@ -64,8 +64,9 @@ export const BOOKS_DATA_KEY = "/books";
 
 const bookFetcher = async ([key, page]: string | number[]) => {
   try {
-    const response = await booksApi.get<BookData>(`${key}?_sort=id&_order=desc`);
-    return response.data[0].item;
+    const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
+    // return response.data[0].item;
+    return response.data;
   } catch (e: any) {
     return INIT_DATA;
   }

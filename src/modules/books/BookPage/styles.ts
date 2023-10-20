@@ -103,7 +103,7 @@ export const PageContainer = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 200px;
+    width: 180px;
     background-color: #708b95;
     color: #fff;
     font-size: 18px;
