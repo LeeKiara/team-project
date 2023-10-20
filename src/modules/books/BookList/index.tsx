@@ -52,11 +52,6 @@ const BookList = ({ fetchUrl }) => {
   //   setCategory(params.get('option'));
   // }, [fetchUrl]);
 
-  useEffect(() => {
-    const queryKeyword = params.get("keyword") || "";
-    setSearchQuery(queryKeyword);
-  }, [params]);
-
   //화살표 상태에 따라 변화
   useEffect(() => {
     if (currentPage > 0) {
@@ -70,6 +65,27 @@ const BookList = ({ fetchUrl }) => {
       setShowArrowRight(true);
     }
   }, [currentPage, totalPages]);
+
+  //카테고리 이동
+  useEffect(() => {
+    const queryKeyword = params.get("option") || "";
+    console.log(queryKeyword + "카테고리 키워드");
+    setSearchQuery(queryKeyword);
+    (async () => {
+      try {
+        const response = await axios.get<BookData>(
+          `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
+        );
+        if (response.status === 200) {
+          setTotalPages(response.data.totalPages);
+          setBookList(response.data.content);
+          setCategory(fetchUrl.split("=")[1]);
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
+  }, [searchQuery, params]);
 
   //북리스트서버 연동
   useEffect(() => {
@@ -97,29 +113,31 @@ const BookList = ({ fetchUrl }) => {
           <section>
             {bookList.length > 0 ? (
               bookList.map((item) => (
-                <article key={`${item.itemId}`}>
+                <article key={`${item.id}`}>
                   <div>
                     <figure>
-                      <Link to={`/page?keyword=${item.itemId}`}>
+                      <Link to={`/page?id=${item.id}`}>
                         <img src={`${item.cover}`} alt={`${item.title}`} />
                       </Link>
                     </figure>
                     <div>
                       <p>[{category}]</p>
-                      <h3>{`${item.title}`}</h3>
+                      <Link to={`/page?id=${item.id}`}>
+                        <h3>{`${item.title}`}</h3>
+                      </Link>
                       <hr />
                       <p>{`${item.author}`}</p>
                       <p>{`${item.description}`}</p>
                     </div>
                   </div>
                   <ul>
-                    <li>
+                    <li style={{ fontSize: "small" }}>
                       정가:
                       <del>
                         <p>{`${item.priceStandard}`}원</p>
                       </del>
                     </li>
-                    <li>판매가: {`${item.priceSales}`}</li>
+                    <li style={{ color: "crimson", fontWeight: "bold" }}>판매가: {`${item.priceSales.toLocaleString()}`}원</li>
                     <li
                       onClick={() => {
                         handleBookSave(item.itemId);
@@ -146,60 +164,62 @@ const BookList = ({ fetchUrl }) => {
               // 데이터가 없거나 오류 상태를 처리하는 부분
               <p>책을 찾을 수 없습니다.</p>
             )}
-            <nav style={{ display: "flex", justifyContent: "center" }}>
-              <ol>
-                {showArrowLeft && (
-                  <li className="numberbox">
-                    <button onClick={handlePageMinus}>{`<`}</button>
-                  </li>
-                )}
-                {/* {Array.from({ length: Math.min(MAX_LIST, totalPage - currentPage) }, (_, i) => i + currentPage).map((pageNumber) => (
+            {totalPages > 2 && (
+              <nav>
+                <ol>
+                  {showArrowLeft && (
+                    <li className="numberbox">
+                      <button onClick={handlePageMinus}>{`<`}</button>
+                    </li>
+                  )}
+                  {/* {Array.from({ length: Math.min(MAX_LIST, totalPage - currentPage) }, (_, i) => i + currentPage).map((pageNumber) => (
                   <li key={pageNumber} className="numberbox" onClick={() => handleSetPage(pageNumber)}>
                     {pageNumber + 1}
                   </li>
                 ))} */}
-                <li
-                  className="numberbox"
-                  onClick={() => {
-                    handleSetPage(0);
-                  }}>
-                  1
-                </li>
-                <li
-                  className="numberbox"
-                  onClick={() => {
-                    handleSetPage(1);
-                  }}>
-                  2
-                </li>
-                <li
-                  className="numberbox"
-                  onClick={() => {
-                    handleSetPage(2);
-                  }}>
-                  3
-                </li>
-                <li
-                  className="numberbox"
-                  onClick={() => {
-                    handleSetPage(3);
-                  }}>
-                  4
-                </li>
-                <li
-                  className="numberbox"
-                  onClick={() => {
-                    handleSetPage(4);
-                  }}>
-                  5
-                </li>
-                {showArrowRight && (
-                  <li className="numberbox">
-                    <button onClick={handlePagePlus}>{`>`}</button>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(0);
+                    }}>
+                    1
                   </li>
-                )}
-              </ol>
-            </nav>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(1);
+                    }}>
+                    2
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(2);
+                    }}>
+                    3
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(3);
+                    }}>
+                    4
+                  </li>
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(4);
+                    }}>
+                    5
+                  </li>
+                  {showArrowRight && (
+                    <li className="numberbox">
+                      <button onClick={handlePagePlus}>{`>`}</button>
+                    </li>
+                  )}
+                </ol>
+              </nav>
+            )}
           </section>
         )}
       </BookListContainer>

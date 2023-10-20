@@ -611,21 +611,21 @@
   "cart": [
     {
       "gubun": "KOR",
-      "itemId": 326540331,
-      "title": "마리 앙투아네트: 베르사유와 프랑스혁명",
-      "cover": "https://image.aladin.co.kr/product/32654/3/coversum/k302936763_1.jpg",
-      "priceStandard": "16500",
-      "priceSales": "14850",
+      "itemId": 322521198,
+      "title": "컬러 인사이드 - 눈으로 보고 마음으로 느끼는 일상 속 컬러 이야기",
+      "cover": "https://image.aladin.co.kr/product/32252/11/coversum/k612834746_1.jpg",
+      "priceStandard": "19000",
+      "priceSales": "17100",
       "quantity": "1",
       "id": 1
     },
     {
       "gubun": "KOR",
-      "itemId": 326540331,
-      "title": "마리 앙투아네트: 베르사유와 프랑스혁명",
-      "cover": "https://image.aladin.co.kr/product/32654/3/coversum/k302936763_1.jpg",
-      "priceStandard": "16500",
-      "priceSales": "14850",
+      "itemId": 322521198,
+      "title": "컬러 인사이드 - 눈으로 보고 마음으로 느끼는 일상 속 컬러 이야기",
+      "cover": "https://image.aladin.co.kr/product/32252/11/coversum/k612834746_1.jpg",
+      "priceStandard": "19000",
+      "priceSales": "17100",
       "quantity": "1",
       "id": 2
     },
@@ -638,6 +638,16 @@
       "priceSales": "14850",
       "quantity": "1",
       "id": 3
+    },
+    {
+      "gubun": "KOR",
+      "itemId": 326540331,
+      "title": "마리 앙투아네트: 베르사유와 프랑스혁명",
+      "cover": "https://image.aladin.co.kr/product/32654/3/coversum/k302936763_1.jpg",
+      "priceStandard": "16500",
+      "priceSales": "14850",
+      "quantity": "1",
+      "id": 4
     }
   ],
   "orderitem": []

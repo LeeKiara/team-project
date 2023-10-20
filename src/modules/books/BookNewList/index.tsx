@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { BookData, BookItem } from "../data";
@@ -9,6 +9,10 @@ import { ShoppingCart } from "@mui/icons-material";
 
 const BookNewList = () => {
   const [newBookList, setNewBookList] = useState<BookItem[]>([]);
+  //카테고리 상태값
+  const [searchQuery, setSearchQuery] = useState("");
+  const [params] = useSearchParams();
+
   // const [showButton, setShowButton] = useState(false);
   // const [confirmed, setConfirmed] = useState(false);
 
@@ -22,18 +26,51 @@ const BookNewList = () => {
   //   setShowButton(true); // 버튼을 표시
   // };
 
+  //카테고리 이동
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
-        if (response.status === 200) {
-          setNewBookList(response.data.content);
+    console.log(params);
+    const queryKeyword = params.get("option") || "";
+    console.log(queryKeyword + "카테고리 키워드");
+    const query = queryKeyword.split(">")[1];
+    console.log(query);
+    setSearchQuery(query);
+    if (queryKeyword) {
+      (async () => {
+        try {
+          const response = await axios.get<BookData>(`http://localhost:8081/books/category?new=0&option=국내도서>${query}&size=8&page=0`);
+          if (response.status === 200) {
+            setNewBookList(response.data.content);
+          }
+        } catch (e: any) {
+          console.log(e);
         }
-      } catch (e: any) {
-        console.log(e);
-      }
-    })();
-  }, []);
+      })();
+    } else {
+      (async () => {
+        try {
+          const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
+          if (response.status === 200) {
+            setNewBookList(response.data.content);
+          }
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [searchQuery, params]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
+  //       if (response.status === 200) {
+  //         setNewBookList(response.data.content);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -45,20 +82,22 @@ const BookNewList = () => {
             <ul>
               {newBookList.length > 0 ? (
                 newBookList.map((item) => (
-                  <li key={`${item.itemId}`}>
+                  <li key={`${item.id}`}>
                     <figure>
-                      <Link to={`/page?keyword=${item.itemId}`}>
+                      <Link to={`/page?new=${item.id}`}>
                         <img src={`${item.cover}`} alt={`${item.title}`} />
                       </Link>
                     </figure>
                     <div>
-                      <h3>{`${item.title}`.length > 12 ? `${item.title}`.slice(0, 12) + "..." : `${item.title}`}</h3>
+                      <Link to={`/page?new=${item.id}`}>
+                        <h3>{`${item.title}`.length > 12 ? `${item.title}`.slice(0, 12) + "..." : `${item.title}`}</h3>
+                      </Link>
                       <p>{`${item.author}`.length > 8 ? `${item.author}`.slice(0, 8) + "..." : `${item.author}`}</p>
                       <dl>
                         정가
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
-                      <dl>판매가: {`${item.priceSales}`}원</dl>
+                      <dl>판매가: {`${item.priceSales.toLocaleString()}`}원</dl>
                       <Button
                         gubun="KOR"
                         itemId={item.itemId}
