@@ -4,7 +4,7 @@ import useSWR, { mutate } from "swr";
 
 const INIT_DATA: CartData[] = [];
 const CART_DATA_KEY = "/cart";
-// const CONTACTS_DATA_KEY = "@data/contacts";
+const CONTACTS_DATA_KEY = "@data/contacts";
 
 export interface CartDataJoinBook {
   itemId: number;
@@ -24,9 +24,9 @@ export interface CartData {
   // isFetch?: boolean;
 }
 
-// const cartApi = axios.create({
-//   baseURL: "http://localhost:9090",
-// });
+const cartApi = axios.create({
+  baseURL: "http://localhost:9090",
+});
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
 const cartFetcher = async ([key, shouldFetchData]) => {
