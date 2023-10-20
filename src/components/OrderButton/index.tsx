@@ -2,13 +2,11 @@ import { ShoppingCart } from "@mui/icons-material";
 import { OrderButtonStyle } from "./styles";
 
 import { useNavigate } from "react-router-dom";
-import { OrderItemData, useOrderListData } from "@/modules/cart/orderlistdata";
+import { OrderItemData } from "@/modules/cart/orderdata";
 import { useState } from "react";
 import ShowMessageModal from "../ShowMessageModal";
 
 const OrderButton = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
-  // const OrderButton = (cartBooks: OrderItemData[]) => {
-  const { createOrderListData } = useOrderListData();
   const navigate = useNavigate();
 
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -35,23 +33,12 @@ const OrderButton = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
         console.log("   주문대상 ^^^^^^^^^ " + selectedItem.title + ", " + selectedItem.quantity);
       });
 
-    createOrderListData(cartBooks);
-
     // 주문하기 화면으로 이동
-    // navigate("/order");
-
     navigate("/order", {
       state: {
         cartBooks: cartBooks,
       },
     });
-
-    // navigate("/order", {
-    //   state: {
-    //     postcode: data.zonecode,
-    //     address: address,
-    //   },
-    // });
   };
 
   return (

@@ -15,7 +15,6 @@ import AddressSearchForm from "./AddressSearch";
 const AddCart = lazy(() => import("@/modules/cart/test/AddCart"));
 const Order = lazy(() => import("@/modules/cart/Order/OrderForm"));
 const CartForm = lazy(() => import("@/modules/cart/CartForm"));
-const Payment = lazy(() => import("@/modules/cart/Order/Payment"));
 const OrderDone = lazy(() => import("@/modules/cart/Order/OrderDone"));
 const OrderList = lazy(() => import("@/modules/cart/OrderList"));
 const OrderDetail = lazy(() => import("@/modules/cart/OrderDetail"));
@@ -28,7 +27,6 @@ export const cartRoutes = [
   <Route key="order" path="order" element={<CartSidebar />}>
     ,
     <Route element={<OrderForm />} index />,
-    <Route key="payment" path="payment" element={<Payment />} />,
     <Route key="done" path="done" element={<OrderDone />} />,
     <Route key="list" path="list" element={<OrderList />} />,
     <Route key="detail" path="detail" element={<OrderDetail />} />,

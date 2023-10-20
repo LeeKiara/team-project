@@ -3,7 +3,6 @@ import { CartFormContainer } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
-import ConfirmModal from "@/components/ConfirmModal";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
 
@@ -76,8 +75,8 @@ const CartForm = () => {
     setPriceSales(calcuPriceSales);
 
     // 주문상품 상태 관리
-    // const checkedCartItems = createSelectedCartList(stateCartData, qtys);
-    // setStateCartData(checkedCartItems);
+    const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+    setStateCartData(checkedCartItems);
   }, [qtys]);
 
   // 주문할 상품 선택박스 상태변경 부가처리
@@ -86,7 +85,6 @@ const CartForm = () => {
       console.log("++++++++++ useEffect checkboxes");
 
       const checkedCartItems = createSelectedCartList(stateCartData, qtys);
-
       setStateCartData(checkedCartItems);
 
       setIsOrder(true);

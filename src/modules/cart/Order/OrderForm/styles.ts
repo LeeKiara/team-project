@@ -340,31 +340,26 @@ export const OrderFormContainer = styled.div`
       border: none;
     }
 
-    /* .box-submit-payment {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 32px;
+    .box-submit-payment {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
 
-      .btn-order {
-        display: block;
-      }
-
-      .btn-order button {
-        display: block;
-        width: 218px;
-        height: 44px;
-        line-height: 1;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 500;
-        color: #fff;
-        border-radius: 4px;
-        background: #3d4ed7;
-        border: 0;
-        cursor: pointer;
-      }
-    } */
+    .btn-payment {
+      width: 218px;
+      height: 44px;
+      background: #3d4ed7;
+      border: 0;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      line-height: 1;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+    }
   }
 
   /* 모바일 스타일 */
