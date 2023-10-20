@@ -3,6 +3,13 @@ import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
+import {
+  AccountCircle,
+  AccountCircleOutlined,
+  ExitToApp,
+  ShoppingCart,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -10,6 +17,11 @@ const Layout = () => {
 
   const [selectedOption, setSelectedOption] = useState("");
   const [cookie, SetCookie] = useState("");
+
+  const handleLogout = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    navigate("/");
+  };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,16 +46,20 @@ const Layout = () => {
         <header>
           <div>
             <aside>
-              {!cookie && (
+              {!cookie ? (
                 <Link to="/login">
                   <button>
-                    <span className="material-symbols-outlined">account_circle</span>
+                    <AccountCircleOutlined className="material-symbols-outlined" />
                   </button>
                 </Link>
+              ) : (
+                <button onClick={handleLogout}>
+                  <ExitToApp className="material-symbols-outlined" />
+                </button>
               )}
               <Link to="/order/list">
                 <button>
-                  <span className="material-symbols-outlined">shopping_cart</span>
+                  <ShoppingCartOutlined className="material-symbols-outlined" />
                 </button>
               </Link>
             </aside>
