@@ -1,0 +1,101 @@
+import axios from "axios";
+import ConfirmModal from "@/components/ConfirmModal";
+import { useState } from "react";
+import { PaymentContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { PaymentData } from "@/modules/cart/orderdata";
+
+// const INIT_DATA: PaymentData[] = [];
+// const INIT_DATA: PaymentData = {
+//   orderUserId: "",
+//   orderHp1: "",
+//   orderHp2: "",
+//   orderHp3: "",
+//   orderEmail1: "",
+//   orderEmail2: "",
+//   deliveryName: "",
+//   deliveryHp1: "",
+//   deliveryHp2: "",
+//   deliveryHp3: "",
+//   deliveryAddr1: "",
+//   deliveryAddr2: "",
+//   deliveryMemo: "",
+//   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
+//   bookItem: [],
+// };
+
+const Payment = ({ orderData, onConfirm, onCancel }: { orderData?: PaymentData }) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  // 주문 가능 상태
+  const [isOrder, setIsOrder] = useState(false);
+
+  // 주문 데이터
+  // const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
+
+  const navigate = useNavigate();
+
+  if (orderData) {
+    console.log("deliveryName : " + orderData.deliveryName);
+  }
+
+  const savePayment = () => {
+    // orderItems.map((item) => {
+    //   console.log(
+    //     item.id +
+    //       "," +
+    //       item.itemId +
+    //       "," +
+    //       item.title +
+    //       "," +
+    //       item.priceStandard +
+    //       "," +
+    //       item.priceSales +
+    //       "," +
+    //       item.quantity +
+    //       "," +
+    //       item.cover,
+    //   );
+    // });
+
+    // 주무/배송 정보 등록
+    navigate("/order/done");
+  };
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  // 결제하기
+  const handleConfirm = () => {
+    // alert("확인되었습니다.");
+    setIsOrder(true);
+    setModalVisible(false);
+    savePayment();
+  };
+
+  const handleCancel = () => {
+    // alert("취소되었습니다.");
+    setIsOrder(false);
+    setModalVisible(false);
+  };
+
+  return (
+    <PaymentContainer>
+      <div className="box-submit-payment">
+        <button className="btn-payment" onClick={handleOpenModal}>
+          결제하기
+        </button>
+
+        <ConfirmModal
+          isVisible={isModalVisible}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          message="주문하시겠습니까?"
+        />
+      </div>
+    </PaymentContainer>
+  );
+};
+
+export default Payment;

@@ -1,16 +1,30 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { OrderFormContainer } from "./styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useOrderListData } from "../../orderlistdata";
+// import { useOrderListData } from "../../orderlistdata";
 import { useProfileData } from "@/modules/cart/userdata";
 import Payment from "../Payment";
 import AddressSearchForm from "../../AddressSearch";
+import { PaymentData } from "../../orderdata";
+import { CartData } from "../../cartdata";
+import ConfirmModal from "@/components/ConfirmModal";
+import http from "@/utils/http";
 
 const OrderForm = () => {
-  // 주문 데이터
-  const { orderListData: orderItems, isOrderListValidating } = useOrderListData();
+  // 회원정보
   const { profileData: profileData, isCartDataValidating } = useProfileData();
+
+  // 주문 데이터 상태관리
+  const [stateOrderData, setStateOrderData] = useState<PaymentData>();
+
+  // 주소찾기 버튼 상태관리
   const [addressFormVisible, setAddressFormVisible] = useState(false);
+
+  // 주문 가능 여부
+  const [isOrder, setIsOrder] = useState(false);
+
+  // 메세지 Modal visible 상태
+  const [isModalVisible, setModalVisible] = useState(false);
 
   // 주소 검색 데이터 받아오기
   const location = useLocation();
@@ -65,7 +79,7 @@ const OrderForm = () => {
   const deliveryHp1Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const deliveryHp2Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const deliveryHp3Ref = useRef() as MutableRefObject<HTMLInputElement>;
-  const deliveryAddr1Ref = useRef() as MutableRefObject<HTMLInputElement>;
+  // const deliveryAddr1Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const deliveryAddr2Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const deliveryMemoRef = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -113,11 +127,8 @@ const OrderForm = () => {
     navigate("/order/done");
   };
 
+  // 주소 창 닫기
   const handleConfirm = () => {
-    setAddressFormVisible(false);
-  };
-
-  const handleCancel = () => {
     setAddressFormVisible(false);
   };
 
@@ -125,6 +136,130 @@ const OrderForm = () => {
   const handleAddrSearch = () => {
     setAddressFormVisible(true);
   };
+
+  // // 주문가능 상태로 변경한다.
+  // const handleChangeOrderState = () => {
+  //   const createOrderData: PaymentData = {
+  //     //   orderUserId: "",
+  //     //   orderHp1: "",
+  //     //   orderHp2: "",
+  //     //   orderHp3: "",
+  //     //   orderEmail1: "",
+  //     //   orderEmail2: "",
+  //     deliveryName: deliveryNameRef.current.value,
+  //     //   deliveryHp1: "",
+  //     //   deliveryHp2: "",
+  //     //   deliveryHp3: "",
+  //     //   deliveryAddr1: "",
+  //     //   deliveryAddr2: "",
+  //     //   deliveryMemo: "",
+  //     //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
+  //     //   bookItem: [],
+  //   };
+
+  //   alert("useEffect >> deliveryNameRef" + createOrderData.deliveryName);
+
+  //   setStateOrderData(createOrderData);
+
+  //   setIsOrder(true);
+  // };
+
+  const handleOrder = () => {
+    // 참조하는 객체의 현재상태는 참조변수.current
+    const deliveryName = deliveryNameRef.current;
+
+    const createOrderData: PaymentData = {
+      //   orderUserId: "",
+      //   orderHp1: "",
+      //   orderHp2: "",
+      //   orderHp3: "",
+      //   orderEmail1: "",
+      //   orderEmail2: "",
+      deliveryName: deliveryNameRef.current.value,
+      //   deliveryHp1: "",
+      //   deliveryHp2: "",
+      //   deliveryHp3: "",
+      //   deliveryAddr1: "",
+      //   deliveryAddr2: "",
+      //   deliveryMemo: "",
+      //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
+      //   bookItem: [],
+    };
+
+    console.log("handleAdd >> deliveryNameRef" + createOrderData.deliveryName);
+
+    (async () => {
+      try {
+        const response = await http.post("/order/add", createOrderData);
+
+        if (response.status === 201) {
+          console.log("");
+
+          navigate("/order/done");
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+
+      navigate("/order/done");
+    })();
+  };
+
+  // 결제하기
+  // const handleOrder = () => {
+  //   const createOrderData: PaymentData = {
+  //     //   orderUserId: "",
+  //     //   orderHp1: "",
+  //     //   orderHp2: "",
+  //     //   orderHp3: "",
+  //     //   orderEmail1: "",
+  //     //   orderEmail2: "",
+  //     deliveryName: deliveryNameRef.current.value,
+  //     //   deliveryHp1: "",
+  //     //   deliveryHp2: "",
+  //     //   deliveryHp3: "",
+  //     //   deliveryAddr1: "",
+  //     //   deliveryAddr2: "",
+  //     //   deliveryMemo: "",
+  //     //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
+  //     //   bookItem: [],
+  //   };
+
+  //   alert("handleOrder >> deliveryNameRef : " + createOrderData.deliveryName);
+
+  //   console.log("1." + createOrderData.deliveryName);
+
+  //   setStateOrderData(createOrderData);
+  //   setModalVisible(false);
+
+  //   console.log("2.stateOrderData:" + stateOrderData.deliveryName);
+
+  //   // 결제하기로 이동
+  //   navigate("/order/payment", {
+  //     state: {
+  //       orderBooks: stateOrderData,
+  //     },
+  //   });
+
+  //   console.log("3." + stateOrderData.deliveryName);
+  // };
+
+  const handleOrderCancel = () => {
+    setModalVisible(false);
+  };
+
+  // // 모달창을 열고 선택한 항목의 데이터를 모달로 넘겨주는 역할
+  // const handleOpenModifyModal = (
+  //   index: number
+  // ) => {
+  //   // 모달 열기
+  //   setShowModifyModal(true);
+  //   // 선택한 데이터 넘겨주기
+  //   setModifyItem({
+  //     index,
+  //     memo: todoList[index].memo,
+  //   });
+  // };
 
   return (
     <OrderFormContainer>
@@ -423,7 +558,22 @@ const OrderForm = () => {
                   <div className="box-submit-payment">
                     <span className="btn-order">{/* <button onClick={handlePayment}>결제하기</button> */}</span>
                   </div>
-                  <Payment />
+
+                  <div className="box-submit-payment">
+                    <button className="btn-payment" onClick={handleOrder}>
+                      결제하기
+                    </button>
+
+                    {/* <ConfirmModal
+                      isVisible={isModalVisible}
+                      onConfirm={handleOrder}
+                      onCancel={handleOrderCancel}
+                      message="주문하시겠습니까?"
+                    /> */}
+                  </div>
+
+                  {/* (주문준비 완료)결제하기 버튼 */}
+                  {/* {isOrder && <Payment orderData={stateOrderData} />} */}
                 </div>
               </div>
             </div>
