@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useProfileData } from "@/modules/cart/userdata";
 import Payment from "../Payment";
 import AddressSearchForm from "../../AddressSearch";
-import { PaymentData } from "../../orderdata";
+import { OrderData, OrderItemData, OrderAddressData } from "@/modules/cart/orderdata";
 import { CartData } from "../../cartdata";
 import ConfirmModal from "@/components/ConfirmModal";
 import http from "@/utils/http";
@@ -13,18 +13,6 @@ import http from "@/utils/http";
 const OrderForm = () => {
   // 회원정보
   const { profileData: profileData, isCartDataValidating } = useProfileData();
-
-  // 주문 데이터 상태관리
-  const [stateOrderData, setStateOrderData] = useState<PaymentData>();
-
-  // 주소찾기 버튼 상태관리
-  const [addressFormVisible, setAddressFormVisible] = useState(false);
-
-  // 주문 가능 여부
-  const [isOrder, setIsOrder] = useState(false);
-
-  // 메세지 Modal visible 상태
-  const [isModalVisible, setModalVisible] = useState(false);
 
   // 주소 검색 데이터 받아오기
   const location = useLocation();
@@ -35,14 +23,48 @@ const OrderForm = () => {
   // 장바구니 데이터 받아오기
   const cartBooks = searchAddress?.cartBooks;
 
-  cartBooks.map((item) => {
-    console.log(" // 장바구니 데이터 받아오기");
-    console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
-  });
+  cartBooks &&
+    cartBooks.map((item) => {
+      console.log(" //////////// 장바구니 데이터(cartBooks) 받아오기 //////////////");
+      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+    });
+
+  // 주문 데이터 상태관리
+  // const [stateOrderData, setStateOrderData] = useState<PaymentData>();
+
+  // 장바구니 도서 관리
+  const [stateCartBooks, setStateCartBooks] = useState(cartBooks);
+
+  // 화면 랜더링으로 장바구니 데이터가 초기화 되면...
+  // useEffect(() => {
+  //   cartBooks && setStateCartBooks(cartBooks);
+
+  //   stateCartBooks.map((item) => {
+  //     console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
+  //     console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+  //   });
+  // }, [cartBooks]);
+
+  stateCartBooks &&
+    stateCartBooks.map((item) => {
+      console.log(" //////////// 장바구니 데이터 상태 관리(렌더링이 되더라도 데이터가 유지되는지... //////////////");
+      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+    });
+
+  // 주소찾기 버튼 상태관리
+  const [addressFormVisible, setAddressFormVisible] = useState(false);
+
+  // 주문 가능 여부
+  const [isOrder, setIsOrder] = useState(false);
+
+  // 메세지 Modal visible 상태
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const [isCardSelected, setIsCardSelected] = useState(false);
   const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
   const [isBankDepositSelected, setIsBankDepositSelected] = useState(false);
+  // 결제수단 "CARD | BANK | DEPOSIT"
+  const [paymentMethod, setPaymentMethod] = useState("1");
 
   // 주문자 정보
   const orderNameRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -83,33 +105,40 @@ const OrderForm = () => {
   const deliveryAddr2Ref = useRef() as MutableRefObject<HTMLInputElement>;
   const deliveryMemoRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  // 결제수단
-  const paymentMethodRef = "CARD | BANK | DEPOSIT";
-
   useEffect(() => {
+    console.log("*** useEffect >>" + postcode + "," + address);
+
     if (postcode && address) {
       setAddressFormVisible(false);
-
-      // alert("useEffect >>" + postcode + "," + address);
     }
+
+    cartBooks && setStateCartBooks(cartBooks);
+
+    stateCartBooks.map((item) => {
+      console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
+      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+    });
   }, [postcode, address]);
 
   const handleCardSelect = () => {
     setIsCardSelected(true);
     setIsBankTransferSelected(false);
     setIsBankDepositSelected(false);
+    setPaymentMethod("1");
   };
 
   const handleBankTransferSelect = () => {
     setIsBankTransferSelected(true);
     setIsCardSelected(false);
     setIsBankDepositSelected(false);
+    setPaymentMethod("2");
   };
 
   const handleBankDepositSelect = () => {
     setIsBankDepositSelected(true);
     setIsBankTransferSelected(false);
     setIsCardSelected(false);
+    setPaymentMethod("3");
   };
 
   const navigate = useNavigate();
@@ -137,71 +166,76 @@ const OrderForm = () => {
     setAddressFormVisible(true);
   };
 
-  // // 주문가능 상태로 변경한다.
-  // const handleChangeOrderState = () => {
-  //   const createOrderData: PaymentData = {
-  //     //   orderUserId: "",
-  //     //   orderHp1: "",
-  //     //   orderHp2: "",
-  //     //   orderHp3: "",
-  //     //   orderEmail1: "",
-  //     //   orderEmail2: "",
-  //     deliveryName: deliveryNameRef.current.value,
-  //     //   deliveryHp1: "",
-  //     //   deliveryHp2: "",
-  //     //   deliveryHp3: "",
-  //     //   deliveryAddr1: "",
-  //     //   deliveryAddr2: "",
-  //     //   deliveryMemo: "",
-  //     //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
-  //     //   bookItem: [],
-  //   };
-
-  //   alert("useEffect >> deliveryNameRef" + createOrderData.deliveryName);
-
-  //   setStateOrderData(createOrderData);
-
-  //   setIsOrder(true);
-  // };
-
   const handleOrder = () => {
-    // 참조하는 객체의 현재상태는 참조변수.current
-    const deliveryName = deliveryNameRef.current;
+    console.log("handleOrder >> handleOrder");
 
-    const createOrderData: PaymentData = {
-      //   orderUserId: "",
-      //   orderHp1: "",
-      //   orderHp2: "",
-      //   orderHp3: "",
-      //   orderEmail1: "",
-      //   orderEmail2: "",
-      deliveryName: deliveryNameRef.current.value,
-      //   deliveryHp1: "",
-      //   deliveryHp2: "",
-      //   deliveryHp3: "",
-      //   deliveryAddr1: "",
-      //   deliveryAddr2: "",
-      //   deliveryMemo: "",
-      //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
-      //   bookItem: [],
+    // const orderItemData = [...stateCartBooks];
+
+    // 장바구니 데이터에서 상품id, 수량, 주문가격을 담는다.
+    // 객체를 반환하기 위해서 (안에 {}를 사용함 => 객체 리터럴을 생성
+    stateCartBooks.map((item) => {
+      console.log(`${item.itemId}, ${item.priceSales}, ${item.quantity} `);
+    });
+
+    const calcuOrderItemData: OrderItemData[] = stateCartBooks.map((item) => ({
+      itemId: item.itemId,
+      quantity: item.quantity,
+      orderPrice: (Number(item.priceSales) * Number(item.quantity)).toString(),
+    }));
+
+    console.log(" // 주문 Items 정보");
+    calcuOrderItemData.map((item) => {
+      console.log(`${item.itemId}, ${item.quantity}, ${item.orderPrice} `);
+    });
+
+    // 배송지 정보
+    const orderAddressData: OrderAddressData = {
+      deliveryName: deliveryNameRef.current.value, // 배송자명
+      deliveryPhone: "010-" + deliveryHp2Ref.current.value + "-" + deliveryHp3Ref.current.value, // 배송자 핸드폰번호
+      postcode: postcode, // 우편번호
+      address: address, // 기본주소
+      detailAddress: deliveryAddr2Ref.current.value, // 상세주소
+      deliveryMemo: deliveryMemoRef.current.value, // 배송요청사항
     };
 
-    console.log("handleAdd >> deliveryNameRef" + createOrderData.deliveryName);
+    console.log(" // 배송지 정보");
+    console.log(
+      orderAddressData.deliveryName +
+        "," +
+        orderAddressData.deliveryPhone +
+        "," +
+        orderAddressData.postcode +
+        "," +
+        orderAddressData.address +
+        "," +
+        orderAddressData.detailAddress +
+        "," +
+        orderAddressData.deliveryMemo,
+    );
+
+    const createOrderData: OrderData = {
+      paymentMethod: paymentMethod, // 결제수단
+      orderStatus: "1", // 주문상태 (1: 완료, 2:취소)
+      orderItems: calcuOrderItemData, // 주문 Items 정보
+      orderAddress: orderAddressData,
+    };
+
+    console.log(" // 주문 정보");
+    console.log(createOrderData.paymentMethod);
 
     (async () => {
       try {
         const response = await http.post("/order/add", createOrderData);
 
         if (response.status === 201) {
-          console.log("");
+          console.log("주문하기 성공!!!");
 
           navigate("/order/done");
         }
       } catch (e: any) {
         console.log(e);
+        navigate("/order/done");
       }
-
-      navigate("/order/done");
     })();
   };
 
@@ -365,13 +399,13 @@ const OrderForm = () => {
                     @
                     <input type="text" name="email2" id="email2" ref={orderEmail2Ref} value={profileEmails[1]} />
                     <div className="form-select">
-                      <select name="email2_temp">
+                      {/* <select name="email2_temp">
                         <option>직접입력</option>
                         <option value="naver.com">naver.com</option>
                         <option value="daum.net">daum.net</option>
                         <option value="gmail.com">gmail.com</option>
                         <option value="hotmail.com">hotmail.com</option>
-                      </select>
+                      </select> */}
                     </div>
                   </div>
                   {/* <!-- //이메일 입력 --> */}
