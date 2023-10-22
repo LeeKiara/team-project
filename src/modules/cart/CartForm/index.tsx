@@ -287,7 +287,8 @@ const CartForm = () => {
                   {/* 할인가/정가 */}
                   <div>
                     <div className="box-price">
-                      <strong>{priceSales[index]}</strong>원<del>정가{priceStandards[index]}원</del>
+                      <strong>{priceSales[index] && priceSales[index].toLocaleString()}</strong>원
+                      <del>정가{priceStandards[index] && priceStandards[index].toLocaleString()}원</del>
                     </div>
                     {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
                   </div>
@@ -303,7 +304,7 @@ const CartForm = () => {
             {stateCartData && stateCartData.length && <CalcuTotalPayment cartBooks={stateCartData} />}
             {stateCartData.length === 0 && (
               <div className="box-total-payment">
-                <div className="total-text">stateCartData.length === 0 주문합계</div>
+                <div className="total-text">주문합계</div>
                 <div className="total-sum">
                   상품금액 <strong id="fixedsum">0</strong>원 <i>-</i>
                   할인금액 <strong id="discountsum">0</strong>원 <i>+</i>

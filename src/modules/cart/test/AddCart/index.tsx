@@ -61,8 +61,8 @@ const AddCart = () => {
     setIsOrder(true);
   };
 
-  let tmpItemId1 = 1001;
-  let tmpItemId2 = 1002;
+  let tmpItemId1 = 583083;
+  let tmpItemId2 = 521683;
 
   return (
     <AddCartContainer>

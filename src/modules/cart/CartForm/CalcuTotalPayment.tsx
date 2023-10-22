@@ -1,6 +1,6 @@
-import { OrderItemData } from "../orderlistdata";
+import { OrderCartItemData } from "../orderdata";
 
-const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
+const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderCartItemData[] }) => {
   let sumPriceStandard = 0;
   let sumPriceSales = 0;
   console.log(" >>>>>>>>>> CalcuTotalPayment 컴퍼넌트 <<<<<<<<<<<<<");
@@ -19,12 +19,10 @@ const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
       );
 
       // 정가 합계
-      sumPriceStandard +=
-        Number(selectedItem.priceStandard) * Number(selectedItem.quantity);
+      sumPriceStandard += Number(selectedItem.priceStandard) * Number(selectedItem.quantity);
       // 할인금액 합계
       sumPriceSales +=
-        (Number(selectedItem.priceStandard) - Number(selectedItem.priceSales)) *
-        Number(selectedItem.quantity);
+        (Number(selectedItem.priceStandard) - Number(selectedItem.priceSales)) * Number(selectedItem.quantity);
     });
 
   let totalOrderAmt = sumPriceStandard - sumPriceSales;
@@ -43,12 +41,12 @@ const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderItemData[] }) => {
       <div className="box-total-payment">
         <div className="total-text">주문합계</div>
         <div className="total-sum">
-          상품금액 <strong id="fixedsum">{sumPriceStandard}</strong>원 <i>-</i>
-          할인금액 <strong id="discountsum">{sumPriceSales}</strong>원 <i>+</i>
-          배송비 <strong id="deliveryfee">{deliveryAmt}</strong>원
+          상품금액 <strong id="fixedsum">{sumPriceStandard.toLocaleString()}</strong>원 <i>-</i>
+          할인금액 <strong id="discountsum">{sumPriceSales.toLocaleString()}</strong>원 <i>+</i>
+          배송비 <strong id="deliveryfee">{deliveryAmt.toLocaleString()}</strong>원
         </div>
         <div className="total-price">
-          결제 예정 금액 <strong id="totalsum">{totalOrderAmt}</strong>원
+          결제 예정 금액 <strong id="totalsum">{totalOrderAmt.toLocaleString()}</strong>원
         </div>
       </div>
     </div>

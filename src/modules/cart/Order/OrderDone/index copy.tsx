@@ -3,12 +3,12 @@ import { OrderDoneContainer } from "./styles";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PaymentInfo from "../PaymentInfo";
 
+const { orderId } = useParams();
+alert("orderId " + orderId);
+
 const OrderDone = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-
-  const { orderId } = useParams();
-  alert("orderId " + orderId);
 
   const handleShowModal = () => {
     setShowModal(true);

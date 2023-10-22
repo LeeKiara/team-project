@@ -29,7 +29,7 @@ export const cartRoutes = [
     ,
     <Route element={<OrderForm />} index />,
     <Route key="payment" path="payment" element={<Payment />} />,
-    <Route key="done" path="done" element={<OrderDone />} />,
+    <Route key="done" path="done/:orderId" element={<OrderDone />} />,
     <Route key="list" path="list" element={<OrderList />} />,
     <Route key="detail" path="detail" element={<OrderDetail />} />,
   </Route>,
@@ -43,6 +43,6 @@ export const cartRoutes = [
     <Route key="search" path="search" element={<AddressSearch />} />,
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
-  <Route key="test3" path="test3" element={<OrderList />} />,
+  <Route key="test3" path="test3" element={<OrderDone />} />,
   <Route key="ComponentB" path="ComponentB" element={<ComponentB />} />,
 ];

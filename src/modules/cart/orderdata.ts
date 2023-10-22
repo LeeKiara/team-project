@@ -27,3 +27,14 @@ export interface OrderCreateRequest {
   orderItems: OrderItemData[]; // 주문 item 목록
   orderAddress: OrderAddressData; // 배송지
 }
+
+export interface OrderCartItemData {
+  id?: number; // id값은 나중에 생성
+  itemId: number;
+  title: string;
+  cover: string;
+  priceStandard: string;
+  priceSales: string;
+  quantity: string;
+  orderPrice?: string;
+}

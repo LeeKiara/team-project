@@ -3,11 +3,8 @@ import { OrderFormContainer } from "./styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { useOrderListData } from "../../orderlistdata";
 import { useProfileData } from "@/modules/cart/userdata";
-import Payment from "../Payment";
 import AddressSearchForm from "../../AddressSearch";
 import { OrderData, OrderItemData, OrderAddressData } from "@/modules/cart/orderdata";
-import { CartData } from "../../cartdata";
-import ConfirmModal from "@/components/ConfirmModal";
 import http from "@/utils/http";
 
 const OrderForm = () => {
@@ -23,11 +20,32 @@ const OrderForm = () => {
   // 장바구니 데이터 받아오기
   const cartBooks = searchAddress?.cartBooks;
 
-  cartBooks &&
+  let sumPriceStandard = 0;
+  let sumPriceSales = 0;
+  let totalOrderAmt = 0;
+  let deliveryAmt = 2000;
+
+  if (cartBooks) {
     cartBooks.map((item) => {
       console.log(" //////////// 장바구니 데이터(cartBooks) 받아오기 //////////////");
       console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+
+      // 정가 합계
+      sumPriceStandard += Number(item.priceStandard) * Number(item.quantity);
+      // 할인금액 합계
+      sumPriceSales += (Number(item.priceStandard) - Number(item.priceSales)) * Number(item.quantity);
     });
+
+    totalOrderAmt = sumPriceStandard - sumPriceSales;
+
+    // 결제 예정 금액 (정가 - 할인가 + 배송비)
+    // 배송비 계산 (주문금액이 20,000원 미만이면 2,000원 부과)
+    if (totalOrderAmt < 20000) {
+      totalOrderAmt += deliveryAmt;
+    } else {
+      deliveryAmt = 0;
+    }
+  }
 
   // 주문 데이터 상태관리
   // const [stateOrderData, setStateOrderData] = useState<PaymentData>();
@@ -35,15 +53,7 @@ const OrderForm = () => {
   // 장바구니 도서 관리
   const [stateCartBooks, setStateCartBooks] = useState(cartBooks);
 
-  // 화면 랜더링으로 장바구니 데이터가 초기화 되면...
-  // useEffect(() => {
-  //   cartBooks && setStateCartBooks(cartBooks);
-
-  //   stateCartBooks.map((item) => {
-  //     console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
-  //     console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
-  //   });
-  // }, [cartBooks]);
+  const [orderNumber, setOrderNumber] = useState(""); // 주문번호 상태
 
   stateCartBooks &&
     stateCartBooks.map((item) => {
@@ -60,11 +70,17 @@ const OrderForm = () => {
   // 메세지 Modal visible 상태
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const [isCardSelected, setIsCardSelected] = useState(false);
-  const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
-  const [isBankDepositSelected, setIsBankDepositSelected] = useState(false);
+  // 배송요청사항
+  const [deliveryMemo, setDeliveryMemo] = useState("");
+
   // 결제수단 "CARD | BANK | DEPOSIT"
-  const [paymentMethod, setPaymentMethod] = useState("1");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  // 결제수단 "CARD" 상태
+  const [isCardSelected, setIsCardSelected] = useState(false);
+  // 결제수단 "BANK" 상태
+  const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
+  // 결제수단 "DEPOSIT" 상태
+  const [isBankDepositSelected, setIsBankDepositSelected] = useState(false);
 
   // 주문자 정보
   const orderNameRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -143,19 +159,6 @@ const OrderForm = () => {
 
   const navigate = useNavigate();
 
-  const setPaymentData = {};
-
-  const handlePayment = () => {
-    //     setPaymentData({
-    // orderNmae: orderNameRef.current.value,
-    // orderHp1: orderHp1Ref.current.value,
-    // orderHp2: orderHp2Ref.current.value,
-    // orderHp3: orderHp3Ref.current.value,
-    //     });
-
-    navigate("/order/done");
-  };
-
   // 주소 창 닫기
   const handleConfirm = () => {
     setAddressFormVisible(false);
@@ -166,10 +169,62 @@ const OrderForm = () => {
     setAddressFormVisible(true);
   };
 
+  const handleChangeDeliveryMemo = (event) => {
+    const selectedValue = event.target.value;
+    setDeliveryMemo(selectedValue);
+  };
+
+  // useEffect(() => {
+  //   alert("useEffect:orderNumber " + orderNumber);
+
+  //   if (orderNumber) {
+  //     navigate("/order/done", {
+  //       state: {
+  //         orderNumber: orderNumber,
+  //       },
+  //     });
+  //   }
+  // }, [orderNumber]);
+
+  const handleOrderComplete = () => {
+    // 주문 완료 로직...
+
+    // 주문이 성공적으로 완료되면 orderNumber 값을 설정
+    const orderId = "12345"; // 예시 주문번호
+    // setOrderNumber(newOrderNumber);
+
+    // 페이지 이동
+
+    navigate(`/order/done/${orderId}`);
+  };
+
+  // 주문하기
   const handleOrder = () => {
     console.log("handleOrder >> handleOrder");
 
-    // const orderItemData = [...stateCartBooks];
+    if (deliveryNameRef.current.value === "") {
+      alert("배송자명을 입력하세요.");
+      return;
+    }
+    if (deliveryHp2Ref.current.value === "" || deliveryHp3Ref.current.value === "") {
+      alert("배송자 핸드폰을 입력하세요.");
+      return;
+    }
+
+    if (postcode === undefined || address === undefined || deliveryAddr2Ref.current.value === "") {
+      alert("주소를 입력하세요.");
+      return;
+    }
+    if (deliveryMemo === "") {
+      alert("배송요청사항을 선택하세요.");
+      return;
+    }
+    if (paymentMethod === "") {
+      alert("결제수단을 선택하세요.");
+      return;
+    }
+
+    // paymentMethod
 
     // 장바구니 데이터에서 상품id, 수량, 주문가격을 담는다.
     // 객체를 반환하기 위해서 (안에 {}를 사용함 => 객체 리터럴을 생성
@@ -195,7 +250,7 @@ const OrderForm = () => {
       postcode: postcode, // 우편번호
       address: address, // 기본주소
       detailAddress: deliveryAddr2Ref.current.value, // 상세주소
-      deliveryMemo: deliveryMemoRef.current.value, // 배송요청사항
+      deliveryMemo: deliveryMemo === "DIRECT" ? deliveryMemoRef.current.value : deliveryMemo, // 배송요청사항
     };
 
     console.log(" // 배송지 정보");
@@ -228,55 +283,20 @@ const OrderForm = () => {
         const response = await http.post("/order/add", createOrderData);
 
         if (response.status === 201) {
-          console.log("주문하기 성공!!!");
+          console.log("주문하기 성공!!!:" + response.data);
 
-          navigate("/order/done");
+          const orderId = response.data;
+          // alert("주문하기 성공!!! orderId:" + orderId);
+
+          navigate(`/order/done/${orderId}`);
         }
       } catch (e: any) {
         console.log(e);
-        navigate("/order/done");
+        alert("시스템 오류가 발생하였습니다.");
+        // navigate("/order/done");
       }
     })();
   };
-
-  // 결제하기
-  // const handleOrder = () => {
-  //   const createOrderData: PaymentData = {
-  //     //   orderUserId: "",
-  //     //   orderHp1: "",
-  //     //   orderHp2: "",
-  //     //   orderHp3: "",
-  //     //   orderEmail1: "",
-  //     //   orderEmail2: "",
-  //     deliveryName: deliveryNameRef.current.value,
-  //     //   deliveryHp1: "",
-  //     //   deliveryHp2: "",
-  //     //   deliveryHp3: "",
-  //     //   deliveryAddr1: "",
-  //     //   deliveryAddr2: "",
-  //     //   deliveryMemo: "",
-  //     //   paymentMethod: "CARD", // 또는 다른 초기 결제수단을 선택
-  //     //   bookItem: [],
-  //   };
-
-  //   alert("handleOrder >> deliveryNameRef : " + createOrderData.deliveryName);
-
-  //   console.log("1." + createOrderData.deliveryName);
-
-  //   setStateOrderData(createOrderData);
-  //   setModalVisible(false);
-
-  //   console.log("2.stateOrderData:" + stateOrderData.deliveryName);
-
-  //   // 결제하기로 이동
-  //   navigate("/order/payment", {
-  //     state: {
-  //       orderBooks: stateOrderData,
-  //     },
-  //   });
-
-  //   console.log("3." + stateOrderData.deliveryName);
-  // };
 
   const handleOrderCancel = () => {
     setModalVisible(false);
@@ -331,19 +351,21 @@ const OrderForm = () => {
                         <div className="priceinfo">
                           <div>
                             <div className="icon-tag-pricegubun">정가</div>
-                            <div>{cartCashData.priceStandard}원</div>
+                            <div>{cartCashData.priceStandard.toLocaleString()}원</div>
                           </div>
                           <div>
                             <div className="icon-tag-pricegubun">판매가</div>
-                            <div>{cartCashData.priceSales}원</div>
+                            <div>{cartCashData.priceSales.toLocaleString()}원</div>
                           </div>
                           <div>
                             <div className="icon-tag-pricegubun">수량</div>
-                            <div>{cartCashData.quantity}</div>
+                            <div>{cartCashData.quantity.toLocaleString()}</div>
                           </div>
                           <div>
                             <div className="icon-tag-pricegubun">주문금액</div>
-                            <div></div>
+                            <div>
+                              {(Number(cartCashData.priceSales) * Number(cartCashData.quantity)).toLocaleString()}원
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -361,7 +383,7 @@ const OrderForm = () => {
                         name="oname"
                         placeholder="이름"
                         style={{ width: "316px" }}
-                        ref={orderNameRef}
+                        // ref={orderNameRef}
                         value={profileData.nickname}
                       />
                     </span>
@@ -373,21 +395,21 @@ const OrderForm = () => {
                       type="text"
                       name="ohp1"
                       placeholder="휴대폰 앞자리"
-                      ref={orderHp1Ref}
+                      // ref={orderHp1Ref}
                       value={profileHpParts[0]}
                     />
                     <input
                       type="text"
                       name="ohp2"
                       placeholder="휴대폰 앞자리"
-                      ref={orderHp2Ref}
+                      // ref={orderHp2Ref}
                       value={profileHpParts[1]}
                     />
                     <input
                       type="text"
                       name="ohp3"
                       placeholder="휴대폰 뒷자리"
-                      ref={orderHp3Ref}
+                      // ref={orderHp3Ref}
                       value={profileHpParts[2]}
                     />
                   </div>
@@ -395,26 +417,12 @@ const OrderForm = () => {
 
                   {/* <!-- 이메일 입력 --> */}
                   <div className="box-email">
-                    <input type="text" name="email1" id="email1" ref={orderEmail1Ref} value={profileEmails[0]} />
+                    <input type="text" name="email1" value={profileEmails[0]} />
                     @
-                    <input type="text" name="email2" id="email2" ref={orderEmail2Ref} value={profileEmails[1]} />
-                    <div className="form-select">
-                      {/* <select name="email2_temp">
-                        <option>직접입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="daum.net">daum.net</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                      </select> */}
-                    </div>
+                    <input type="text" name="email2" value={profileEmails[1]} />
+                    <div className="form-select"></div>
                   </div>
                   {/* <!-- //이메일 입력 --> */}
-
-                  {/* <!-- 주문자 주소 정보 --> */}
-                  {/* <input type="hidden" name="ozipcode" id="ozipcode" />
-                  <input type="hidden" name="oaddress1" id="oaddress1" />
-                  <input type="hidden" name="oaddress2" id="oaddress2" /> */}
-                  {/* <!-- // 주문자 주소 정보 --> */}
                 </div>
 
                 {/* <!-- //배송지 정보 --> */}
@@ -476,17 +484,15 @@ const OrderForm = () => {
                   {/* <!-- //주소찾기 --> */}
                   {/* <!-- 배송메모 --> */}
                   <div className="box-memo">
-                    <select>
+                    <select onChange={handleChangeDeliveryMemo}>
                       <option value="">배송 메모를 선택해 주세요.</option>
-                      <option value="부재 시 경비실에 맡겨 주세요." selected>
-                        부재 시 경비실에 맡겨 주세요.
-                      </option>
+                      <option value="부재 시 경비실에 맡겨 주세요.">부재 시 경비실에 맡겨 주세요.</option>
                       <option value="부재 시 문앞에 놓아 주세요.">부재 시 문앞에 놓아 주세요.</option>
                       <option value="배송 전 미리 연락 바랍니다.">배송 전 미리 연락 바랍니다.</option>
                       <option value="DIRECT">직접입력</option>
                     </select>
                     <input
-                      style={{ display: "none" }}
+                      style={{ display: deliveryMemo === "DIRECT" ? "" : "none" }}
                       type="text"
                       name="delivery-memo"
                       placeholder="배송 메모를 입력해 주세요.(50자)"
@@ -563,19 +569,19 @@ const OrderForm = () => {
                   <dl className="payment-item">
                     <dt>상품 금액</dt>
                     <dd>
-                      <strong>27,000</strong>원
+                      <strong>{sumPriceStandard.toLocaleString()}</strong>원
                     </dd>
                   </dl>
                   <dl className="payment-item minus">
-                    <dt>상품 할인</dt>
+                    <dt>할인 금액</dt>
                     <dd>
-                      <strong>-2,700</strong>원
+                      <strong>-{sumPriceSales.toLocaleString()}</strong>원
                     </dd>
                   </dl>
                   <dl className="payment-item">
                     <dt>배송비</dt>
                     <dd>
-                      <strong>0</strong>원
+                      <strong>{deliveryAmt.toLocaleString()}</strong>원
                     </dd>
                   </dl>
 
@@ -584,7 +590,7 @@ const OrderForm = () => {
                     <dt>합계</dt>
 
                     <dd>
-                      <strong id="totalPriceText">24,300</strong>원
+                      <strong id="totalPriceText">{totalOrderAmt.toLocaleString()}</strong>원
                     </dd>
                   </dl>
 
