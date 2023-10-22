@@ -20,33 +20,6 @@ const OrderForm = () => {
   // 장바구니 데이터 받아오기
   const cartBooks = searchAddress?.cartBooks;
 
-  let sumPriceStandard = 0;
-  let sumPriceSales = 0;
-  let totalOrderAmt = 0;
-  let deliveryAmt = 2000;
-
-  if (cartBooks) {
-    cartBooks.map((item) => {
-      console.log(" //////////// 장바구니 데이터(cartBooks) 받아오기 //////////////");
-      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
-
-      // 정가 합계
-      sumPriceStandard += Number(item.priceStandard) * Number(item.quantity);
-      // 할인금액 합계
-      sumPriceSales += (Number(item.priceStandard) - Number(item.priceSales)) * Number(item.quantity);
-    });
-
-    totalOrderAmt = sumPriceStandard - sumPriceSales;
-
-    // 결제 예정 금액 (정가 - 할인가 + 배송비)
-    // 배송비 계산 (주문금액이 20,000원 미만이면 2,000원 부과)
-    if (totalOrderAmt < 20000) {
-      totalOrderAmt += deliveryAmt;
-    } else {
-      deliveryAmt = 0;
-    }
-  }
-
   // 주문 데이터 상태관리
   // const [stateOrderData, setStateOrderData] = useState<PaymentData>();
 
@@ -55,11 +28,12 @@ const OrderForm = () => {
 
   const [orderNumber, setOrderNumber] = useState(""); // 주문번호 상태
 
-  stateCartBooks &&
+  if (stateCartBooks) {
+    console.log(" //////////// 장바구니 데이터 상태 관리(렌더링이 되더라도 데이터가 유지되는지... //////////////");
     stateCartBooks.map((item) => {
-      console.log(" //////////// 장바구니 데이터 상태 관리(렌더링이 되더라도 데이터가 유지되는지... //////////////");
       console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
     });
+  }
 
   // 주소찾기 버튼 상태관리
   const [addressFormVisible, setAddressFormVisible] = useState(false);
@@ -130,11 +104,38 @@ const OrderForm = () => {
 
     cartBooks && setStateCartBooks(cartBooks);
 
+    console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
     stateCartBooks.map((item) => {
-      console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
       console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
     });
   }, [postcode, address]);
+
+  let sumPriceStandard = 0;
+  let sumPriceSales = 0;
+  let totalOrderAmt = 0;
+  let deliveryAmt = 2000;
+
+  if (stateCartBooks) {
+    stateCartBooks.map((item) => {
+      console.log(" //////////// 장바구니 데이터(cartBooks) 받아오기 //////////////");
+      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+
+      // 정가 합계
+      sumPriceStandard += Number(item.priceStandard) * Number(item.quantity);
+      // 할인금액 합계
+      sumPriceSales += (Number(item.priceStandard) - Number(item.priceSales)) * Number(item.quantity);
+    });
+
+    totalOrderAmt = sumPriceStandard - sumPriceSales;
+
+    // 결제 예정 금액 (정가 - 할인가 + 배송비)
+    // 배송비 계산 (주문금액이 20,000원 미만이면 2,000원 부과)
+    if (totalOrderAmt < 20000) {
+      totalOrderAmt += deliveryAmt;
+    } else {
+      deliveryAmt = 0;
+    }
+  }
 
   const handleCardSelect = () => {
     setIsCardSelected(true);
@@ -198,33 +199,38 @@ const OrderForm = () => {
     navigate(`/order/done/${orderId}`);
   };
 
-  // 주문하기
-  const handleOrder = () => {
-    console.log("handleOrder >> handleOrder");
-
+  function checkFormData() {
     if (deliveryNameRef.current.value === "") {
       alert("배송자명을 입력하세요.");
-      return;
+      return false;
     }
     if (deliveryHp2Ref.current.value === "" || deliveryHp3Ref.current.value === "") {
       alert("배송자 핸드폰을 입력하세요.");
-      return;
+      return false;
     }
 
     if (postcode === undefined || address === undefined || deliveryAddr2Ref.current.value === "") {
       alert("주소를 입력하세요.");
-      return;
+      return false;
     }
     if (deliveryMemo === "") {
       alert("배송요청사항을 선택하세요.");
-      return;
+      return false;
     }
     if (paymentMethod === "") {
       alert("결제수단을 선택하세요.");
-      return;
+      return false;
     }
 
-    // paymentMethod
+    // return true;
+  }
+  // 주문하기
+  const handleOrder = () => {
+    console.log("handleOrder >> handleOrder");
+
+    if (!checkFormData()) {
+      // return;
+    }
 
     // 장바구니 데이터에서 상품id, 수량, 주문가격을 담는다.
     // 객체를 반환하기 위해서 (안에 {}를 사용함 => 객체 리터럴을 생성
@@ -270,13 +276,14 @@ const OrderForm = () => {
 
     const createOrderData: OrderData = {
       paymentMethod: paymentMethod, // 결제수단
+      paymentPrice: totalOrderAmt, // 결제금액
       orderStatus: "1", // 주문상태 (1: 완료, 2:취소)
       orderItems: calcuOrderItemData, // 주문 Items 정보
       orderAddress: orderAddressData,
     };
 
     console.log(" // 주문 정보");
-    console.log(createOrderData.paymentMethod);
+    console.log("paymentMethod:" + createOrderData.paymentMethod + ",paymentPrice:" + createOrderData.paymentPrice);
 
     (async () => {
       try {
@@ -293,7 +300,7 @@ const OrderForm = () => {
       } catch (e: any) {
         console.log(e);
         alert("시스템 오류가 발생하였습니다.");
-        // navigate("/order/done");
+        navigate("/cart");
       }
     })();
   };
@@ -301,19 +308,6 @@ const OrderForm = () => {
   const handleOrderCancel = () => {
     setModalVisible(false);
   };
-
-  // // 모달창을 열고 선택한 항목의 데이터를 모달로 넘겨주는 역할
-  // const handleOpenModifyModal = (
-  //   index: number
-  // ) => {
-  //   // 모달 열기
-  //   setShowModifyModal(true);
-  //   // 선택한 데이터 넘겨주기
-  //   setModifyItem({
-  //     index,
-  //     memo: todoList[index].memo,
-  //   });
-  // };
 
   return (
     <OrderFormContainer>
@@ -326,8 +320,8 @@ const OrderForm = () => {
             <div className="wrap-payment">
               <div className="contain-payment-body">
                 {/* 주문 상품 리스트(Loop)  */}
-                {cartBooks &&
-                  cartBooks.map((cartCashData, index) => (
+                {stateCartBooks &&
+                  stateCartBooks.map((cartCashData, index) => (
                     <article className="box-list-payment" key={`item-${cartCashData.itemId}`}>
                       <div className="bookinfo">
                         <div>
@@ -469,7 +463,7 @@ const OrderForm = () => {
                       type="text"
                       name="address"
                       placeholder="기본주소"
-                      readOnly={true}
+                      // readOnly={true}
                       style={{ width: "550px" }}
                       value={address}
                     />

@@ -3,6 +3,8 @@ import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useCartData } from "../cartdata";
 import { useNavigate } from "react-router-dom";
+import http from "@/utils/http";
+import { OrderResponse } from "../orderdata";
 
 const OrderList = () => {
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월 선택관리
@@ -10,10 +12,41 @@ const OrderList = () => {
   const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체 선택관리
   const [startDate, setStartDate] = useState(""); // 시작일에 대한 상태 추가
   const [endDate, setEndDate] = useState(""); // 종료일에 대한 상태 추가
+  //현재 페이지
+  const [currentPage, setCurrentPage] = useState(0);
+  //리스트 총 페이지
+  const [totalPages, setTotalPages] = useState(0);
+  //검색 페이지
+  const [orderResultList, setOrderResultList] = useState<OrderResponse[]>([]);
 
+  //페이징 화살표 상태값
+  const [showArrowLeft, setShowArrowLeft] = useState(false);
+  const [showArrowRight, setShowArrowRight] = useState(true);
   const navigate = useNavigate();
 
-  // 주문/결제 데이터
+  // 주문/결제 List
+  useEffect(() => {
+    console.log("startDate:" + startDate + ", endDate:" + endDate);
+
+    if (startDate != "" && endDate != "") {
+      (async () => {
+        try {
+          const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
+          const response = await http.get<OrderResponse>(
+            `/order/list?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}`,
+          );
+          if (response.status === 200) {
+            console.log(response);
+            // setTotalPages(response.data.totalCount);
+            // setOrderResultList(response.data.result);
+          }
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [startDate, endDate, currentPage]);
+
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
   const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
 
@@ -39,14 +72,21 @@ const OrderList = () => {
 
   useEffect(() => {
     if (isPeriodType1) {
-      setStartDate(""); // 조회 기간이 3개월 또는 6개월이면 startDate를 초기화
-      setEndDate(""); // 조회 기간이 3개월 또는 6개월이면 endDate를 초기화
+      const currentDate = new Date();
+      const threeMonthsAgo = new Date(currentDate);
+      threeMonthsAgo.setMonth(currentDate.getMonth() - 3);
+
+      setStartDate(formatDate(threeMonthsAgo));
+      setEndDate(formatDate(currentDate));
     }
-    if (isPeriodType2) {
-      setStartDate(""); // 조회 기간이 3개월 또는 6개월이면 startDate를 초기화
-      setEndDate(""); // 조회 기간이 3개월 또는 6개월이면 endDate를 초기화
-    }
-  }, [isPeriodType1, isPeriodType2]);
+  }, [isPeriodType1]);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   // console.log("changeSearchPeriod >> " + isPeriodAll);
 
@@ -155,6 +195,7 @@ const OrderList = () => {
 
                 <div className="bookinfo">
                   <figure>
+                    {/* 도서이미지 */}
                     <span className="image">
                       <a href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
                         <img src={cartCashData.cover} alt={cartCashData.title} />
@@ -162,14 +203,17 @@ const OrderList = () => {
                     </span>
                   </figure>
                   <div>
+                    {/* 도서 카테고리 */}
                     <div className="box-bookgubun">
                       <span className="icon-bookgubun">{cartCashData.gubun}</span>
                     </div>
+                    {/* 도서제목 */}
                     <p>
                       <a className="subject" href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
                         {cartCashData.id},{cartCashData.title}
                       </a>
                       <br />
+                      {/* 주문번호 */}
                       <p className="order-number">
                         <strong>주문번호</strong>
                         &nbsp;&nbsp;

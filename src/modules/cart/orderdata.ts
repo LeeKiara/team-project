@@ -1,5 +1,6 @@
 export interface OrderData {
   paymentMethod: string; // 결제수단
+  paymentPrice: number; //결제금액
   orderStatus: string; // 주문상태 (1: 완료, 2:취소)
   orderItems: OrderItemData[]; // 주문 item 목록
   orderAddress: OrderAddressData; // 배송지
@@ -37,4 +38,13 @@ export interface OrderCartItemData {
   priceSales: string;
   quantity: string;
   orderPrice?: string;
+}
+
+export interface OrderResponse {
+  orderId: number; // 주문 id
+  paymentMethod: string; // 결제수단
+  paymentPrice: number; // 결제금액
+  orderStatus: string; // 주문상태 (1: 완료; 2:취소)
+  orderDate: string;
+  totalPages: number;
 }
