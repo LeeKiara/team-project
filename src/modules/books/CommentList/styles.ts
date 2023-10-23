@@ -1,26 +1,24 @@
 import styled from "@emotion/styled";
 
 export const CommnetListContainer = styled.div`
-  .commentList > div {
+  .commentList {
     border-top: 1px solid black;
-    width: 70%;
     padding: 20px;
-    background-color: #f8f8f8;
+    width: 70%;
     margin: auto;
     display: flex;
     justify-content: center;
+    background-color: #f8f8f8;
+  }
+  .commentList > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 95%;
   }
   .commentList > div > span:nth-of-type(1) {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 0.97;
-  }
-  .commentList > div > span:nth-of-type(1) > p {
-    /* border: 1px solid black; */
-    padding-top: 5px;
-    padding-left: 10px;
-    height: 50px;
+    justify-content: space-between;
   }
   .commentList > div > span:nth-of-type(1) > h5 > svg {
     color: black;
@@ -28,8 +26,20 @@ export const CommnetListContainer = styled.div`
   }
   .commentList > div > span:nth-of-type(2) {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+  }
+  .commentList > div > span:nth-of-type(2) > p {
+    /* border: 1px solid black; */
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+  .commentList > div > span:nth-of-type(2) > input {
+    /* height: 55px; */
+    padding-left: 10px;
+    width: 90%;
+    margin: auto;
+    line-height: 55px;
+    vertical-align: top;
   }
   .commentList > div > span:nth-of-type(2) > div {
     display: flex;

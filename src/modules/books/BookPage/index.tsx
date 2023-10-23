@@ -328,7 +328,9 @@ const BookPage = () => {
                 ) : null}
               </article>
             ) : (
-              <p>책 소개 글이 없습니다.</p>
+              <div>
+                <p>책 소개 글이 없습니다.</p>
+              </div>
             )}
           </section>
           <footer>

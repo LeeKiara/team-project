@@ -1,12 +1,25 @@
 import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { useProfileData } from "@/modules/cart/userdata";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 
 const CommentList = ({ comments }) => {
   const [showModify, setShowModify] = useState(false);
   //유저정보
   const { profileData } = useProfileData();
+  const modifyRef = useRef() as MutableRefObject<HTMLInputElement>;
+
+  const handleShowModify = () => {
+    setShowModify(true);
+  };
+  const handleModify = (e) => {
+    e.preventDefault();
+  };
+  const handleCancle = () => {
+    setShowModify(false);
+    modifyRef.current.value = "";
+  };
+  const handleDelete = () => {};
 
   return (
     <>
@@ -20,21 +33,32 @@ const CommentList = ({ comments }) => {
                     <PortraitOutlined className="material-symbols-outlined" />
                     <sub>{item.nickname}</sub>
                   </h5>
-                  <p>{item.comment}</p>
+                  <h6>{timeCheck(item.createdDate)}</h6>
                 </span>
                 <span>
-                  <h6>{timeCheck(item.createdDate)}</h6>
+                  {showModify ? <input ref={modifyRef} value={item.comment} /> : <p>{item.comment}</p>}
                   {item.nickname === profileData.nickname ? (
                     <div className="modifyBtn">
-                      <button>수정</button>
-                      <button>삭제</button>
+                      <button
+                        onClick={
+                          showModify
+                            ? (e) => {
+                                handleModify(e);
+                              }
+                            : handleShowModify
+                        }>
+                        {showModify ? "완료" : "수정"}
+                      </button>
+                      <button onClick={showModify ? handleCancle : handleDelete}>{showModify ? "취소" : "삭제"}</button>
                     </div>
                   ) : null}
                 </span>
               </div>
             ))
           ) : (
-            <p>댓글이 없습니다.</p>
+            <div>
+              <p>댓글이 없습니다.</p>
+            </div>
           )}
         </div>
       </CommnetListContainer>
