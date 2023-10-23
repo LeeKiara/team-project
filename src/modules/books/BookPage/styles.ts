@@ -8,33 +8,33 @@ export const PageContainer = styled.div`
   p {
     font-size: 18px;
   }
-  section {
+  main {
     width: 60%;
     margin: auto;
     margin-top: 20px;
   }
-  section > article {
+  main > article {
     display: flex;
   }
-  section > article > figure {
+  main > article > figure {
     border: 1px solid #dddddd;
     width: 350px;
     height: 420px;
     display: flex;
     justify-content: center;
   }
-  section > article > figure > img {
+  main > article > figure > img {
     width: 300px;
     height: 370px;
     margin: auto;
   }
-  section > article > aside {
+  main > article > aside {
     flex: 1;
     padding: 25px;
     display: flex;
     flex-direction: column;
   }
-  section > article > aside > div:nth-of-type(1) {
+  main > article > aside > div:nth-of-type(1) {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -60,20 +60,20 @@ export const PageContainer = styled.div`
     flex-direction: column;
     gap: 0;
   }
-  section > article > aside > div dl {
+  main > article > aside > div dl {
     display: flex;
     gap: 10px;
   }
-  section > article > aside > div > div {
+  main > article > aside > div > div {
     display: flex;
     gap: 10px;
   }
-  section > article > nav {
+  main > article > nav {
     flex: 0.5;
     padding: 25px;
     border-left: 2px solid #dddddd;
   }
-  section > article > aside > h2 {
+  main > article > aside > h2 {
     font-size: 30px;
   }
   article > nav > ul {
@@ -116,41 +116,43 @@ export const PageContainer = styled.div`
   .heart {
     color: red;
   }
-  footer {
+  section {
     width: 90%;
     margin: auto;
     margin-top: 20px;
-    height: 500px;
   }
-  footer > h2 {
+  section > h2 {
     font-size: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
   }
-  footer > section {
+  section > article {
     margin: 40px;
     width: 90%;
     margin-bottom: 60px;
   }
-  footer > section div {
+  section > article div {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  footer > section > div h3 {
+  section > article > div h3 {
     font-size: 23px;
     width: 30%;
   }
-  footer > section > div p {
+  section > article > div p {
     width: 60%;
     line-height: 1.5;
   }
-  footer > section > div > a {
+  section > article > div > a {
     width: 60%;
   }
-  footer > section > div > a > p {
+  section > article > div > a > p {
     line-height: 1.5;
   }
+  /* footer {
+    border: 1px solid cadetblue;
+  } */
   footer > form {
     width: 70%;
     gap: 10px;

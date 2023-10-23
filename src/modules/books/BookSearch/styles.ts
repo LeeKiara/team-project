@@ -76,7 +76,7 @@ export const SearchContainer = styled.div`
     text-align: center;
     font-size: 18px;
   }
-  table > tbody > tr > td:nth-of-type(6) > a {
+  table > tbody > tr > td:nth-of-type(5) > a {
     color: blue;
   }
   table > tbody > tr > td:nth-of-type(1) {
@@ -84,6 +84,9 @@ export const SearchContainer = styled.div`
   }
   table > tbody > tr > td:nth-of-type(2) {
     font-size: 18px;
+  }
+  table > tbody > tr > td:nth-of-type(2) > a:hover {
+    color: #e97171;
   }
   table > tbody > tr > td > a > img {
     width: 180px;
@@ -96,9 +99,12 @@ export const SearchContainer = styled.div`
   table > tbody > tr > td:nth-of-type(4) {
     width: 7%;
   }
-  table > tbody > tr > td:nth-of-type(9) {
-    width: 4%;
+  table > tbody > tr > td:nth-of-type(6) {
+    width: 20px;
   }
+  /* table > tbody > tr > td:nth-of-type(9) {
+    width: 4%;
+  } */
   table > tbody > tr > td:last-child {
     width: 7%;
     padding: 20px;

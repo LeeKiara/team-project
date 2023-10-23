@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const ButtonStyle = styled.div`
-  div > button {
+  div > span {
     display: inline-block;
     padding: 12px 15px;
     margin-bottom: 0;
@@ -17,12 +17,12 @@ export const ButtonStyle = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 180px;
+    width: 150px;
     background-color: #e97171;
     color: #fff;
     font-size: 18px;
   }
-  div > button > svg {
+  div > span > svg {
     vertical-align: middle;
     font-size: 20px;
     margin-right: 5px;
