@@ -1,4 +1,16 @@
 export interface OrderData {
+  orderId: number; // 주문 id
+  orderDate: string;
+  paymentMethod: string; // 결제수단
+  paymentPrice: number; //결제금액
+  orderStatus: string; // 주문상태 (1: 완료, 2:취소)
+  orderItems: OrderItemData; // 주문 item 목록(대표되는 도서 1개)
+  orderAddress: OrderAddressData; // 배송지
+}
+
+export interface OrderListData {
+  orderId: number; // 주문 id
+  orderDate: string;
   paymentMethod: string; // 결제수단
   paymentPrice: number; //결제금액
   orderStatus: string; // 주문상태 (1: 완료, 2:취소)
@@ -11,6 +23,8 @@ export interface OrderItemData {
   itemId: number;
   quantity: string;
   orderPrice?: string;
+  title: string;
+  cover: string;
 }
 
 export interface OrderAddressData {
@@ -41,10 +55,12 @@ export interface OrderCartItemData {
 }
 
 export interface OrderResponse {
-  orderId: number; // 주문 id
-  paymentMethod: string; // 결제수단
-  paymentPrice: number; // 결제금액
-  orderStatus: string; // 주문상태 (1: 완료; 2:취소)
-  orderDate: string;
+  // orderId: number; // 주문 id
+  // paymentMethod: string; // 결제수단
+  // paymentPrice: number; // 결제금액
+  // orderStatus: string; // 주문상태 (1: 완료; 2:취소)
+  // orderDate: string;
   totalPages: number;
+  totalCount: number;
+  content: OrderData[];
 }

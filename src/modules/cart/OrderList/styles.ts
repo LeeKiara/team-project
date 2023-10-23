@@ -173,7 +173,7 @@ export const OrderListContainer = styled.div`
     }
   }
 
-  .cart-layer-title {
+  .orders-layer-title {
     display: flex;
     flex-direction: row;
     background-color: ${lightgrayColor};
@@ -185,12 +185,13 @@ export const OrderListContainer = styled.div`
     font-weight: 400;
   }
 
-  .cart-layer {
+  .orders-layer {
     display: flex;
     flex-direction: row;
     border: 2px solid ${lightgrayColor};
     height: 150px;
     align-items: center;
+    justify-content: space-between;
   }
 
   .bookinfo {
@@ -222,7 +223,7 @@ export const OrderListContainer = styled.div`
 
     .image {
       display: inline-block;
-      margin: 0 23px 0 0;
+      margin: 0 23px 0 5px;
       width: 110px;
       vertical-align: top;
     }
@@ -234,15 +235,21 @@ export const OrderListContainer = styled.div`
       border: 1px solid ${lightgrayColor};
     }
 
+    .order-date {
+      font-size: 14px;
+      color: ${lightblueColor};
+    }
     .subject {
       display: block;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 26px;
       font-weight: 500;
       width: 370px;
-      max-height: 55px;
+      /* max-height: 60px; */
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-top: 5px;
+      margin-bottom: 20px;
     }
   }
 
@@ -255,29 +262,17 @@ export const OrderListContainer = styled.div`
     font-size: 18px;
     letter-spacing: -0.5px;
     font-weight: 500;
-    color: #0091ff;
+    color: ${darkRedColor};
+    margin-right: 20px;
+    text-align: center;
   }
 
-  .box-submit-payment {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 32px;
-
-    .btn-payment {
-      width: 218px;
-      height: 44px;
-      background: #3d4ed7;
-      border: 0;
-      border-radius: 4px;
-      color: #fff;
-      cursor: pointer;
-      display: block;
-      line-height: 1;
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center;
-    }
+  .payment-method {
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    color: ${blueColor};
+    margin-right: 20px;
   }
 
   /* 모바일 스타일 */

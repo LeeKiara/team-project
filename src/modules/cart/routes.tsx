@@ -43,6 +43,5 @@ export const cartRoutes = [
     <Route key="search" path="search" element={<AddressSearch />} />,
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
-  <Route key="test3" path="test3" element={<OrderDone />} />,
-  <Route key="ComponentB" path="ComponentB" element={<ComponentB />} />,
+  <Route key="list" path="list" element={<OrderList />} />,
 ];
