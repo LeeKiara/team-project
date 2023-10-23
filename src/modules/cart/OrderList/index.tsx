@@ -104,9 +104,11 @@ const OrderList = () => {
   };
 
   // 주문상세 화면으로 이동
-  const handleOrderDtail = (orderno: string) => {
+  const handleOrderDtail = (orderId: string) => {
     // navigate(`/order/orderdetail/$orderno`);
-    navigate(`/order/detail`);
+    navigate(`/order/detail/${orderId}`);
+
+    // navigate(`/order/done/${orderId}`);
   };
 
   return (

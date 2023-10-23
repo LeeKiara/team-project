@@ -8,7 +8,7 @@ const OrderDone = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { orderId } = useParams();
-  alert("orderId " + orderId);
+  // alert("orderId " + orderId);
 
   const handleShowModal = () => {
     setShowModal(true);

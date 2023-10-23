@@ -1,10 +1,13 @@
 import Home from "@/pages/Home";
 import { OrderDetailContainer } from "./styles";
 import { useCartData } from "../cartdata";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
+
+  const { orderId } = useParams();
+  alert("orderId " + orderId);
 
   // 주문/결제 데이터
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
