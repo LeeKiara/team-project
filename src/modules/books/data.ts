@@ -37,6 +37,7 @@ export interface BookItem {
   cover: string;
   customerReviewRank: number;
   seriesInfo: SeriesInfo;
+  commentCount: number;
   bookComment: BookComment[];
 }
 

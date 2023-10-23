@@ -17,7 +17,7 @@ export const ButtonStyle = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 180px;
+    width: 150px;
     background-color: #e97171;
     color: #fff;
     font-size: 18px;

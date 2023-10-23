@@ -118,31 +118,34 @@ const BookSearch = () => {
                   <th>책제목</th>
                   <th>저자</th>
                   <th>출판사</th>
-                  <th>책소개</th>
+                  {/* <th>책소개</th> */}
                   <th>알라딘 링크</th>
+                  <th>리뷰</th>
                   <th>정가</th>
                   <th>판매가</th>
-                  {/* <th>리뷰수</th> */}
-                  <th>재고량</th>
+                  <th>재고</th>
                   <th>선택</th>
                 </tr>
               </thead>
               <tbody>
                 {searchList.length > 0 ? (
                   searchList.map((item) => (
-                    <tr key={`${item.itemId}`}>
+                    <tr key={`${item.id}`}>
                       <td>
-                        <Link to={`/page?keyword=${item.itemId}`}>
+                        <Link to={`/page?id=${item.id}`}>
                           <img src={`${item.cover}`} alt={`${item.title}`} />
                         </Link>
                       </td>
-                      <td>" {`${item.title}`} "</td>
+                      <td>
+                        <Link to={`/page?id=${item.id}`}>" {`${item.title}`} "</Link>
+                      </td>
                       <td>{`${item.author}`}</td>
                       <td>{`${item.publisher}`}</td>
-                      <td>{`${item.description}`}</td>
+                      {/* <td>{`${item.description}`}</td> */}
                       <td>
                         <Link to={`${item.link}`}>{`${item.link}`}</Link>
                       </td>
+                      <td> {`${item.commentCount}`} </td>
                       <td>
                         <del>{`${item.priceStandard}`}</del>
                       </td>
