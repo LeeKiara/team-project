@@ -43,13 +43,13 @@ const Button = ({ gubun, itemId, title, cover, priceStandard, priceSales, quanti
   return (
     <ButtonStyle>
       <div key={itemId}>
-        <button
+        <span
           onClick={(e) => {
             handleConfirm(e);
           }}>
           <ShoppingCart className="material-icons-outlined" />
           장바구니
-        </button>
+        </span>
       </div>
     </ButtonStyle>
   );

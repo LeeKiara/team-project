@@ -1,17 +1,24 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookData, BookItem } from "../data";
+import { BookComment, BookData, BookItem } from "../data";
 import axios from "axios";
-import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
-import BookComment from "../BookComment";
+import {
+  Diversity1,
+  Favorite,
+  FavoriteBorder,
+  ThumbDown,
+  ThumbDownOffAlt,
+  ThumbUp,
+  ThumbUpOffAlt,
+} from "@mui/icons-material";
 import Button from "@/components/Button";
-
-interface BookComment {
-  comment: string;
-}
+import { useProfileData } from "@/modules/cart/userdata";
+import { getCookie } from "@/utils/cookie";
+import CommentList from "../CommentList";
 
 const BookPage = () => {
+  const navigate = useNavigate();
   //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
   //디테일 페이지 id가져오기
@@ -26,8 +33,12 @@ const BookPage = () => {
   const [storeThumbStates, setStoreThumbState] = useState({});
   //싫어요 상태값
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
-  //댓글 상태값
-  const [comment, setComment] = useState<BookComment | null>(null);
+  //댓글
+  const [comment, setComment] = useState<BookComment[] | null>(null);
+  const [isNewCommnet, setIsNewComment] = useState(false);
+
+  //유저정보
+  const { profileData } = useProfileData();
 
   const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
@@ -70,9 +81,51 @@ const BookPage = () => {
   };
 
   //댓글추가
-  const handleSaveComment = () => {
+  const handleSaveComment = (e) => {
+    e.preventDefault();
     console.log(commentText.current.value);
-    setComment({ comment: `${commentText}` });
+    const newComment = commentText.current.value;
+    if (newComment.trim() === "") {
+      // 댓글이 공백일 경우 아무 작업도 수행하지 않음
+      return;
+    }
+    const time = new Date().getTime();
+    console.log(time);
+    const newCommentItem = {
+      comment: commentText.current.value,
+      nickname: profileData.nickname,
+      createdDate: time,
+    };
+
+    setComment((prevComments) => [...(prevComments || []), newCommentItem]);
+
+    const fetchBookComment = async (itemId: string) => {
+      const token = getCookie("token");
+      try {
+        const response = await axios.post<BookItem>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 201) {
+          console.log("댓글추가성공");
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+    };
+
+    if (id) {
+      console.log(id + "도서댓글 추가");
+      fetchBookComment(id);
+    } else if (newId) {
+      console.log(newId + "신간댓글 추가");
+      fetchBookComment(newId);
+    }
+
+    // 댓글 입력창 비우기
+    commentText.current.value = "";
   };
 
   const handleSandCart = () => {};
@@ -105,6 +158,7 @@ const BookPage = () => {
 
         if (response.status === 200) {
           setDetail(response.data);
+          setComment(response.data.bookComment);
         }
       } catch (e: any) {
         console.log(e);
@@ -123,7 +177,7 @@ const BookPage = () => {
   return (
     <>
       <PageContainer>
-        <section>
+        <main>
           {detail ? (
             <article>
               <figure>
@@ -239,7 +293,7 @@ const BookPage = () => {
           ) : (
             <p>책을 찾을 수 없습니다.</p>
           )}
-          <footer>
+          <section>
             <h2>도서정보</h2>
             <hr />
             <figure style={{ display: "flex", justifyContent: "center" }}>
@@ -250,7 +304,7 @@ const BookPage = () => {
               />
             </figure>
             {detail ? (
-              <section>
+              <article>
                 {detail.description ? (
                   <>
                     <hr />
@@ -272,10 +326,12 @@ const BookPage = () => {
                     <hr />
                   </>
                 ) : null}
-              </section>
+              </article>
             ) : (
               <p>책 소개 글이 없습니다.</p>
             )}
+          </section>
+          <footer>
             <form>
               <h4>
                 독자서평쓰기
@@ -283,11 +339,17 @@ const BookPage = () => {
               </h4>
               <label>
                 <textarea placeholder="댓글을 입력해주세요" cols={100} rows={10} ref={commentText}></textarea>
-                <button onClick={handleSaveComment}>등록</button>
+                <button
+                  onClick={(e) => {
+                    handleSaveComment(e);
+                  }}>
+                  등록
+                </button>
               </label>
             </form>
+            <CommentList comments={comment} />
           </footer>
-        </section>
+        </main>
       </PageContainer>
     </>
   );

@@ -37,6 +37,14 @@ export interface BookItem {
   cover: string;
   customerReviewRank: number;
   seriesInfo: SeriesInfo;
+  bookComment: BookComment[];
+}
+
+export interface BookComment {
+  id?: number;
+  comment: string;
+  nickname: string;
+  createdDate: number;
 }
 
 export interface SeriesInfo {
@@ -62,6 +70,8 @@ const INIT_DATA: BookItem[] = [];
 
 export const BOOKS_DATA_KEY = "/books";
 
+const BOOK_COMMENTS_KEY = "/bookComments";
+
 const bookFetcher = async ([key, page]: string | number[]) => {
   try {
     const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
@@ -69,6 +79,15 @@ const bookFetcher = async ([key, page]: string | number[]) => {
     return response.data;
   } catch (e: any) {
     return INIT_DATA;
+  }
+};
+
+const commentFetcher = async (bookId: number) => {
+  try {
+    const response = await booksApi.get<BookComment[]>(`${BOOK_COMMENTS_KEY}/${bookId}`);
+    return response.data;
+  } catch (e: any) {
+    return [];
   }
 };
 

@@ -1,14 +1,7 @@
 import { MutableRefObject, useRef, useState } from "react";
-import BookComment from "../BookComment";
+import BookComment from "../CommentList";
 import { PageContainer } from "./styles";
-import {
-  Favorite,
-  FavoriteBorder,
-  ThumbDown,
-  ThumbDownOffAlt,
-  ThumbUp,
-  ThumbUpOffAlt,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 import { Link } from "react-router-dom";
 
