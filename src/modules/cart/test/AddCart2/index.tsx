@@ -89,6 +89,17 @@ const AddCart2 = () => {
                     onChange={handleInput}
                   />
                   <CartButton itemId={itemId1} />
+
+                  {/* <CartButton
+                    // gubun="KOR"
+                    itemId={detail.itemId}
+                    // title={detail.title}
+                    // cover={detail.cover}
+                    // priceStandard={detail.priceStandard.toString()}
+                    // priceSales={detail.priceSales.toString()}
+                    quantity={number.toString()}
+                  />
+                   */}
                 </dd>
               </dl>
               <dl>
