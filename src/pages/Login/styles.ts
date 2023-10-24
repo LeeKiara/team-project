@@ -66,7 +66,7 @@ export const LoginCantailner = styled.div`
     margin: auto;
     margin-top: 40px;
   }
-  div > button {
+  div > a > button {
     width: 100%;
     height: 40px;
     border-radius: 5px;
@@ -77,7 +77,7 @@ export const LoginCantailner = styled.div`
     border: 1px solid #5055b1;
     transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
   }
-  div > button:hover {
+  div > a > button:hover {
     background: #c4c4e3; /* 배경 색상을 변경하는 예시 */
     border-color: #5055b1; /* 테두리 색상을 변경하는 예시 */
   }

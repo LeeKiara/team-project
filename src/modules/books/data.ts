@@ -39,6 +39,13 @@ export interface BookItem {
   seriesInfo: SeriesInfo;
   commentCount: number;
   bookComment: BookComment[];
+  likedBook: Likes[];
+}
+
+export interface Likes {
+  id?: number;
+  likes: boolean;
+  nickname: string;
 }
 
 export interface BookComment {
@@ -75,7 +82,8 @@ const BOOK_COMMENTS_KEY = "/bookComments";
 
 const bookFetcher = async ([key, page]: string | number[]) => {
   try {
-    const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
+    // const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
+    const response = await booksApi.get<BookItem[]>(`${key}`);
     // return response.data[0].item;
     return response.data;
   } catch (e: any) {

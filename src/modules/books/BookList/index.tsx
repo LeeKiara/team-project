@@ -5,8 +5,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { BookData, BookItem, useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, PartyMode, ShoppingCart } from "@mui/icons-material";
 import axios from "axios";
+import Button from "@/components/Button";
+import { getCookie } from "@/utils/cookie";
 
 const BookList = ({ fetchUrl }) => {
+  const token = getCookie("token");
   const MAX_LIST = 5; // 고정된 리스트 갯수
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,11 +29,29 @@ const BookList = ({ fetchUrl }) => {
   //총페이지
   const [totalPages, setTotalPages] = useState(0);
 
-  const handleBookSave = (itemId: number) => {
+  //선호작품
+  const handleBookSave = async (itemId: number) => {
     setStoreHeartStates((prevStates) => ({
       ...prevStates,
       [itemId]: !prevStates[itemId],
     }));
+    const likes = !storeHeartStates[itemId];
+    console.log(likes);
+    const newStoreHearts = {
+      like: likes,
+    };
+    try {
+      const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log("선호작품 등록/수정 성공..!");
+      }
+    } catch (e: any) {
+      console.log(e + "선호작품 오류");
+    }
   };
 
   //페이징
@@ -137,7 +158,9 @@ const BookList = ({ fetchUrl }) => {
                         <p>{`${item.priceStandard}`}원</p>
                       </del>
                     </li>
-                    <li style={{ color: "crimson", fontWeight: "bold" }}>판매가: {`${item.priceSales.toLocaleString()}`}원</li>
+                    <li style={{ color: "crimson", fontWeight: "bold" }}>
+                      판매가: {`${item.priceSales.toLocaleString()}`}원
+                    </li>
                     <li
                       onClick={() => {
                         handleBookSave(item.itemId);
@@ -151,12 +174,17 @@ const BookList = ({ fetchUrl }) => {
                         선호작품
                       </button>
                     </li>
-                    <div>
-                      <button className="btn last">
-                        <ShoppingCart className="material-icons-outlined" />
-                        장바구니
-                      </button>
-                    </div>
+                    <li>
+                      <Button
+                        gubun="KOR"
+                        itemId={item.itemId}
+                        title={item.title}
+                        cover={item.cover}
+                        priceStandard={item.priceStandard.toString()}
+                        priceSales={item.priceSales.toString()}
+                        quantity="1"
+                      />
+                    </li>
                   </ul>
                 </article>
               ))
