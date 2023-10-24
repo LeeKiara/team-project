@@ -1,24 +1,15 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookComment, BookData, BookItem } from "../data";
+import { BookComment, BookItem } from "../data";
 import axios from "axios";
-import {
-  Diversity1,
-  Favorite,
-  FavoriteBorder,
-  ThumbDown,
-  ThumbDownOffAlt,
-  ThumbUp,
-  ThumbUpOffAlt,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 import { useProfileData } from "@/modules/cart/userdata";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
 
 const BookPage = () => {
-  const navigate = useNavigate();
   //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
   //디테일 페이지 id가져오기
@@ -34,8 +25,7 @@ const BookPage = () => {
   //싫어요 상태값
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
   //댓글
-  const [comment, setComment] = useState<BookComment[] | null>(null);
-  const [isNewCommnet, setIsNewComment] = useState(false);
+  const [commentList, setCommentList] = useState<BookComment[] | null>(null);
 
   //유저정보
   const { profileData } = useProfileData();
@@ -87,6 +77,7 @@ const BookPage = () => {
     const newComment = commentText.current.value;
     if (newComment.trim() === "") {
       // 댓글이 공백일 경우 아무 작업도 수행하지 않음
+      alert("댓글을 입력해주세요");
       return;
     }
     const time = new Date().getTime();
@@ -97,7 +88,7 @@ const BookPage = () => {
       createdDate: time,
     };
 
-    setComment((prevComments) => [...(prevComments || []), newCommentItem]);
+    setCommentList((prevComments) => [newCommentItem, ...(prevComments || [])]);
 
     const fetchBookComment = async (itemId: string) => {
       const token = getCookie("token");
@@ -128,7 +119,45 @@ const BookPage = () => {
     commentText.current.value = "";
   };
 
-  const handleSandCart = () => {};
+  //댓글 삭제
+  const handleDelete = async (itemId) => {
+    const token = getCookie("token");
+    try {
+      const response = await axios.delete(`http://localhost:8081/books/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log("댓글 삭제 성공");
+        setCommentList(commentList.filter((comment) => comment.id !== itemId));
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  //댓글 수정
+  const handleModify = async (itemId, modifyValue) => {
+    const modifyComment = JSON.stringify({ comment: modifyValue });
+    const token = getCookie("token");
+    try {
+      const response = await axios.put(`http://localhost:8081/books/${itemId}`, modifyComment, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        console.log("댓글 수정 성공");
+        setCommentList(
+          commentList.map((item) => (item.id === itemId ? { ...item, comment: modifyValue } : { ...item })),
+        );
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
   //화면 조회 swr
   // useEffect(() => {
@@ -158,7 +187,8 @@ const BookPage = () => {
 
         if (response.status === 200) {
           setDetail(response.data);
-          setComment(response.data.bookComment);
+          const sortedComments = [...response.data.bookComment].sort((a, b) => b.id - a.id);
+          setCommentList(sortedComments);
         }
       } catch (e: any) {
         console.log(e);
@@ -349,7 +379,7 @@ const BookPage = () => {
                 </button>
               </label>
             </form>
-            <CommentList comments={comment} />
+            <CommentList comments={commentList} onClick={handleDelete} onConfirm={handleModify} />
           </footer>
         </main>
       </PageContainer>
