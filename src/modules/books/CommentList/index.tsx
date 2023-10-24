@@ -2,31 +2,61 @@ import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { useProfileData } from "@/modules/cart/userdata";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { getCookie } from "@/utils/cookie";
+import { BookComment } from "../data";
 
-const CommentList = ({ comments }) => {
-  const [showModify, setShowModify] = useState(false);
+interface CommentModalProps {
+  comments: BookComment[];
+  onConfirm: (itemId: number, modifyValue: string) => void;
+  onClick: (itemId: number) => void;
+}
+
+const CommentList = ({ comments, onClick, onConfirm }: CommentModalProps) => {
+  const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
+  const [showModify, setShowModify] = useState({});
+  const [modifyValue, setModifyValue] = useState("");
+
   //유저정보
   const { profileData } = useProfileData();
   const modifyRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const handleShowModify = () => {
-    setShowModify(true);
+  const handleShowModify = (itemId: number) => {
+    setShowModify((prev) => ({
+      ...prev,
+      [itemId]: !prev[itemId],
+    }));
   };
-  const handleModify = (e) => {
+  const handleConfirm = (e, itemId) => {
     e.preventDefault();
+    if (modifyValue.trim() === "") {
+      alert("댓글을 입력해주세요");
+      return;
+    }
+    onConfirm(itemId, modifyValue);
+    setShowModify((prev) => ({
+      ...prev,
+      [itemId]: false[itemId],
+    }));
   };
   const handleCancle = () => {
     setShowModify(false);
     modifyRef.current.value = "";
   };
-  const handleDelete = () => {};
+
+  useEffect(() => {
+    if (comments && comments.length > 0) {
+      const sortedComments = [...comments].sort((a, b) => b.id - a.id);
+      setCommentList(sortedComments);
+    }
+  }, [comments]);
 
   return (
     <>
       <CommnetListContainer>
         <div className="commentList">
-          {comments && comments.length > 0 ? (
-            comments.map((item) => (
+          {commentList && commentList.length > 0 ? (
+            commentList.map((item) => (
               <div key={item.id}>
                 <span>
                   <h5>
@@ -36,20 +66,41 @@ const CommentList = ({ comments }) => {
                   <h6>{timeCheck(item.createdDate)}</h6>
                 </span>
                 <span>
-                  {showModify ? <input ref={modifyRef} value={item.comment} /> : <p>{item.comment}</p>}
+                  {showModify[item.id] ? (
+                    <input
+                      ref={modifyRef}
+                      defaultValue={item.comment}
+                      onChange={(e) => {
+                        setModifyValue(e.target.value);
+                      }}
+                    />
+                  ) : (
+                    <p>{item.comment}</p>
+                  )}
                   {item.nickname === profileData.nickname ? (
                     <div className="modifyBtn">
                       <button
                         onClick={
-                          showModify
+                          showModify[item.id]
                             ? (e) => {
-                                handleModify(e);
+                                handleConfirm(e, item.id);
                               }
-                            : handleShowModify
+                            : () => {
+                                handleShowModify(item.id);
+                              }
                         }>
-                        {showModify ? "완료" : "수정"}
+                        {showModify[item.id] ? "완료" : "수정"}
                       </button>
-                      <button onClick={showModify ? handleCancle : handleDelete}>{showModify ? "취소" : "삭제"}</button>
+                      <button
+                        onClick={
+                          showModify[item.id]
+                            ? handleCancle
+                            : () => {
+                                onClick(item.id);
+                              }
+                        }>
+                        {showModify[item.id] ? "취소" : "삭제"}
+                      </button>
                     </div>
                   ) : null}
                 </span>

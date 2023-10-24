@@ -60,6 +60,9 @@ export const PageContainer = styled.div`
     flex-direction: column;
     gap: 0;
   }
+  #amount > div > img {
+    cursor: pointer;
+  }
   main > article > aside > div dl {
     display: flex;
     gap: 10px;

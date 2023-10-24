@@ -59,7 +59,9 @@ const Login = () => {
             </span>
           </form>
           <div>
-            <button>회원가입</button>
+            <Link to="/signup">
+              <button>회원가입</button>
+            </Link>
           </div>
         </section>
       </LoginCantailner>

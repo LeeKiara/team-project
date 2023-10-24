@@ -64,7 +64,7 @@ const BookBestList = () => {
                         <p>{`${item.priceStandard}`}원</p>
                       </del>
                     </li>
-                    <li>판매가: {`${item.priceSales}`}원</li>
+                    <li>판매가: {`${item.priceSales.toLocaleString()}`}원</li>
                     <li
                       onClick={() => {
                         handleBookSave(item.itemId);

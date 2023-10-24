@@ -54,15 +54,11 @@ export const BookListContainer = styled.div`
     gap: 2px;
     cursor: auto;
   }
-  section > article > ul > li:nth-of-type(3) {
+  /* section > article > ul > li:nth-of-type(3) {
     cursor: pointer;
     display: flex;
     justify-content: center;
-  }
-  section > article > ul > li:nth-of-type(3) > span:nth-of-type(1) {
-    font-size: 16px;
-    padding-top: 3px;
-  }
+  } */
   .btn {
     display: inline-block;
     padding: 12px 15px;
@@ -79,13 +75,10 @@ export const BookListContainer = styled.div`
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 130px;
+    width: 180px;
     background-color: #708b95;
     color: #fff;
-    font-size: 16px;
-  }
-  .last {
-    background-color: #e97171;
+    font-size: 18px;
   }
   button > svg {
     vertical-align: middle;

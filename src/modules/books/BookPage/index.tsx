@@ -1,24 +1,19 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookComment, BookData, BookItem } from "../data";
+import { BookComment, BookItem, Likes } from "../data";
 import axios from "axios";
-import {
-  Diversity1,
-  Favorite,
-  FavoriteBorder,
-  ThumbDown,
-  ThumbDownOffAlt,
-  ThumbUp,
-  ThumbUpOffAlt,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 import { useProfileData } from "@/modules/cart/userdata";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
 
 const BookPage = () => {
-  const navigate = useNavigate();
+  const token = getCookie("token");
+
+  //유저정보
+  const { profileData } = useProfileData();
   //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
   //디테일 페이지 id가져오기
@@ -28,17 +23,14 @@ const BookPage = () => {
   const [number, setNumber] = useState(0);
 
   //선호작품 상태값
-  const [storeHeartStates, setStoreHeartStates] = useState({});
+  const [showHeartState, setShowHeartState] = useState(false);
+  const [likeList, setLikeList] = useState<Likes[] | null>(null);
   // 추천 상태값
   const [storeThumbStates, setStoreThumbState] = useState({});
   //싫어요 상태값
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
   //댓글
-  const [comment, setComment] = useState<BookComment[] | null>(null);
-  const [isNewCommnet, setIsNewComment] = useState(false);
-
-  //유저정보
-  const { profileData } = useProfileData();
+  const [commentList, setCommentList] = useState<BookComment[] | null>(null);
 
   const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
@@ -59,12 +51,31 @@ const BookPage = () => {
   };
 
   //선호작품
-  const handleBookSave = (itemId: number) => {
-    setStoreHeartStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  const handleBookSave = async (itemId: number) => {
+    const newParam = newId ? 0 : null;
+
+    const likes = !showHeartState;
+    console.log(likes);
+    const newStoreHearts = {
+      new: newParam,
+      like: likes,
+    };
+
+    setShowHeartState(likes);
+    try {
+      const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log("선호작품 등록/수정 성공..!");
+      }
+    } catch (e: any) {
+      console.log(e + "선호작품 오류");
+    }
   };
+
   //추천
   const handleThumbUp = (itemId: number) => {
     setStoreThumbState((prevStates) => ({
@@ -87,22 +98,23 @@ const BookPage = () => {
     const newComment = commentText.current.value;
     if (newComment.trim() === "") {
       // 댓글이 공백일 경우 아무 작업도 수행하지 않음
+      alert("댓글을 입력해주세요");
       return;
     }
     const time = new Date().getTime();
     console.log(time);
+    const newParam = newId ? 0 : null;
+    console.log(newParam + "신간인가");
     const newCommentItem = {
+      new: newParam,
       comment: commentText.current.value,
       nickname: profileData.nickname,
       createdDate: time,
     };
 
-    setComment((prevComments) => [...(prevComments || []), newCommentItem]);
-
     const fetchBookComment = async (itemId: string) => {
-      const token = getCookie("token");
       try {
-        const response = await axios.post<BookItem>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
+        const response = await axios.post<BookComment>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -110,9 +122,10 @@ const BookPage = () => {
 
         if (response.status === 201) {
           console.log("댓글추가성공");
+          setCommentList((prevComments) => [response.data, ...(prevComments || [])]);
         }
       } catch (e: any) {
-        console.log(e);
+        console.log(e + "댓글 추가 오류");
       }
     };
 
@@ -128,7 +141,43 @@ const BookPage = () => {
     commentText.current.value = "";
   };
 
-  const handleSandCart = () => {};
+  //댓글 삭제
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await axios.delete(`http://localhost:8081/books/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log("댓글 삭제 성공");
+        setCommentList(commentList.filter((comment) => comment.id !== itemId));
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  //댓글 수정
+  const handleModify = async (itemId, modifyValue) => {
+    const modifyComment = JSON.stringify({ comment: modifyValue });
+    try {
+      const response = await axios.put(`http://localhost:8081/books/${itemId}`, modifyComment, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        console.log("댓글 수정 성공");
+        setCommentList(
+          commentList.map((item) => (item.id === itemId ? { ...item, comment: modifyValue } : { ...item })),
+        );
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
   //화면 조회 swr
   // useEffect(() => {
@@ -149,6 +198,18 @@ const BookPage = () => {
   //   })();
   // }, [keyword]);
 
+  useEffect(() => {
+    if (likeList && likeList.length > 0) {
+      console.log(profileData.nickname);
+      const likeItem = likeList.find((item) => item.nickname === profileData.nickname);
+      if (likeItem.likes) {
+        setShowHeartState(true);
+      } else {
+        setShowHeartState(false);
+      }
+    }
+  }, [likeList]);
+
   //서버 화면 조회
   useEffect(() => {
     const fetchBookDetail = async (itemId: string, isNew: boolean) => {
@@ -158,7 +219,9 @@ const BookPage = () => {
 
         if (response.status === 200) {
           setDetail(response.data);
-          setComment(response.data.bookComment);
+          const sortedComments = [...response.data.bookComment].sort((a, b) => b.id - a.id);
+          setCommentList(sortedComments);
+          setLikeList(response.data.likedBook);
         }
       } catch (e: any) {
         console.log(e);
@@ -241,10 +304,10 @@ const BookPage = () => {
                 <ul>
                   <li
                     onClick={() => {
-                      handleBookSave(detail.itemId);
+                      handleBookSave(detail.id);
                     }}>
                     <button className="btn">
-                      {storeHeartStates[detail.itemId] ? (
+                      {showHeartState ? (
                         <Favorite className="material-icons-outlined heart" />
                       ) : (
                         <FavoriteBorder className="material-icons-outlined" />
@@ -349,7 +412,7 @@ const BookPage = () => {
                 </button>
               </label>
             </form>
-            <CommentList comments={comment} />
+            <CommentList comments={commentList} onClick={handleDelete} onConfirm={handleModify} />
           </footer>
         </main>
       </PageContainer>

@@ -2,19 +2,19 @@ import styled from "@emotion/styled";
 
 export const CommnetListContainer = styled.div`
   .commentList {
-    border-top: 1px solid black;
-    padding: 20px;
-    width: 70%;
-    margin: auto;
     display: flex;
-    justify-content: center;
-    background-color: #f8f8f8;
+    flex-direction: column;
+    margin: auto;
   }
   .commentList > div {
+    border-top: 1px solid black;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 95%;
+    width: 70%;
+    background-color: #f8f8f8;
+    margin: auto;
+    padding: 20px;
   }
   .commentList > div > span:nth-of-type(1) {
     display: flex;
@@ -50,5 +50,6 @@ export const CommnetListContainer = styled.div`
     background-color: #fafafa;
     /* border-radius: 5px; */
     font-size: 16px;
+    cursor: pointer;
   }
 `;
