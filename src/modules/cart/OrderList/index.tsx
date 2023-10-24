@@ -1,7 +1,6 @@
 import Home from "@/pages/Home";
 import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { useCartData } from "../cartdata";
 import { useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
@@ -48,7 +47,7 @@ const OrderList = () => {
   }, [startDate, endDate, currentPage]);
 
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
-  const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
+  // const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
 
   const changeSearchPeriod = (periodGubn: string) => {
     if (periodGubn === "3MONTH") {

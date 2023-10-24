@@ -1,14 +1,19 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
 import { CartFormContainer } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartData } from "../cartdata";
+import { useCartData } from "../addcartdata";
 import OrderButton from "@/components/OrderButton";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
+import http from "@/utils/http";
 
 const CartForm = () => {
   // 장바구니 캐시 데이터
-  const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
+  // const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
+  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData(true);
+
+  // 장바구니 삭제 item 상태관리
+  const [deletedItemId, setDeletedItemId] = useState(null);
 
   // 주문할 장바구니 도서 상태관리
   const [stateCartData, setStateCartData] = useState(cartlist);
@@ -157,18 +162,6 @@ const CartForm = () => {
       newQtys[index] = newQtys[index] + 1;
       return newQtys;
     });
-
-    // 수량 증가 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
-    // const newCheckboxes = [...checkboxes];
-    // newCheckboxes[index] = !newCheckboxes[index];
-    // setCheckboxes(newCheckboxes);
-
-    // console.log(
-    //   "●●●●● handleIncrement qtys:" +
-    //     qtys[index] +
-    //     ", priceStandards : " +
-    //     priceStandards[index],
-    // );
   };
 
   // 수량 1씩 감소
@@ -182,11 +175,6 @@ const CartForm = () => {
       }
       return newQtys;
     });
-
-    // 수량 감소 화살표를 클릭했을 때 product_seq 체크박스를 체크하기 위한 로직
-    // const newCheckboxes = [...checkboxes];
-    // newCheckboxes[index] = !newCheckboxes[index];
-    // setCheckboxes(newCheckboxes);
   };
 
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -198,6 +186,51 @@ const CartForm = () => {
   const handleCancel = () => {
     setShowMessageModal(false);
   };
+
+  const handleDeleteCartItem = (itemId) => {
+    const isConfirmed = window.confirm("해당 상품을 삭제 하시겠습니까?");
+    if (isConfirmed) {
+      (async () => {
+        try {
+          const response = await http.delete(`/cart/delete/${itemId}`);
+
+          console.log("(sever fetch) 장바구니 item 삭제 결과 : " + response.status);
+
+          if (response.status === 200) {
+            alert("해당 상품이 삭제 되었습니다.");
+
+            setDeletedItemId(itemId);
+
+            // 삭제가 성공한 경우
+            // const updatedCartList = cartlist.filter((item) => item.itemId !== itemId);
+            // // mutate 함수를 호출하여 cartData를 업데이트
+            // mutateCartDataFunction(updatedCartList, false);
+          }
+        } catch (e: any) {
+          console.log(e);
+          alert("시스템 오류가 발생하였습니다.");
+          navigate("/cart");
+        }
+      })();
+    }
+  };
+
+  useEffect(() => {
+    // 삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거
+    if (deletedItemId) {
+      console.log("삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거 :deletedItemId [" + deletedItemId + "]");
+
+      const updatedCartList = cartlist.filter((item) => item.itemId !== Number(deletedItemId));
+      setDeletedItemId(null);
+
+      updatedCartList.map((item) => {
+        console.log("item.itemId:" + item.itemId + ",deletedItemId:" + deletedItemId);
+      });
+
+      // updatedCartList를 사용하여 cartlist를 업데이트
+      mutateCartDataFunction(updatedCartList, false);
+    }
+  }, [deletedItemId, cartlist]);
 
   return (
     <>
@@ -294,7 +327,9 @@ const CartForm = () => {
                   </div>
 
                   {/* 삭제버튼 */}
-                  <div className="box-delete">X</div>
+                  <div className="cart-item-delete" onClick={() => handleDeleteCartItem(`${cartCashData.itemId}`)}>
+                    X
+                  </div>
                 </div>
               </article>
             ))}

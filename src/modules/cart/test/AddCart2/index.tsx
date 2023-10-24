@@ -2,9 +2,9 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../../cartdata";
 import { AddCartContainer } from "./styles";
-import Button from "@/components/Button";
+import CartButton from "@/components/CartButton";
 
-const AddCart = () => {
+const AddCart2 = () => {
   // programatic방식으로 라우팅 처리
   const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ const AddCart = () => {
   const priceSalesRef = useRef() as MutableRefObject<HTMLInputElement>;
   const quantityRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const { cartData, createCartData } = useCartData();
-  const [isOrder, setIsOrder] = useState(false);
+  // const { cartData, createCartData } = useCartData();
+  // const [isOrder, setIsOrder] = useState(false);
 
   // alert(">>>> Addcart  :");
 
@@ -68,10 +68,6 @@ const AddCart = () => {
     // navigate("/cart");
   };
 
-  const gotoCart = () => {
-    setIsOrder(true);
-  };
-
   return (
     <AddCartContainer>
       <section>
@@ -92,7 +88,7 @@ const AddCart = () => {
                     // value="907990"
                     onChange={handleInput}
                   />
-                  <Button gubun="KOR" itemId={itemId1} quantity="1" />
+                  <CartButton itemId={itemId1} />
                 </dd>
               </dl>
               <dl>
@@ -105,97 +101,19 @@ const AddCart = () => {
                     ref={itemIdRef2}
                     // value="907990"
                   />
-                  <Button gubun="KOR" itemId={itemId2} quantity="1" />
+                  <CartButton itemId={itemId2} />
                 </dd>
               </dl>
             </div>
-            <div>315995872, 너의 거울이 되어 줄게 - 어느 아이비리그 대학생의 심리 치유 에세이, 16000, 14400</div>
-            <div>125722399, 사는 데 꼭 필요한 만큼의 힘 - 동화작가 노경실 인생 산문집, 12000, 10800</div>
+            <div>583083, Aladdin and the Magic Lamp (책 + 테이프 1개),</div>
+            <div>521683, 알라딘과 요술램프</div>
           </aside>
           <br />
           <br />
-
-          <aside>
-            <div>
-              <dl>
-                <dt>itemId</dt>
-                <dd>
-                  <input type="text" name="itemId" />
-                </dd>
-              </dl>
-
-              <dl>
-                <dt>도서이미지</dt>
-                <dd>
-                  <input
-                    type="text"
-                    name="bookCover"
-                    ref={coverRef}
-                    // value="https://www.cyber.co.kr/book/uploads/cache/2022-godo-goods/thumb-155247724937l0_300x0.jpg"
-                  />
-                </dd>
-              </dl>
-
-              <dl>
-                <dt>책제목</dt>
-                <dd>
-                  <input type="text" name="title" ref={titleRef} />
-                </dd>
-              </dl>
-
-              <dl>
-                <dt>정가</dt>
-                <dd>
-                  <input type="text" name="priceStandard" ref={priceStandardRef} />
-                </dd>
-              </dl>
-              <dl>
-                <dt>할인가</dt>
-                <dd>
-                  <input type="text" name="priceSales" ref={priceSalesRef} />
-                </dd>
-              </dl>
-              <dl>
-                <dt>수량</dt>
-                <dd>
-                  <input type="text" name="qty" ref={quantityRef} />
-                </dd>
-              </dl>
-            </div>
-            <div>
-              <button className={"box-blue"} onClick={handleAddCart}>
-                장바구니 담기
-              </button>
-            </div>
-            <div>
-              <button className={"box-blue"} onClick={gotoCart}>
-                장바구니 컴퍼넌트 버튼show
-              </button>
-              <br />
-              <br />
-              {/* {isOrder && ( */}
-              <div>
-                {/* <Button
-                  gubun="KOR"
-                  itemId={Number(itemIdRef.current.value)}
-                  title={titleRef.current.value}
-                  cover={coverRef.current.value}
-                  priceStandard={priceStandardRef.current.value}
-                  priceSales={priceSalesRef.current.value}
-                  quantity={quantityRef.current.value}
-                /> */}
-              </div>
-
-              {/* // <OrderButton {...cartItem} /> */}
-              {/* )} */}
-              <br />
-              <br />
-            </div>
-          </aside>
         </article>
       </section>
     </AddCartContainer>
   );
 };
 
-export default AddCart;
+export default AddCart2;

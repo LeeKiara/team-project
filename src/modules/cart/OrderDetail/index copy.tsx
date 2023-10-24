@@ -2,20 +2,16 @@ import Home from "@/pages/Home";
 import { OrderDetailContainer } from "./styles";
 import { useCartData } from "../cartdata";
 import { useNavigate, useParams } from "react-router-dom";
-import { BookItem, useBooksItem } from "@/modules/books/data";
-import { useState } from "react";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
 
   const { orderId } = useParams();
-  alert("1. orderId " + orderId);
+  alert("orderId " + orderId);
 
   // 주문/결제 데이터
   // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
-  // const { cartData: orderList, isCartDataValidating } = useCartData();
-  const { booksItem: books, isBookItemValidating } = useBooksItem();
-  // alert("2. orderId " + orderId);
+  // const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
 
   // 주문목록 화면으로 이동
   const handleOrderList = () => {
@@ -134,7 +130,38 @@ const OrderDetail = () => {
             <div className="order-layer">주문 상품</div>
           </article>
           {/* 도서정보 (Loop) */}
-          <div className="order-item-container"></div>
+          <div className="order-item-container">
+            {/* {orderList && */}
+            {/* orderList.map((cartCashData, index) => ( */}
+            <article className="order-item-layer" key={`item-${cartCashData.id}`}>
+              <div className="bookinfo">
+                {/* 도서이미지 */}
+                <div className="image">
+                  <a href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
+                    <img src={cartCashData.cover} alt={cartCashData.title} />
+                  </a>
+                </div>
+                {/* 도서제목 / 수량 */}
+                <div style={{ textAlign: "center" }}>
+                  <p>
+                    <a className="subject" href={`/page?keyword=${cartCashData.itemId}`} target="_blank">
+                      {cartCashData.title}
+                    </a>
+                    <br />
+                    <p className="order-number">
+                      {/* <strong>수량</strong>
+                        &nbsp;&nbsp;1 */}
+                    </p>
+                  </p>
+                </div>
+                {/* 주문금액 */}
+                {/* <div className="priceinfo">
+                    <strong>{cartCashData.priceSales}</strong>원
+                  </div> */}
+              </div>
+            </article>
+            {/* ))} */}
+          </div>
           <article>
             <div className="box-submit-payment">
               <span className="btn-order">

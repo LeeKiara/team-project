@@ -284,6 +284,9 @@ export const CartFormContainer = styled.div`
     }
   }
 
+  .cart-item-delete {
+    cursor: pointer;
+  }
   /* 모바일 스타일 */
   @media (max-width: 768px) {
     .payment-layer {

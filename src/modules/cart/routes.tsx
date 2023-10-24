@@ -1,18 +1,13 @@
 import { Route } from "react-router-dom";
 import { lazy } from "react";
-// import CartList from "./CartList";
-// import Order from "./Order";
 import CartSidebar from "./CartSidebar";
-// import OrderDone from "./Order/OrderDone";
 
-import ComponentA from "./test/ComponentA";
-import ComponentB from "./test/ComponentB";
 import OrderForm from "@/modules/cart/Order/OrderForm";
 import AddressSearch from "./AddressSearch/Search";
 import AddressSucceed from "./AddressSearch/Success";
-import AddressSearchForm from "./AddressSearch";
+// import AddCart2 from "./test/AddCart2";
 
-const AddCart = lazy(() => import("@/modules/cart/test/AddCart"));
+const AddCart2 = lazy(() => import("@/modules/cart/test/AddCart2"));
 const Order = lazy(() => import("@/modules/cart/Order/OrderForm"));
 const CartForm = lazy(() => import("@/modules/cart/CartForm"));
 const Payment = lazy(() => import("@/modules/cart/Order/Payment"));
@@ -35,7 +30,7 @@ export const cartRoutes = [
   </Route>,
   <Route key="test" path="test" element={<CartSidebar />}>
     ,
-    <Route element={<AddCart />} index />,
+    <Route element={<AddCart2 />} index />,
     <Route key="orderdetail" path="orderdetail" element={<OrderDetail />} />,
   </Route>,
   <Route key="address" path="address" element={<CartSidebar />}>

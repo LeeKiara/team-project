@@ -24,14 +24,10 @@ const AddCart = () => {
   const { cartData, createCartData } = useCartData();
   const [isOrder, setIsOrder] = useState(false);
 
-  // alert(">>>> Addcart  :");
-
-  const handleInput = () => {
-    // alert("handleInput");
-
+  useEffect(() => {
     setItemId1(Number(itemIdRef1.current.value));
     setItemId2(Number(itemIdRef2.current.value));
-  };
+  }, [itemIdRef1, itemIdRef2]);
 
   const cartItem = [
     {
@@ -90,7 +86,6 @@ const AddCart = () => {
                     name="itemId"
                     ref={itemIdRef1}
                     // value="907990"
-                    onChange={handleInput}
                   />
                   <Button gubun="KOR" itemId={itemId1} quantity="1" />
                 </dd>
@@ -109,8 +104,6 @@ const AddCart = () => {
                 </dd>
               </dl>
             </div>
-            <div>315995872, 너의 거울이 되어 줄게 - 어느 아이비리그 대학생의 심리 치유 에세이, 16000, 14400</div>
-            <div>125722399, 사는 데 꼭 필요한 만큼의 힘 - 동화작가 노경실 인생 산문집, 12000, 10800</div>
           </aside>
           <br />
           <br />
