@@ -78,15 +78,7 @@ const BookBestList = () => {
                         선호작품
                       </button>
                     </li>
-                    <Button
-                      gubun="KOR"
-                      itemId={item.itemId}
-                      title={item.title}
-                      cover={item.cover}
-                      priceStandard={item.priceStandard.toString()}
-                      priceSales={item.priceSales.toString()}
-                      quantity="1"
-                    />
+                    <Button itemId={item.itemId} quantity={1} />
                   </ul>
                 </article>
               ))

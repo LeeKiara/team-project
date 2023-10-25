@@ -202,7 +202,7 @@ const BookPage = () => {
       console.log(likeList);
       console.log(profileData.profileId);
       const likeItem = likeList.find((item) => item.profileId === profileData.profileId);
-      if (likeItem !== null && likeItem.likes) {
+      if (likeItem && likeItem.likes) {
         setShowHeartState(true);
       } else {
         setShowHeartState(false);
@@ -341,15 +341,7 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  <Button
-                    gubun="KOR"
-                    itemId={detail.itemId}
-                    title={detail.title}
-                    cover={detail.cover}
-                    priceStandard={detail.priceStandard.toString()}
-                    priceSales={detail.priceSales.toString()}
-                    quantity={number.toString()}
-                  />
+                  <Button itemId={detail.itemId} quantity={number} />
                 </ul>
               </nav>
             </article>

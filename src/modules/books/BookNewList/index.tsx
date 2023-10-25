@@ -37,7 +37,9 @@ const BookNewList = () => {
     if (queryKeyword) {
       (async () => {
         try {
-          const response = await axios.get<BookData>(`http://localhost:8081/books/category?new=0&option=국내도서>${query}&size=8&page=0`);
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/books/category?new=0&option=국내도서>${query}&size=8&page=0`,
+          );
           if (response.status === 200) {
             setNewBookList(response.data.content);
           }
@@ -98,15 +100,7 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales.toLocaleString()}`}원</dl>
-                      <Button
-                        gubun="KOR"
-                        itemId={item.itemId}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={item.priceStandard.toString()}
-                        priceSales={item.priceSales.toString()}
-                        quantity="1"
-                      />
+                      <Button itemId={item.itemId} quantity={1} />
                     </div>
                   </li>
                 ))

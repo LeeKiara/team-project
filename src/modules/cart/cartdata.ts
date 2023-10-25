@@ -17,7 +17,7 @@ export interface CartData {
   cover?: string;
   priceStandard?: string;
   priceSales?: string;
-  quantity: string;
+  quantity: number;
   isChecked?: boolean;
   // isFetch?: boolean;
 }
