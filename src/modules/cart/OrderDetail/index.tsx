@@ -4,13 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import http from "@/utils/http";
 import { OrderDeliveryResponse, useOrderDetailData } from "../orderdata";
+import FormatDate from "@/components/FormatDate";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
 
   // 주문번호 파라메터 받음
   const { orderId } = useParams();
-  const testOrderId = "2023123456789";
+  const testOrderId = "1";
 
   const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
 
@@ -71,7 +72,7 @@ const OrderDetail = () => {
               <div className="box_header">
                 <div className="label">
                   <span className="order_date" data-order-date="">
-                    {orderDetailData.orderDate}
+                    <FormatDate date={orderDetailData.orderDate} />
                   </span>
                   <span className="gap">|</span>
                   <span className="order_num">

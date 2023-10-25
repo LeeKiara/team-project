@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
+import FormatDate from "@/components/FormatDate";
 
 const OrderList = () => {
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월 선택관리
@@ -212,7 +213,9 @@ const OrderList = () => {
                   </figure>
                   <div>
                     {/* 주문일자 */}
-                    <div className="order-date">{formatDate(new Date(orderData.orderDate))}</div>
+                    <div className="order-date">
+                      <FormatDate date={orderData.orderDate} />
+                    </div>
 
                     {/* 도서 카테고리 */}
                     {/* <div className="box-bookgubun">

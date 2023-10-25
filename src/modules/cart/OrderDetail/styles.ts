@@ -102,6 +102,7 @@ export const OrderDetailContainer = styled.div`
   .article-layer-orderitems {
     border: 1px solid ${grayColor};
     border-radius: 12px;
+    padding: 2px 30px 5px 30px;
 
     article > div {
       font-weight: 600;
@@ -111,14 +112,13 @@ export const OrderDetailContainer = styled.div`
 
   .box-bookinfo-wrap {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    flex-wrap: wrap;
     /* border: 1px solid ${grayColor}; */
 
     .bookinfo {
       display: flex;
       flex-direction: row;
-      flex-basis: calc(22.22% - 20px); /* Adjust the width of each item to fit three items per row */
-      /* border: 1px solid black; */
+      flex-basis: calc(22.22% - 20px);
 
       .image img {
         width: 100px;
