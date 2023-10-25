@@ -57,7 +57,7 @@ export const OrderDetailContainer = styled.div`
     }
   }
 
-  .order-layer {
+  .article-layer-title {
     border-top: 1px solid #000;
     border-bottom: 1px solid #ccc;
     height: 60px;
@@ -99,30 +99,49 @@ export const OrderDetailContainer = styled.div`
     font-weight: 400;
   }
 
-  .bookinfo {
+  .article-layer-orderitems {
+    border: 1px solid ${grayColor};
+    border-radius: 12px;
+
+    article > div {
+      font-weight: 600;
+      margin-top: 30px;
+    }
+  }
+
+  .box-bookinfo-wrap {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    /* border: 1px solid ${grayColor}; */
 
-    label {
-      margin-top: 0px;
-      margin-left: 10px;
-    }
+    .bookinfo {
+      display: flex;
+      flex-direction: row;
+      flex-basis: calc(22.22% - 20px); /* Adjust the width of each item to fit three items per row */
+      /* border: 1px solid black; */
 
-    .image img {
-      width: 160px;
-      margin: 10px 5px;
-      /* border: 1px solid ${lightgrayColor}; */
-    }
+      .image img {
+        width: 100px;
+        height: 150px;
+        /* margin: 10px 5px; */
+        /* border: 1px solid ${lightgrayColor}; */
+      }
 
-    .subject {
-      font-size: 15px;
-      line-height: 26px;
-      font-weight: 500;
-      width: 370px;
-      max-height: 55px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin: 10px 5px;
+      .bookItem-title {
+        font-size: 15px;
+        line-height: 26px;
+        font-weight: 500;
+        width: 100px;
+        max-height: 55px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .bookItem-quantity {
+        font-size: 14px;
+        color: ${grayColor};
+      }
     }
   }
 
@@ -366,11 +385,11 @@ export const OrderDetailContainer = styled.div`
     section {
       width: 320px;
     }
-    .order-layer-title {
+    .article-layer-title-title {
       display: none;
     }
 
-    .order-layer {
+    .article-layer-title {
       flex-direction: column;
       height: 180px;
       align-items: center; /* 수직 가운데 정렬 추가 */

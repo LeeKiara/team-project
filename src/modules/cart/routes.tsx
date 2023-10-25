@@ -31,12 +31,12 @@ export const cartRoutes = [
   <Route key="test" path="test" element={<CartSidebar />}>
     ,
     <Route element={<AddCart2 />} index />,
-    <Route key="orderdetail" path="orderdetail" element={<OrderDetail />} />,
+    <Route key="detail" path="detail/:orderId" element={<OrderDetail />} />,
   </Route>,
   <Route key="address" path="address" element={<CartSidebar />}>
     ,
     <Route key="search" path="search" element={<AddressSearch />} />,
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
-  <Route key="list" path="list" element={<OrderList />} />,
+  <Route key="detail" path="detail" element={<OrderDetail />} />,
 ];
