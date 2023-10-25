@@ -42,7 +42,7 @@ const cartFetcher = async ([key, shouldFetchData]) => {
     try {
       const response = await http.get<CartData[]>(`${key}?_sort=id?&_order=desc`);
 
-      console.log("--call cartFetcher response data--");
+      console.log("--call cartFetcher response data   --");
       console.log(response.data);
 
       return response.data;

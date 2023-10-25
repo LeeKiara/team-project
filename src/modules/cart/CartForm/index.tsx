@@ -1,7 +1,7 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
 import { CartFormContainer } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartData } from "../addcartdata";
+import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";

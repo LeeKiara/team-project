@@ -1,8 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartData } from "../../cartdata";
 import { AddCartContainer } from "./styles";
-import CartButton from "@/components/CartButton";
+import Button from "@/components/Button";
 
 const AddCart2 = () => {
   // programatic방식으로 라우팅 처리
@@ -88,7 +87,7 @@ const AddCart2 = () => {
                     // value="907990"
                     onChange={handleInput}
                   />
-                  <CartButton itemId={itemId1} />
+                  <Button itemId={itemId1} />
 
                   {/* <CartButton
                     // gubun="KOR"
