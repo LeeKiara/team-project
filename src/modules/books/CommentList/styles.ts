@@ -12,6 +12,7 @@ export const CommnetListContainer = styled.div`
     flex-direction: column;
     gap: 5px;
     width: 70%;
+    height: 90px;
     background-color: #f8f8f8;
     margin: auto;
     padding: 20px;

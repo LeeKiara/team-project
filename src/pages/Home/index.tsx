@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
-import { useBooksItem } from "@/modules/books/data";
+import { BookItem, useBooksItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import axios from "axios";
 
 const Home = () => {
   const [todayLetter, setTodayLetter] = useState("");
@@ -18,6 +19,17 @@ const Home = () => {
     setShowButton(false);
   };
 
+  //캐시데이터 실험 중
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get<BookItem[]>(`http://localhost:8081/books`);
+      if (response.status === 200) {
+        console.log(response);
+        console.log("응답 성공!");
+      }
+    })();
+  }, []);
+
   return (
     <HomeContainer>
       <div>
@@ -28,10 +40,7 @@ const Home = () => {
                 <ArrowBack className="material-icons-outlined" />
               </button>
             ) : null}
-            <img
-              src="https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg"
-              alt="배너"
-            />
+            <img src="https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" alt="배너" />
             {showButton ? (
               <button>
                 <ArrowForward className="material-icons-outlined" />
@@ -43,23 +52,17 @@ const Home = () => {
           <article>
             <h3>오늘의 글귀</h3>
             <div>
-              <img
-                src="https://img.ypbooks.co.kr/upload/img/book/013/101257013.jpg"
-                alt="해리포터"
-              />
+              <img src="https://img.ypbooks.co.kr/upload/img/book/013/101257013.jpg" alt="해리포터" />
               <div>
                 <h4>책 이름</h4>
                 <h4>저자</h4>
                 <h4>가격: 30,000원</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Soluta perspiciatis, dolor pariatur nihil suscipit ut atque
-                  modi provident excepturi tenetur. Vel labore officiis aliquid
-                  corporis voluptatum laborum quibusdam magni dolores. Lorem
-                  ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum
-                  enim doloribus facilis id nulla ea ipsam veniam vel dolores
-                  laborum omnis fugiat placeat nemo magnam repudiandae quos,
-                  sed, nesciunt mollitia?
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta perspiciatis, dolor pariatur nihil
+                  suscipit ut atque modi provident excepturi tenetur. Vel labore officiis aliquid corporis voluptatum
+                  laborum quibusdam magni dolores. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum
+                  enim doloribus facilis id nulla ea ipsam veniam vel dolores laborum omnis fugiat placeat nemo magnam
+                  repudiandae quos, sed, nesciunt mollitia?
                 </p>
               </div>
             </div>
@@ -68,13 +71,7 @@ const Home = () => {
             <Link to="books/best">
               <h3>베스트셀러</h3>
             </Link>
-            <ul>
-              {books.length > 0 ? (
-                <>{renderBook(books.slice(0, 8))}</>
-              ) : (
-                <p>책을 찾을 수 없습니다.</p>
-              )}
-            </ul>
+            <ul>{books.length > 0 ? <>{renderBook(books.slice(0, 8))}</> : <p>책을 찾을 수 없습니다.</p>}</ul>
           </article>
         </section>
       </div>
@@ -88,14 +85,8 @@ const renderBook = (books) => {
       <Link to={`/page?keyword=${item.itemId}`}>
         <img src={item.cover} alt={item.title} />
       </Link>
-      <h5>
-        {item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}
-      </h5>
-      <h6>
-        {item.author.length > 15
-          ? item.author.slice(0, 15) + "..."
-          : item.author}
-      </h6>
+      <h5>{item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}</h5>
+      <h6>{item.author.length > 15 ? item.author.slice(0, 15) + "..." : item.author}</h6>
       <span>판매가: {item.priceSales}원</span>
     </li>
   ));
