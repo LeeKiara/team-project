@@ -88,41 +88,65 @@ const BookList = ({ fetchUrl }) => {
   }, [currentPage, totalPages]);
 
   //카테고리 이동
+  // useEffect(() => {
+  //   const queryKeyword = params.get("option") || "";
+  //   console.log(queryKeyword + "카테고리 키워드");
+  //   setSearchQuery(queryKeyword);
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(
+  //         `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
+  //       );
+  //       if (response.status === 200) {
+  //         setTotalPages(response.data.totalPages);
+  //         setBookList(response.data.content);
+  //         setCategory(fetchUrl.split("=")[1]);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, [searchQuery, params]);
+
+  //북리스트서버 연동
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(`${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`);
+  //       if (response.status === 200) {
+  //         setTotalPages(response.data.totalPages);
+  //         setBookList(response.data.content);
+  //         setCategory(fetchUrl.split("=")[1]);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, [currentPage, fetchUrl]);
+
+  //페이징/카테고리 조회 통합
   useEffect(() => {
     const queryKeyword = params.get("option") || "";
     console.log(queryKeyword + "카테고리 키워드");
     setSearchQuery(queryKeyword);
-    (async () => {
-      try {
-        const response = await axios.get<BookData>(
-          `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
-        );
-        if (response.status === 200) {
-          setTotalPages(response.data.totalPages);
-          setBookList(response.data.content);
-          setCategory(fetchUrl.split("=")[1]);
-        }
-      } catch (e: any) {
-        console.log(e);
-      }
-    })();
-  }, [searchQuery, params]);
 
-  //북리스트서버 연동
-  useEffect(() => {
+    // 현재 queryKeyword와 currentPage에 기반한 URL을 정의합니다
+    const categoryUrl = `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`;
+    const listUrl = `${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`;
+
     (async () => {
       try {
-        const response = await axios.get<BookData>(`${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`);
+        const response = await axios.get<BookData>(queryKeyword !== "" ? categoryUrl : listUrl);
         if (response.status === 200) {
           setTotalPages(response.data.totalPages);
           setBookList(response.data.content);
-          setCategory(fetchUrl.split("=")[1]);
+          setCategory(searchQuery || fetchUrl.split("=")[1]);
         }
       } catch (e: any) {
         console.log(e);
       }
     })();
-  }, [currentPage, fetchUrl]);
+  }, [searchQuery, currentPage, params, fetchUrl]);
 
   return (
     <>

@@ -39,13 +39,13 @@ export interface BookItem {
   seriesInfo: SeriesInfo;
   commentCount: number;
   bookComment: BookComment[];
-  likedBook: Likes[];
+  likedBook: LikesItem[];
 }
 
-export interface Likes {
+export interface LikesItem {
   id?: number;
   likes: boolean;
-  nickname: string;
+  profileId: number;
 }
 
 export interface BookComment {
