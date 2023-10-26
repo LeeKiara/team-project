@@ -2,8 +2,8 @@ import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
 import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
-import { BookData, BookItem, LikesItem, useBooksItem } from "../data";
-import { Favorite, FavoriteBorder, PartyMode, ShoppingCart } from "@mui/icons-material";
+import { BookData, BookItem, LikesItem } from "../data";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import axios from "axios";
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
@@ -36,7 +36,7 @@ const BookList = ({ fetchUrl }) => {
   //선호작품
   const handleBookSave = async (itemId: number) => {
     if (!token) {
-      alert("로그인해주세요.");
+      alert("로그인 후 이용해주세요.");
       return;
     } else {
       setStoreHeartStates((prevStates) => ({

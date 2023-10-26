@@ -60,7 +60,7 @@ const BookPage = () => {
   //선호작품
   const handleBookSave = async (itemId: number) => {
     if (!token) {
-      alert("로그인 해주세요.");
+      alert("로그인 후 이용해주세요.");
     } else {
       const newParam = newId ? 0 : null;
       const likes = !showHeartState;
@@ -104,7 +104,7 @@ const BookPage = () => {
   //댓글추가
   const handleSaveComment = (e) => {
     if (!token) {
-      alert("로그인 해주세요");
+      alert("로그인 후 이용해주세요.");
     } else {
       e.preventDefault();
       console.log(commentText.current.value);

@@ -45,7 +45,7 @@ const Button = ({ itemId, quantity }: CartData) => {
     (e) => {
       e.preventDefault();
       if (!token) {
-        alert("로그인 해주세요");
+        alert("로그인 후 이용해주세요.");
       } else {
         const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
         if (isConfirmed) {

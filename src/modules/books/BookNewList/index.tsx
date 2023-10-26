@@ -37,11 +37,9 @@ const BookNewList = () => {
     if (queryKeyword) {
       (async () => {
         try {
-          const response = await axios.get<BookData>(
-            `http://localhost:8081/books/category?new=0&option=국내도서>${query}&size=8&page=0`,
-          );
+          const response = await axios.get<BookItem[]>(`http://localhost:8081/books/new/category?option=${query}`);
           if (response.status === 200) {
-            setNewBookList(response.data.content);
+            setNewBookList([...response.data]);
           }
         } catch (e: any) {
           console.log(e);
@@ -50,9 +48,9 @@ const BookNewList = () => {
     } else {
       (async () => {
         try {
-          const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
+          const response = await axios.get<BookItem[]>(`http://localhost:8081/books/new`);
           if (response.status === 200) {
-            setNewBookList(response.data.content);
+            setNewBookList([...response.data]);
           }
         } catch (e: any) {
           console.log(e);
@@ -83,7 +81,7 @@ const BookNewList = () => {
           <section>
             <ul>
               {newBookList.length > 0 ? (
-                newBookList.map((item) => (
+                newBookList.slice(0, 8).map((item) => (
                   <li key={`${item.id}`}>
                     <figure>
                       <Link to={`/page?new=${item.id}`}>
@@ -99,7 +97,7 @@ const BookNewList = () => {
                         정가
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
-                      <dl>판매가: {`${item.priceSales.toLocaleString()}`}원</dl>
+                      <dl>판매가: {`${item.priceSales}`}원</dl>
                       <Button itemId={item.itemId} quantity={1} />
                     </div>
                   </li>

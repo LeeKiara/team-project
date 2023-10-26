@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
-import { BookItem, useBooksItem } from "@/modules/books/data";
+import { BookItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import axios from "axios";
@@ -9,7 +9,7 @@ const Home = () => {
   const [todayLetter, setTodayLetter] = useState("");
   const [best, setBest] = useState("");
   const [page, setPage] = useState(0);
-  const { booksItem: books, isBookItemValidating } = useBooksItem(page);
+  // const { booksItem: books, isBookItemValidating } = useBooksItem(page);
   const [showButton, setShowButton] = useState(true);
 
   const handleMouseOver = () => {
@@ -20,15 +20,15 @@ const Home = () => {
   };
 
   //캐시데이터 실험 중
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get<BookItem[]>(`http://localhost:8081/books`);
-      if (response.status === 200) {
-        console.log(response.data);
-        console.log("응답 성공!");
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await axios.get<BookItem[]>(`http://localhost:8081/books`);
+  //     if (response.status === 200) {
+  //       console.log(response.data);
+  //       console.log("응답 성공!");
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <HomeContainer>
@@ -71,7 +71,7 @@ const Home = () => {
             <Link to="books/best">
               <h3>베스트셀러</h3>
             </Link>
-            <ul>{books.length > 0 ? <>{renderBook(books.slice(0, 8))}</> : <p>책을 찾을 수 없습니다.</p>}</ul>
+            {/* <ul>{books.length > 0 ? <>{renderBook(books.slice(0, 8))}</> : <p>책을 찾을 수 없습니다.</p>}</ul> */}
           </article>
         </section>
       </div>

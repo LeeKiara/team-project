@@ -3,13 +3,7 @@ import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
-import {
-  AccountCircle,
-  AccountCircleOutlined,
-  ExitToApp,
-  ShoppingCart,
-  ShoppingCartOutlined,
-} from "@mui/icons-material";
+import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -66,7 +60,7 @@ const Layout = () => {
                 </button>
               )}
               <button onClick={handleMoveCart}>
-                <ShoppingCartOutlined className="material-symbols-outlined" />
+                <LibraryBooks className="material-symbols-outlined" />
               </button>
             </aside>
             <div id="searchForm">
