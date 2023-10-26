@@ -18,7 +18,7 @@ export const OrderButtonStyle = styled.div`
     border: 1px solid transparent;
     border-radius: 4px;
     width: 200px;
-    background-color: #e97171;
+    background-color: #3d4ed7;
     color: #fff;
     font-size: 18px;
   }
