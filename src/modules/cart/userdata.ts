@@ -3,6 +3,7 @@ import axios from "axios";
 import useSWR, { mutate } from "swr";
 
 const INIT_DATA: ProfileData = {
+  profileId: 0,
   nickname: "",
   phone: "",
   email: "",
@@ -10,6 +11,7 @@ const INIT_DATA: ProfileData = {
 const PROFILE_DATA_KEY = "/auth/profile";
 
 export interface ProfileData {
+  profileId: number;
   nickname: string;
   phone?: string;
   email?: string;

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
-import { useBooksItem } from "../data";
+import { BookData, BookItem, useBooksItem } from "../data";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Button from "@/components/Button";
+import axios from "axios";
 
 const BookBestList = () => {
-  const { booksItem: books, isBookItemValidating } = useBooksItem();
+  const [bookList, setBookList] = useState<BookItem[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
   //선호작품 상태값
@@ -20,22 +21,51 @@ const BookBestList = () => {
     }));
   };
 
-  //카테고리 이동 쿼리
+  //카테고리 이동
   useEffect(() => {
-    const queryKeyword = params.get("keyword") || "";
-    setSearchQuery(queryKeyword);
-  }, [params]);
+    console.log(params);
+    const queryKeyword = params.get("option") || "";
+    console.log(queryKeyword + "카테고리 키워드");
+    const query = queryKeyword.split(">")[1];
+    console.log(query);
+    setSearchQuery(query);
+    if (queryKeyword) {
+      (async () => {
+        try {
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/books/category?&option=국내도서>${query}&size=8&page=0`,
+          );
+          if (response.status === 200) {
+            setBookList(response.data.content);
+          }
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    } else {
+      (async () => {
+        try {
+          const response = await axios.get<BookData>(`http://localhost:8081/books/best/page=0&size=8`);
+          if (response.status === 200) {
+            setBookList(response.data.content);
+          }
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [searchQuery, params]);
 
   return (
     <>
       <BookBestContainer>
         <p>{searchQuery}</p>
-        {isBookItemValidating ? (
+        {!bookList ? (
           <p>로딩 중...</p>
         ) : (
           <section>
-            {books.length > 0 ? (
-              books.slice(0, 5).map((item) => (
+            {bookList.length > 0 ? (
+              bookList.slice(0, 5).map((item) => (
                 <article key={`${item.itemId}`}>
                   <div>
                     <figure>
@@ -78,15 +108,7 @@ const BookBestList = () => {
                         선호작품
                       </button>
                     </li>
-                    <Button
-                      gubun="KOR"
-                      itemId={item.itemId}
-                      title={item.title}
-                      cover={item.cover}
-                      priceStandard={item.priceStandard.toString()}
-                      priceSales={item.priceSales.toString()}
-                      quantity="1"
-                    />
+                    <Button itemId={item.itemId} quantity={1} />
                   </ul>
                 </article>
               ))

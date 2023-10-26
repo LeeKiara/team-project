@@ -38,6 +38,7 @@ const BookSidebar = () => {
   useEffect(() => {
     if (path === "best") {
       setOption("베스트도서");
+      setCategorys(keywords);
     } else if (path === "new") {
       setOption("신간도서");
       setCategorys(keywords);

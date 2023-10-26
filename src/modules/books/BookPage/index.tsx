@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookComment, BookItem, Likes } from "../data";
+import { BookComment, BookItem, LikesItem } from "../data";
 import axios from "axios";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
@@ -24,7 +24,7 @@ const BookPage = () => {
 
   //선호작품 상태값
   const [showHeartState, setShowHeartState] = useState(false);
-  const [likeList, setLikeList] = useState<Likes[] | null>(null);
+  const [likeList, setLikeList] = useState<LikesItem[] | null>(null);
   // 추천 상태값
   const [storeThumbStates, setStoreThumbState] = useState({});
   //싫어요 상태값
@@ -53,7 +53,6 @@ const BookPage = () => {
   //선호작품
   const handleBookSave = async (itemId: number) => {
     const newParam = newId ? 0 : null;
-
     const likes = !showHeartState;
     console.log(likes);
     const newStoreHearts = {
@@ -200,9 +199,10 @@ const BookPage = () => {
 
   useEffect(() => {
     if (likeList && likeList.length > 0) {
-      console.log(profileData.nickname);
-      const likeItem = likeList.find((item) => item.nickname === profileData.nickname);
-      if (likeItem.likes) {
+      console.log(likeList);
+      console.log(profileData.profileId);
+      const likeItem = likeList.find((item) => item.profileId === profileData.profileId);
+      if (likeItem && likeItem.likes) {
         setShowHeartState(true);
       } else {
         setShowHeartState(false);
@@ -341,15 +341,7 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  <Button
-                    gubun="KOR"
-                    itemId={detail.itemId}
-                    title={detail.title}
-                    cover={detail.cover}
-                    priceStandard={detail.priceStandard.toString()}
-                    priceSales={detail.priceSales.toString()}
-                    quantity={number.toString()}
-                  />
+                  <Button itemId={detail.itemId} quantity={number} />
                 </ul>
               </nav>
             </article>

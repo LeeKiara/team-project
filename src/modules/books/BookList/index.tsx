@@ -2,14 +2,18 @@ import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
 import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
-import { BookData, BookItem, useBooksItem } from "../data";
+import { BookData, BookItem, LikesItem, useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, PartyMode, ShoppingCart } from "@mui/icons-material";
 import axios from "axios";
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
+import { useProfileData } from "@/modules/cart/userdata";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
+  //유저정보
+  const { profileData } = useProfileData();
+
   const MAX_LIST = 5; // 고정된 리스트 갯수
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
@@ -88,41 +92,84 @@ const BookList = ({ fetchUrl }) => {
   }, [currentPage, totalPages]);
 
   //카테고리 이동
+  // useEffect(() => {
+  //   const queryKeyword = params.get("option") || "";
+  //   console.log(queryKeyword + "카테고리 키워드");
+  //   setSearchQuery(queryKeyword);
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(
+  //         `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
+  //       );
+  //       if (response.status === 200) {
+  //         setTotalPages(response.data.totalPages);
+  //         setBookList(response.data.content);
+  //         setCategory(fetchUrl.split("=")[1]);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, [searchQuery, params]);
+
+  //북리스트서버 연동
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get<BookData>(`${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`);
+  //       if (response.status === 200) {
+  //         setTotalPages(response.data.totalPages);
+  //         setBookList(response.data.content);
+  //         setCategory(fetchUrl.split("=")[1]);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, [currentPage, fetchUrl]);
+
+  //페이징/카테고리 조회 통합
   useEffect(() => {
     const queryKeyword = params.get("option") || "";
     console.log(queryKeyword + "카테고리 키워드");
     setSearchQuery(queryKeyword);
-    (async () => {
-      try {
-        const response = await axios.get<BookData>(
-          `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`,
-        );
-        if (response.status === 200) {
-          setTotalPages(response.data.totalPages);
-          setBookList(response.data.content);
-          setCategory(fetchUrl.split("=")[1]);
-        }
-      } catch (e: any) {
-        console.log(e);
-      }
-    })();
-  }, [searchQuery, params]);
 
-  //북리스트서버 연동
-  useEffect(() => {
+    // 현재 queryKeyword와 currentPage에 기반한 URL을 정의합니다
+    const categoryUrl = `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`;
+    const listUrl = `${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`;
+
     (async () => {
       try {
-        const response = await axios.get<BookData>(`${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`);
+        const response = await axios.get<BookData>(queryKeyword !== "" ? categoryUrl : listUrl);
         if (response.status === 200) {
           setTotalPages(response.data.totalPages);
-          setBookList(response.data.content);
-          setCategory(fetchUrl.split("=")[1]);
+          // 각 북 객체에 대한 좋아요 데이터를 추가
+          const booksWithLikes = response.data.content.map((book) => {
+            // 좋아요 데이터를 해당 북 객체에 추가
+            const bookWithLikeData = { ...book, likeData: book.likedBook };
+
+            //좋아요 상태값 설정
+            bookWithLikeData.likeData.forEach((like) => {
+              if (like.profileId === profileData.profileId) {
+                setStoreHeartStates((prevStates) => ({
+                  ...prevStates,
+                  [bookWithLikeData.id]: like.likes,
+                }));
+              }
+            });
+
+            return bookWithLikeData;
+          });
+
+          // 설정된 북 목록
+          setBookList(booksWithLikes);
+          setCategory(searchQuery || fetchUrl.split("=")[1]);
         }
       } catch (e: any) {
         console.log(e);
       }
     })();
-  }, [currentPage, fetchUrl]);
+  }, [searchQuery, currentPage, params, fetchUrl]);
 
   return (
     <>
@@ -163,10 +210,10 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <li
                       onClick={() => {
-                        handleBookSave(item.itemId);
+                        handleBookSave(item.id);
                       }}>
                       <button className="btn">
-                        {storeHeartStates[item.itemId] ? (
+                        {storeHeartStates[item.id] ? (
                           <Favorite className="material-icons-outlined heart" />
                         ) : (
                           <FavoriteBorder className="material-icons-outlined" />
@@ -174,16 +221,31 @@ const BookList = ({ fetchUrl }) => {
                         선호작품
                       </button>
                     </li>
+                    {/* {item.likedBook.some((like) => like.profileId === profileData.profileId && like.likes) ? (
+                      <li
+                        key={item.id}
+                        onClick={() => {
+                          handleBookSave(item.id);
+                        }}>
+                        <button className="btn">
+                          <Favorite className="material-icons-outlined heart" />
+                          선호작품
+                        </button>
+                      </li>
+                    ) : (
+                      <li
+                        key={item.id}
+                        onClick={() => {
+                          handleBookSave(item.id);
+                        }}>
+                        <button className="btn">
+                          <FavoriteBorder className="material-icons-outlined" />
+                          선호작품
+                        </button>
+                      </li>
+                    )} */}
                     <li>
-                      <Button
-                        gubun="KOR"
-                        itemId={item.itemId}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={item.priceStandard.toString()}
-                        priceSales={item.priceSales.toString()}
-                        quantity="1"
-                      />
+                      <Button itemId={item.itemId} quantity={1} />
                     </li>
                   </ul>
                 </article>
