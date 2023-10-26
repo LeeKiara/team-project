@@ -1,24 +1,19 @@
 import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
-import { useProfileData } from "@/modules/cart/userdata";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { getCookie } from "@/utils/cookie";
 import { BookComment } from "../data";
 
 interface CommentModalProps {
   comments: BookComment[];
   onConfirm: (itemId: number, modifyValue: string) => void;
   onClick: (itemId: number) => void;
+  nickname?: string;
 }
 
-const CommentList = ({ comments, onClick, onConfirm }: CommentModalProps) => {
+const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalProps) => {
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
   const [showModify, setShowModify] = useState({});
   const [modifyValue, setModifyValue] = useState("");
-
-  //유저정보
-  const { profileData } = useProfileData();
   const modifyRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleShowModify = (itemId: number) => {
@@ -77,7 +72,7 @@ const CommentList = ({ comments, onClick, onConfirm }: CommentModalProps) => {
                   ) : (
                     <p>{item.comment}</p>
                   )}
-                  {item.nickname === profileData.nickname ? (
+                  {item.nickname === nickname ? (
                     <div className="modifyBtn">
                       <button
                         onClick={

@@ -7,13 +7,10 @@ import { Favorite, FavoriteBorder, PartyMode, ShoppingCart } from "@mui/icons-ma
 import axios from "axios";
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
-import { useProfileData } from "@/modules/cart/userdata";
+import { ProfileData } from "@/modules/cart/userdata";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
-  //유저정보
-  const { profileData } = useProfileData();
-
   const MAX_LIST = 5; // 고정된 리스트 갯수
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
@@ -24,6 +21,9 @@ const BookList = ({ fetchUrl }) => {
   const [category, setCategory] = useState("");
   //선호작품
   const [storeHeartStates, setStoreHeartStates] = useState({});
+  const [likeList, setLikeList] = useState<LikesItem[] | null>(null);
+
+  //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
 
   //페이징 화살표 상태값
@@ -35,26 +35,31 @@ const BookList = ({ fetchUrl }) => {
 
   //선호작품
   const handleBookSave = async (itemId: number) => {
-    setStoreHeartStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
-    const likes = !storeHeartStates[itemId];
-    console.log(likes);
-    const newStoreHearts = {
-      like: likes,
-    };
-    try {
-      const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status === 200) {
-        console.log("선호작품 등록/수정 성공..!");
+    if (!token) {
+      alert("로그인해주세요.");
+      return;
+    } else {
+      setStoreHeartStates((prevStates) => ({
+        ...prevStates,
+        [itemId]: !prevStates[itemId],
+      }));
+      const likes = !storeHeartStates[itemId];
+      console.log(likes);
+      const newStoreHearts = {
+        like: likes,
+      };
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("선호작품 등록/수정 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "선호작품 오류");
       }
-    } catch (e: any) {
-      console.log(e + "선호작품 오류");
     }
   };
 
@@ -128,6 +133,39 @@ const BookList = ({ fetchUrl }) => {
   //   })();
   // }, [currentPage, fetchUrl]);
 
+  useEffect(() => {
+    if (token) {
+      // 각 북 객체에 대한 좋아요 데이터를 추가
+      bookList.map((book) => {
+        // 좋아요 데이터를 해당 북 객체에 추가
+        const bookWithLikeData = { ...book, likeData: book.likedBook };
+        setLikeList(bookWithLikeData.likeData);
+        (async () => {
+          try {
+            const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            const profileData = response.data;
+            //좋아요 상태값 설정
+            bookWithLikeData.likeData.forEach((like) => {
+              if (like.profileId === profileData.profileId) {
+                setStoreHeartStates((prevStates) => ({
+                  ...prevStates,
+                  [bookWithLikeData.id]: like.likes,
+                }));
+              }
+            });
+          } catch (e: any) {
+            console.log(e);
+          }
+        })();
+        return bookWithLikeData;
+      });
+    }
+  }, [bookList]);
+
   //페이징/카테고리 조회 통합
   useEffect(() => {
     const queryKeyword = params.get("option") || "";
@@ -143,26 +181,10 @@ const BookList = ({ fetchUrl }) => {
         const response = await axios.get<BookData>(queryKeyword !== "" ? categoryUrl : listUrl);
         if (response.status === 200) {
           setTotalPages(response.data.totalPages);
-          // 각 북 객체에 대한 좋아요 데이터를 추가
-          const booksWithLikes = response.data.content.map((book) => {
-            // 좋아요 데이터를 해당 북 객체에 추가
-            const bookWithLikeData = { ...book, likeData: book.likedBook };
-
-            //좋아요 상태값 설정
-            bookWithLikeData.likeData.forEach((like) => {
-              if (like.profileId === profileData.profileId) {
-                setStoreHeartStates((prevStates) => ({
-                  ...prevStates,
-                  [bookWithLikeData.id]: like.likes,
-                }));
-              }
-            });
-
-            return bookWithLikeData;
-          });
 
           // 설정된 북 목록
-          setBookList(booksWithLikes);
+          // setBookList(booksWithLikes);
+          setBookList(response.data.content);
           setCategory(searchQuery || fetchUrl.split("=")[1]);
         }
       } catch (e: any) {

@@ -24,7 +24,7 @@ const Home = () => {
     (async () => {
       const response = await axios.get<BookItem[]>(`http://localhost:8081/books`);
       if (response.status === 200) {
-        console.log(response);
+        console.log(response.data);
         console.log("응답 성공!");
       }
     })();
