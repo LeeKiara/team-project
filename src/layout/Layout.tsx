@@ -9,6 +9,7 @@ import {
   ExitToApp,
   ShoppingCart,
   ShoppingCartOutlined,
+  LibraryBooks,
 } from "@mui/icons-material";
 
 const Layout = () => {
@@ -66,7 +67,8 @@ const Layout = () => {
                 </button>
               )}
               <button onClick={handleMoveCart}>
-                <ShoppingCartOutlined className="material-symbols-outlined" />
+                {/* <ShoppingCartOutlined className="material-symbols-outlined" /> */}
+                <LibraryBooks className="material-symbols-outlined" />
               </button>
             </aside>
             <div id="searchForm">

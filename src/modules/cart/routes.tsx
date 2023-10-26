@@ -41,5 +41,5 @@ export const cartRoutes = [
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
-  <Route key="test" path="test" element={<Test />} />,
+  <Route key="test" path="test" element={<OrderList />} />,
 ];

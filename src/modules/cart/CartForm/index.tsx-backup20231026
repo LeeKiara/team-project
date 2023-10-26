@@ -284,23 +284,24 @@ const CartForm = () => {
         );
       });
 
+      selectedItems.map((checkedItemId, index));
       // const checkedCartItems = createSelectedCartList(stateCartData, qtys);
-      const checkedCartItems = cartlist
-        .map((item, index) => ({
-          itemId: item.itemId,
-          title: item.title,
-          cover: item.cover,
-          priceStandard: item.priceStandard,
-          priceSales: item.priceSales,
-          quantity: qtys[index],
-          isChecked: checkboxes[index], // 체크박스 상태 사용
-          gubun: "",
-        }))
-        .filter((item) => item.isChecked);
+      // const checkedCartItems = cartlist
+      //   .map((item, index) => ({
+      //     itemId: item.itemId,
+      //     title: item.title,
+      //     cover: item.cover,
+      //     priceStandard: item.priceStandard,
+      //     priceSales: item.priceSales,
+      //     quantity: qtys[index],
+      //     isChecked: checkboxes[index], // 체크박스 상태 사용
+      //     gubun: "",
+      //   }))
+      //   .filter((item) => item.isChecked);
 
-      checkedCartItems.map((item, index) => {
-        console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
-      });
+      // checkedCartItems.map((item, index) => {
+      //   console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+      // });
 
       setStateCartData(checkedCartItems);
 
