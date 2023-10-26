@@ -11,9 +11,12 @@ const OrderDetail = () => {
 
   // 주문번호 파라메터 받음
   const { orderId } = useParams();
-  const testOrderId = "1";
+  const testOrderId = "2023123456789";
 
   const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
+
+  let sumOrderPrice = 0;
+  let deliveryAmt = 0;
 
   // 주문내역 조회 결과
   if (orderDetailData) {
@@ -21,32 +24,40 @@ const OrderDetail = () => {
     console.log(orderDetailData.paymentMethod + "," + orderDetailData.paymentPrice + "," + orderDetailData.postcode);
 
     orderDetailData.orderItems.map((item) => {
-      console.log(item.itemId + "," + item.title);
+      sumOrderPrice += item.orderPrice;
+      console.log(item.itemId + "," + item.title + "," + item.orderPrice);
     });
+
+    if (sumOrderPrice < 20000) {
+      deliveryAmt = 2000;
+    }
+    console.log("sumOrderPrice:" + sumOrderPrice + ", deliveryAmt:" + deliveryAmt);
   }
 
-  // 주문/결제 데이터
-  // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
-  // const { cartData: orderList, isCartDataValidating } = useCartData();
-  // const { booksItem: books, isBookItemValidating } = useBooksItem();
-  // alert("2. orderId " + orderId);
+  // 주문취소 처리
+  const handleOrderCancel = () => {
+    alert("주문취소");
 
-  // useEffect(() => {
-  //   if (isFetchOrderData) {
-  //     (async () => {
-  //       try {
-  //         // http://localhost:8081/order/detail/2023123456789
-  //         const response = await http.get<OrderDeliveryResponse>(`/order/detail/${orderId}`);
-  //         if (response.status === 200) {
-  //           console.log(response);
-  //         }
-  //         setIsFetchOrderData(false);
-  //       } catch (e: any) {
-  //         console.log(e);
-  //       }
-  //     })();
-  //   }
-  // }, [isFetchOrderData]);
+    (async () => {
+      try {
+        // http://localhost:8081/order/detail/cancel/2023123456789
+        const response = await http.put(`/order/detail/cancel/${orderId}`);
+        // "/order/detail/cancel", orderId);
+
+        if (response.status === 200) {
+          console.log("주문 취소 완료" + response.data);
+
+          alert("주문이 취소 되었습니다.");
+
+          // navigate(`/order/done/${orderId}`);
+        }
+      } catch (e: any) {
+        console.log(e);
+        alert("시스템 오류가 발생하였습니다.");
+        navigate("/");
+      }
+    })();
+  };
 
   // 주문목록 화면으로 이동
   const handleOrderList = () => {
@@ -68,9 +79,9 @@ const OrderDetail = () => {
           <article>
             <div></div>
             {/* 주문일자 / 주문번호 */}
-            <div className="order_summary_box">
+            <div className="order-summary-box">
               <div className="box_header">
-                <div className="label">
+                <div className="order-date-no">
                   <span className="order_date" data-order-date="">
                     <FormatDate date={orderDetailData.orderDate} />
                   </span>
@@ -81,6 +92,10 @@ const OrderDetail = () => {
                       {orderDetailData.orderId}
                     </span>
                   </span>
+                </div>
+                <div className="order-cancel">
+                  {orderDetailData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>}
+                  {orderDetailData.orderStatus === "2" && <p>주문취소완료</p>}
                 </div>
               </div>
             </div>
@@ -94,21 +109,21 @@ const OrderDetail = () => {
                   <dt>주문금액</dt>
                   <dd>
                     <span></span>
-                    <span>원</span>
+                    <span>{sumOrderPrice.toLocaleString()}원</span>
                   </dd>
                 </dl>
-                <dl>
+                {/* <dl>
                   <dt>상품금액</dt>
                   <dd>
                     <span></span>
                     <span>원</span>
                   </dd>
-                </dl>
+                </dl> */}
                 <dl>
                   <dt>배송비</dt>
                   <dd>
                     <span></span>
-                    <span>원</span>
+                    <span>{deliveryAmt.toLocaleString()}원</span>
                   </dd>
                 </dl>
               </div>
