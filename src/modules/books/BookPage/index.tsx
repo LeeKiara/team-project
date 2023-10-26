@@ -5,15 +5,22 @@ import { BookComment, BookItem, LikesItem } from "../data";
 import axios from "axios";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
-import { useProfileData } from "@/modules/cart/userdata";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
+
+interface ProfileData {
+  profileId: number;
+  nickname: string;
+  phone?: string;
+  email?: string;
+}
 
 const BookPage = () => {
   const token = getCookie("token");
 
-  //유저정보
-  const { profileData } = useProfileData();
+  //유저 닉네임
+  const [profile, setProfile] = useState<ProfileData | null>(null);
+
   //디테일 페이지 상태값
   const [detail, setDetail] = useState<BookItem | null>(null);
   //디테일 페이지 id가져오기
@@ -52,26 +59,30 @@ const BookPage = () => {
 
   //선호작품
   const handleBookSave = async (itemId: number) => {
-    const newParam = newId ? 0 : null;
-    const likes = !showHeartState;
-    console.log(likes);
-    const newStoreHearts = {
-      new: newParam,
-      like: likes,
-    };
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      const newParam = newId ? 0 : null;
+      const likes = !showHeartState;
+      console.log(likes);
+      const newStoreHearts = {
+        new: newParam,
+        like: likes,
+      };
 
-    setShowHeartState(likes);
-    try {
-      const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status === 200) {
-        console.log("선호작품 등록/수정 성공..!");
+      setShowHeartState(likes);
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("선호작품 등록/수정 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "선호작품 오류");
       }
-    } catch (e: any) {
-      console.log(e + "선호작품 오류");
     }
   };
 
@@ -92,52 +103,56 @@ const BookPage = () => {
 
   //댓글추가
   const handleSaveComment = (e) => {
-    e.preventDefault();
-    console.log(commentText.current.value);
-    const newComment = commentText.current.value;
-    if (newComment.trim() === "") {
-      // 댓글이 공백일 경우 아무 작업도 수행하지 않음
-      alert("댓글을 입력해주세요");
-      return;
-    }
-    const time = new Date().getTime();
-    console.log(time);
-    const newParam = newId ? 0 : null;
-    console.log(newParam + "신간인가");
-    const newCommentItem = {
-      new: newParam,
-      comment: commentText.current.value,
-      nickname: profileData.nickname,
-      createdDate: time,
-    };
-
-    const fetchBookComment = async (itemId: string) => {
-      try {
-        const response = await axios.post<BookComment>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.status === 201) {
-          console.log("댓글추가성공");
-          setCommentList((prevComments) => [response.data, ...(prevComments || [])]);
-        }
-      } catch (e: any) {
-        console.log(e + "댓글 추가 오류");
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      e.preventDefault();
+      console.log(commentText.current.value);
+      const newComment = commentText.current.value;
+      if (newComment.trim() === "") {
+        // 댓글이 공백일 경우 아무 작업도 수행하지 않음
+        alert("댓글을 입력해주세요");
+        return;
       }
-    };
+      const time = new Date().getTime();
+      console.log(time);
+      const newParam = newId ? 0 : null;
+      console.log(newParam + "신간인가");
+      const newCommentItem = {
+        new: newParam,
+        comment: commentText.current.value,
+        nickname: profile.nickname,
+        createdDate: time,
+      };
 
-    if (id) {
-      console.log(id + "도서댓글 추가");
-      fetchBookComment(id);
-    } else if (newId) {
-      console.log(newId + "신간댓글 추가");
-      fetchBookComment(newId);
+      const fetchBookComment = async (itemId: string) => {
+        try {
+          const response = await axios.post<BookComment>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 201) {
+            console.log("댓글추가성공");
+            setCommentList((prevComments) => [response.data, ...(prevComments || [])]);
+          }
+        } catch (e: any) {
+          console.log(e + "댓글 추가 오류");
+        }
+      };
+
+      if (id) {
+        console.log(id + "도서댓글 추가");
+        fetchBookComment(id);
+      } else if (newId) {
+        console.log(newId + "신간댓글 추가");
+        fetchBookComment(newId);
+      }
+
+      // 댓글 입력창 비우기
+      commentText.current.value = "";
     }
-
-    // 댓글 입력창 비우기
-    commentText.current.value = "";
   };
 
   //댓글 삭제
@@ -198,17 +213,36 @@ const BookPage = () => {
   // }, [keyword]);
 
   useEffect(() => {
-    if (likeList && likeList.length > 0) {
-      console.log(likeList);
-      console.log(profileData.profileId);
-      const likeItem = likeList.find((item) => item.profileId === profileData.profileId);
-      if (likeItem && likeItem.likes) {
-        setShowHeartState(true);
-      } else {
-        setShowHeartState(false);
+    if (token) {
+      if (likeList && likeList.length > 0) {
+        console.log(likeList);
+        console.log(profile.profileId);
+        const likeItem = likeList.find((item) => item.profileId === profile.profileId);
+        if (likeItem && likeItem.likes) {
+          setShowHeartState(true);
+        } else {
+          setShowHeartState(false);
+        }
       }
     }
   }, [likeList]);
+
+  useEffect(() => {
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfile(response.data);
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [detail]);
 
   //서버 화면 조회
   useEffect(() => {
@@ -404,7 +438,12 @@ const BookPage = () => {
                 </button>
               </label>
             </form>
-            <CommentList comments={commentList} onClick={handleDelete} onConfirm={handleModify} />
+            <CommentList
+              comments={commentList}
+              nickname={profile?.nickname}
+              onClick={handleDelete}
+              onConfirm={handleModify}
+            />
           </footer>
         </main>
       </PageContainer>

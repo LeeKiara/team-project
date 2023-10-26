@@ -3,6 +3,7 @@ import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
+<<<<<<< HEAD
 import {
   AccountCircle,
   AccountCircleOutlined,
@@ -11,7 +12,9 @@ import {
   ShoppingCartOutlined,
   LibraryBooks,
 } from "@mui/icons-material";
-
+=======
+import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
+>>>>>>> master
 
 const Layout = () => {
   const navigate = useNavigate();
