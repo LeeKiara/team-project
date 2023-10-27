@@ -21,7 +21,8 @@ const BookList = ({ fetchUrl }) => {
   const [category, setCategory] = useState("");
   //선호작품
   const [storeHeartStates, setStoreHeartStates] = useState({});
-  const [likeList, setLikeList] = useState<LikesItem[] | null>(null);
+  //유저정보
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
@@ -133,35 +134,34 @@ const BookList = ({ fetchUrl }) => {
   //   })();
   // }, [currentPage, fetchUrl]);
 
+  //내 선호작품 표시
   useEffect(() => {
     if (token) {
-      // 각 북 객체에 대한 좋아요 데이터를 추가
+      (async () => {
+        try {
+          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfileData(response.data);
+          //좋아요 상태값 설정
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
       bookList.map((book) => {
         // 좋아요 데이터를 해당 북 객체에 추가
         const bookWithLikeData = { ...book, likeData: book.likedBook };
-        setLikeList(bookWithLikeData.likeData);
-        (async () => {
-          try {
-            const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            const profileData = response.data;
-            //좋아요 상태값 설정
-            bookWithLikeData.likeData.forEach((like) => {
-              if (like.profileId === profileData.profileId) {
-                setStoreHeartStates((prevStates) => ({
-                  ...prevStates,
-                  [bookWithLikeData.id]: like.likes,
-                }));
-              }
-            });
-          } catch (e: any) {
-            console.log(e);
+
+        bookWithLikeData.likeData.forEach((like) => {
+          if (like.profileId === profileData.profileId) {
+            setStoreHeartStates((prevStates) => ({
+              ...prevStates,
+              [bookWithLikeData.id]: like.likes,
+            }));
           }
-        })();
-        return bookWithLikeData;
+        });
       });
     }
   }, [bookList]);

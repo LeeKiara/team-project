@@ -156,7 +156,7 @@ export const PageContainer = styled.div`
   /* footer {
     border: 1px solid cadetblue;
   } */
-  footer > form {
+  .comment-list > form {
     width: 70%;
     gap: 10px;
     margin: auto;
@@ -164,30 +164,30 @@ export const PageContainer = styled.div`
     background-color: #f8f8f8;
     padding-bottom: 30px;
   }
-  footer > form > h4 {
+  .comment-list > form > h4 {
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     margin-left: 30px;
     margin-bottom: 5px;
   }
-  footer > form > h4 > sub {
+  .comment-list > form > h4 > sub {
     font-size: small;
     margin-left: 5px;
     font-weight: lighter;
   }
-  footer > form > label {
+  .comment-list > form > label {
     display: flex;
     justify-content: center;
   }
-  footer > form > label > textarea {
+  .comment-list > form > label > textarea {
     padding: 8px;
     line-height: 1.5;
     height: 80px;
     resize: none;
     overflow: hidden;
   }
-  footer > form > label > button {
+  .comment-list > form > label > button {
     font-size: 16px;
     background-color: #fafafa;
   }
