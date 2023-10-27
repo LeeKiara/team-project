@@ -63,8 +63,9 @@ export const SignUpContainer = styled.div`
     font-weight: 700;
     line-height: 22px;
     color: #fff;
+    cursor: pointer;
   }
-  section > form > div:nth-of-type(2) {
+  .prerequisite {
     font-size: small;
     color: crimson;
   }

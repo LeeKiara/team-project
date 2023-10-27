@@ -37,20 +37,20 @@ const SignUp = () => {
   const [nicknameValue, setNicknameValue] = useState(null);
   const [phoneValue, setPhoneValue] = useState(null);
   const [emailValue, setEmailValue] = useState(null);
+  const [birthValue, setBirthValue] = useState(null);
+  const [bookmarkValue, setBookmarkValue] = useState(null);
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    console.log(userIdValue);
-    console.log(passwordValue);
-    console.log(nicknameValue);
-    console.log(phoneValue);
-    console.log(emailValue);
+
     const signupRequest = {
       userid: userIdValue,
       password: passwordValue,
       nickname: nicknameValue,
       phone: phoneValue,
       email: emailValue,
+      birth: birthValue,
+      bookmark: bookmarkValue,
     };
     (async () => {
       if (
@@ -58,7 +58,9 @@ const SignUp = () => {
         passwordValue !== "" &&
         nicknameValue !== "" &&
         phoneValue !== "" &&
-        emailValue !== ""
+        emailValue !== "" &&
+        birthValue !== "" &&
+        bookmarkValue !== ""
       ) {
         try {
           const response = await axios.post(`http://localhost:8081/auth/signup`, signupRequest);
@@ -135,33 +137,28 @@ const SignUp = () => {
                     }}
                   />
                 </label> */}
-              {passwordValue === verifiedPasswordValue ? (
-                <label className={`verifiedPassword ${verify ? "" : "verify"}`}>
-                  <LockPerson className="material-icons-outlined" />
-                  <input
-                    type="password"
-                    placeholder="비밀번호 확인"
-                    ref={verifiedPassword}
-                    onChange={(e) => {
-                      setVerifiedPasswordValue(e.target.value);
-                    }}
-                  />
-                </label>
-              ) : (
-                <label className={`password ${verify ? "" : "verify"}`}>
-                  <LockOpen className="material-icons-outlined" />
-                  <input
-                    type="password"
-                    placeholder="비밀번호 확인"
-                    ref={verifiedPassword}
-                    onChange={(e) => {
-                      setVerifiedPasswordValue(e.target.value);
-                    }}
-                  />
-                </label>
-              )}
+              <label
+                className={
+                  passwordValue === verifiedPasswordValue
+                    ? verify
+                      ? "verifiedPassword"
+                      : "password"
+                    : verify
+                    ? "verifiedPassword verify"
+                    : "password verify"
+                }>
+                <LockPerson className="material-icons-outlined" />
+                <input
+                  type="password"
+                  placeholder="비밀번호 확인"
+                  ref={verifiedPassword}
+                  onChange={(e) => {
+                    setVerifiedPasswordValue(e.target.value);
+                  }}
+                />
+              </label>
             </div>
-            <div>
+            <div className="prerequisite">
               {userIdValue === "" && <p>* 아이디를 입력해주세요.</p>}
               {passwordValue === "" && verify && <p>* 비밀번호를 입력해주세요.</p>}
             </div>
@@ -199,17 +196,34 @@ const SignUp = () => {
                   }}
                 />
               </label>
-              <label>
+              <label className={birthValue === "" ? "verify" : ""}>
                 <CalendarMonth className="material-icons-outlined" />
-                <input type="text" placeholder="생년월일 7자리" ref={birth} />
+                <input
+                  type="text"
+                  placeholder="생년월일 7자리"
+                  ref={birth}
+                  onChange={(e) => {
+                    setBirthValue(e.target.value);
+                  }}
+                />
               </label>
-              <label>
+              <label className={bookmarkValue === "" ? "verify" : ""}>
                 <Bookmarks className="material-icons-outlined" />
-                <input type="text" placeholder="선호장르" ref={bookmarks} />
+                <input
+                  type="text"
+                  placeholder="선호장르"
+                  ref={bookmarks}
+                  onChange={(e) => {
+                    setBookmarkValue(e.target.value);
+                  }}
+                />
               </label>
-              <div>
-                {userIdValue === "" && <p>* 아이디를 입력해주세요.</p>}
-                {passwordValue === "" && verify && <p>* 비밀번호를 입력해주세요.</p>}
+              <div className="prerequisite">
+                {nicknameValue === "" && <p>* 닉네임을 입력해주세요.</p>}
+                {phoneValue === "" && <p>* 전화번호를 입력해주세요.</p>}
+                {emailValue === "" && <p>* 이메일을 입력해주세요.</p>}
+                {birthValue === "" && <p>* 생년월일을 입력해주세요.</p>}
+                {bookmarkValue === "" && <p>* 선호장르를 입력해주세요.</p>}
               </div>
             </div>
             <button
