@@ -17,7 +17,7 @@ export const LoginCantailner = styled.div`
     text-align: center;
   }
   form {
-    width: 35%;
+    width: 340px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -62,7 +62,7 @@ export const LoginCantailner = styled.div`
     vertical-align: middle;
   }
   div {
-    width: 35%;
+    width: 340px;
     margin: auto;
     margin-top: 40px;
   }

@@ -5,6 +5,7 @@ export const CommnetListContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-bottom: 50px;
   }
   .commentList > div {
     border-top: 1px solid black;
@@ -29,8 +30,10 @@ export const CommnetListContainer = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  .commentList > div > span:nth-of-type(2) > p {
+  .commentList > div > span:nth-of-type(2) > div > p {
     /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-between;
     padding-top: 5px;
     padding-left: 10px;
   }
@@ -47,7 +50,7 @@ export const CommnetListContainer = styled.div`
     flex-direction: column;
     gap: 8px;
   }
-  .commentList > div > span:nth-of-type(2) > div > button {
+  .modifyBtn {
     background-color: #fafafa;
     /* border-radius: 5px; */
     font-size: 16px;

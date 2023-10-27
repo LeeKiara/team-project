@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
 import { BookComment, BookItem, LikesItem } from "../data";
 import axios from "axios";
@@ -17,6 +17,7 @@ interface ProfileData {
 
 const BookPage = () => {
   const token = getCookie("token");
+  const navigate = useNavigate();
 
   //유저 닉네임
   const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -105,6 +106,14 @@ const BookPage = () => {
   const handleSaveComment = (e) => {
     if (!token) {
       alert("로그인 후 이용해주세요.");
+      if (id) {
+        console.log("이동한다!");
+        console.log(id);
+        navigate(`/page?id=${id}`);
+      } else {
+        navigate(`/page?new=${newId}`);
+      }
+      return;
     } else {
       e.preventDefault();
       console.log(commentText.current.value);
@@ -443,6 +452,8 @@ const BookPage = () => {
               nickname={profile?.nickname}
               onClick={handleDelete}
               onConfirm={handleModify}
+              id={id}
+              newId={newId}
             />
           </footer>
         </main>

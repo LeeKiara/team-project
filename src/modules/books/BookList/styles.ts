@@ -28,6 +28,7 @@ export const BookListContainer = styled.div`
     height: 180px;
     margin-right: 16px;
     margin-top: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
   section > article > div > div {
     flex: 1;
@@ -39,6 +40,7 @@ export const BookListContainer = styled.div`
     font-weight: bold;
   }
   section > article > div > div > p {
+    margin: 10px 0px;
     font-size: 16px;
   }
   section > article > div > div > p:nth-of-type(1) {

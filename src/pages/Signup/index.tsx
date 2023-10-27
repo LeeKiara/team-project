@@ -103,7 +103,7 @@ const SignUp = () => {
       <SignUpContainer>
         <section>
           <Link to="/">
-            <h1>brunchStory</h1>
+            <h1>BrunchStory</h1>
           </Link>
           <form>
             <div>

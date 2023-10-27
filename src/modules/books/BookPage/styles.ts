@@ -12,6 +12,7 @@ export const PageContainer = styled.div`
     width: 60%;
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 50px;
   }
   main > article {
     display: flex;

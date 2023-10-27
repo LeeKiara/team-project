@@ -53,12 +53,14 @@ export const BookBestContainer = styled.div`
   }
   section > article > div > div > dl {
     display: flex;
+    flex-direction: column;
     gap: 10px;
   }
   section > article > ul {
     margin: 10px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
     flex: 0.2;
   }
   section > article > ul li {
@@ -96,18 +98,27 @@ export const BookBestContainer = styled.div`
     margin-right: 5px;
   }
 
-  @media (min-width: 55rem) {
+  @media (min-width: 80rem) {
+    section > article {
+      flex-direction: row;
+    }
     section > article > div {
       flex-direction: row;
     }
-  }
-  @media (min-width: 85rem) {
-    section > article {
+    section > article > div > div > dl {
       flex-direction: row;
+    }
+    section > article > ul {
+      gap: 0px;
     }
     section > article > ul {
       flex-direction: column;
       justify-content: space-evenly;
     }
   }
+  /* @media (min-width: 85rem) {
+    section > article {
+      flex-direction: row;
+    }
+  } */
 `;
