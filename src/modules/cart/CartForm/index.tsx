@@ -6,6 +6,7 @@ import OrderButton from "@/components/OrderButton";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
 import http from "@/utils/http";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const CartForm = () => {
   // 장바구니 캐시 데이터
@@ -365,8 +366,10 @@ const CartForm = () => {
           <article>
             <div className="box-submit-payment">
               <dl>
-                <dt>주의하세요.</dt>
-                <dd>· 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
+                <dt>
+                  <ErrorOutlineIcon></ErrorOutlineIcon>&nbsp;&nbsp;주의하세요.
+                </dt>
+                <dd> 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
               </dl>
 
               {/* <span className="btn-order">
@@ -382,6 +385,30 @@ const CartForm = () => {
               {isOrder && <OrderButton cartBooks={stateCartData} />}
 
               {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
+            </div>
+          </article>
+          <article className="event-layer">
+            <div>
+              <div>
+                <a href="https://shopping.naver.com/plan/details/687714" target="new">
+                  <img src="https://s.pstatic.net/static/www/mobile/edit/20231016_1095/upload_1697416662735yT2fo.png" />
+                </a>
+                <div className="event-layer-sub">
+                  <a href="https://shopping.naver.com/plan/details/687714" target="new">
+                    상세보기
+                  </a>
+                </div>
+              </div>
+              <div>
+                <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                  <img src="https://s.pstatic.net/static/www/mobile/edit/20230524_1095/upload_1684893984366Ka03q.jpg" />
+                </a>
+                <div className="event-layer-sub">
+                  <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                    상세보기
+                  </a>
+                </div>
+              </div>
             </div>
           </article>
         </section>

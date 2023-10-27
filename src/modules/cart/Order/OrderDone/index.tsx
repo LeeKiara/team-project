@@ -49,8 +49,6 @@ const OrderDone = () => {
               </div>
             </div>
           </article>
-
-          <article className=""></article>
         </section>
       </OrderDoneContainer>
       {/* 결제 정보 확인 모달창 띄우기 */}

@@ -22,12 +22,13 @@ http.interceptors.response.use(
     if (status === 401 || status === 403) {
       alert("인증이 필요하거나 토큰이 만료되었습니다.");
       //로그인 페이지로 이동
-      // window.location.href = "/"
+      window.location.href = "/login";
     }
 
     if (status === 404) {
       alert("데이터가 존재하지 않습니다.");
     }
+
     // return Promise.reject(error); <<화면에 error가 뜸.
     return; //이렇게 하면 오류를 캐치만 하고 끝냄.
   },
