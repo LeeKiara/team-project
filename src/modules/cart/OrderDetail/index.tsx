@@ -11,9 +11,9 @@ const OrderDetail = () => {
 
   // 주문번호 파라메터 받음
   const { orderId } = useParams();
-  const testOrderId = "2023123456789";
+  // const testOrderId = "2023123456789";
 
-  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
+  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
 
   let sumOrderPrice = 0;
   let deliveryAmt = 0;
@@ -21,7 +21,15 @@ const OrderDetail = () => {
   // 주문내역 조회 결과
   if (orderDetailData) {
     console.log("orderDetailData => " + orderDetailData);
-    console.log(orderDetailData.paymentMethod + "," + orderDetailData.paymentPrice + "," + orderDetailData.postcode);
+    console.log(
+      "paymentMethod:" +
+        orderDetailData.paymentMethod +
+        ",paymentPrice:" +
+        orderDetailData.paymentPrice +
+        ",postcode:" +
+        orderDetailData.postcode,
+      ",orderStatus:" + orderDetailData.orderStatus,
+    );
 
     orderDetailData.orderItems.map((item) => {
       sumOrderPrice += item.orderPrice;
@@ -36,27 +44,27 @@ const OrderDetail = () => {
 
   // 주문취소 처리
   const handleOrderCancel = () => {
-    alert("주문취소");
+    const isConfirmed = window.confirm("주문을 취소하시겠습니까?");
+    if (isConfirmed) {
+      (async () => {
+        try {
+          // http://localhost:8081/order/detail/cancel/2023123456789
+          const response = await http.put(`/order/detail/cancel/${orderId}`);
 
-    (async () => {
-      try {
-        // http://localhost:8081/order/detail/cancel/2023123456789
-        const response = await http.put(`/order/detail/cancel/${orderId}`);
-        // "/order/detail/cancel", orderId);
+          if (response.status === 200) {
+            console.log("주문 취소 완료" + response.data);
 
-        if (response.status === 200) {
-          console.log("주문 취소 완료" + response.data);
+            alert("주문이 취소 되었습니다.");
 
-          alert("주문이 취소 되었습니다.");
-
-          // navigate(`/order/done/${orderId}`);
+            // navigate(`/order/done/${orderId}`);
+          }
+        } catch (e: any) {
+          console.log(e);
+          alert("시스템 오류가 발생하였습니다.");
+          navigate("/");
         }
-      } catch (e: any) {
-        console.log(e);
-        alert("시스템 오류가 발생하였습니다.");
-        navigate("/");
-      }
-    })();
+      })();
+    }
   };
 
   // 주문목록 화면으로 이동

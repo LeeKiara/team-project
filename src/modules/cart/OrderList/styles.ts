@@ -123,20 +123,32 @@ export const OrderListContainer = styled.div`
     font-family: "Noto Sans KR", sans-serif;
   }
 
-  .btn-type1 button {
-    width: auto;
-    height: 40px;
-    border: 1px solid #e1e1e1;
-    border-radius: 4px;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    margin-left: 15px;
-    letter-spacing: 4px;
-    line-height: 38px;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0 28px;
+  .btn-orderlist {
+    button {
+      width: auto;
+      height: 38px;
+      border: 0;
+      border-radius: 4px;
+      box-sizing: border-box;
+      cursor: pointer;
+      display: block;
+      margin-top: 5px;
+      margin-left: 15px;
+      letter-spacing: 4px;
+      line-height: 38px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 28px;
+      border: 1px solid #3d4ed7;
+      color: #3d4ed7;
+      background-color: white;
+
+      /* 마우스 호버 시 스타일 변경 */
+      &:hover {
+        background: ${blueColor};
+        color: white;
+      }
+    }
   }
 
   .navigation-sub-type2 {

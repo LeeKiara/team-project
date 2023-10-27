@@ -56,13 +56,13 @@ export const OrderDetailContainer = styled.div`
 
   .box_header .order-cancel button {
     width: 80px;
-    height: 30px;
+    height: 40px;
     line-height: 1;
     text-align: center;
     font-size: 14px;
     font-weight: 500;
     border-radius: 4px;
-    background: ${grayColor};
+    background: ${blueColor};
     color: white;
     border: 0;
     cursor: pointer;

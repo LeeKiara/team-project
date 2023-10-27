@@ -130,6 +130,7 @@ const AdressWrapper = styled.div`
   background: #fff;
   z-index: 1;
   padding-left: 45px;
+  border-radius: 10px;
 
   .AdressWrapper-header {
     display: flex;
@@ -150,6 +151,7 @@ const AdressWrapper = styled.div`
     width: 470px;
     /* margin: 10px 50px; */
     border: 1px solid gray;
+    /* border-radius: 10px; */
   }
 `;
 
