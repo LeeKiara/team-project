@@ -83,13 +83,13 @@ const Home = () => {
 const renderBook = (books) => {
   return books.map((item) => (
     <li key={item.itemId}>
-      <Link to={`/page?keyword=${item.itemId}`}>
+      <Link to={`/page?id=${item.id}`}>
         <img src={item.cover} alt={item.title} />
+        <h5>{item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}</h5>
+        <h6>{item.author.length > 15 ? item.author.slice(0, 15) + "..." : item.author}</h6>
+        <span>{item.publisher}</span>
+        <span>판매가: {item.priceSales}원</span>
       </Link>
-      <h5>{item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}</h5>
-      <h6>{item.author.length > 15 ? item.author.slice(0, 15) + "..." : item.author}</h6>
-      <span>{item.publisher}</span>
-      <span>판매가: {item.priceSales}원</span>
     </li>
   ));
 };

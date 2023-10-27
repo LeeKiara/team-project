@@ -81,7 +81,7 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(2) > ul > li {
     width: 200px;
-    height: 330px;
+    height: 360px;
     padding: 15px;
     margin-bottom: 30px; /* 간격 설정 */
     margin: auto;
@@ -89,19 +89,24 @@ export const HomeContainer = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  div > section > article:nth-of-type(2) > ul > li > h5 {
+  div > section > article:nth-of-type(2) > ul > li > a {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  div > section > article:nth-of-type(2) > ul > li > a > h5 {
     font-weight: bold;
   }
-  div > section > article:nth-of-type(2) > ul > li > span:nth-of-type(1) {
+  div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(1) {
     font-size: small;
   }
-  div > section > article:nth-of-type(2) > ul > li > span:nth-of-type(2) {
+  div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(2) {
     font-weight: bold;
   }
   div > section > article:nth-of-type(2) > ul > li > a > img {
     margin: auto;
     width: 200px;
-    height: 260px;
+    height: 270px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
   div > article > figure > button {
@@ -126,6 +131,7 @@ export const HomeContainer = styled.div`
     }
     div > section > article:nth-of-type(2) > ul {
       flex-direction: row;
+      gap: 0;
     }
   }
   @media (min-width: 85rem) {

@@ -140,11 +140,13 @@ export const LayoutContainer = styled.div`
   }
   .cite > div > address > div {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 5px;
   }
-  /* @media (min-width: 120rem) {
-    footer > div {
-      width: 1141px;
+  @media (min-width: 100rem) {
+    .cite > div > address > div {
+      flex-direction: row;
+      gap: 20px;
     }
-  } */
+  }
 `;
