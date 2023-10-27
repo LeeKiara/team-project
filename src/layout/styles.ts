@@ -58,18 +58,21 @@ export const LayoutContainer = styled.div`
     justify-content: space-evenly;
   }
   .header-nav li {
-    list-style: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
   }
   #searchForm {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    gap: 10px;
     justify-content: center;
     margin-bottom: 20px;
   }
+  #searchForm > h1 {
+    display: flex;
+    justify-content: center;
+  }
   #searchForm > h1 > a {
-    vertical-align: middle;
     font-size: 30px;
   }
   #searchForm > form {
@@ -83,18 +86,18 @@ export const LayoutContainer = styled.div`
     border-radius: 30px;
   }
   #searchForm > form > label > select {
-    height: 75%;
+    height: 27px;
     border: none;
     border-right: 1.5px solid #fdbebe;
     vertical-align: top;
     margin-left: 20px;
-    margin-top: 5px;
+    margin-top: 7px;
     font-size: 16px;
     color: #767676;
   }
   #searchForm > form > label > input {
     width: 45%;
-    height: 60%;
+    height: 27px;
     border: none;
     vertical-align: top;
     margin-left: 18px;
@@ -111,5 +114,65 @@ export const LayoutContainer = styled.div`
     font-size: 40px;
     font-style: normal;
     cursor: pointer;
+  }
+  .cite {
+    padding: 30px 0px;
+    background-color: #253a42;
+    color: #6e7376;
+    border-top: 1px solid black;
+    font-weight: 100;
+  }
+  .cite > div {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cite > div > h1 {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .cite > div > h2 {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .cite > div > address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cite > div > address > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  @media (min-width: 55rem) {
+    .header-nav li {
+      font-size: 20px;
+    }
+    #searchForm {
+      flex-direction: row;
+      gap: 30px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    #searchForm > h1 > a {
+      vertical-align: middle;
+      font-size: 30px;
+    }
+    #searchForm > form > label > select {
+      height: 75%;
+      margin-top: 5px;
+    }
+    #searchForm > form > label > input {
+      width: 45%;
+      height: 60%;
+    }
+  }
+  @media (min-width: 100rem) {
+    .cite > div > address > div {
+      flex-direction: row;
+      gap: 20px;
+    }
   }
 `;

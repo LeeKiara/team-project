@@ -2,19 +2,31 @@ import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { BookComment } from "../data";
+import { getCookie } from "@/utils/cookie";
+import axios from "axios";
 
 interface CommentModalProps {
   comments: BookComment[];
   onConfirm: (itemId: number, modifyValue: string) => void;
   onClick: (itemId: number) => void;
   nickname?: string;
+  id?: string;
+  newId: string;
 }
 
-const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalProps) => {
+const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: CommentModalProps) => {
+  const token = getCookie("token");
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
+
+  const commentText = useRef() as MutableRefObject<HTMLTextAreaElement>;
+
   const [showModify, setShowModify] = useState({});
+  //수정 댓글
   const [modifyValue, setModifyValue] = useState("");
   const modifyRef = useRef() as MutableRefObject<HTMLInputElement>;
+
+  //답글 상태값
+  const [showReplyInput, setShowReplyInput] = useState(true);
 
   const handleShowModify = (itemId: number) => {
     setShowModify((prev) => ({
@@ -34,6 +46,68 @@ const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalPro
       [itemId]: false[itemId],
     }));
   };
+
+  //답글 추가 모달 상태값
+  const handleShowReplyInput = () => {
+    setShowReplyInput(true);
+  };
+
+  //댓글추가
+  const handleSaveComment = (e) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    } else {
+      e.preventDefault();
+      console.log(commentText.current.value);
+      const newComment = commentText.current.value;
+      if (newComment.trim() === "") {
+        // 댓글이 공백일 경우 아무 작업도 수행하지 않음
+        alert("댓글을 입력해주세요");
+        return;
+      }
+      const time = new Date().getTime();
+      console.log(time);
+      const newParam = newId ? 0 : null;
+      console.log(newParam + "신간인가");
+      const newCommentItem = {
+        new: newParam,
+        comment: commentText.current.value,
+        nickname: nickname,
+        createdDate: time,
+      };
+
+      const fetchBookComment = async (itemId: string) => {
+        try {
+          const response = await axios.post<BookComment>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 201) {
+            console.log("댓글추가성공");
+            setCommentList((prevComments) => [response.data, ...(prevComments || [])]);
+          }
+        } catch (e: any) {
+          console.log(e + "댓글 추가 오류");
+        }
+      };
+
+      if (id) {
+        console.log(id + "도서댓글 추가");
+        fetchBookComment(id);
+      } else if (newId) {
+        console.log(newId + "신간댓글 추가");
+        fetchBookComment(newId);
+      }
+
+      // 댓글 입력창 비우기
+      commentText.current.value = "";
+      setShowReplyInput(false);
+    }
+  };
+
   const handleCancle = () => {
     setShowModify(false);
     modifyRef.current.value = "";
@@ -70,11 +144,25 @@ const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalPro
                       }}
                     />
                   ) : (
-                    <p>{item.comment}</p>
+                    <div>
+                      <p>{item.comment}</p>
+                      {showReplyInput ? (
+                        <div>
+                          <textarea placeholder="댓글을 입력해주세요" cols={100} rows={5} ref={commentText}></textarea>
+                          <button
+                            onClick={(e) => {
+                              handleSaveComment(e);
+                            }}>
+                            등록
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
                   )}
                   {item.nickname === nickname ? (
-                    <div className="modifyBtn">
+                    <div>
                       <button
+                        className="modifyBtn"
                         onClick={
                           showModify[item.id]
                             ? (e) => {
@@ -87,6 +175,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalPro
                         {showModify[item.id] ? "완료" : "수정"}
                       </button>
                       <button
+                        className="modifyBtn"
                         onClick={
                           showModify[item.id]
                             ? handleCancle
@@ -97,6 +186,11 @@ const CommentList = ({ comments, onClick, onConfirm, nickname }: CommentModalPro
                         {showModify[item.id] ? "취소" : "삭제"}
                       </button>
                     </div>
+                  ) : null}
+                  {!showReplyInput ? (
+                    <button className="modifyBtn" onClick={handleShowReplyInput}>
+                      답글
+                    </button>
                   ) : null}
                 </span>
               </div>

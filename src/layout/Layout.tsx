@@ -3,15 +3,7 @@ import { MutableRefObject, Suspense, useEffect, useRef, useState } from "react";
 import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
-import {
-  AccountCircle,
-  AccountCircleOutlined,
-  ExitToApp,
-  ShoppingCart,
-  ShoppingCartOutlined,
-  LibraryBooks,
-} from "@mui/icons-material";
-
+import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -68,10 +60,6 @@ const Layout = () => {
                 </button>
               )}
               <button onClick={handleMoveCart}>
-<<<<<<< HEAD
-                {/* <ShoppingCartOutlined className="material-symbols-outlined" /> */}
-=======
->>>>>>> master
                 <LibraryBooks className="material-symbols-outlined" />
               </button>
             </aside>
@@ -123,6 +111,31 @@ const Layout = () => {
           </Suspense>
         </main>
       </div>
+      <footer className="cite">
+        <div>
+          <h1>Brunch Story</h1>
+          <address>
+            <div>
+              <h4>
+                <strong>동아출판(주)</strong>
+              </h4>
+              <p>
+                <b>주소 : </b> 서울특별시 마포구 신촌로 94, 7층(노고산동, 그랜드플라자)
+              </p>
+              <span>
+                <b>대표 : </b>김대현
+              </span>
+              <span>
+                <b>사업자번호 : </b>187-85-01021
+              </span>
+            </div>
+            <span>
+              <strong>ⓒ THEJOEUN ACADEMY Corp.</strong>
+            </span>
+          </address>
+          <h2>고객센터 : 02.716.1006</h2>
+        </div>
+      </footer>
     </LayoutContainer>
   );
 };

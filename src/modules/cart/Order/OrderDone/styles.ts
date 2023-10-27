@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 
-// import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
+// 색상 변수 정의
+const primaryColor = "#36364b";
+const borderColor = "#e1e1e1";
+const grayColor = "#999aa9";
+const lightgrayColor = "#f5f6f9";
+const blueColor = "#3d4ed7";
+const lightblueColor = "#0c9cff";
+const darkRedColor = "#e02020";
 
 export const OrderDoneContainer = styled.div`
   .box-order-done {
@@ -30,6 +37,15 @@ export const OrderDoneContainer = styled.div`
   .box-pagemove {
     display: flex;
     gap: 10px;
+
+    button {
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${blueColor};
+        color: white;
+      }
+    }
   }
 `;
 

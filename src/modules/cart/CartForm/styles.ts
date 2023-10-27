@@ -188,6 +188,46 @@ export const CartFormContainer = styled.div`
     }
   }
 
+  .event-layer {
+    > div {
+      display: flex;
+      gap: 10px;
+      align-items: center; /* 가로 중앙 정렬 */
+      margin-top: 50px;
+
+      > div:nth-of-type(1),
+      > div:nth-of-type(2) {
+        display: flex;
+        flex-direction: column;
+        width: 440px;
+        height: 360px;
+        border: 1px solid ${grayColor};
+        border-radius: 10px;
+        text-align: center;
+        /* margin-top: 20px; */
+        justify-items: center;
+        padding-top: 10px;
+
+        img {
+          width: 380px;
+          height: 300px;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .event-layer-sub {
+    width: 150px;
+    height: 30px;
+    border: 1px dotted ${grayColor};
+    border-radius: 50px;
+    padding-top: 10px;
+    align-self: center; /* 세로 중앙 정렬 */
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
   /* 모바일 스타일 */
   @media (max-width: 768px) {
     section {
@@ -306,18 +346,18 @@ export const CartFormContainer = styled.div`
       border: 0;
     }
     dt {
-      margin: 0 0 16px 0;
-      padding: 0 0 0 30px;
       line-height: 22px;
       font-size: 14px;
       font-weight: 500;
       color: ${darkRedColor};
-      background: url(/images/pc/icon_notice_type1.png) no-repeat left top;
+      display: flex;
+      align-items: center;
     }
     dd {
       font-size: 13px;
       font-weight: 400;
       line-height: 1.83;
+      margin-left: 30px;
     }
   }
 

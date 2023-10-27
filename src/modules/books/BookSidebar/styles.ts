@@ -8,7 +8,7 @@ export const SidebarContainer = styled.div`
   }
   main {
     display: flex;
-    width: 60%;
+    width: 100%;
     gap: 20px;
   }
   main > aside {
@@ -32,5 +32,10 @@ export const SidebarContainer = styled.div`
   }
   main > section {
     width: 100%;
+  }
+  @media (min-width: 55rem) {
+    main {
+      width: 60%;
+    }
   }
 `;

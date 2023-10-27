@@ -1,12 +1,35 @@
 import styled from "@emotion/styled";
 
-// import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
+// 색상 변수 정의
+const primaryColor = "#36364b";
+const borderColor = "#e1e1e1";
+const grayColor = "#999aa9";
+const lightgrayColor = "#f5f6f9";
+const blueColor = "#3d4ed7";
+const lightblueColor = "#0c9cff";
+const darkRedColor = "#e02020";
 
 export const PaymentInfoContainer = styled.div`
   width: 700px;
   height: 300px;
-  padding: 20px;
+  padding-top: 40px;
+  padding-left: 20px;
   background-color: white;
+  border-radius: 40px;
+
+  article {
+    width: 680px;
+  }
+  .article-layer-orderitems {
+    border: 1px solid ${grayColor};
+    border-radius: 12px;
+    padding: 0px 30px 5px 30px;
+
+    article > div {
+      font-weight: 600;
+      margin-top: 20px;
+    }
+  }
 
   div:nth-of-type(1) {
     margin-bottom: 20px;
@@ -43,6 +66,27 @@ export const PaymentInfoContainer = styled.div`
 
   .box-payment-button {
     text-align: center;
+
+    button {
+      width: 180px;
+      height: 50px;
+      line-height: 1;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px;
+      border-radius: 4px;
+      border-color: ${grayColor};
+      background: ${lightgrayColor};
+      color: black;
+      cursor: pointer;
+
+      /* 마우스 호버 시 스타일 변경 */
+      &:hover {
+        background: ${grayColor};
+        color: white;
+      }
+    }
   }
 `;
 

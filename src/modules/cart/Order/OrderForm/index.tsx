@@ -221,14 +221,14 @@ const OrderForm = () => {
       return false;
     }
 
-    // return true;
+    return true;
   }
   // 주문하기
   const handleOrder = () => {
     console.log("handleOrder >> handleOrder");
 
     if (!checkFormData()) {
-      // return;
+      return;
     }
 
     // 장바구니 데이터에서 상품id, 수량, 주문가격을 담는다.
@@ -452,7 +452,7 @@ const OrderForm = () => {
                         type="text"
                         name="zipcode"
                         placeholder="우편번호"
-                        // readOnly={true}
+                        readOnly={true}
                         style={{ width: "180px" }}
                         value={postcode}
                       />
@@ -462,7 +462,7 @@ const OrderForm = () => {
                       type="text"
                       name="address"
                       placeholder="기본주소"
-                      // readOnly={true}
+                      readOnly={true}
                       style={{ width: "550px" }}
                       value={address}
                     />

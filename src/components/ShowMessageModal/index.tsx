@@ -44,7 +44,7 @@ const ShowMessageModal = ({ message, onCancel }: ShowMessageModalProps) => {
           </div>
           <div className="dialog_footer">
             {/* <span className="text">확인</span> */}
-            <button onClick={onCancel} className="box-gray-full btn-height">
+            <button onClick={onCancel} className="btn-confirm">
               <p className="alert_text_sm">확인</p>
             </button>
           </div>

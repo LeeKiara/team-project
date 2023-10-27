@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 
-// import deleteButtonImage from "@/modules/cart/assets/icon_delete_order.png";
+// 색상 변수 정의
+const primaryColor = "#36364b";
+const borderColor = "#e1e1e1";
+const grayColor = "#999aa9";
+const lightgrayColor = "#f5f6f9";
+const blueColor = "#3d4ed7";
+const lightblueColor = "#0c9cff";
+const darkRedColor = "#e02020";
 
 export const OrderFormContainer = styled.div`
   input,
@@ -33,7 +40,9 @@ export const OrderFormContainer = styled.div`
 
   /* 주문결제 */
   .wrap-payment {
-    position: relative;
+    /* position: relative; */
+    display: flex;
+    justify-content: space-between;
 
     .contain-payment-body {
       width: 640px;
@@ -229,6 +238,12 @@ export const OrderFormContainer = styled.div`
         cursor: pointer;
         color: #3d4ed7;
         background-color: white;
+
+        /* 마우스 호버 시 스타일 변경 */
+        &:hover {
+          background: ${blueColor};
+          color: white;
+        }
       }
 
       div {
@@ -253,19 +268,23 @@ export const OrderFormContainer = styled.div`
         text-align: center;
         font-size: 15px;
         font-weight: 500;
-        /* border: 1px solid #3d4ed7; */
-        border: 1px solid #999aa9;
+        border: 1px solid ${grayColor};
         border-radius: 4px;
         box-sizing: border-box;
         cursor: pointer;
-        /* color: #3d4ed7; */
-        color: #999aa9;
+        color: ${grayColor};
         background-color: white;
+
+        /* 마우스 호버 시 스타일 변경 */
+        &:hover {
+          background: ${blueColor};
+          color: white;
+        }
       }
 
       .button-selected {
-        border: 1px solid #3d4ed7;
-        color: #3d4ed7;
+        border: 1px solid ${blueColor};
+        color: ${blueColor};
       }
     }
 
@@ -274,6 +293,7 @@ export const OrderFormContainer = styled.div`
       strong {
         font-size: 18px;
         font-weight: 500;
+        color: ${blueColor};
       }
       margin-bottom: 10px;
     }
@@ -289,11 +309,16 @@ export const OrderFormContainer = styled.div`
 
   /* 결제 예정금액 sidebar */
   .wrap-payment .box-payment-sidebar {
-    position: absolute;
+    /* position: absolute; */
+    position: sticky;
     right: 0;
-    top: 0;
+    top: 0; /* 뷰포트 상단에서 고정하기위해 top을 0으로 설정 */
     z-index: 1;
     width: 258px;
+    margin-left: auto;
+
+    /* 그리고 필요에 따라 다른 스크롤 가능한 부모 요소에 높이(height)를 설정하세요. */
+    /* 예를 들어, .wrap-payment에 height를 설정해 스크롤 가능한 부모를 만들 수 있습니다. */
 
     .contain-calcpay {
       display: block;
