@@ -3,7 +3,6 @@ import { SignUpContainer } from "./styles";
 import {
   PersonOutline,
   Lock,
-  LockOpen,
   Portrait,
   PhoneAndroid,
   MailOutline,
@@ -25,10 +24,10 @@ const SignUp = () => {
   const phone = useRef() as MutableRefObject<HTMLInputElement>;
   const email = useRef() as MutableRefObject<HTMLInputElement>;
   const birth = useRef() as MutableRefObject<HTMLInputElement>;
-  const bookmarks = useRef() as MutableRefObject<HTMLInputElement>;
 
   //제대로 입력이 됐는지 확인하는 상태값
   const [verify, setVerify] = useState(false);
+  const [selectVerify, setSelectVerify] = useState(false);
 
   const [passwordValue, setPasswordValue] = useState(null);
   const [verifiedPasswordValue, setVerifiedPasswordValue] = useState(null);
@@ -38,7 +37,7 @@ const SignUp = () => {
   const [phoneValue, setPhoneValue] = useState(null);
   const [emailValue, setEmailValue] = useState(null);
   const [birthValue, setBirthValue] = useState(null);
-  const [bookmarkValue, setBookmarkValue] = useState(null);
+  const [bookmarkValue, setBookmarkValue] = useState("");
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -79,6 +78,10 @@ const SignUp = () => {
         }
       }
     })();
+  };
+
+  const handleBookmarkChange = (e) => {
+    setBookmarkValue(e.target.value);
   };
 
   useEffect(() => {
@@ -207,23 +210,42 @@ const SignUp = () => {
                   }}
                 />
               </label>
-              <label className={bookmarkValue === "" ? "verify" : ""}>
+              <label>
                 <Bookmarks className="material-icons-outlined" />
-                <input
+                <select className="categoryButtonList" value={bookmarkValue} onChange={handleBookmarkChange}>
+                  <option value="">선호장르</option>
+                  <option value="소설/시/희곡">소설/시/희곡</option>
+                  <option value="사회과학">사회과학</option>
+                  <option value="에세이">에세이</option>
+                  <option value="여행">여행</option>
+                  <option value="역사">역사</option>
+                  <option value="예술/대중문화">예술/대중문화</option>
+                  <option value="어린이">어린이</option>
+                  <option value="외국어">외국어</option>
+                  <option value="요리/살림">요리/살림</option>
+                  <option value="유아">유아</option>
+                  <option value="인문학">인문학</option>
+                  <option value="자기계발">자기계발</option>
+                  <option value="종교/역학">종교/역학</option>
+                  <option value="과학">과학</option>
+                  <option value="경제경영">경제경영</option>
+                  <option value="건강/취미">건강/취미</option>
+                  <option value="만화">만화</option>
+                </select>
+                {/* <input
                   type="text"
                   placeholder="선호장르"
                   ref={bookmarks}
                   onChange={(e) => {
                     setBookmarkValue(e.target.value);
                   }}
-                />
+                /> */}
               </label>
               <div className="prerequisite">
                 {nicknameValue === "" && <p>* 닉네임을 입력해주세요.</p>}
                 {phoneValue === "" && <p>* 전화번호를 입력해주세요.</p>}
                 {emailValue === "" && <p>* 이메일을 입력해주세요.</p>}
                 {birthValue === "" && <p>* 생년월일을 입력해주세요.</p>}
-                {bookmarkValue === "" && <p>* 선호장르를 입력해주세요.</p>}
               </div>
             </div>
             <button

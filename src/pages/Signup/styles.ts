@@ -47,6 +47,7 @@ export const SignUpContainer = styled.div`
     border: none;
     margin-top: 8px;
     margin-left: 10px;
+    font-family: "Noto Sans KR", sans-serif;
   }
   section > form > div {
     display: flex;
@@ -68,5 +69,16 @@ export const SignUpContainer = styled.div`
   .prerequisite {
     font-size: small;
     color: crimson;
+  }
+  .categoryButtonList {
+    margin-left: 10px;
+    border: none;
+    width: 100%;
+    font-size: 15px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #767676;
+    border-radius: 6px;
+    height: 50px;
+    display: flex;
   }
 `;

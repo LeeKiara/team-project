@@ -9,6 +9,7 @@ export const BookBestContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 50px;
   }
   section > article {
     padding: 5px;

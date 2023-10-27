@@ -58,6 +58,8 @@ export const HomeContainer = styled.div`
     margin: auto;
     background-color: #f8edeb;
     border-radius: 10px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
   }
   div > section > article:nth-of-type(2) > a > h3 {
     margin-left: 55px;
@@ -90,7 +92,10 @@ export const HomeContainer = styled.div`
   div > section > article:nth-of-type(2) > ul > li > h5 {
     font-weight: bold;
   }
-  div > section > article:nth-of-type(2) > ul > li > span {
+  div > section > article:nth-of-type(2) > ul > li > span:nth-of-type(1) {
+    font-size: small;
+  }
+  div > section > article:nth-of-type(2) > ul > li > span:nth-of-type(2) {
     font-weight: bold;
   }
   div > section > article:nth-of-type(2) > ul > li > a > img {

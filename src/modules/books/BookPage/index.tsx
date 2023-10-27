@@ -422,7 +422,7 @@ const BookPage = () => {
               </div>
             )}
           </section>
-          <footer>
+          <footer className="comment-list">
             <form>
               <h4>
                 독자서평쓰기

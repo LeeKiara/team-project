@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
-import { BookItem } from "@/modules/books/data";
+import { BookData, BookItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import axios from "axios";
 
 const Home = () => {
   const [todayLetter, setTodayLetter] = useState("");
-  const [best, setBest] = useState("");
+  const [best, setBest] = useState<BookItem[]>([]);
   const [page, setPage] = useState(0);
-  // const { booksItem: books, isBookItemValidating } = useBooksItem(page);
   const [showButton, setShowButton] = useState(true);
 
   const handleMouseOver = () => {
@@ -19,16 +18,18 @@ const Home = () => {
     setShowButton(false);
   };
 
-  //캐시데이터 실험 중
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await axios.get<BookItem[]>(`http://localhost:8081/books`);
-  //     if (response.status === 200) {
-  //       console.log(response.data);
-  //       console.log("응답 성공!");
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get<BookData>(`http://localhost:8081/books/best?page=0&size=8`);
+        if (response.status === 200) {
+          setBest(response.data.content);
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
+  }, []);
 
   return (
     <HomeContainer>
@@ -71,7 +72,7 @@ const Home = () => {
             <Link to="books/best">
               <h3>베스트셀러</h3>
             </Link>
-            {/* <ul>{books.length > 0 ? <>{renderBook(books.slice(0, 8))}</> : <p>책을 찾을 수 없습니다.</p>}</ul> */}
+            <ul>{best.length > 0 ? <>{renderBook(best.slice(0, 8))}</> : <p>책을 찾을 수 없습니다.</p>}</ul>
           </article>
         </section>
       </div>
@@ -87,6 +88,7 @@ const renderBook = (books) => {
       </Link>
       <h5>{item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}</h5>
       <h6>{item.author.length > 15 ? item.author.slice(0, 15) + "..." : item.author}</h6>
+      <span>{item.publisher}</span>
       <span>판매가: {item.priceSales}원</span>
     </li>
   ));

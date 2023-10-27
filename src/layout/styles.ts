@@ -112,4 +112,39 @@ export const LayoutContainer = styled.div`
     font-style: normal;
     cursor: pointer;
   }
+  .cite {
+    padding: 30px 0px;
+    background-color: #253a42;
+    color: #6e7376;
+    border-top: 1px solid black;
+    font-weight: 100;
+  }
+  .cite > div {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cite > div > h1 {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .cite > div > h2 {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .cite > div > address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cite > div > address > div {
+    display: flex;
+    gap: 20px;
+  }
+  /* @media (min-width: 120rem) {
+    footer > div {
+      width: 1141px;
+    }
+  } */
 `;
