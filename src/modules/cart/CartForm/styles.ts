@@ -32,7 +32,7 @@ export const CartFormContainer = styled.div`
     width: 880px;
     height: 50px;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 11px;
     color: ${primaryColor};
     font-weight: 400;
 
@@ -41,16 +41,16 @@ export const CartFormContainer = styled.div`
       text-align: center;
     }
     div:nth-of-type(1) {
-      width: 20px;
+      width: 4%;
     }
     div:nth-of-type(2) {
-      width: 700px;
+      width: 63%;
     }
     div:nth-of-type(3) {
-      width: 120px;
+      width: 10%;
     }
     div:nth-of-type(4) {
-      width: 180px;
+      width: 25%;
     }
   }
 
@@ -60,6 +60,7 @@ export const CartFormContainer = styled.div`
     border: 2px solid ${lightgrayColor};
     height: 150px;
     align-items: center;
+    justify-content: space-between;
   }
 
   /* 장바구니 도서정보 */
@@ -135,20 +136,55 @@ export const CartFormContainer = styled.div`
     .box-price {
       font-size: 16px;
       letter-spacing: -1px;
-      /* border: 1px solid black; */
       display: flex;
       flex-direction: column;
+
+      strong {
+        font-size: 24px;
+        white-space: nowrap; // Prevent line break
+      }
+
+      p {
+        line-height: 25px;
+        margin-left: 5px;
+      }
+
+      del {
+        display: block;
+        font-size: 14px;
+        letter-spacing: -0.5px;
+        color: #bfc1cd;
+        margin-top: 7px;
+      }
     }
 
-    .box-price strong {
+    /* .box-price strong {
       font-size: 24px;
-    }
+      white-space: nowrap; // Prevent line break
+    } */
 
-    .box-price del {
+    /* .box-price del {
       display: block;
       font-size: 14px;
       letter-spacing: -0.5px;
       color: #bfc1cd;
+    } */
+  }
+
+  .cart-checkbox {
+    margin-right: 10px;
+    label.cart-checkbox {
+      display: inline-block;
+      position: relative;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+
+      &:checked {
+        border: 2px solid ${blueColor};
+      }
     }
   }
 
@@ -165,6 +201,7 @@ export const CartFormContainer = styled.div`
       flex-direction: column;
       height: 180px;
       align-items: center; /* 수직 가운데 정렬 추가 */
+      justify-content: space-between;
     }
     .bookinfo {
       flex: 1;

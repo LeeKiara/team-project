@@ -1,7 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { OrderFormContainer } from "./styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useOrderListData } from "../../orderlistdata";
 import { useProfileData } from "@/modules/cart/userdata";
 import AddressSearchForm from "../../AddressSearch";
 import { OrderData, OrderItemData, OrderAddressData } from "@/modules/cart/orderdata";
@@ -559,17 +558,11 @@ const OrderForm = () => {
               {/* 사이드 메뉴 */}
               <div className="box-payment-sidebar" style={{ top: "0px" }}>
                 <div className="contain-calcpay">
-                  <h4 className="title">결제 예정 금액</h4>
+                  {/* <h4 className="title">결제 예정 금액</h4> */}
                   <dl className="payment-item">
                     <dt>상품 금액</dt>
                     <dd>
                       <strong>{sumPriceStandard.toLocaleString()}</strong>원
-                    </dd>
-                  </dl>
-                  <dl className="payment-item minus">
-                    <dt>할인 금액</dt>
-                    <dd>
-                      <strong>-{sumPriceSales.toLocaleString()}</strong>원
                     </dd>
                   </dl>
                   <dl className="payment-item">
@@ -578,10 +571,16 @@ const OrderForm = () => {
                       <strong>{deliveryAmt.toLocaleString()}</strong>원
                     </dd>
                   </dl>
+                  {/* <dl className="payment-item minus">
+                    <dt>할인 금액</dt>
+                    <dd>
+                      <strong>-{sumPriceSales.toLocaleString()}</strong>원
+                    </dd>
+                  </dl> */}
 
                   <hr className="div-type2" />
                   <dl className="payment-item total">
-                    <dt>합계</dt>
+                    <dt>결제 예정 금액 </dt>
 
                     <dd>
                       <strong id="totalPriceText">{totalOrderAmt.toLocaleString()}</strong>원

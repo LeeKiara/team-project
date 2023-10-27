@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
+import FormatDate from "@/components/FormatDate";
 
 const OrderList = () => {
-  const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월 선택관리
-  const [isPeriodType2, setPeriodType2] = useState(false); // 조회기간 6개월 선택관리
-  const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체 선택관리
+  const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/취소)
+  const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월
+  const [isPeriodType2, setPeriodType2] = useState(false); // 조회기간 6개월
+  const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체
   const [startDate, setStartDate] = useState(""); // 시작일에 대한 상태 추가
   const [endDate, setEndDate] = useState(""); // 종료일에 대한 상태 추가
+  const [isOrderList, setIsOrderList] = useState(true); // 주문조회 가능 여부
+
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
   //리스트 총 페이지 수
@@ -23,16 +27,44 @@ const OrderList = () => {
   const [showArrowRight, setShowArrowRight] = useState(true);
   const navigate = useNavigate();
 
+  // 조회 기간 선택구분에 따른 부가 처리
+  useEffect(() => {
+    const currentDate = new Date();
+    const threeMonthsAgo = new Date(currentDate);
+
+    if (isPeriodType1) {
+      threeMonthsAgo.setMonth(currentDate.getMonth() - 3);
+    }
+    if (isPeriodType2) {
+      threeMonthsAgo.setMonth(currentDate.getMonth() - 6);
+    }
+    if (isPeriodTypeAll) {
+      threeMonthsAgo.setMonth(currentDate.getMonth() - 12);
+    }
+
+    setStartDate(formatDate(threeMonthsAgo));
+    setEndDate(formatDate(currentDate));
+  }, [isPeriodType1, isPeriodType2, isPeriodTypeAll]);
+
   // 주문/결제 List
   useEffect(() => {
-    console.log("startDate:" + startDate + ", endDate:" + endDate);
+    console.log(
+      "isOrderList:" +
+        isOrderList +
+        ", startDate:" +
+        startDate +
+        ", endDate:" +
+        endDate +
+        ", selectedStatus:" +
+        selectedStatus,
+    );
 
-    if (startDate != "" && endDate != "") {
+    if (isOrderList && startDate != "" && endDate != "") {
       (async () => {
         try {
           const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
           const response = await http.get<OrderResponse>(
-            `/order/paging?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}`,
+            `/order/paging?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}&orderStatus=${selectedStatus}`,
           );
           if (response.status === 200) {
             console.log(response);
@@ -44,11 +76,10 @@ const OrderList = () => {
         }
       })();
     }
-  }, [startDate, endDate, currentPage]);
+    // }, [isOrderList, startDate, endDate, currentPage]);
+  }, [isOrderList, selectedStatus, startDate]);
 
-  // TODO : 주문된 데이터로 변경(테스트를 위해 장바구니 데이터 조회함)
-  // const { cartData: orderList, mutateCartData, isCartDataValidating } = useCartData();
-
+  // 조회기간 선택
   const changeSearchPeriod = (periodGubn: string) => {
     if (periodGubn === "3MONTH") {
       setPeriodType1(true);
@@ -67,18 +98,14 @@ const OrderList = () => {
       setPeriodType2(false);
       setPeriodTypeAll(true);
     }
+
+    setIsOrderList(false);
   };
 
-  useEffect(() => {
-    if (isPeriodType1) {
-      const currentDate = new Date();
-      const threeMonthsAgo = new Date(currentDate);
-      threeMonthsAgo.setMonth(currentDate.getMonth() - 3);
-
-      setStartDate(formatDate(threeMonthsAgo));
-      setEndDate(formatDate(currentDate));
-    }
-  }, [isPeriodType1]);
+  // 조회기간별 주문 목록 조회 버튼 처리
+  const handleOrderList = () => {
+    setIsOrderList(true);
+  };
 
   // const formatDate = (date) => {
   //   const year = date.getFullYear();
@@ -94,8 +121,6 @@ const OrderList = () => {
     return `${year}-${month}-${day}`;
   }
   // console.log("changeSearchPeriod >> " + isPeriodAll);
-
-  const [selectedStatus, setSelectedStatus] = useState(""); // 조회조건 : 주문상태(전체/주문완료/취소)
 
   // 주문상태(전체/주문완료/취소) 변경 함수
   const changeStatus = (status) => {
@@ -176,19 +201,21 @@ const OrderList = () => {
               </div>
               <div>
                 <span className="btn-type1">
-                  <button type="button">조회</button>
+                  <button type="button" onClick={handleOrderList}>
+                    조회
+                  </button>
                 </span>
               </div>
             </div>
             <div className="navigation-sub-type2">
               <div className="area-inner">
-                <a href="#" className={selectedStatus === "" ? "on" : ""} onClick={() => changeStatus("")}>
+                <a href="#" className={selectedStatus === "A" ? "on" : ""} onClick={() => changeStatus("A")}>
                   전체
                 </a>
-                <a href="#" className={selectedStatus === "D" ? "on" : ""} onClick={() => changeStatus("D")}>
+                <a href="#" className={selectedStatus === "1" ? "on" : ""} onClick={() => changeStatus("1")}>
                   주문 완료
                 </a>
-                <a href="#" className={selectedStatus === "C" ? "on" : ""} onClick={() => changeStatus("C")}>
+                <a href="#" className={selectedStatus === "2" ? "on" : ""} onClick={() => changeStatus("2")}>
                   취소
                 </a>
               </div>
@@ -212,7 +239,9 @@ const OrderList = () => {
                   </figure>
                   <div>
                     {/* 주문일자 */}
-                    <div className="order-date">{formatDate(new Date(orderData.orderDate))}</div>
+                    <div className="order-date">
+                      <FormatDate date={orderData.orderDate} />
+                    </div>
 
                     {/* 도서 카테고리 */}
                     {/* <div className="box-bookgubun">

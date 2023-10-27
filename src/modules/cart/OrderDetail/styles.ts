@@ -17,13 +17,55 @@ export const OrderDetailContainer = styled.div`
     width: 900px;
   }
 
-  .order_summary_box {
+  .order-summary-box {
     display: block;
     background-color: #fff;
     border: 1px solid #eaeaea;
     border-radius: 16px;
     overflow: hidden;
     word-break: break-all;
+
+    .order-date-no {
+      cursor: default;
+    }
+
+    .box_header .order-date-no .gap {
+      display: inline-block;
+      font-size: 0;
+      width: 1px;
+      height: 10px;
+      background-color: #d5d5d5;
+      margin: 6px 10px 0 20px;
+      vertical-align: top;
+      box-sizing: border-box;
+    }
+
+    .order_num {
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+      .num {
+        margin-left: 5px;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+      }
+    }
+  }
+
+  .box_header .order-cancel button {
+    width: 80px;
+    height: 30px;
+    line-height: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    background: ${grayColor};
+    color: white;
+    border: 0;
+    cursor: pointer;
   }
 
   .order_date {
@@ -33,31 +75,7 @@ export const OrderDetailContainer = styled.div`
     font-weight: 700;
   }
 
-  .order_summary_box .box_header .label .gap {
-    display: inline-block;
-    font-size: 0;
-    width: 1px;
-    height: 10px;
-    background-color: #d5d5d5;
-    margin: 6px 10px 0 10px;
-    vertical-align: top;
-    box-sizing: border-box;
-  }
-
-  .order_num {
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.01em;
-    font-weight: 500;
-    .num {
-      margin-left: 5px;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.01em;
-    }
-  }
-
-  .order-layer {
+  .article-layer-title {
     border-top: 1px solid #000;
     border-bottom: 1px solid #ccc;
     height: 60px;
@@ -99,30 +117,49 @@ export const OrderDetailContainer = styled.div`
     font-weight: 400;
   }
 
-  .bookinfo {
+  .article-layer-orderitems {
+    border: 1px solid ${grayColor};
+    border-radius: 12px;
+    padding: 0px 30px 5px 30px;
+
+    article > div {
+      font-weight: 600;
+      margin-top: 20px;
+    }
+  }
+
+  .box-bookinfo-wrap {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    /* border: 1px solid ${grayColor}; */
 
-    label {
-      margin-top: 0px;
-      margin-left: 10px;
-    }
+    .bookinfo {
+      display: flex;
+      flex-direction: row;
+      flex-basis: calc(22.22% - 20px);
 
-    .image img {
-      width: 160px;
-      margin: 10px 5px;
-      /* border: 1px solid ${lightgrayColor}; */
-    }
+      .image img {
+        width: 100px;
+        height: 150px;
+        /* margin: 10px 5px; */
+        /* border: 1px solid ${lightgrayColor}; */
+      }
 
-    .subject {
-      font-size: 15px;
-      line-height: 26px;
-      font-weight: 500;
-      width: 370px;
-      max-height: 55px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin: 10px 5px;
+      .bookItem-title {
+        font-size: 15px;
+        line-height: 26px;
+        font-weight: 500;
+        width: 100px;
+        max-height: 55px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .bookItem-quantity {
+        font-size: 14px;
+        color: ${grayColor};
+      }
     }
   }
 
@@ -132,7 +169,7 @@ export const OrderDetailContainer = styled.div`
     justify-content: flex-start;
     padding-top: 30px;
     border-top: 1px solid #000;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px dotted #eaeaea;
     box-sizing: border-box;
     margin-bottom: 30px;
 
@@ -177,20 +214,18 @@ export const OrderDetailContainer = styled.div`
     }
   }
 
-  /* ---------------------------- */
   .box_header {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    display: -webkit-flex;
-    justify-content: flex-start;
-    align-items: center;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     min-height: 60px;
     padding: 15px 24px;
     background-color: rgba(80, 85, 177, 0.06);
     box-sizing: border-box;
   }
+
+  /* ---------------------------- */
 
   .order-header {
     margin-bottom: 20px;
@@ -264,10 +299,6 @@ export const OrderDetailContainer = styled.div`
     text-indent: 0;
     transition: all 0.2s ease-in-out;
     vertical-align: middle;
-  }
-
-  label {
-    cursor: default;
   }
 
   .form-radio input[type="radio"] {
@@ -366,11 +397,11 @@ export const OrderDetailContainer = styled.div`
     section {
       width: 320px;
     }
-    .order-layer-title {
+    .article-layer-title-title {
       display: none;
     }
 
-    .order-layer {
+    .article-layer-title {
       flex-direction: column;
       height: 180px;
       align-items: center; /* 수직 가운데 정렬 추가 */

@@ -302,6 +302,7 @@ export const OrderFormContainer = styled.div`
       border: 1px solid #e1e1e1;
       box-sizing: border-box;
       background: #fff;
+      border-radius: 8px;
     }
 
     .title {
@@ -316,12 +317,16 @@ export const OrderFormContainer = styled.div`
       margin-bottom: 16px;
     }
 
-    .payment-item.total dt {
+    .total {
+      margin-top: 10px;
+    }
+
+    .total dt {
       font-size: 16px;
       color: #fd342a;
     }
 
-    .payment-item dt {
+    dt {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -339,8 +344,9 @@ export const OrderFormContainer = styled.div`
       background: #e1e1e1;
       border: none;
     }
+  }
 
-    .box-submit-payment {
+  .box-submit-payment {
     position: relative;
     display: flex;
     justify-content: space-between;

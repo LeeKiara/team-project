@@ -18,6 +18,9 @@ const CartForm = () => {
   // 주문할 장바구니 도서 상태관리
   const [stateCartData, setStateCartData] = useState(cartlist);
 
+  // 도서 전체 선택 체크박스 상태관리
+  // const [selectAll, setSelectAll] = useState(false);
+
   // 장바구니 수량 상태
   const [qtys, setQtys] = useState([]);
   // 정가 상태
@@ -30,9 +33,8 @@ const CartForm = () => {
 
   // 장바구니 상품 선택 박스
   const [checkboxes, setCheckboxes] = useState([]);
-  // const [checkboxes, setCheckboxes] = useState(
-  //   cartlist && cartlist.length > 0 && cartlist.map(() => false),
-  // );
+
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -89,6 +91,7 @@ const CartForm = () => {
     if (cartlist && cartlist.length > 0) {
       console.log("++++++++++ useEffect checkboxes");
 
+      // 주문상품 상태 관리
       const checkedCartItems = createSelectedCartList(stateCartData, qtys);
       setStateCartData(checkedCartItems);
 
@@ -96,18 +99,23 @@ const CartForm = () => {
     }
   }, [checkboxes]);
 
-  const handleOrder = () => {
-    console.log("++++++++++ handleOrder");
+  // 장바구니 도서를 삭제 후 부가처리
+  useEffect(() => {
+    // 삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거
+    if (deletedItemId) {
+      console.log("삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거 :deletedItemId [" + deletedItemId + "]");
 
-    // alert("상품을 선택하세요.");
-    setShowMessageModal(true);
+      const updatedCartList = cartlist.filter((item) => item.itemId !== Number(deletedItemId));
+      setDeletedItemId(null);
 
-    const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+      updatedCartList.map((item) => {
+        console.log("item.itemId:" + item.itemId + ",deletedItemId:" + deletedItemId);
+      });
 
-    setStateCartData(checkedCartItems);
-
-    setIsOrder(true);
-  };
+      // updatedCartList를 사용하여 cartlist를 업데이트
+      mutateCartDataFunction(updatedCartList, false);
+    }
+  }, [deletedItemId, cartlist]);
 
   // 체크박스 선택 및 수량 변경에 따른 대상 최종 정보 생성
   function createSelectedCartList(stateCartData, qtys) {
@@ -132,13 +140,25 @@ const CartForm = () => {
     return checkedCartItems;
   }
 
-  // 체크박스 변경에 따른 장바구니 상품목록 상태관리
-  const handleCheckboxChange = (index) => {
-    const newCheckboxes = [...checkboxes];
-    newCheckboxes[index] = !newCheckboxes[index];
-    // alert("handleCheckboxChange:" + newCheckboxes[index]);
-    setCheckboxes(newCheckboxes);
-  };
+  // // 도서 전체 체크박스 선택/해제 함수 : here
+  // const handleSelectAll = () => {
+  //   setSelectAll(!selectAll);
+
+  //   if (!selectAll) {
+  //     setCheckboxes(cartlist.map((item) => item.itemId)); // 모든 아이템을 선택
+  //   } else {
+  //     setCheckboxes([]); // 선택 해제
+  //   }
+  // };
+
+  // // 체크박스 변경에 따른 장바구니 상품목록 상태관리
+  // const handleCheckboxChange = (index) => {
+  //   const newCheckboxes = [...checkboxes];
+  //   newCheckboxes[index] = !newCheckboxes[index];
+
+  //   setCheckboxes(newCheckboxes);
+  //   setSelectAll(false);
+  // };
 
   // 장바구니 수량 변경 이벤트 핸들러
   const handleQtyChange = (e, index) => {
@@ -177,12 +197,6 @@ const CartForm = () => {
     });
   };
 
-  const [showMessageModal, setShowMessageModal] = useState(false);
-
-  const handleShowMessageButton = () => {
-    setShowMessageModal(true);
-  };
-
   const handleCancel = () => {
     setShowMessageModal(false);
   };
@@ -200,11 +214,6 @@ const CartForm = () => {
             alert("해당 상품이 삭제 되었습니다.");
 
             setDeletedItemId(itemId);
-
-            // 삭제가 성공한 경우
-            // const updatedCartList = cartlist.filter((item) => item.itemId !== itemId);
-            // // mutate 함수를 호출하여 cartData를 업데이트
-            // mutateCartDataFunction(updatedCartList, false);
           }
         } catch (e: any) {
           console.log(e);
@@ -215,22 +224,109 @@ const CartForm = () => {
     }
   };
 
+  // 주문하기 버튼 처리
+  const handleOrder = () => {
+    console.log("++++++++++ handleOrder");
+
+    // alert("상품을 선택하세요.");
+    setShowMessageModal(true);
+
+    const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+
+    setStateCartData(checkedCartItems);
+
+    setIsOrder(true);
+  };
+  //------------------ok
+  const [selectedItems, setSelectedItems] = useState([]); // 선택된 아이템들을 담는 배열
+  const [totalPrice, setTotalPrice] = useState(0); // 선택된 아이템들의 가격 합계
+
+  // 전체 체크박스 선택 상태를 관리
+  const [selectAll, setSelectAll] = useState(false);
+
+  // 전체 체크박스 선택/해제 함수
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+
+    if (!selectAll) {
+      setSelectedItems(cartlist.map((item) => item.itemId)); // 모든 아이템을 선택
+    } else {
+      setSelectedItems([]); // 선택 해제
+    }
+  };
+
+  // 개별 체크박스 선택/해제 함수
+  const handleCheckboxChange = (itemId) => {
+    // alert("handleCheckboxChange");
+    const updatedSelectedItems = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
+
+    setSelectedItems(updatedSelectedItems);
+  };
+
+  // 주문할 상품 선택박스 상태변경 부가처리
   useEffect(() => {
-    // 삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거
-    if (deletedItemId) {
-      console.log("삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거 :deletedItemId [" + deletedItemId + "]");
+    if (cartlist && cartlist.length > 0) {
+      console.log("++++++++++ useEffect selectedItems");
 
-      const updatedCartList = cartlist.filter((item) => item.itemId !== Number(deletedItemId));
-      setDeletedItemId(null);
-
-      updatedCartList.map((item) => {
-        console.log("item.itemId:" + item.itemId + ",deletedItemId:" + deletedItemId);
+      selectedItems.map((checkedItemId, index) => {
+        const selectedItem = cartlist.find((item) => item.itemId === checkedItemId);
+        console.log(
+          "  selectedItems 목록 >>> checkedItemId:" +
+            checkedItemId +
+            ",selectedItem:" +
+            selectedItem.itemId +
+            "," +
+            selectedItem.title +
+            "," +
+            selectedItem.quantity,
+        );
       });
 
-      // updatedCartList를 사용하여 cartlist를 업데이트
-      mutateCartDataFunction(updatedCartList, false);
+      selectedItems.map((checkedItemId, index));
+      // const checkedCartItems = createSelectedCartList(stateCartData, qtys);
+      // const checkedCartItems = cartlist
+      //   .map((item, index) => ({
+      //     itemId: item.itemId,
+      //     title: item.title,
+      //     cover: item.cover,
+      //     priceStandard: item.priceStandard,
+      //     priceSales: item.priceSales,
+      //     quantity: qtys[index],
+      //     isChecked: checkboxes[index], // 체크박스 상태 사용
+      //     gubun: "",
+      //   }))
+      //   .filter((item) => item.isChecked);
+
+      // checkedCartItems.map((item, index) => {
+      //   console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+      // });
+
+      setStateCartData(checkedCartItems);
+
+      setIsOrder(true);
     }
-  }, [deletedItemId, cartlist]);
+  }, [selectedItems]);
+
+  // 선택된 아이템들의 가격 합계 계산
+  const calculateTotalPrice = () => {
+    const totalPrice = selectedItems.reduce((total, itemId) => {
+      const selectedItem = cartlist.find((item) => item.itemId === itemId);
+      // alert("selectedItem>>" + selectedItem);
+      if (selectedItem !== undefined) {
+        total += selectedItem.priceStandard;
+      }
+      return total;
+    }, 0);
+
+    setTotalPrice(totalPrice);
+  };
+
+  // 선택된 아이템들이 변경될 때마다 가격 합계 계산
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [selectedItems]);
 
   return (
     <>
@@ -247,8 +343,8 @@ const CartForm = () => {
                 type="checkbox"
                 name="productall_seq"
                 className="listCheckBox"
-                // onChange={handleSelectAll}
-                // checked={selectAll}
+                onChange={handleSelectAll}
+                checked={selectAll}
               />
             </div>
             <div>상품정보</div>
@@ -266,9 +362,10 @@ const CartForm = () => {
                     <input
                       type="checkbox"
                       name="product_seq"
-                      className="listCheckBox"
                       key={cartCashData.itemId}
-                      onChange={() => handleCheckboxChange(index)}
+                      className="listCheckBox"
+                      onChange={() => handleCheckboxChange(cartCashData.itemId)}
+                      checked={selectedItems.includes(cartCashData.itemId)}
                     />
                   </label>
                   <div>
@@ -346,19 +443,19 @@ const CartForm = () => {
           {/* 주문합계 */}
           <article>
             {stateCartData && stateCartData.length > 0 && <CalcuTotalPayment cartBooks={stateCartData} />}
-            {stateCartData.length === 0 && (
-              <div className="box-total-payment">
-                <div className="total-text">주문합계</div>
-                <div className="total-sum">
-                  상품금액 <strong id="fixedsum">0</strong>원 <i>-</i>
-                  할인금액 <strong id="discountsum">0</strong>원 <i>+</i>
-                  배송비 <strong id="deliveryfee">0</strong>원
-                </div>
-                <div className="total-price">
-                  결제 예정 금액 <strong id="totalsum">0</strong>원
-                </div>
+            {/* {stateCartData.length === 0 && ( */}
+            <div className="box-total-payment">
+              <div className="total-text">주문합계</div>
+              <div className="total-sum">
+                상품금액 <strong id="fixedsum">{totalPrice}</strong>원 <i>-</i>
+                할인금액 <strong id="discountsum">0</strong>원 <i>+</i>
+                배송비 <strong id="deliveryfee">0</strong>원
               </div>
-            )}
+              <div className="total-price">
+                결제 예정 금액 <strong id="totalsum">0</strong>원
+              </div>
+            </div>
+            {/* )} */}
           </article>
 
           {/* 주문버튼 */}
@@ -383,6 +480,7 @@ const CartForm = () => {
 
               {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
             </div>
+            <div>선택된 아이템들의 합계: {totalPrice}원</div>
           </article>
         </section>
       </CartFormContainer>
