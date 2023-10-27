@@ -55,7 +55,7 @@ const OrderDone = () => {
       </OrderDoneContainer>
       {/* 결제 정보 확인 모달창 띄우기 */}
       {/* 자식의 이벤트를 처리하는 함수를 속성으로 넘겨줘야 함 */}
-      {showModal && <PaymentInfo onCancel={handleHiddenModal} />}
+      {showModal && <PaymentInfo orderId={orderId} onCancel={handleHiddenModal} />}
     </>
   );
 };

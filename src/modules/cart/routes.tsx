@@ -6,6 +6,8 @@ import OrderForm from "@/modules/cart/Order/OrderForm";
 import AddressSearch from "./AddressSearch/Search";
 import AddressSucceed from "./AddressSearch/Success";
 import Test from "./test/Test";
+import PaymentInfo from "./Order/PaymentInfo";
+import TestSidebar from "./test/TestSidebar";
 // import AddCart2 from "./test/AddCart2";
 
 const AddCart2 = lazy(() => import("@/modules/cart/test/AddCart2"));
@@ -42,4 +44,5 @@ export const cartRoutes = [
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
   <Route key="test" path="test" element={<OrderList />} />,
+  <Route key="test2" path="test2" element={<TestSidebar />} />,
 ];

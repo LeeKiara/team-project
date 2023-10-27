@@ -200,7 +200,7 @@ const OrderList = () => {
                 />
               </div>
               <div>
-                <span className="btn-type1">
+                <span className="btn-orderlist">
                   <button type="button" onClick={handleOrderList}>
                     조회
                   </button>
