@@ -67,7 +67,6 @@ const Layout = () => {
                 </button>
               )}
               <button onClick={handleMoveCart}>
-                {/* <ShoppingCartOutlined className="material-symbols-outlined" /> */}
                 <LibraryBooks className="material-symbols-outlined" />
               </button>
             </aside>

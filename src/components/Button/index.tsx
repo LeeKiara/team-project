@@ -4,46 +4,54 @@ import { CartData, createCartData } from "@/modules/cart/cartdata";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import http from "@/utils/http";
+import { getCookie } from "@/utils/cookie";
 
 const Button = ({ itemId, quantity }: CartData) => {
+  const token = getCookie("token");
   const navigate = useNavigate();
 
   const handleAddCart = (event) => {
     event.preventDefault();
-    (async () => {
-      try {
-        const response = await http.get(`/cart/count/${itemId}`);
-        //상품이 이미 장바구니에 담겨있음
-        if (response.status === 200 && response.data) {
-          const isAddCartConfirmed = window.confirm(
-            "상품이 이미 장바구니 담겨져 있습니다. 장바구니로 이동하시겠습니까?",
-          );
-          if (isAddCartConfirmed) {
-            navigate("/cart");
+    if (token) {
+      (async () => {
+        try {
+          const response = await http.get(`/cart/count/${itemId}`);
+          //상품이 이미 장바구니에 담겨있음
+          if (response.status === 200 && response.data) {
+            const isAddCartConfirmed = window.confirm(
+              "상품이 이미 장바구니 담겨져 있습니다. 장바구니로 이동하시겠습니까?",
+            );
+            if (isAddCartConfirmed) {
+              navigate("/cart");
+            }
+          } else {
+            createCartData({
+              itemId,
+              quantity,
+            });
+            const isCartConfirmed = window.confirm("상품을 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
+            if (isCartConfirmed) {
+              navigate("/cart");
+            }
           }
-        } else {
-          createCartData({
-            itemId,
-            quantity,
-          });
-          const isCartConfirmed = window.confirm("상품을 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
-          if (isCartConfirmed) {
-            navigate("/cart");
-          }
+        } catch (e: any) {
+          console.log(e);
         }
-      } catch (e: any) {
-        console.log(e);
-      }
-    })();
+      })();
+    }
   };
 
   const handleConfirm = useCallback(
     (e) => {
       e.preventDefault();
-      const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
-      if (isConfirmed) {
-        // 사용자가 확인을 클릭한 경우에만 addCart 함수를 호출
-        handleAddCart(e);
+      if (!token) {
+        alert("로그인 후 이용해주세요.");
+      } else {
+        const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
+        if (isConfirmed) {
+          // 사용자가 확인을 클릭한 경우에만 addCart 함수를 호출
+          handleAddCart(e);
+        }
       }
     },
     [{ itemId, quantity }],
