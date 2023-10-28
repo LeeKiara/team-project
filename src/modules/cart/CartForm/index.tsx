@@ -242,20 +242,32 @@ const CartForm = () => {
               <h3 className="title">장바구니</h3>
             </div>
           </article>
-          <article className="cart-layer-title">
-            <div className="cart-checkbox">
-              <input
-                type="checkbox"
-                name="productall_seq"
-                className="listCheckBox"
-                // onChange={handleSelectAll}
-                // checked={selectAll}
-              />
-            </div>
-            <div>상품정보</div>
-            <div>수량</div>
-            <div>판매가(정가)</div>
-          </article>
+          {cartlist.length === 0 ? (
+            <article className="cart-layer-title-off">
+              <div>
+                <div>
+                  <ErrorOutlineIcon sx={{ fontSize: 60, color: "gray" }}></ErrorOutlineIcon>
+                </div>
+                <div>장바구니가 비어있습니다.</div>
+              </div>
+            </article>
+          ) : (
+            <article className="cart-layer-title">
+              <div className="cart-checkbox">
+                <input
+                  type="checkbox"
+                  name="productall_seq"
+                  className="listCheckBox"
+                  // onChange={handleSelectAll}
+                  // checked={selectAll}
+                />
+              </div>
+              <div>상품정보</div>
+              <div>수량</div>
+              <div>판매가(정가)</div>
+            </article>
+          )}
+
           {/* 장바구니 상품 리스트(Loop) */}
           {cartlist &&
             cartlist.length > 0 &&
@@ -347,7 +359,7 @@ const CartForm = () => {
           {/* 주문합계 */}
           <article>
             {stateCartData && stateCartData.length > 0 && <CalcuTotalPayment cartBooks={stateCartData} />}
-            {stateCartData.length === 0 && (
+            {/* {stateCartData.length === 0 && (
               <div className="box-total-payment">
                 <div className="total-text">주문합계</div>
                 <div className="total-sum">
@@ -359,34 +371,37 @@ const CartForm = () => {
                   결제 예정 금액 <strong id="totalsum">0</strong>원
                 </div>
               </div>
-            )}
+            )} */}
           </article>
 
           {/* 주문버튼 */}
-          <article>
-            <div className="box-submit-payment">
-              <dl>
-                <dt>
-                  <ErrorOutlineIcon></ErrorOutlineIcon>&nbsp;&nbsp;주의하세요.
-                </dt>
-                <dd> 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
-              </dl>
+          {cartlist.length > 0 && (
+            <article>
+              <div className="box-submit-payment">
+                <dl>
+                  <dt>
+                    <ErrorOutlineIcon></ErrorOutlineIcon>&nbsp;&nbsp;주의하세요.
+                  </dt>
+                  <dd> 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
+                </dl>
 
-              {/* <span className="btn-order">
+                {/* <span className="btn-order">
                 <button onClick={handleOrder}>주문하기</button>
               </span> */}
-              {!isOrder && (
-                <button className={"box-blue"} onClick={handleOrder}>
-                  주문하기
-                </button>
-              )}
+                {!isOrder && (
+                  <button className={"box-blue"} onClick={handleOrder}>
+                    주문하기
+                  </button>
+                )}
 
-              {/* 주문하기 버튼 */}
-              {isOrder && <OrderButton cartBooks={stateCartData} />}
+                {/* 주문하기 버튼 */}
+                {isOrder && <OrderButton cartBooks={stateCartData} />}
 
-              {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
-            </div>
-          </article>
+                {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
+              </div>
+            </article>
+          )}
+
           <article className="event-layer">
             <div>
               <div>

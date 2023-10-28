@@ -10,6 +10,9 @@ const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
 
 export const OrderDoneContainer = styled.div`
+  article:nth-of-type(2) {
+    height: 570px;
+  }
   .box-order-done {
     display: flex;
     flex-direction: column;

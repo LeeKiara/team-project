@@ -67,8 +67,8 @@ const OrderList = () => {
             `/order/paging?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}&orderStatus=${selectedStatus}`,
           );
           if (response.status === 200) {
-            console.log(response);
-            setTotalPages(response.data.totalCount);
+            console.log("response.data.totalPages" + response.data.totalPages);
+            setTotalPages(response.data.totalPages);
             setOrderResultList(response.data.content);
           }
         } catch (e: any) {
@@ -77,7 +77,21 @@ const OrderList = () => {
       })();
     }
     // }, [isOrderList, startDate, endDate, currentPage]);
-  }, [isOrderList, selectedStatus, startDate]);
+  }, [isOrderList, selectedStatus, startDate, currentPage]);
+
+  //화살표 상태에 따라 변화
+  useEffect(() => {
+    if (currentPage > 0) {
+      setShowArrowLeft(true);
+    } else if (currentPage === 0) {
+      setShowArrowLeft(false);
+    }
+    if (currentPage >= totalPages - 1) {
+      setShowArrowRight(false);
+    } else {
+      setShowArrowRight(true);
+    }
+  }, [currentPage, totalPages]);
 
   // 조회기간 선택
   const changeSearchPeriod = (periodGubn: string) => {
@@ -131,8 +145,19 @@ const OrderList = () => {
   const handleOrderDtail = (orderId: string) => {
     // navigate(`/order/orderdetail/$orderno`);
     navigate(`/order/detail/${orderId}`);
+  };
 
-    // navigate(`/order/done/${orderId}`);
+  //페이징
+  const handleSetPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  //페이징 화살표 마이너스
+  const handlePageMinus = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  //페이징 화살표 플러스
+  const handlePagePlus = () => {
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -293,6 +318,65 @@ const OrderList = () => {
                 </div>
               </article>
             ))}
+
+          {totalPages > 1 && (
+            <nav>
+              <ol>
+                {showArrowLeft && (
+                  <li className="numberbox">
+                    <button onClick={handlePageMinus}>{`<`}</button>
+                  </li>
+                )}
+                <li
+                  className="numberbox"
+                  onClick={() => {
+                    handleSetPage(0);
+                  }}>
+                  1
+                </li>
+                <li
+                  className="numberbox"
+                  onClick={() => {
+                    handleSetPage(1);
+                  }}>
+                  2
+                </li>
+                {totalPages > 3 && (
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(2);
+                    }}>
+                    3
+                  </li>
+                )}
+
+                {totalPages > 4 && (
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(3);
+                    }}>
+                    4
+                  </li>
+                )}
+                {totalPages > 5 && (
+                  <li
+                    className="numberbox"
+                    onClick={() => {
+                      handleSetPage(4);
+                    }}>
+                    5
+                  </li>
+                )}
+                {showArrowRight && (
+                  <li className="numberbox">
+                    <button onClick={handlePagePlus}>{`>`}</button>
+                  </li>
+                )}
+              </ol>
+            </nav>
+          )}
         </section>
       </OrderListContainer>
     </>

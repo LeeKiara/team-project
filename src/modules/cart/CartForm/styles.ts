@@ -25,6 +25,25 @@ export const CartFormContainer = styled.div`
     }
   }
 
+  .cart-layer-title-off {
+    > div {
+      height: 300px;
+      border-top: 1px dotted ${grayColor};
+      border-bottom: 1px dotted ${grayColor};
+      /* text-align: center;
+      line-height: 300px; */
+      font-size: 30px;
+      color: ${grayColor};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > div:nth-of-type(2) {
+        margin-left: 20px;
+      }
+    }
+  }
+
   .cart-layer-title {
     display: flex;
     flex-direction: row;
@@ -194,6 +213,7 @@ export const CartFormContainer = styled.div`
       gap: 10px;
       align-items: center; /* 가로 중앙 정렬 */
       margin-top: 50px;
+      margin-bottom: 50px;
 
       > div:nth-of-type(1),
       > div:nth-of-type(2) {
