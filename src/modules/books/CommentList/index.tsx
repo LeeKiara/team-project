@@ -26,7 +26,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
   const modifyRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   //답글 상태값
-  const [showReplyInput, setShowReplyInput] = useState(true);
+  const [showReplyInput, setShowReplyInput] = useState(false);
 
   const handleShowModify = (itemId: number) => {
     setShowModify((prev) => ({
@@ -50,6 +50,9 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
   //답글 추가 모달 상태값
   const handleShowReplyInput = () => {
     setShowReplyInput(true);
+  };
+  const handleCancleShowReplyInput = () => {
+    setShowReplyInput(false);
   };
 
   //댓글추가
@@ -123,7 +126,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
   return (
     <>
       <CommnetListContainer>
-        <div className="commentList">
+        <div className="comment-list">
           {commentList && commentList.length > 0 ? (
             commentList.map((item) => (
               <div key={item.id}>
@@ -147,14 +150,24 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
                     <div>
                       <p>{item.comment}</p>
                       {showReplyInput ? (
-                        <div>
+                        <div id="reply-comment">
                           <textarea placeholder="댓글을 입력해주세요" cols={100} rows={5} ref={commentText}></textarea>
-                          <button
-                            onClick={(e) => {
-                              handleSaveComment(e);
-                            }}>
-                            등록
-                          </button>
+                          <div>
+                            <button
+                              className="modify-btn"
+                              onClick={(e) => {
+                                handleSaveComment(e);
+                              }}>
+                              등록
+                            </button>
+                            <button
+                              className="modify-btn"
+                              onClick={() => {
+                                handleCancleShowReplyInput();
+                              }}>
+                              취소
+                            </button>
+                          </div>
                         </div>
                       ) : null}
                     </div>
@@ -162,7 +175,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
                   {item.nickname === nickname ? (
                     <div>
                       <button
-                        className="modifyBtn"
+                        className="modify-btn"
                         onClick={
                           showModify[item.id]
                             ? (e) => {
@@ -175,7 +188,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
                         {showModify[item.id] ? "완료" : "수정"}
                       </button>
                       <button
-                        className="modifyBtn"
+                        className="modify-btn"
                         onClick={
                           showModify[item.id]
                             ? handleCancle
@@ -187,8 +200,8 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
                       </button>
                     </div>
                   ) : null}
-                  {!showReplyInput ? (
-                    <button className="modifyBtn" onClick={handleShowReplyInput}>
+                  {item.nickname !== nickname && !showReplyInput ? (
+                    <button className="modify-btn" onClick={handleShowReplyInput}>
                       답글
                     </button>
                   ) : null}

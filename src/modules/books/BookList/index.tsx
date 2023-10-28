@@ -25,7 +25,7 @@ const BookList = ({ fetchUrl }) => {
   //선호작품
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
 
   //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
@@ -179,7 +179,7 @@ const BookList = ({ fetchUrl }) => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setProfileData(response.data);
+          setProfile(response.data);
           //좋아요 상태값 설정
         } catch (e: any) {
           console.log(e);
@@ -190,7 +190,7 @@ const BookList = ({ fetchUrl }) => {
         const bookWithLikeData = { ...book, likeData: book.likedBook };
 
         bookWithLikeData.likeData.forEach((like) => {
-          if (like.profileId === profileData.profileId) {
+          if (like.profileId === profile.profileId) {
             setStoreHeartStates((prevStates) => ({
               ...prevStates,
               [bookWithLikeData.id]: like.likes,
