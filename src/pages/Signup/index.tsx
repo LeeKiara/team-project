@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { SignUpContainer } from "./styles";
 import {
   PersonOutline,
   Lock,
@@ -12,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { SignUpContainer } from "./styles";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,7 +27,6 @@ const SignUp = () => {
 
   //제대로 입력이 됐는지 확인하는 상태값
   const [verify, setVerify] = useState(false);
-  const [selectVerify, setSelectVerify] = useState(false);
 
   const [passwordValue, setPasswordValue] = useState(null);
   const [verifiedPasswordValue, setVerifiedPasswordValue] = useState(null);
@@ -41,6 +40,9 @@ const SignUp = () => {
 
   const handleSignUp = (event) => {
     event.preventDefault();
+    if (bookmarkValue === "") {
+      alert("선호장르를 골라주세요.");
+    }
 
     const signupRequest = {
       userid: userIdValue,
@@ -66,7 +68,7 @@ const SignUp = () => {
           console.log(response.status);
           if (response.status === 201) {
             alert("회원가입을 축하합니다.");
-            navigate("/");
+            navigate("/login");
           }
         } catch (e: any) {
           console.log(e);
