@@ -36,6 +36,11 @@ const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderCartItemData[] }) =>
     deliveryAmt = 0;
   }
 
+  if (sumPriceSales === 0) {
+    deliveryAmt = 0;
+    totalOrderAmt = 0;
+  }
+
   return (
     <div>
       <div className="box-total-payment">
