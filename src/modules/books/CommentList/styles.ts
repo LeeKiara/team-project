@@ -22,38 +22,8 @@ export const CommnetListContainer = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  .comment-list > div > span:nth-of-type(1) > h5 > svg {
-    color: black;
-    font-size: 20px;
-  }
-  .comment-list > div > span:nth-of-type(2) {
-    display: flex;
-    justify-content: space-between;
-    border: 3px solid crimson;
-  }
-  .comment-list > div > span:nth-of-type(2) > input {
-    /* height: 55px; */
-    padding-left: 10px;
-    width: 90%;
-    margin: auto;
-    line-height: 55px;
+  sub {
     vertical-align: top;
-  }
-  .comment-list > div > span:nth-of-type(2) > div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: auto;
-    border: 2px solid cadetblue;
-  }
-  .comment-list > div > span:nth-of-type(2) > div:nth-of-type(1) {
-    width: 90%;
-  }
-  .comment-list > div > span:nth-of-type(2) > div > p {
-    /* border: 1px solid black; */
-    text-align: start;
-    padding-top: 5px;
-    padding-left: 10px;
   }
   .modify-btn {
     background-color: #fafafa;
@@ -61,20 +31,67 @@ export const CommnetListContainer = styled.div`
     font-size: 16px;
     cursor: pointer;
   }
-  #reply-comment {
-    /* width: 60%; */
+  .comment-list > div > span:nth-of-type(1) > h5 > svg {
+    color: black;
+    font-size: 20px;
+  }
+  .comment-main > div > span {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
   }
-  #reply-comment > textarea {
-    padding: 8px;
-    line-height: 1.5;
-    height: 80px;
-    resize: none;
-    overflow: hidden;
+  .comment-main input {
+    height: 55px;
   }
-  #reply-comment > div {
+  .display-none {
+    height: 100%;
+  }
+  .reply-btn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .modify-buttons {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    margin-top: 0px;
+  }
+  .minus-btn {
+    margin-top: -20px;
+  }
+  .reply-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .reply-list > span:nth-of-type(1) {
+    margin-top: 5px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .reply-list > span:nth-of-type(1) > h5 {
+    display: flex;
+  }
+  .reply-list > span:nth-of-type(1) > h5 > svg {
+    color: black;
+    font-size: 20px;
+  }
+  .reply-list > span:nth-of-type(2) {
+    display: flex;
+    justify-content: space-between;
+  }
+  .reply-list > span:nth-of-type(2) > p {
+    margin-left: 10px;
+  }
+  @media (min-width: 55rem) {
+    .comment-main input {
+      width: 35vw;
+    }
+  }
+  @media (min-width: 110rem) {
+    .comment-main input {
+      width: 730px;
+    }
   }
 `;

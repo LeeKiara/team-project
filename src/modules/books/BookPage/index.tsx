@@ -224,8 +224,6 @@ const BookPage = () => {
   useEffect(() => {
     if (token) {
       if (likeList && likeList.length > 0) {
-        console.log(likeList);
-        console.log(profile.profileId);
         const likeItem = likeList.find((item) => item.profileId === profile.profileId);
         if (likeItem && likeItem.likes) {
           setShowHeartState(true);
@@ -395,13 +393,13 @@ const BookPage = () => {
             <h2>도서정보</h2>
             <hr />
             <figure style={{ display: "flex", justifyContent: "center" }}>
-              <img
+              {/* <img
                 style={{ margin: "auto" }}
                 src="https://contents.kyobobook.co.kr/sih/fit-in/814x0/dtl/illustrate/151/i9791159242151.jpg"
                 alt="이벤트사진"
-              />
+              /> */}
             </figure>
-            {detail ? (
+            {/* {detail ? (
               <article>
                 {detail.description ? (
                   <>
@@ -429,7 +427,7 @@ const BookPage = () => {
               <div>
                 <p>책 소개 글이 없습니다.</p>
               </div>
-            )}
+            )} */}
           </section>
           <footer className="input-comment">
             <form>
