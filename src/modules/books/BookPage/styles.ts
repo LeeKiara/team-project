@@ -157,7 +157,7 @@ export const PageContainer = styled.div`
   /* footer {
     border: 1px solid cadetblue;
   } */
-  .comment-list > form {
+  .input-comment > form {
     width: 70%;
     gap: 10px;
     margin: auto;
@@ -165,30 +165,30 @@ export const PageContainer = styled.div`
     background-color: #f8f8f8;
     padding-bottom: 30px;
   }
-  .comment-list > form > h4 {
+  .input-comment > form > h4 {
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     margin-left: 30px;
     margin-bottom: 5px;
   }
-  .comment-list > form > h4 > sub {
+  .input-comment > form > h4 > sub {
     font-size: small;
     margin-left: 5px;
     font-weight: lighter;
   }
-  .comment-list > form > label {
+  .input-comment > form > label {
     display: flex;
     justify-content: center;
   }
-  .comment-list > form > label > textarea {
+  .input-comment > form > label > textarea {
     padding: 8px;
     line-height: 1.5;
     height: 80px;
     resize: none;
     overflow: hidden;
   }
-  .comment-list > form > label > button {
+  .input-comment > form > label > button {
     font-size: 16px;
     background-color: #fafafa;
   }

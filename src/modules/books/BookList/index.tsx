@@ -12,6 +12,9 @@ import { ProfileData } from "@/modules/cart/userdata";
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
   const MAX_LIST = 5; // 고정된 리스트 갯수
+
+  //페이징 숫자 처리
+  const [arrowNumberList, setArrowNumberList] = useState([]);
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
   //카테고리 상태값
@@ -22,7 +25,7 @@ const BookList = ({ fetchUrl }) => {
   //선호작품
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
 
   //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
@@ -83,7 +86,27 @@ const BookList = ({ fetchUrl }) => {
   //   setCategory(params.get('option'));
   // }, [fetchUrl]);
 
-  //화살표 상태에 따라 변화
+  // useEffect(() => {
+  //   if (currentPage > 0 && currentPage % 5 === 0) {
+  //     let lst = [];
+  //     for (let i = currentPage; i < 5; i++) {
+  //       lst.push(i);
+  //     }
+  //     setArrowNumberList(lst);
+  //   }
+  //   if (currentPage > 0) {
+  //     setShowArrowLeft(true);
+  //   } else if (currentPage === 0) {
+  //     setShowArrowLeft(false);
+  //   }
+  //   if (currentPage >= totalPages - 1) {
+  //     setShowArrowRight(false);
+  //   } else {
+  //     setShowArrowRight(true);
+  //   }
+  // }, [currentPage, totalPages]);
+
+  //화살표 상태에 따라 변화 및 페이징 숫자 처리
   useEffect(() => {
     if (currentPage > 0) {
       setShowArrowLeft(true);
@@ -95,6 +118,18 @@ const BookList = ({ fetchUrl }) => {
     } else {
       setShowArrowRight(true);
     }
+
+    // 페이지당 아이템 수 (예: 5)
+    const itemsPerPage = 5;
+    const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
+
+    const lst = [];
+    for (let i = startIndex; i < endIndex; i++) {
+      lst.push(i);
+    }
+    console.log(lst);
+    setArrowNumberList(lst);
   }, [currentPage, totalPages]);
 
   //카테고리 이동
@@ -144,7 +179,7 @@ const BookList = ({ fetchUrl }) => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setProfileData(response.data);
+          setProfile(response.data);
           //좋아요 상태값 설정
         } catch (e: any) {
           console.log(e);
@@ -155,7 +190,7 @@ const BookList = ({ fetchUrl }) => {
         const bookWithLikeData = { ...book, likeData: book.likedBook };
 
         bookWithLikeData.likeData.forEach((like) => {
-          if (like.profileId === profileData.profileId) {
+          if (like.profileId === profile.profileId) {
             setStoreHeartStates((prevStates) => ({
               ...prevStates,
               [bookWithLikeData.id]: like.likes,
@@ -243,29 +278,6 @@ const BookList = ({ fetchUrl }) => {
                         선호작품
                       </button>
                     </li>
-                    {/* {item.likedBook.some((like) => like.profileId === profileData.profileId && like.likes) ? (
-                      <li
-                        key={item.id}
-                        onClick={() => {
-                          handleBookSave(item.id);
-                        }}>
-                        <button className="btn">
-                          <Favorite className="material-icons-outlined heart" />
-                          선호작품
-                        </button>
-                      </li>
-                    ) : (
-                      <li
-                        key={item.id}
-                        onClick={() => {
-                          handleBookSave(item.id);
-                        }}>
-                        <button className="btn">
-                          <FavoriteBorder className="material-icons-outlined" />
-                          선호작품
-                        </button>
-                      </li>
-                    )} */}
                     <li>
                       <Button itemId={item.itemId} quantity={1} />
                     </li>
@@ -284,46 +296,16 @@ const BookList = ({ fetchUrl }) => {
                       <button onClick={handlePageMinus}>{`<`}</button>
                     </li>
                   )}
-                  {/* {Array.from({ length: Math.min(MAX_LIST, totalPage - currentPage) }, (_, i) => i + currentPage).map((pageNumber) => (
-                  <li key={pageNumber} className="numberbox" onClick={() => handleSetPage(pageNumber)}>
-                    {pageNumber + 1}
-                  </li>
-                ))} */}
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(0);
-                    }}>
-                    1
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(1);
-                    }}>
-                    2
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(2);
-                    }}>
-                    3
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(3);
-                    }}>
-                    4
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(4);
-                    }}>
-                    5
-                  </li>
+                  {arrowNumberList.map((num) => (
+                    <li
+                      key={num}
+                      className="numberbox"
+                      onClick={() => {
+                        handleSetPage(num);
+                      }}>
+                      {num + 1}
+                    </li>
+                  ))}
                   {showArrowRight && (
                     <li className="numberbox">
                       <button onClick={handlePagePlus}>{`>`}</button>

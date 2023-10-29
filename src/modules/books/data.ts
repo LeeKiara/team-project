@@ -53,6 +53,15 @@ export interface BookComment {
   comment: string;
   nickname: string;
   createdDate: number;
+  replyComment: ReplyComment[];
+}
+
+export interface ReplyComment {
+  id?: number;
+  comment: string;
+  nickname: string;
+  createdDate: number;
+  parentId: number;
 }
 
 export interface SeriesInfo {

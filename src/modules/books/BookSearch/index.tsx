@@ -21,6 +21,8 @@ const BookSearch = () => {
   //검색 총 페이지
   const [totalPages, setTotalPages] = useState(0);
 
+  //페이징 숫자 처리
+  const [arrowNumberList, setArrowNumberList] = useState([]);
   //페이징 화살표 상태값
   const [showArrowLeft, setShowArrowLeft] = useState(false);
   const [showArrowRight, setShowArrowRight] = useState(true);
@@ -64,7 +66,7 @@ const BookSearch = () => {
     }));
   };
 
-  //화살표 상태에 따라 변화
+  //화살표 상태에 따라 변화 및 페이징 숫자 처리
   useEffect(() => {
     if (currentPage > 0) {
       setShowArrowLeft(true);
@@ -76,6 +78,18 @@ const BookSearch = () => {
     } else {
       setShowArrowRight(true);
     }
+
+    // 페이지당 아이템 수 (예: 5)
+    const itemsPerPage = 5;
+    const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
+
+    const lst = [];
+    for (let i = startIndex; i < endIndex; i++) {
+      lst.push(i);
+    }
+    console.log(lst);
+    setArrowNumberList(lst);
   }, [currentPage, totalPages]);
 
   //검색어 쿼리
@@ -199,7 +213,7 @@ const BookSearch = () => {
                             cover={item.cover}
                             priceStandard={item.priceStandard.toString()}
                             priceSales={item.priceSales.toString()}
-                            quantity="1"
+                            quantity={1}
                           />
                         </div>
                       </td>
@@ -222,46 +236,16 @@ const BookSearch = () => {
                       <button onClick={handlePageMinus}>{`<`}</button>
                     </li>
                   )}
-                  {/* {Array.from({ length: Math.min(MAX_LIST, totalPage - currentPage) }, (_, i) => i + currentPage).map((pageNumber) => (
-                  <li key={pageNumber} className="numberbox" onClick={() => handleSetPage(pageNumber)}>
-                    {pageNumber + 1}
-                  </li>
-                ))} */}
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(0);
-                    }}>
-                    1
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(1);
-                    }}>
-                    2
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(2);
-                    }}>
-                    3
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(3);
-                    }}>
-                    4
-                  </li>
-                  <li
-                    className="numberbox"
-                    onClick={() => {
-                      handleSetPage(4);
-                    }}>
-                    5
-                  </li>
+                  {arrowNumberList.map((num) => (
+                    <li
+                      key={num}
+                      className="numberbox"
+                      onClick={() => {
+                        handleSetPage(num);
+                      }}>
+                      {num + 1}
+                    </li>
+                  ))}
                   {showArrowRight && (
                     <li className="numberbox">
                       <button onClick={handlePagePlus}>{`>`}</button>
