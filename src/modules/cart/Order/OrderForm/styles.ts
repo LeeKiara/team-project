@@ -284,7 +284,8 @@ export const OrderFormContainer = styled.div`
 
       .button-selected {
         border: 1px solid ${blueColor};
-        color: ${blueColor};
+        color: white;
+        background: ${blueColor};
       }
     }
 
