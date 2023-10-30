@@ -14,23 +14,33 @@ const OrderDetail = () => {
   // const testOrderId = "2023123456789";
 
   const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
+  const [stateOrderData, setStateOrderData] = useState(orderDetailData);
+  const [isUpdateOrderData, setIsUpdateOrderData] = useState(false);
 
   let sumOrderPrice = 0;
   let deliveryAmt = 0;
 
+  // 주문 데이터 초기화 설정
+  useEffect(() => {
+    if (orderDetailData) {
+      setStateOrderData(orderDetailData);
+    }
+  }, [orderDetailData, isUpdateOrderData]);
+
+  if (stateOrderData) {
+    console.log(
+      "*** stateOrderData => paymentMethod:" +
+        stateOrderData.paymentMethod +
+        ",paymentPrice:" +
+        stateOrderData.paymentPrice +
+        ",postcode:" +
+        stateOrderData.postcode,
+      ",stateOrderData orderStatus:" + stateOrderData.orderStatus,
+    );
+  }
+
   // 주문내역 조회 결과
   if (orderDetailData) {
-    console.log("orderDetailData => " + orderDetailData);
-    console.log(
-      "paymentMethod:" +
-        orderDetailData.paymentMethod +
-        ",paymentPrice:" +
-        orderDetailData.paymentPrice +
-        ",postcode:" +
-        orderDetailData.postcode,
-      ",orderStatus:" + orderDetailData.orderStatus,
-    );
-
     orderDetailData.orderItems.map((item) => {
       sumOrderPrice += item.orderPrice;
       console.log(item.itemId + "," + item.title + "," + item.orderPrice);
@@ -55,6 +65,9 @@ const OrderDetail = () => {
             console.log("주문 취소 완료" + response.data);
 
             alert("주문이 취소 되었습니다.");
+
+            orderDetailData.orderStatus = "2";
+            setIsUpdateOrderData(true);
 
             // navigate(`/order/done/${orderId}`);
           }
@@ -102,8 +115,8 @@ const OrderDetail = () => {
                   </span>
                 </div>
                 <div className="order-cancel">
-                  {orderDetailData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>}
-                  {orderDetailData.orderStatus === "2" && <p>주문취소완료</p>}
+                  {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>}
+                  {stateOrderData.orderStatus === "2" && <p style={{ color: "red" }}>주문취소완료</p>}
                 </div>
               </div>
             </div>

@@ -341,7 +341,7 @@ const OrderList = () => {
                   }}>
                   2
                 </li>
-                {totalPages > 3 && (
+                {totalPages > 2 && (
                   <li
                     className="numberbox"
                     onClick={() => {
@@ -351,7 +351,7 @@ const OrderList = () => {
                   </li>
                 )}
 
-                {totalPages > 4 && (
+                {totalPages > 3 && (
                   <li
                     className="numberbox"
                     onClick={() => {
@@ -360,7 +360,7 @@ const OrderList = () => {
                     4
                   </li>
                 )}
-                {totalPages > 5 && (
+                {totalPages > 4 && (
                   <li
                     className="numberbox"
                     onClick={() => {
