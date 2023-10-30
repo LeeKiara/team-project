@@ -2,6 +2,7 @@ import { AccountCircle, CheckCircle, CheckCircleOutline, Lock } from "@mui/icons
 import { LoginCantailner } from "./styles";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import home_icon from "../../../assets/homepage-icon.png";
 
 const Login = () => {
   const [userid, setUserid] = useState("");
@@ -31,7 +32,7 @@ const Login = () => {
       <LoginCantailner>
         <section>
           <Link to="/">
-            <h1>Brunch Story</h1>
+            <img src={home_icon} alt="home icon" height={80} />
           </Link>
           <form action="http://localhost:8081/auth/signin" method="post">
             <label>

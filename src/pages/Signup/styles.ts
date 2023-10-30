@@ -5,18 +5,17 @@ export const SignUpContainer = styled.div`
     width: 500px;
     margin: auto;
   }
-  a {
-    text-decoration: none;
-    color: black;
-  }
   p {
     margin: 0;
+  }
+  section > a > img {
+    padding-top: 20px;
   }
   section > form {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    padding-top: 40px;
+    padding-top: 20px;
   }
   svg {
     color: #767676;

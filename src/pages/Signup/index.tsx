@@ -12,6 +12,7 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { SignUpContainer } from "./styles";
+import home_icon from "../../../assets/homepage-icon.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -109,7 +110,7 @@ const SignUp = () => {
       <SignUpContainer>
         <section>
           <Link to="/">
-            <h1>BrunchStory</h1>
+            <img src={home_icon} alt="home icon" height={80} />
           </Link>
           <form>
             <div>

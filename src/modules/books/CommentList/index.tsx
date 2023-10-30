@@ -203,7 +203,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                       <div>
                         {!showModify[item.id] ? <p>{item.comment}</p> : null}
                         <span>
-                          {showReplyInput[item.id] && item.nickname !== profile.nickname ? (
+                          {profile && showReplyInput[item.id] && item.nickname !== profile.nickname ? (
                             <div
                               style={{
                                 marginTop: "10px",
@@ -242,9 +242,9 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                               ) : null}
                             </div>
                           )}
-                          {showReplyInput[item.id] && item.nickname === profile.nickname ? null : (
+                          {profile && showReplyInput[item.id] && item.nickname === profile.nickname ? null : (
                             <div>
-                              {item.nickname === profile.nickname && (
+                              {profile && item.nickname === profile.nickname && (
                                 <div className={showModify[item.id] ? "modify-buttons" : "modify-buttons minus-btn"}>
                                   <button
                                     className="modify-btn"
@@ -276,17 +276,18 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                           )}
                         </span>
                       </div>
-                      {item.nickname !== profile.nickname && !showReplyInput[item.id] && (
-                        <div className="reply-btn">
-                          <button
-                            className="modify-btn minus-btn"
-                            onClick={() => {
-                              handleShowReplyInput(item.id);
-                            }}>
-                            답글
-                          </button>
-                        </div>
-                      )}
+                      {!profile ||
+                        (item.nickname !== profile.nickname && !showReplyInput[item.id] && (
+                          <div className="reply-btn">
+                            <button
+                              className="modify-btn minus-btn"
+                              onClick={() => {
+                                handleShowReplyInput(item.id);
+                              }}>
+                              답글
+                            </button>
+                          </div>
+                        ))}
                       {!item.replyComment ? (
                         <p>답글 로딩 중..</p>
                       ) : (
@@ -295,7 +296,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                             <div>
                               {replyList.map((reply) => (
                                 <span key={reply.id}>
-                                  {reply.parentId === item.id && reply.nickname === profile.nickname ? (
+                                  {profile && reply.parentId === item.id && reply.nickname === profile.nickname ? (
                                     <div className="reply-list">
                                       <span>
                                         <h5>

@@ -128,9 +128,15 @@ export const LayoutContainer = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  .cite > div > h1 {
+  .cite > div > span {
+    margin-top: -10px;
+  }
+  .cite > div > span > h1 {
     font-size: 30px;
     font-weight: bold;
+  }
+  .cite > div > span > h5 {
+    margin-top: 10px;
   }
   .cite > div > h2 {
     font-size: 25px;
@@ -159,6 +165,9 @@ export const LayoutContainer = styled.div`
     #searchForm > h1 > a {
       vertical-align: middle;
       font-size: 30px;
+    }
+    #searchForm > form > label {
+      height: 58%;
     }
     #searchForm > form > label > select {
       height: 75%;

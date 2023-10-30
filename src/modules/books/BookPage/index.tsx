@@ -7,13 +7,7 @@ import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpO
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
-
-interface ProfileData {
-  profileId: number;
-  nickname: string;
-  phone?: string;
-  email?: string;
-}
+import { ProfileData } from "@/modules/cart/userdata";
 
 const BookPage = () => {
   const token = getCookie("token");
@@ -234,6 +228,7 @@ const BookPage = () => {
     }
   }, [likeList]);
 
+  //회원정보 담기
   useEffect(() => {
     if (token) {
       (async () => {

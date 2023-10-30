@@ -2,14 +2,24 @@ import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
 import { BookData, BookItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, Transform } from "@mui/icons-material";
 import axios from "axios";
+
+interface MainBanner {
+  id: number;
+  img: string;
+}
 
 const Home = () => {
   const [todayLetter, setTodayLetter] = useState("");
   const [best, setBest] = useState<BookItem[]>([]);
   const [page, setPage] = useState(0);
   const [showButton, setShowButton] = useState(true);
+  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg");
+
+  const [bannerBackground, setBannerBackground] = useState("");
+
+  const [banner, setBanner] = useState([]);
 
   const handleMouseOver = () => {
     setShowButton(true);
@@ -17,6 +27,24 @@ const Home = () => {
   const handleMouseOut = () => {
     setShowButton(false);
   };
+
+  //다음 배너 화살표
+  const nextBanner = () => {
+    const currentIndex = banner.findIndex((item) => item.img === image);
+    const nextIndex = (currentIndex + 1) % banner.length;
+    setImage(banner[nextIndex].img);
+  };
+  //이전 배너 화살표
+  const previousBanner = () => {
+    const currentIndex = banner.findIndex((item) => item.img === image);
+    const previousIndex = (currentIndex - 1 + banner.length) % banner.length;
+    setImage(banner[previousIndex].img);
+  };
+
+  useEffect(() => {
+    const currentIndex = banner.findIndex((item) => item.img === image);
+    setBannerBackground(`banner-background${currentIndex}`);
+  }, [image]);
 
   useEffect(() => {
     (async () => {
@@ -29,21 +57,30 @@ const Home = () => {
         console.log(e);
       }
     })();
+    setBannerBackground("banner-background0");
+    setBanner([
+      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
+      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
+    ]);
   }, []);
 
   return (
     <HomeContainer>
       <div>
-        <article>
+        <article className={bannerBackground}>
           <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             {showButton ? (
-              <button>
+              <button onClick={previousBanner}>
                 <ArrowBack className="material-icons-outlined" />
               </button>
             ) : null}
-            <img src="https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" alt="배너" />
+            <div className="banner-container">
+              {banner.map((img) => (
+                <img key={img.id} src={image} alt="배너" />
+              ))}
+            </div>
             {showButton ? (
-              <button>
+              <button onClick={nextBanner}>
                 <ArrowForward className="material-icons-outlined" />
               </button>
             ) : null}

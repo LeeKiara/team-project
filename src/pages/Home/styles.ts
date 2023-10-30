@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 
 export const HomeContainer = styled.div`
-  div > article:nth-of-type(1) {
-    /* background-color: #dff5ff; */
+  .banner-background0 {
     background-color: #ffebed;
+    height: 400px;
+  }
+  .banner-background1 {
+    background-color: #fff1da;
     height: 400px;
   }
   div > article:nth-of-type(1) > figure {
@@ -120,6 +123,17 @@ export const HomeContainer = styled.div`
   div > article > figure > button > svg {
     font-size: 50px;
     color: white;
+  }
+  .banner-container {
+    display: flex;
+    overflow: hidden;
+    /* 슬라이더의 너비 설정 */
+    width: 958px;
+  }
+  .banner-container img {
+    width: 100%; /* 이미지의 너비 설정 */
+    /* 슬라이딩 효과 설정 */
+    transition: transform 0.5s;
   }
 
   @media (min-width: 55rem) {
