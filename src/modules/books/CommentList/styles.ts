@@ -63,6 +63,7 @@ export const CommnetListContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
   }
   .reply-list > span:nth-of-type(1) {
     margin-top: 5px;

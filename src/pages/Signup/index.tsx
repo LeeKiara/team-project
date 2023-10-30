@@ -43,6 +43,9 @@ const SignUp = () => {
     if (bookmarkValue === "") {
       alert("선호장르를 골라주세요.");
     }
+    if (Array.from(birthValue).length > 7) {
+      alert("주민번호 앞 7자리만 입력해주세요");
+    }
 
     const signupRequest = {
       userid: userIdValue,
@@ -61,7 +64,8 @@ const SignUp = () => {
         phoneValue !== "" &&
         emailValue !== "" &&
         birthValue !== "" &&
-        bookmarkValue !== ""
+        bookmarkValue !== "" &&
+        Array.from(birthValue).length < 8
       ) {
         try {
           const response = await axios.post(`http://localhost:8081/auth/signup`, signupRequest);

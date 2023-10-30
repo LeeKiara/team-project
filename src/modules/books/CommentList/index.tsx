@@ -1,23 +1,28 @@
-import { Diversity1, PortraitOutlined } from "@mui/icons-material";
+import { PointOfSale, PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { BookComment, ReplyComment } from "../data";
 import { getCookie } from "@/utils/cookie";
 import axios from "axios";
+import { ProfileData } from "@/modules/cart/userdata";
 
 interface CommentModalProps {
   comments: BookComment[];
   onConfirm: (itemId: number, modifyValue: string) => void;
   onClick: (itemId: number) => void;
-  nickname?: string;
   id?: string;
   newId: string;
 }
 
-const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: CommentModalProps) => {
+const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalProps) => {
   const token = getCookie("token");
+  //댓글 목록
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
-  const [replyList, setReplyList] = useState<ReplyComment[] | null>(null);
+  //답글 목록
+  const [replyList, setReplyList] = useState<ReplyComment[] | null>([]);
+
+  //유저 정보
+  const [profile, setProfile] = useState<ProfileData | null>(null);
 
   const commentText = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -92,7 +97,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
       const newCommentItem = {
         new: newParam,
         comment: commentText.current.value,
-        nickname: nickname,
+        nickname: profile.nickname,
         createdDate: time,
       };
       const fetchBookComment = async (commentId: string) => {
@@ -126,6 +131,7 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
       }));
     }
   };
+
   //답글 삭제
   const handleReplyDelete = async (commentId, id) => {
     try {
@@ -144,13 +150,32 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
   };
 
   useEffect(() => {
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfile(response.data);
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    }
+  }, []);
+
+  useEffect(() => {
     if (comments && comments.length > 0) {
       const sortedComments = [...comments].sort((a, b) => b.id - a.id);
       setCommentList(sortedComments);
       console.log(sortedComments + "댓글리스트");
-      sortedComments.map((comment) => {
-        const replyComments = [...comment.replyComment].sort((a, b) => b.id - a.id);
-        setReplyList(replyComments);
+      sortedComments.forEach((comment) => {
+        if (Array.isArray(comment.replyComment)) {
+          const replyComments = [...comment.replyComment].sort((a, b) => b.id - a.id);
+          setReplyList(replyComments);
+        }
       });
     }
   }, [comments]);
@@ -158,170 +183,170 @@ const CommentList = ({ comments, onClick, onConfirm, nickname, id, newId }: Comm
   return (
     <>
       <CommnetListContainer>
-        {!commentList ? (
+        {/* {!commentList ? (
           <p>댓글 로딩 중...</p>
-        ) : (
-          <div className="comment-list">
-            {commentList && commentList.length > 0 ? (
-              commentList.map((item) => (
-                <div key={item.id}>
-                  <span>
-                    <h5>
-                      <PortraitOutlined className="material-symbols-outlined" />
-                      <sub>{item.nickname}</sub>
-                    </h5>
-                    <h6>{timeCheck(item.createdDate)}</h6>
-                  </span>
-                  <span>
-                    <div>
-                      <div className="comment-main">
-                        <div>
-                          {!showModify[item.id] ? <p>{item.comment}</p> : null}
-                          <span>
-                            {showReplyInput[item.id] && item.nickname !== nickname ? (
-                              <div
-                                style={{
-                                  marginTop: "10px",
-                                  width: "100%",
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}>
-                                <input ref={commentText} placeholder="댓글을 입력해주세요" />
-                                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        ) : ( */}
+        <div className="comment-list">
+          {commentList && commentList.length > 0 ? (
+            commentList.map((item) => (
+              <div key={item.id}>
+                <span>
+                  <h5>
+                    <PortraitOutlined className="material-symbols-outlined" />
+                    <sub>{item.nickname}</sub>
+                  </h5>
+                  <h6>{timeCheck(item.createdDate)}</h6>
+                </span>
+                <span>
+                  <div>
+                    <div className="comment-main">
+                      <div>
+                        {!showModify[item.id] ? <p>{item.comment}</p> : null}
+                        <span>
+                          {showReplyInput[item.id] && item.nickname !== profile.nickname ? (
+                            <div
+                              style={{
+                                marginTop: "10px",
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}>
+                              <input ref={commentText} placeholder="댓글을 입력해주세요" />
+                              <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                                <button
+                                  className="modify-btn"
+                                  onClick={(e) => {
+                                    handleSaveComment(e, item.id);
+                                  }}>
+                                  등록
+                                </button>
+                                <button
+                                  className="modify-btn"
+                                  onClick={() => {
+                                    handleCancleShowReplyInput();
+                                  }}>
+                                  취소
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="display-none">
+                              {showModify[item.id] ? (
+                                <input
+                                  ref={modifyRef}
+                                  defaultValue={item.comment}
+                                  onChange={(e) => {
+                                    setModifyValue(e.target.value);
+                                  }}
+                                />
+                              ) : null}
+                            </div>
+                          )}
+                          {showReplyInput[item.id] && item.nickname === profile.nickname ? null : (
+                            <div>
+                              {item.nickname === profile.nickname && (
+                                <div className={showModify[item.id] ? "modify-buttons" : "modify-buttons minus-btn"}>
                                   <button
                                     className="modify-btn"
-                                    onClick={(e) => {
-                                      handleSaveComment(e, item.id);
-                                    }}>
-                                    등록
+                                    onClick={
+                                      showModify[item.id]
+                                        ? (e) => {
+                                            handleConfirm(e, item.id);
+                                          }
+                                        : () => {
+                                            handleShowModify(item.id);
+                                          }
+                                    }>
+                                    {showModify[item.id] ? "완료" : "수정"}
                                   </button>
                                   <button
                                     className="modify-btn"
-                                    onClick={() => {
-                                      handleCancleShowReplyInput();
-                                    }}>
-                                    취소
+                                    onClick={
+                                      showModify[item.id]
+                                        ? handleCancle
+                                        : () => {
+                                            onClick(item.id);
+                                          }
+                                    }>
+                                    {showModify[item.id] ? "취소" : "삭제"}
                                   </button>
                                 </div>
-                              </div>
-                            ) : (
-                              <div className="display-none">
-                                {showModify[item.id] ? (
-                                  <input
-                                    ref={modifyRef}
-                                    defaultValue={item.comment}
-                                    onChange={(e) => {
-                                      setModifyValue(e.target.value);
-                                    }}
-                                  />
-                                ) : null}
-                              </div>
-                            )}
-                            {showReplyInput[item.id] && item.nickname !== nickname ? null : (
-                              <div>
-                                {item.nickname === nickname && (
-                                  <div className={showModify[item.id] ? "modify-buttons" : "modify-buttons minus-btn"}>
-                                    <button
-                                      className="modify-btn"
-                                      onClick={
-                                        showModify[item.id]
-                                          ? (e) => {
-                                              handleConfirm(e, item.id);
-                                            }
-                                          : () => {
-                                              handleShowModify(item.id);
-                                            }
-                                      }>
-                                      {showModify[item.id] ? "완료" : "수정"}
-                                    </button>
-                                    <button
-                                      className="modify-btn"
-                                      onClick={
-                                        showModify[item.id]
-                                          ? handleCancle
-                                          : () => {
-                                              onClick(item.id);
-                                            }
-                                      }>
-                                      {showModify[item.id] ? "취소" : "삭제"}
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </span>
-                        </div>
-                        {item.nickname !== nickname && !showReplyInput[item.id] && (
-                          <div className="reply-btn">
-                            <button
-                              className="modify-btn"
-                              onClick={() => {
-                                handleShowReplyInput(item.id);
-                              }}>
-                              답글
-                            </button>
-                          </div>
-                        )}
-                        {!item.replyComment ? (
-                          <p>답글 로딩 중..</p>
-                        ) : (
-                          <div>
-                            {item.replyComment.length > 0 ? (
-                              <div>
-                                {replyList.map((reply) => (
-                                  <span key={reply.id}>
-                                    {reply.parentId === item.id && reply.nickname === nickname ? (
-                                      <div className="reply-list">
-                                        <span>
-                                          <h5>
-                                            <PortraitOutlined className="material-symbols-outlined" />
-                                            <sub>{reply.nickname}</sub>
-                                          </h5>
-                                          <h6>{timeCheck(reply.createdDate)}</h6>
-                                        </span>
-                                        <span>
-                                          <p>{reply.comment}</p>
-                                          <button
-                                            className="modify-btn"
-                                            onClick={() => {
-                                              handleReplyDelete(item.id, reply.id);
-                                            }}>
-                                            삭제
-                                          </button>
-                                        </span>
-                                      </div>
-                                    ) : (
-                                      <div className="reply-list">
-                                        <span>
-                                          <h5>
-                                            <PortraitOutlined className="material-symbols-outlined" />
-                                            <sub>{reply.nickname}</sub>
-                                          </h5>
-                                          <h6>{timeCheck(reply.createdDate)}</h6>
-                                        </span>
-                                        <span>
-                                          <p>{reply.comment}</p>
-                                        </span>
-                                      </div>
-                                    )}
-                                  </span>
-                                ))}
-                              </div>
-                            ) : null}
-                          </div>
-                        )}
+                              )}
+                            </div>
+                          )}
+                        </span>
                       </div>
+                      {item.nickname !== profile.nickname && !showReplyInput[item.id] && (
+                        <div className="reply-btn">
+                          <button
+                            className="modify-btn minus-btn"
+                            onClick={() => {
+                              handleShowReplyInput(item.id);
+                            }}>
+                            답글
+                          </button>
+                        </div>
+                      )}
+                      {!item.replyComment ? (
+                        <p>답글 로딩 중..</p>
+                      ) : (
+                        <div>
+                          {Array.isArray(item.replyComment) && item.replyComment.length > 0 ? (
+                            <div>
+                              {replyList.map((reply) => (
+                                <span key={reply.id}>
+                                  {reply.parentId === item.id && reply.nickname === profile.nickname ? (
+                                    <div className="reply-list">
+                                      <span>
+                                        <h5>
+                                          <PortraitOutlined className="material-symbols-outlined" />
+                                          <sub>{reply.nickname}</sub>
+                                        </h5>
+                                        <h6>{timeCheck(reply.createdDate)}</h6>
+                                      </span>
+                                      <span>
+                                        <p>{reply.comment}</p>
+                                        <button
+                                          className="modify-btn"
+                                          onClick={() => {
+                                            handleReplyDelete(item.id, reply.id);
+                                          }}>
+                                          삭제
+                                        </button>
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <div className="reply-list">
+                                      <span>
+                                        <h5>
+                                          <PortraitOutlined className="material-symbols-outlined" />
+                                          <sub>{reply.nickname}</sub>
+                                        </h5>
+                                        <h6>{timeCheck(reply.createdDate)}</h6>
+                                      </span>
+                                      <span>
+                                        <p>{reply.comment}</p>
+                                      </span>
+                                    </div>
+                                  )}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
+                        </div>
+                      )}
                     </div>
-                  </span>
-                </div>
-              ))
-            ) : (
-              <div>
-                <p>댓글이 없습니다.</p>
+                  </div>
+                </span>
               </div>
-            )}
-          </div>
-        )}
+            ))
+          ) : (
+            <div>
+              <p>댓글이 없습니다.</p>
+            </div>
+          )}
+        </div>
+        {/* )} */}
       </CommnetListContainer>
     </>
   );
