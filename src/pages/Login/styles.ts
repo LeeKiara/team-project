@@ -13,8 +13,10 @@ export const LoginCantailner = styled.div`
     margin: auto;
     padding-top: 100px;
   }
-  h1 {
-    text-align: center;
+  section > a {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
   }
   form {
     width: 340px;

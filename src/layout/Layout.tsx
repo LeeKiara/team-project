@@ -4,6 +4,8 @@ import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
 import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
+import home_icon from "../../assets/homepage-icon.png";
+import home_icon_dark from "../../assets/homepage-icon-dark.png";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -65,7 +67,9 @@ const Layout = () => {
             </aside>
             <div id="searchForm">
               <h1>
-                <Link to="/">Bruch Story</Link>
+                <Link to="/">
+                  <img src={home_icon} alt="home icon" height={80} />
+                </Link>
               </h1>
               <form onSubmit={handleSearch}>
                 <label>
@@ -113,7 +117,10 @@ const Layout = () => {
       </div>
       <footer className="cite">
         <div>
-          <h1>Brunch Story</h1>
+          <span>
+            <h1>B.T.S</h1>
+            <h5>be the story</h5>
+          </span>
           <address>
             <div>
               <h4>

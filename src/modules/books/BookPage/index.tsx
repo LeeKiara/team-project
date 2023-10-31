@@ -7,19 +7,13 @@ import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpO
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
-
-interface ProfileData {
-  profileId: number;
-  nickname: string;
-  phone?: string;
-  email?: string;
-}
+import { ProfileData } from "@/modules/cart/userdata";
 
 const BookPage = () => {
   const token = getCookie("token");
   const navigate = useNavigate();
 
-  //유저 닉네임
+  //유저 정보
   const [profile, setProfile] = useState<ProfileData | null>(null);
 
   //디테일 페이지 상태값
@@ -28,7 +22,7 @@ const BookPage = () => {
   const [searchParams] = useSearchParams();
 
   //카트데이터 수량값
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
 
   //선호작품 상태값
   const [showHeartState, setShowHeartState] = useState(false);
@@ -47,7 +41,7 @@ const BookPage = () => {
   //디테일 페이지 id값 가져오기
   const newId = searchParams.get("new");
 
-  //quantity
+  //수량
   // const numberValue = useRef() as MutableRefObject<HTMLInputElement>;
 
   //수량 더하기 빼기
@@ -234,6 +228,7 @@ const BookPage = () => {
     }
   }, [likeList]);
 
+  //회원정보 담기
   useEffect(() => {
     if (token) {
       (async () => {
@@ -249,7 +244,7 @@ const BookPage = () => {
         }
       })();
     }
-  }, [detail]);
+  }, []);
 
   //서버 화면 조회
   useEffect(() => {
@@ -323,7 +318,6 @@ const BookPage = () => {
                   <input
                     type="number"
                     // ref={numberValue}
-                    placeholder="0"
                     value={number}
                     onChange={(e) => setNumber(parseInt(e.target.value, 10))}
                   />
@@ -393,13 +387,13 @@ const BookPage = () => {
             <h2>도서정보</h2>
             <hr />
             <figure style={{ display: "flex", justifyContent: "center" }}>
-              {/* <img
+              <img
                 style={{ margin: "auto" }}
                 src="https://contents.kyobobook.co.kr/sih/fit-in/814x0/dtl/illustrate/151/i9791159242151.jpg"
                 alt="이벤트사진"
-              /> */}
+              />
             </figure>
-            {/* {detail ? (
+            {detail ? (
               <article>
                 {detail.description ? (
                   <>
@@ -427,7 +421,7 @@ const BookPage = () => {
               <div>
                 <p>책 소개 글이 없습니다.</p>
               </div>
-            )} */}
+            )}
           </section>
           <footer className="input-comment">
             <form>
@@ -445,14 +439,7 @@ const BookPage = () => {
                 </button>
               </label>
             </form>
-            <CommentList
-              comments={commentList}
-              nickname={profile?.nickname}
-              onClick={handleDelete}
-              onConfirm={handleModify}
-              id={id}
-              newId={newId}
-            />
+            <CommentList comments={commentList} onClick={handleDelete} onConfirm={handleModify} id={id} newId={newId} />
           </footer>
         </main>
       </PageContainer>

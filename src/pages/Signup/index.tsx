@@ -12,6 +12,7 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { SignUpContainer } from "./styles";
+import home_icon from "../../../assets/homepage-icon.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -43,6 +44,9 @@ const SignUp = () => {
     if (bookmarkValue === "") {
       alert("선호장르를 골라주세요.");
     }
+    if (Array.from(birthValue).length > 7) {
+      alert("주민번호 앞 7자리만 입력해주세요");
+    }
 
     const signupRequest = {
       userid: userIdValue,
@@ -61,7 +65,8 @@ const SignUp = () => {
         phoneValue !== "" &&
         emailValue !== "" &&
         birthValue !== "" &&
-        bookmarkValue !== ""
+        bookmarkValue !== "" &&
+        Array.from(birthValue).length < 8
       ) {
         try {
           const response = await axios.post(`http://localhost:8081/auth/signup`, signupRequest);
@@ -105,7 +110,7 @@ const SignUp = () => {
       <SignUpContainer>
         <section>
           <Link to="/">
-            <h1>BrunchStory</h1>
+            <img src={home_icon} alt="home icon" height={80} />
           </Link>
           <form>
             <div>
