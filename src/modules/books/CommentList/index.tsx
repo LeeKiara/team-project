@@ -5,6 +5,7 @@ import { BookComment, ReplyComment } from "../data";
 import { getCookie } from "@/utils/cookie";
 import axios from "axios";
 import { ProfileData } from "@/modules/cart/userdata";
+import { useNavigate } from "react-router-dom";
 
 interface CommentModalProps {
   comments: BookComment[];
@@ -16,6 +17,8 @@ interface CommentModalProps {
 
 const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalProps) => {
   const token = getCookie("token");
+  const navigate = useNavigate();
+
   //댓글 목록
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
   //답글 목록
@@ -47,7 +50,6 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
     e.preventDefault();
     if (modifyValue.trim() === "") {
       alert("댓글을 입력해주세요");
-      return;
     }
     onConfirm(itemId, modifyValue);
     setShowModify((prev) => ({
@@ -76,17 +78,18 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
 
   //답글추가
   const handleSaveComment = (e, commentId) => {
+    e.preventDefault();
     if (!token) {
-      alert("로그인 후 이용해주세요.");
-      return;
+      const confirmation = window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
+      if (confirmation) {
+        navigate("/login");
+      }
     } else {
-      e.preventDefault();
       console.log(commentText.current.value);
       const newComment = commentText.current.value;
       if (newComment.trim() === "") {
         // 댓글이 공백일 경우 아무 작업도 수행하지 않음
         alert("댓글을 입력해주세요");
-        return;
       }
       const time = new Date().getTime();
       console.log(time);
@@ -288,9 +291,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                             </button>
                           </div>
                         ))}
-                      {!item.replyComment ? (
-                        <p>답글 로딩 중..</p>
-                      ) : (
+                      {!item.replyComment ? null : (
                         <div>
                           {Array.isArray(item.replyComment) && item.replyComment.length > 0 ? (
                             <div>
