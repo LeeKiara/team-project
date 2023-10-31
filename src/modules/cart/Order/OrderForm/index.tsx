@@ -186,17 +186,16 @@ const OrderForm = () => {
   //   }
   // }, [orderNumber]);
 
-  const handleOrderComplete = () => {
-    // 주문 완료 로직...
+  // const handleOrderComplete = () => {
+  //   // 주문 완료 로직...
 
-    // 주문이 성공적으로 완료되면 orderNumber 값을 설정
-    const orderId = "12345"; // 예시 주문번호
-    // setOrderNumber(newOrderNumber);
+  //   // 주문이 성공적으로 완료되면 orderNumber 값을 설정
+  //   const orderId = "12345"; // 예시 주문번호
+  //   // setOrderNumber(newOrderNumber);
 
-    // 페이지 이동
-
-    navigate(`/order/done/${orderId}`);
-  };
+  //   // 페이지 이동
+  //   navigate(`/order/done/${orderId}`);
+  // };
 
   function checkFormData() {
     if (deliveryNameRef.current.value === "") {
