@@ -22,7 +22,7 @@ export const cartRoutes = [
     ,
     <Route element={<OrderForm />} index />,
     <Route key="payment" path="payment" element={<Payment />} />,
-    <Route key="done" path="done/:orderId" element={<OrderDone />} />,
+    <Route key="done" path="done" element={<OrderDone />} />,
     <Route key="list" path="list" element={<OrderList />} />,
     <Route key="detail" path="detail/:orderId" element={<OrderDetail />} />,
   </Route>,
@@ -37,6 +37,6 @@ export const cartRoutes = [
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
-  <Route key="test" path="test" element={<OrderList />} />,
+  <Route key="test" path="test" element={<OrderDone />} />,
   <Route key="test2" path="test2" element={<Example />} />,
 ];

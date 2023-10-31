@@ -7,7 +7,7 @@ import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 
 const OrderList = () => {
-  const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/취소)
+  const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문완료(입금대기)/취소)
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월
   const [isPeriodType2, setPeriodType2] = useState(false); // 조회기간 6개월
   const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체
@@ -240,6 +240,9 @@ const OrderList = () => {
                 <a href="#" className={selectedStatus === "1" ? "on" : ""} onClick={() => changeStatus("1")}>
                   주문 완료
                 </a>
+                <a href="#" className={selectedStatus === "0" ? "on" : ""} onClick={() => changeStatus("0")}>
+                  주문 완료(입금대기)
+                </a>
                 <a href="#" className={selectedStatus === "2" ? "on" : ""} onClick={() => changeStatus("2")}>
                   취소
                 </a>
@@ -301,7 +304,17 @@ const OrderList = () => {
                 {/* <div style={{ width: "0px" }}>&nbsp;</div> */}
                 {/* 주문상태 */}
                 <div className="order-state">
-                  <strong>{orderData.orderStatus === "1" ? "주문완료" : "주문취소"}</strong>
+                  {orderData.orderStatus === "1" ? (
+                    <strong>주문완료</strong>
+                  ) : orderData.orderStatus === "2" ? (
+                    <strong>주문취소</strong>
+                  ) : (
+                    <strong>
+                      주문완료
+                      <br />
+                      <p style={{ fontSize: "14px", marginTop: "10px" }}>(입금대기)</p>
+                    </strong>
+                  )}
                 </div>
                 {/* 주문상태 */}
                 {/* 주문상태 */}
@@ -312,7 +325,7 @@ const OrderList = () => {
                         ? "신용카드"
                         : orderData.paymentMethod === "2"
                         ? "실시간 계좌이체"
-                        : "무통장입금"}
+                        : "온라인 입금"}
                     </strong>
                   </div>
                 </div>

@@ -78,13 +78,14 @@ const PaymentInfo = ({ orderId, onCancel }: PaymentInfoModalProps) => {
               <dl>
                 <dt>결제수단</dt>
                 <dd>
-                  <span>
-                    {orderDetailData.paymentMethod === "1"
-                      ? "신용카드"
-                      : orderDetailData.paymentMethod === "2"
-                      ? "실시간 계좌이체"
-                      : "무통장입금"}
-                  </span>
+                  {orderDetailData.paymentMethod === "1" ? (
+                    <span>신용카드</span>
+                  ) : orderDetailData.paymentMethod === "2" ? (
+                    <span>실시간 계좌이체</span>
+                  ) : (
+                    <span style={{ color: "#e02020" }}>온라인입금(입금대기)</span>
+                  )}
+
                   <span></span>
                 </dd>
               </dl>

@@ -37,6 +37,8 @@ const CartForm = () => {
   // 전체 체크박스 선택 상태를 관리
   const [selectAll, setSelectAll] = useState(false);
 
+  const [showMessageModal, setShowMessageModal] = useState(false);
+
   const navigate = useNavigate();
 
   // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
@@ -121,6 +123,23 @@ const CartForm = () => {
     setIsOrder(true);
   };
 
+  useEffect(() => {
+    // 삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거
+    if (deletedItemId) {
+      console.log("삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거 :deletedItemId [" + deletedItemId + "]");
+
+      const updatedCartList = cartlist.filter((item) => item.itemId !== Number(deletedItemId));
+      setDeletedItemId(null);
+
+      updatedCartList.map((item) => {
+        console.log("item.itemId:" + item.itemId + ",deletedItemId:" + deletedItemId);
+      });
+
+      // updatedCartList를 사용하여 cartlist를 업데이트
+      mutateCartDataFunction(updatedCartList, false);
+    }
+  }, [deletedItemId, cartlist]);
+
   // 체크박스 선택 및 수량 변경에 따른 대상 최종 정보 생성
   function createSelectedCartList(stateCartData, qtys) {
     console.log("createSelectedCartList:" + checkboxes[0] + "," + checkboxes[1]);
@@ -204,8 +223,6 @@ const CartForm = () => {
     });
   };
 
-  const [showMessageModal, setShowMessageModal] = useState(false);
-
   const handleShowMessageButton = () => {
     setShowMessageModal(true);
   };
@@ -242,23 +259,6 @@ const CartForm = () => {
     }
   };
 
-  useEffect(() => {
-    // 삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거
-    if (deletedItemId) {
-      console.log("삭제된 아이템 ID가 설정되면 해당 아이템을 cartlist에서 제거 :deletedItemId [" + deletedItemId + "]");
-
-      const updatedCartList = cartlist.filter((item) => item.itemId !== Number(deletedItemId));
-      setDeletedItemId(null);
-
-      updatedCartList.map((item) => {
-        console.log("item.itemId:" + item.itemId + ",deletedItemId:" + deletedItemId);
-      });
-
-      // updatedCartList를 사용하여 cartlist를 업데이트
-      mutateCartDataFunction(updatedCartList, false);
-    }
-  }, [deletedItemId, cartlist]);
-
   // 전체 체크박스 선택/해제 함수
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -283,10 +283,12 @@ const CartForm = () => {
       });
 
       setStateCartData(checkedCartItems);
+      setIsOrder(true);
     } else {
       // 전체 체크박스 해제
       setSelectedItems([]);
       setStateCartData([]);
+      setIsOrder(false);
     }
 
     selectedItems.map((item, index) => {

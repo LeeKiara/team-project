@@ -115,8 +115,13 @@ const OrderDetail = () => {
                   </span>
                 </div>
                 <div className="order-cancel">
-                  {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>}
-                  {stateOrderData.orderStatus === "2" && <p style={{ color: "red" }}>주문취소완료</p>}
+                  {stateOrderData.orderStatus === "2" ? (
+                    <p style={{ color: "red" }}>주문취소완료</p>
+                  ) : (
+                    <button onClick={handleOrderCancel}>주문취소</button>
+                  )}
+                  {/* {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>} */}
+                  {/* {stateOrderData.orderStatus === "2" && <p style={{ color: "red" }}>주문취소완료</p>} */}
                 </div>
               </div>
             </div>

@@ -50,6 +50,17 @@ export const OrderDoneContainer = styled.div`
       }
     }
   }
+
+  .bank-account {
+    color: #0057be;
+    padding-left: 3px;
+  }
+  .bank-account-desc {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: #000;
+  }
 `;
 
 export const Wrapper = styled.div`

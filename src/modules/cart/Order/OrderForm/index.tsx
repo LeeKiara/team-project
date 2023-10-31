@@ -223,6 +223,7 @@ const OrderForm = () => {
 
     return true;
   }
+
   // 주문하기
   const handleOrder = () => {
     console.log("handleOrder >> handleOrder");
@@ -273,10 +274,17 @@ const OrderForm = () => {
         orderAddressData.deliveryMemo,
     );
 
+    // 주문상태 : default 1:완료
+    // 온라인 입금이면 0:주문접수
+    let saveOrderStatus = "1";
+    if (paymentMethod === "3") {
+      saveOrderStatus = "0";
+    }
+
     const createOrderData: OrderData = {
       paymentMethod: paymentMethod, // 결제수단
       paymentPrice: totalOrderAmt, // 결제금액
-      orderStatus: "1", // 주문상태 (1: 완료, 2:취소)
+      orderStatus: saveOrderStatus, // 주문상태 (1: 완료, 2:취소, 0:주문접수)
       orderItems: calcuOrderItemData, // 주문 Items 정보
       orderAddress: orderAddressData,
     };
@@ -294,7 +302,14 @@ const OrderForm = () => {
           const orderId = response.data;
           // alert("주문하기 성공!!! orderId:" + orderId);
 
-          navigate(`/order/done/${orderId}`);
+          // navigate(`/order/done/${orderId}`);
+
+          navigate("/order/done", {
+            state: {
+              orderId: orderId,
+              orderStatus: createOrderData.orderStatus,
+            },
+          });
         }
       } catch (e: any) {
         console.log(e);
@@ -516,7 +531,7 @@ const OrderForm = () => {
                       type="button"
                       onClick={handleBankDepositSelect}
                       className={`${isBankDepositSelected ? "button-selected" : ""}`}>
-                      무통장 입금
+                      온라인 입금
                     </button>
                   </div>
 
@@ -539,15 +554,15 @@ const OrderForm = () => {
                   </div>
                   {/* <!-- //실시간 계좌 이체 --> */}
 
-                  {/* <!-- 무통장 입금 --> */}
+                  {/* <!-- 온라인 입금 --> */}
                   <div className={`payment-tab-cont kind3 ${isBankDepositSelected ? "visible" : ""}`}>
                     <p className="text">
                       <br />
-                      <strong>무통장 입금을 선택하셨습니다.</strong>
+                      <strong>온라인 입금을 선택하셨습니다.</strong>
                       가상 계좌로 입금해 주시는 결제 방법입니다.
                     </p>
                   </div>
-                  {/* <!-- //무통장 입금 --> */}
+                  {/* <!-- //온라인 입금 --> */}
                 </div>
 
                 <div style={{ height: "100px" }}>

@@ -7,7 +7,15 @@ const OrderDone = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
-  const { orderId } = useParams();
+  // 주문정보 데이터 받아오기
+  const location = useLocation();
+  const orderId = location.state?.orderId;
+  const orderStatus = location.state?.orderStatus;
+
+  // const orderId = "1234";
+  // const orderStatus = "0";
+
+  // const { orderId } = useParams();
   // alert("orderId " + orderId);
 
   const handleShowModal = () => {
@@ -38,6 +46,16 @@ const OrderDone = () => {
               <div className="orderno box-gray">
                 <h3>주문번호 {orderId}</h3>
               </div>
+              {/* 결제방법이 온라인입금인 경우 */}
+              {orderStatus === "0" && (
+                <div>
+                  <p>
+                    입금계좌 : <span className="bank-account">신한은행 637-90-132345-689</span>
+                  </p>
+                  <p>&nbsp;</p>
+                  <p className="bank-account-desc">10일 이내 입금이 되지 않을 경우 주문이 자동취소됩니다.</p>
+                </div>
+              )}
               {/* 결제정보확인/메인으로 이동 버튼 */}
               <div className="box-pagemove">
                 <button className="box-blue font-blue pointer" onClick={handleShowModal}>
