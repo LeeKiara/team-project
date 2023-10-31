@@ -10,6 +10,7 @@ import { ProfileData } from "@/modules/cart/userdata";
 
 const BookBestList = () => {
   const token = getCookie("token");
+
   const [bookList, setBookList] = useState<BookItem[]>([]);
   //카테고리 상태값
   const [searchQuery, setSearchQuery] = useState("");

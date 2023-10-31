@@ -98,24 +98,18 @@ const BookPage = () => {
 
   //댓글추가
   const handleSaveComment = (e) => {
+    e.preventDefault();
     if (!token) {
-      alert("로그인 후 이용해주세요.");
-      if (id) {
-        console.log("이동한다!");
-        console.log(id);
-        navigate(`/page?id=${id}`);
-      } else {
-        navigate(`/page?new=${newId}`);
+      const confirmation = window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
+      if (confirmation) {
+        navigate("/login");
       }
-      return;
     } else {
-      e.preventDefault();
       console.log(commentText.current.value);
       const newComment = commentText.current.value;
       if (newComment.trim() === "") {
         // 댓글이 공백일 경우 아무 작업도 수행하지 않음
         alert("댓글을 입력해주세요");
-        return;
       }
       const time = new Date().getTime();
       console.log(time);
@@ -310,7 +304,7 @@ const BookPage = () => {
                   </dl>
                   <dl>
                     <dt>판매가: </dt>
-                    <p>{`${detail.priceSales}`} 원</p>
+                    <p>{`${detail.priceSales.toLocaleString()}`}원</p>
                   </dl>
                 </div>
                 <div id="amount">

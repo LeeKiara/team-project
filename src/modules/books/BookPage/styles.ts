@@ -41,6 +41,14 @@ export const PageContainer = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
   }
+  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(6) > dt {
+    margin-top: 3px;
+  }
+  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(6) > p {
+    font-size: 23px;
+    vertical-align: top;
+    color: crimson;
+  }
   #amount {
     flex: 0.1;
     display: flex;

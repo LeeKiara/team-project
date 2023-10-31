@@ -9,6 +9,22 @@ export const HomeContainer = styled.div`
     background-color: #fff1da;
     height: 400px;
   }
+  .banner-background2 {
+    background-color: #fffadd;
+    height: 400px;
+  }
+  .banner-background3 {
+    background-color: #dff5ff;
+    height: 400px;
+  }
+  .banner-background4 {
+    background-color: #7b306b;
+    height: 400px;
+  }
+  div > article:nth-of-type(1) {
+    display: flex;
+    justify-content: center;
+  }
   div > article:nth-of-type(1) > figure {
     display: flex;
     justify-content: center;
@@ -32,28 +48,44 @@ export const HomeContainer = styled.div`
   div > section > article:nth-of-type(1) > h3 {
     display: flex;
     gap: 80px;
-    margin-left: 12px;
+    margin-left: 25px;
     font-size: 18px;
     font-weight: bold;
     color: #575757;
     padding-bottom: 8px;
   }
-  div > section > article:nth-of-type(1) > div {
+  .today-book {
     display: flex;
     gap: 20px;
     margin: 10px;
   }
-  div > section > article:nth-of-type(1) > div > div {
+  .today-book > div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
   }
-  div > section > article:nth-of-type(1) > div > img {
-    width: 160px;
+  .today-book > img {
+    width: 210px;
     margin-bottom: 0;
     box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.2);
   }
-  div > section > article:nth-of-type(1) > div > div > p {
+  .today-book > div > h4:nth-of-type(1) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .today-book > div > span {
+    display: flex;
+  }
+  .today-book > div > span > small {
+    margin-top: 3px;
+    margin-right: 5px;
+    font-size: small;
+  }
+  .today-book > div > span > h4 {
+    font-size: 17px;
+    color: crimson;
+  }
+  .today-book > div > p {
     line-height: 1.5;
   }
   div > section > article:nth-of-type(2) {
@@ -65,7 +97,7 @@ export const HomeContainer = styled.div`
     margin-bottom: 50px;
   }
   div > section > article:nth-of-type(2) > a > h3 {
-    margin-left: 55px;
+    margin-left: 51px;
     font-size: 20px;
     font-weight: bold;
     color: #575757;
@@ -127,12 +159,10 @@ export const HomeContainer = styled.div`
   .banner-container {
     display: flex;
     overflow: hidden;
-    /* 슬라이더의 너비 설정 */
     width: 958px;
   }
   .banner-container img {
-    width: 100%; /* 이미지의 너비 설정 */
-    /* 슬라이딩 효과 설정 */
+    width: 100%;
     transition: transform 0.5s;
   }
 
