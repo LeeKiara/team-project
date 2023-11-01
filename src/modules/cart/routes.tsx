@@ -39,5 +39,5 @@ export const cartRoutes = [
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
   <Route key="test" path="test" element={<OrderDone />} />,
-  <Route key="test2" path="test2" element={<PublisherBook />} />,
+  <Route key="eventbook" path="eventbook" element={<PublisherBook />} />,
 ];

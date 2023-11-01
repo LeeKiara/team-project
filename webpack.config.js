@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
   entry: "./src/index.tsx",
@@ -20,10 +21,6 @@ module.exports = {
         },
       },
       //슬라이더를 위해 아래 두개의 스타일 로더 추가
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
