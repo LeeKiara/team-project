@@ -161,10 +161,10 @@ const BookSearch = () => {
                       </td>
                       <td> {`${item.commentCount}`} </td>
                       <td>
-                        <del>{`${item.priceStandard}`}</del>
+                        <del>{`${item.priceStandard}`} 원</del>
                       </td>
-                      <td>{`${item.priceSales}`}</td>
-                      <td>10</td>
+                      <td>{`${item.priceSales}`} 원</td>
+                      <td>{`${item.stockStatus}`}</td>
                       <td>
                         <div>
                           <dl

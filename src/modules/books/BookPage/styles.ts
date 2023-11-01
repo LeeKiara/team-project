@@ -41,10 +41,13 @@ export const PageContainer = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
   }
-  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(6) > dt {
+  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(3) > p {
+    width: 395px;
+  }
+  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(7) > dt {
     margin-top: 3px;
   }
-  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(6) > p {
+  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(7) > p {
     font-size: 23px;
     vertical-align: top;
     color: crimson;
@@ -71,6 +74,15 @@ export const PageContainer = styled.div`
   }
   #amount > div > img {
     cursor: pointer;
+  }
+  main > article > aside > div dl:nth-of-type(4) > dt {
+    width: 48px;
+  }
+  main > article > aside > div dl:nth-of-type(5) > dt {
+    width: 48px;
+  }
+  main > article > aside > div dl:nth-of-type(6) > dt {
+    width: 48px;
   }
   main > article > aside > div dl {
     display: flex;
