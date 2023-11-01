@@ -2,23 +2,23 @@ import styled from "@emotion/styled";
 
 export const HomeContainer = styled.div`
   .banner-background0 {
-    background-color: #ffebed;
-    height: 400px;
-  }
-  .banner-background1 {
-    background-color: #fff1da;
-    height: 400px;
-  }
-  .banner-background2 {
     background-color: #fffadd;
     height: 400px;
   }
-  .banner-background3 {
+  .banner-background1 {
     background-color: #dff5ff;
     height: 400px;
   }
-  .banner-background4 {
+  .banner-background2 {
     background-color: #7b306b;
+    height: 400px;
+  }
+  .banner-background3 {
+    background-color: #ffebed;
+    height: 400px;
+  }
+  .banner-background4 {
+    background-color: #fff1da;
     height: 400px;
   }
   div > article:nth-of-type(1) {
@@ -137,6 +137,7 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(2) {
     font-weight: bold;
+    color: crimson;
   }
   div > section > article:nth-of-type(2) > ul > li > a > img {
     margin: auto;
@@ -151,6 +152,7 @@ export const HomeContainer = styled.div`
     border-radius: 50px;
     margin-top: 170px;
     background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
   }
   div > article > figure > button > svg {
     font-size: 50px;

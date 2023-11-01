@@ -41,7 +41,7 @@ const Home = () => {
   const [todayLetter, setTodayLetter] = useState<TodayBook | null>(null);
   const [best, setBest] = useState<BookItem[]>([]);
   const [showButton, setShowButton] = useState(true);
-  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg");
+  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg");
   const [bannerBackground, setBannerBackground] = useState("");
 
   const [banner, setBanner] = useState([]);
@@ -101,11 +101,11 @@ const Home = () => {
     })();
     setBannerBackground("banner-background0");
     setBanner([
-      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
-      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
-      { id: 3, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
-      { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
-      { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg" },
+      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
+      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
+      { id: 3, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg" },
+      { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
+      { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
     ]);
   }, []);
 
