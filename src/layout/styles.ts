@@ -171,11 +171,11 @@ export const LayoutContainer = styled.div`
     }
     #searchForm > form > label > select {
       height: 75%;
-      margin-top: 5px;
+      margin-top: 6px;
     }
     #searchForm > form > label > input {
       width: 45%;
-      height: 60%;
+      height: 62%;
     }
   }
   @media (min-width: 100rem) {

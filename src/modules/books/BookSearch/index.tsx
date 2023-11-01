@@ -5,8 +5,12 @@ import { BookData, BookItem, useBooksItem } from "../data";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 import axios from "axios";
+import StoreHeartButton from "@/components/StoreHeartButton";
+import { getCookie } from "@/utils/cookie";
+import { ProfileData } from "@/modules/cart/userdata";
 
 const BookSearch = () => {
+  const token = getCookie("token");
   const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
@@ -29,6 +33,9 @@ const BookSearch = () => {
 
   //선호작품/추천/비추천 상태값
   const [storeHeartStates, setStoreHeartStates] = useState({});
+  //유저정보
+  const [profile, setProfile] = useState<ProfileData | null>(null);
+
   const [storeThumbStates, setStoreThumbState] = useState({});
   const [storeThumbDownStates, setStoreThumbDownState] = useState({});
   // const [page, setPage] = useState(0);
@@ -47,12 +54,36 @@ const BookSearch = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  const handleBookSave = (itemId: number) => {
-    setStoreHeartStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  //선호작품 추가 수정
+  const handleBookSave = async (itemId: number) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    } else {
+      setStoreHeartStates((prevStates) => ({
+        ...prevStates,
+        [itemId]: !prevStates[itemId],
+      }));
+      const likes = !storeHeartStates[itemId];
+      console.log(likes);
+      const newStoreHearts = {
+        like: likes,
+      };
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("선호작품 등록/수정 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "선호작품 오류");
+      }
+    }
   };
+
   const handleThumbUp = (itemId: number) => {
     setStoreThumbState((prevStates) => ({
       ...prevStates,
@@ -65,6 +96,38 @@ const BookSearch = () => {
       [itemId]: !prevStates[itemId],
     }));
   };
+
+  //내 선호작품 표시
+  useEffect(() => {
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfile(response.data);
+          //좋아요 상태값 설정
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+      searchList.map((book) => {
+        // 좋아요 데이터를 해당 북 객체에 추가
+        const bookWithLikeData = { ...book, likeData: book.likedBook };
+
+        bookWithLikeData.likeData.forEach((like) => {
+          if (profile && like.profileId === profile.profileId) {
+            setStoreHeartStates((prevStates) => ({
+              ...prevStates,
+              [bookWithLikeData.id]: like.likes,
+            }));
+          }
+        });
+      });
+    }
+  }, [searchList]);
 
   //화살표 상태에 따라 변화 및 페이징 숫자 처리
   useEffect(() => {
@@ -167,7 +230,8 @@ const BookSearch = () => {
                       <td>{`${item.stockStatus}`}</td>
                       <td>
                         <div>
-                          <dl
+                          <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
+                          {/* <dl
                             onClick={() => {
                               handleBookSave(item.itemId);
                             }}>
@@ -179,7 +243,7 @@ const BookSearch = () => {
                               )}
                               선호작품
                             </button>
-                          </dl>
+                          </dl> */}
                           <dl
                             onClick={() => {
                               handleThumbUp(item.itemId);

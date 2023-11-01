@@ -110,6 +110,8 @@ export const SearchContainer = styled.div`
   }
   table > tbody > tr > td:nth-of-type(8) {
     width: 7%;
+    color: crimson;
+    font-weight: bold;
   }
   table > tbody > tr > td:nth-of-type(9) {
     width: 4%;

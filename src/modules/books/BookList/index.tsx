@@ -8,6 +8,7 @@ import axios from "axios";
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
+import StoreHeartButton from "@/components/StoreHeartButton";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
@@ -37,7 +38,7 @@ const BookList = ({ fetchUrl }) => {
   //총페이지
   const [totalPages, setTotalPages] = useState(0);
 
-  //선호작품
+  //선호작품 추가 수정
   const handleBookSave = async (itemId: number) => {
     if (!token) {
       alert("로그인 후 이용해주세요.");
@@ -190,7 +191,7 @@ const BookList = ({ fetchUrl }) => {
         const bookWithLikeData = { ...book, likeData: book.likedBook };
 
         bookWithLikeData.likeData.forEach((like) => {
-          if (like.profileId === profile.profileId) {
+          if (profile && like.profileId === profile.profileId) {
             setStoreHeartStates((prevStates) => ({
               ...prevStates,
               [bookWithLikeData.id]: like.likes,
@@ -265,19 +266,7 @@ const BookList = ({ fetchUrl }) => {
                     <li style={{ color: "crimson", fontWeight: "bold" }}>
                       판매가: {`${item.priceSales.toLocaleString()}`}원
                     </li>
-                    <li
-                      onClick={() => {
-                        handleBookSave(item.id);
-                      }}>
-                      <button className="btn">
-                        {storeHeartStates[item.id] ? (
-                          <Favorite className="material-icons-outlined heart" />
-                        ) : (
-                          <FavoriteBorder className="material-icons-outlined" />
-                        )}
-                        선호작품
-                      </button>
-                    </li>
+                    <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
                       <Button itemId={item.itemId} quantity={1} />
                     </li>
