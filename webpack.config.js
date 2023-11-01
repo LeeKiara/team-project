@@ -20,6 +20,11 @@ module.exports = {
           target: "es2020",
         },
       },
+      //슬라이더를 위해 아래 두개의 스타일 로더 추가
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
       {
         test: /\.(gif|jpg|png|webp|svg|mp4)$/,
         type: "asset/resource",

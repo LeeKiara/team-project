@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import BookSearch from "./BookSearch";
 import BookPage from "./BookPage";
+import SlideBanner from "@/components/SlideBanner";
 
 const BookSidebar = lazy(() => import("./BookSidebar"));
 const BookList = lazy(() => import("./BookList"));

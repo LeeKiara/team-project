@@ -1,31 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "react-slick";
 import Slider from "react-slick";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, DomainVerification } from "@mui/icons-material";
 import { BannerContainer } from "./styles";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-interface BannerSize {
-  width: string;
-  height: string;
-  images: string[]; // 이미지 URL 배열 추가
-}
+// 환경설정
+// npm install --save @types/react-slick
+// npm install slick-carousel
+// npm install style-loader css-loader --save-dev
 
-const SlideBanner = ({ width, height, images }: BannerSize) => {
+const SlideBanner = ({ images }) => {
   const settings: Settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    dots: true, // 캐러셀의 점을 보여줄 것 인지
+    infinite: true, // 마지막장 다음에 첫장이 나오게 할 지
+    speed: 0, // 넘어가는 속도
     arrows: false,
-    autoplay: true,
-    autoplaySpeed: 4000,
+    // arrows: true,
+    autoplay: true, // 자동으로 재생할지
+    autoplaySpeed: 5000, //전체적으로 넘어가는 속도
+    slidesToShow: 1, // 한 화면에 몇개의 사진을 동시에 보여줄지
+    slidesToScroll: 1,
+    pauseOnHover: true,
     useTransform: false,
+    vertical: false,
   };
 
-  const [image, setImage] = useState(images[0]); // 첫 번째 이미지로 시작
   const sliderRef = useRef<Slider | null>(null);
   const [showButton, setShowButton] = useState(true);
+  const [bannerBackground, setBannerBackground] = useState("banner-background4");
 
   const handleMouseOver = () => {
     setShowButton(true);
@@ -42,32 +46,34 @@ const SlideBanner = ({ width, height, images }: BannerSize) => {
     sliderRef.current.slickPrev();
   };
 
+  const handleChange = (currentSlide) => {
+    const currentIndex = currentSlide % images.length; // 현재 슬라이드 번호를 이미지 배열 길이에 맞게 조정
+    setBannerBackground(`banner-background${currentIndex}`);
+  };
+
   return (
     <BannerContainer>
-      <Slider widthSize={width} heightSize={height} ref={sliderRef} {...settings}>
-        <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-          {showButton ? (
-            <button onClick={prevSlide}>
-              <ArrowBack className="material-icons-outlined" />
-            </button>
-          ) : null}
-          <div className="banner-container">
-            {images.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt="메인 배너"
-                onClick={() => setImage(img)} // 이미지 클릭 시 이미지 변경
-              />
+      <article className={bannerBackground} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+        {showButton ? (
+          <button onClick={prevSlide}>
+            <ArrowBack className="material-icons-outlined" />
+          </button>
+        ) : null}
+        <div className="banner-center">
+          <Slider ref={sliderRef} {...settings} beforeChange={handleChange}>
+            {images.map((img) => (
+              <div key={img.id}>
+                <img key={img.id} src={img.img} alt="메인베너" />
+              </div>
             ))}
-          </div>
-          {showButton ? (
-            <button onClick={nextSlide}>
-              <ArrowForward className="material-icons-outlined" />
-            </button>
-          ) : null}
-        </figure>
-      </Slider>
+          </Slider>
+        </div>
+        {showButton ? (
+          <button onClick={nextSlide}>
+            <ArrowForward className="material-icons-outlined" />
+          </button>
+        ) : null}
+      </article>
     </BannerContainer>
   );
 };

@@ -107,15 +107,20 @@ const Home = () => {
       { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
       { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
     ]);
+    // setBanner([
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg",
+    // ]);
   }, []);
 
   return (
     <HomeContainer>
       <div>
+        <SlideBanner images={banner} />
         {/* <article className={bannerBackground}>
-          <SlideBanner width="958px" height="400px" images={banner} />
-        </article> */}
-        <article className={bannerBackground}>
           <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             {showButton ? (
               <button onClick={previousBanner}>
@@ -133,7 +138,7 @@ const Home = () => {
               </button>
             ) : null}
           </figure>
-        </article>
+        </article> */}
         <section>
           {todayLetter && (
             <article>
