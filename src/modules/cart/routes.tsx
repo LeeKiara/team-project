@@ -6,7 +6,7 @@ import OrderForm from "@/modules/cart/Order/OrderForm";
 import AddressSearch from "./AddressSearch/Search";
 import AddressSucceed from "./AddressSearch/Success";
 import Example from "./test/ImageBanner/example";
-import PublisherBook from "./test/PublisherBook";
+import PublisherBook from "./PublisherBook";
 
 const CartForm = lazy(() => import("@/modules/cart/CartForm"));
 const Payment = lazy(() => import("@/modules/cart/Order/Payment"));

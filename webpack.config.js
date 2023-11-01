@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
-
 /** @type {import('webpack').Configuration} */
 module.exports = {
   entry: "./src/index.tsx",
@@ -19,6 +18,10 @@ module.exports = {
         options: {
           target: "es2020",
         },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(gif|jpg|png|webp|svg|mp4)$/,

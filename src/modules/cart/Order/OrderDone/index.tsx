@@ -42,7 +42,12 @@ const OrderDone = () => {
           <article>
             <div className="box-order-done">
               <div className="text1">도서몰을 이용해주셔서 감사합니다.</div>
-              <div className="text2">주문결제가 완료되었습니다.</div>
+              {/* 결제방법이 온라인입금인 경우 */}
+              {orderStatus === "0" ? (
+                <div className="text2">주문이 접수 되었습니다.</div>
+              ) : (
+                <div className="text2">주문결제가 완료되었습니다.</div>
+              )}
               <div className="orderno box-gray">
                 <h3>주문번호 {orderId}</h3>
               </div>
