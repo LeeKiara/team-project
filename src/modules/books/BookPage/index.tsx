@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookComment, BookItem, LikesItem } from "../data";
+import { BookComment, BookItem, LikesItem, ReplyComment } from "../data";
 import axios from "axios";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
@@ -189,6 +189,16 @@ const BookPage = () => {
       console.log(e);
     }
   };
+
+  // useEffect(() => {
+  //   if (commentList && commentList.length > 0) {
+  //     const sortedComments = [...commentList].sort((a, b) => b.id - a.id);
+  //     setCommentList(sortedComments);
+  //     console.log(sortedComments + "댓글리스트");
+
+  //     });
+  //   }
+  // }, [commentList]);
 
   //화면 조회 swr
   // useEffect(() => {

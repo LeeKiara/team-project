@@ -1,4 +1,4 @@
-import { PointOfSale, PortraitOutlined } from "@mui/icons-material";
+import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { BookComment, ReplyComment } from "../data";
@@ -22,7 +22,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
   //댓글 목록
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
   //답글 목록
-  const [replyList, setReplyList] = useState<ReplyComment[] | null>([]);
+  const [replyList, setReplyList] = useState<ReplyComment[] | null>(null);
 
   //유저 정보
   const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -152,6 +152,33 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
     }
   };
 
+  const groupedReplies = {};
+  useEffect(() => {
+    // 댓글과 해당 댓글에 대한 답글을 그룹화
+    if (replyList && Array.isArray(replyList)) {
+      replyList.forEach((reply) => {
+        if (!groupedReplies[reply.parentId]) {
+          groupedReplies[reply.parentId] = [];
+        }
+        groupedReplies[reply.parentId].push(reply);
+      });
+    }
+  }, [replyList]);
+
+  useEffect(() => {
+    if (comments && comments.length > 0) {
+      const sortedComments = [...comments].sort((a, b) => b.id - a.id);
+      setCommentList(sortedComments);
+      console.log(sortedComments + "댓글리스트");
+      sortedComments.forEach((comment) => {
+        if (Array.isArray(comment.replyComment)) {
+          const replyComments = [...comment.replyComment].sort((a, b) => b.id - a.id);
+          setReplyList(replyComments);
+        }
+      });
+    }
+  }, [comments]);
+
   useEffect(() => {
     if (token) {
       (async () => {
@@ -168,20 +195,6 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
       })();
     }
   }, []);
-
-  useEffect(() => {
-    if (comments && comments.length > 0) {
-      const sortedComments = [...comments].sort((a, b) => b.id - a.id);
-      setCommentList(sortedComments);
-      console.log(sortedComments + "댓글리스트");
-      sortedComments.forEach((comment) => {
-        if (Array.isArray(comment.replyComment)) {
-          const replyComments = [...comment.replyComment].sort((a, b) => b.id - a.id);
-          setReplyList(replyComments);
-        }
-      });
-    }
-  }, [comments]);
 
   return (
     <>
@@ -295,7 +308,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                         <div>
                           {Array.isArray(item.replyComment) && item.replyComment.length > 0 ? (
                             <div>
-                              {replyList.map((reply) => (
+                              {item.replyComment.map((reply) => (
                                 <span key={reply.id}>
                                   {profile && reply.parentId === item.id && reply.nickname === profile.nickname ? (
                                     <div className="reply-list">

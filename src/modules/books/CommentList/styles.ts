@@ -61,6 +61,7 @@ export const CommnetListContainer = styled.div`
   }
   .reply-list {
     width: 100%;
+    height: 50px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
