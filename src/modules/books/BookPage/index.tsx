@@ -297,6 +297,10 @@ const BookPage = () => {
                     <p>{`${detail.isbn}`}</p>
                   </dl>
                   <dl>
+                    <dt>재고: </dt>
+                    <p>{`${detail.stockStatus}`}</p>
+                  </dl>
+                  <dl>
                     <dt>정가: </dt>
                     <p>
                       <del>{`${detail.priceStandard}`} 원</del>
@@ -370,7 +374,7 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  <Button itemId={detail.itemId} quantity={number} />
+                  {detail.stockStatus !== "품절" && <Button itemId={detail.itemId} quantity={number} />}
                 </ul>
               </nav>
             </article>

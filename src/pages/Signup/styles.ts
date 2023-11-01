@@ -8,8 +8,15 @@ export const SignUpContainer = styled.div`
   p {
     margin: 0;
   }
+  section > a {
+    display: flex;
+    justify-content: center;
+    padding-right: 10px;
+  }
   section > a > img {
-    padding-top: 20px;
+    width: 300px;
+    height: 200px;
+    display: flex;
   }
   section > form {
     display: flex;

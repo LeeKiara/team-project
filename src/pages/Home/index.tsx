@@ -41,7 +41,7 @@ const Home = () => {
   const [todayLetter, setTodayLetter] = useState<TodayBook | null>(null);
   const [best, setBest] = useState<BookItem[]>([]);
   const [showButton, setShowButton] = useState(true);
-  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg");
+  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg");
   const [bannerBackground, setBannerBackground] = useState("");
 
   const [banner, setBanner] = useState([]);
@@ -101,21 +101,26 @@ const Home = () => {
     })();
     setBannerBackground("banner-background0");
     setBanner([
-      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
-      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
-      { id: 3, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
-      { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
-      { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg" },
+      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
+      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
+      { id: 3, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg" },
+      { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
+      { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
     ]);
+    // setBanner([
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg",
+    //   "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg",
+    // ]);
   }, []);
 
   return (
     <HomeContainer>
       <div>
+        <SlideBanner images={banner} />
         {/* <article className={bannerBackground}>
-          <SlideBanner width="958px" height="400px" images={banner} />
-        </article> */}
-        <article className={bannerBackground}>
           <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             {showButton ? (
               <button onClick={previousBanner}>
@@ -133,7 +138,7 @@ const Home = () => {
               </button>
             ) : null}
           </figure>
-        </article>
+        </article> */}
         <section>
           {todayLetter && (
             <article>

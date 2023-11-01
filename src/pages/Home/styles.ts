@@ -1,37 +1,17 @@
 import styled from "@emotion/styled";
 
 export const HomeContainer = styled.div`
-  .banner-background0 {
-    background-color: #ffebed;
-    height: 400px;
-  }
-  .banner-background1 {
-    background-color: #fff1da;
-    height: 400px;
-  }
-  .banner-background2 {
-    background-color: #fffadd;
-    height: 400px;
-  }
-  .banner-background3 {
-    background-color: #dff5ff;
-    height: 400px;
-  }
-  .banner-background4 {
-    background-color: #7b306b;
-    height: 400px;
-  }
   div > article:nth-of-type(1) {
     display: flex;
     justify-content: center;
   }
-  div > article:nth-of-type(1) > figure {
+  /* div > article:nth-of-type(1) > figure {
     display: flex;
     justify-content: center;
   }
   div > article:nth-of-type(1) > figure > img {
     margin: 0 10px;
-  }
+  } */
   div > section {
     width: 65vw;
     margin: auto;
@@ -137,6 +117,7 @@ export const HomeContainer = styled.div`
   }
   div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(2) {
     font-weight: bold;
+    color: crimson;
   }
   div > section > article:nth-of-type(2) > ul > li > a > img {
     margin: auto;
@@ -144,19 +125,20 @@ export const HomeContainer = styled.div`
     height: 270px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
-  div > article > figure > button {
+  /* div > article > figure > button {
     background-color: #ffebed;
     border: 1px solid white;
     height: 65px;
     border-radius: 50px;
     margin-top: 170px;
     background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
   }
   div > article > figure > button > svg {
     font-size: 50px;
     color: white;
-  }
-  .banner-container {
+  } */
+  /* .banner-container {
     display: flex;
     overflow: hidden;
     width: 958px;
@@ -164,7 +146,7 @@ export const HomeContainer = styled.div`
   .banner-container img {
     width: 100%;
     transition: transform 0.5s;
-  }
+  } */
 
   @media (min-width: 55rem) {
     div > section > article:nth-of-type(1) {
