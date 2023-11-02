@@ -162,14 +162,19 @@ const BookSearch = () => {
     setSearchQuery(queryKeyword);
     const queryOption = params.get("option") || "";
     console.log(queryOption + "검색어옵션");
+
+    const searchTarget = queryOption === "국내도서" ? "Book" : "Foreign";
     (async () => {
       try {
         const response = await axios.get<BookData>(
-          `http://localhost:8081/books/paging/search?&size=${MAX_SEARCH}&page=${currentPage}&option=${queryOption}&keyword=${queryKeyword}`,
+          `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbrkddowls01111124002&Query=${queryKeyword}&QueryType=Title&MaxResults=${MAX_SEARCH}&start=1&SearchTarget=${searchTarget}&output=js&Version=20131101`,
+          // `http://localhost:8081/books/paging/search?&size=${MAX_SEARCH}&page=${currentPage}&option=${queryOption}&keyword=${queryKeyword}`,
         );
         if (response.status === 200) {
-          setTotalPages(response.data.totalPages);
-          setSearchList(response.data.content);
+          console.log(response.data);
+          console.log(response.data.content);
+          // setTotalPages(response.data.totalPages);
+          // setSearchList(response.data.content);
         }
       } catch (e: any) {
         console.log(e);

@@ -2,7 +2,7 @@ import { AccountCircle, CheckCircle, CheckCircleOutline, Lock } from "@mui/icons
 import { LoginCantailner } from "./styles";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import home_icon from "../../../assets/homepage-icon.png";
+import home_icon from "../../assets/homepage-icon.png";
 
 const Login = () => {
   const [userid, setUserid] = useState("");

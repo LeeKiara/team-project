@@ -5,13 +5,6 @@ export const HomeContainer = styled.div`
     display: flex;
     justify-content: center;
   }
-  /* div > article:nth-of-type(1) > figure {
-    display: flex;
-    justify-content: center;
-  }
-  div > article:nth-of-type(1) > figure > img {
-    margin: 0 10px;
-  } */
   div > section {
     width: 65vw;
     margin: auto;
@@ -125,28 +118,6 @@ export const HomeContainer = styled.div`
     height: 270px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.2);
   }
-  /* div > article > figure > button {
-    background-color: #ffebed;
-    border: 1px solid white;
-    height: 65px;
-    border-radius: 50px;
-    margin-top: 170px;
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-  }
-  div > article > figure > button > svg {
-    font-size: 50px;
-    color: white;
-  } */
-  /* .banner-container {
-    display: flex;
-    overflow: hidden;
-    width: 958px;
-  }
-  .banner-container img {
-    width: 100%;
-    transition: transform 0.5s;
-  } */
 
   @media (min-width: 55rem) {
     div > section > article:nth-of-type(1) {

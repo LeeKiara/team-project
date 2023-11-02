@@ -4,7 +4,7 @@ import { LayoutContainer } from "./styles";
 import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
 import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
-import home_icon from "../../assets/homepage-icon.png";
+import home_icon from "../assets/homepage-icon.png";
 
 const Layout = () => {
   const navigate = useNavigate();
