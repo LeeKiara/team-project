@@ -32,14 +32,15 @@ const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderCartItemData[] }) =>
   // 배송비 계산 (주문금액이 20,000원 미만이면 2,000원 부과)
   if (totalOrderAmt < 20000) {
     totalOrderAmt += deliveryAmt;
+    deliveryAmt = 2000;
   } else {
     deliveryAmt = 0;
   }
 
-  if (sumPriceSales === 0) {
-    deliveryAmt = 0;
-    totalOrderAmt = 0;
-  }
+  // if (sumPriceSales === 0) {
+  //   deliveryAmt = 0;
+  //   totalOrderAmt = 0;
+  // }
 
   return (
     <div>

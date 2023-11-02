@@ -7,7 +7,7 @@ import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 
 const OrderList = () => {
-  const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문완료(입금대기)/취소)
+  const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문접수(입금대기)/취소)
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월
   const [isPeriodType2, setPeriodType2] = useState(false); // 조회기간 6개월
   const [isPeriodTypeAll, setPeriodTypeAll] = useState(false); // 조회기간 전체
@@ -241,7 +241,7 @@ const OrderList = () => {
                   주문 완료
                 </a>
                 <a href="#" className={selectedStatus === "0" ? "on" : ""} onClick={() => changeStatus("0")}>
-                  주문 완료(입금대기)
+                  주문 접수(입금대기)
                 </a>
                 <a href="#" className={selectedStatus === "2" ? "on" : ""} onClick={() => changeStatus("2")}>
                   취소
@@ -310,7 +310,7 @@ const OrderList = () => {
                     <strong>주문취소</strong>
                   ) : (
                     <strong>
-                      주문완료
+                      주문접수
                       <br />
                       <p style={{ fontSize: "14px", marginTop: "10px" }}>(입금대기)</p>
                     </strong>

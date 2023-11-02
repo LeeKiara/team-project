@@ -1,53 +1,52 @@
-import { useEffect, useState } from "react";
 import { PublisherBookContainer } from "./styles";
-import Button from "@/components/Button";
-import http from "@/utils/http";
-import { EventBookResponse } from "../../eventBookData";
-
-interface EventBookResponse {
-  itemId: number;
-  title: string;
-  description: number;
-  cover: string;
-  textSentence: string;
-  mentSentence: string;
-  authorImage: string;
-  author: string;
-  publisher: string;
-  authorDescription: string;
-}
 
 const PublisherBook = () => {
-  const [itemAward, setItemAward] = useState("-1"); // item-Award 선택값
-  const [eventBooks, setEventBooks] = useState<EventBookResponse[]>([]); // event books
-
-  console.log("itemAward => [" + itemAward + "]");
-
-  const cartQuantity = 1;
-
-  // 처음 컴포넌트 렌더링 됐을 때 한 번 되도록 빈 배열로 넣음
-  // (의존변수 배열이 없으면 컴포넌트가 업데이트 될 때 마다 실행됨)
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await http.get<EventBookResponse[]>("publisher/event");
-        if (response.status === 200) {
-          console.log("response.data" + response.data);
-
-          console.log(response);
-          setEventBooks([...response.data]);
-        }
-      } catch (e: any) {
-        console.log(e);
-      }
-      // setLoading(false)
-    })();
-  }, []);
-
-  const handleItemAward = (index) => {
-    // alert("handleWrapListItem:" + index);
-    setItemAward(index);
-  };
+  const data = [
+    {
+      id: 7014,
+      actionName: "브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭",
+      actionKind: "ClickContent",
+      layer: "awarded_books",
+      copy: "반역자와 배신자들",
+      image: "http://t1.daumcdn.net/lbook/image/6427524?timestamp=20230902172215",
+      author: "이준호",
+      authorId: "@@dfBO",
+      title: "반역자와 배신자들",
+    },
+    {
+      id: 7020,
+      actionName: "브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭",
+      actionKind: "ClickContent",
+      layer: "awarded_books",
+      copy: "50, 이제 결혼합니다",
+      image: "https://t1.daumcdn.net/brunch/static/img/banner/9791192642055.jpg",
+      author: "백지성",
+      authorId: "@@dL46",
+      title: "50, 이제 결혼합니다",
+    },
+    {
+      id: 7034,
+      actionName: "브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭",
+      actionKind: "ClickContent",
+      layer: "awarded_books",
+      copy: "3분 진료 공장의 세계",
+      image: "http://t1.daumcdn.net/lbook/image/6430811?timestamp=20230905184640",
+      author: "OncoAzim",
+      authorId: "@@wdm",
+      title: "3분 진료 공장의 세계",
+    },
+    {
+      id: 7043,
+      actionName: "브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭",
+      actionKind: "ClickContent",
+      layer: "awarded_books",
+      copy: "어디에나 있고 어디에도 없는 나나랜드",
+      image: "http://t1.daumcdn.net/lbook/image/6432436?timestamp=20230907132022",
+      author: "개화걸 김도희",
+      authorId: "@@akp",
+      title: "어디에나 있고 어디에도 없는 나나랜드",
+    },
+  ];
 
   return (
     <PublisherBookContainer>
@@ -72,97 +71,131 @@ const PublisherBook = () => {
         </div>
         <div className="wrap_list_item">
           <ul id="gradeItemList_all" style={{ width: "1400px" }} data-page="1">
-            {eventBooks &&
-              eventBooks.map((item, index) => (
-                <li
-                  key={item.itemId}
-                  className="item_award"
-                  onClick={() => {
-                    handleItemAward(index);
-                  }}>
-                  <div className="wrap_item_award_cover">
-                    <img className="img_cover" src={item.cover} />
-                    <div className="border_left"></div>
-                  </div>
-                  <p className="title">{item.title}</p>
-                  <p className="author">
-                    <span className="by">by</span>&nbsp;
-                    <a target="_blank" href={item.author}>
-                      {" "}
-                      {item.author}{" "}
-                    </a>
-                  </p>
-                  <span className="open_marker"></span>
-                </li>
-              ))}
+            <li
+              className="item_award open"
+              data-no="7130"
+              data-tiara-action-name="브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭"
+              data-tiara-action-kind="ClickContent"
+              data-tiara-layer="awarded_books"
+              data-tiara-copy="아름다운 우리나라 전국 무장애 여행지 39"
+              data-tiara-image="http://t1.daumcdn.net/lbook/image/6432508?timestamp=20230927151645"
+              data-tiara-id="7130"
+              data-tiara-author="전윤선"
+              data-tiara-author_id="@@mmq">
+              <div className="wrap_item_award_cover">
+                <img className="img_cover" src="http://t1.daumcdn.net/lbook/image/6432508?timestamp=20230927151645" />
+                <div className="border_left"></div>
+              </div>
+              <p className="title">아름다운 우리나라 전국 무장애 여행지 39</p>
+              <p className="author">
+                <span className="by">by</span>&nbsp;
+                <a target="_blank" href="/@@mmq">
+                  전윤선
+                </a>
+              </p>
+              <span className="open_marker"></span>
+            </li>
+            <li
+              className="item_award"
+              data-no="7014"
+              data-tiara-action-name="브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭"
+              data-tiara-action-kind="ClickContent"
+              data-tiara-layer="awarded_books"
+              data-tiara-copy="반역자와 배신자들"
+              data-tiara-image="http://t1.daumcdn.net/lbook/image/6427524?timestamp=20230902172215"
+              data-tiara-id="7014"
+              data-tiara-author="이준호"
+              data-tiara-author_id="@@dfBO">
+              <div className="wrap_item_award_cover">
+                <img className="img_cover" src="http://t1.daumcdn.net/lbook/image/6427524?timestamp=20230902172215" />
+                <div className="border_left"></div>
+              </div>
+              <p className="title">반역자와 배신자들</p>
+              <p className="author">
+                <span className="by">by</span>&nbsp;
+                <a target="_blank" href="/@@dfBO">
+                  이준호
+                </a>
+              </p>
+              <span className="open_marker"></span>
+            </li>
+            <li
+              className="item_award"
+              data-no="7020"
+              data-tiara-action-name="브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭"
+              data-tiara-action-kind="ClickContent"
+              data-tiara-layer="awarded_books"
+              data-tiara-copy="50, 이제 결혼합니다"
+              data-tiara-image="https://t1.daumcdn.net/brunch/static/img/banner/9791192642055.jpg"
+              data-tiara-id="7020"
+              data-tiara-author="백지성"
+              data-tiara-author_id="@@dL46">
+              <div className="wrap_item_award_cover">
+                <img className="img_cover" src="https://t1.daumcdn.net/brunch/static/img/banner/9791192642055.jpg" />
+                <div className="border_left"></div>
+              </div>
+              <p className="title">50, 이제 결혼합니다</p>
+              <p className="author">
+                <span className="by">by</span>&nbsp;
+                <a target="_blank" href="/@@dL46">
+                  백지성
+                </a>
+              </p>
+              <span className="open_marker"></span>
+            </li>
+            <li
+              className="item_award"
+              data-no="7034"
+              data-tiara-action-name="브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭"
+              data-tiara-action-kind="ClickContent"
+              data-tiara-layer="awarded_books"
+              data-tiara-copy="3분 진료 공장의 세계"
+              data-tiara-image="http://t1.daumcdn.net/lbook/image/6430811?timestamp=20230905184640"
+              data-tiara-id="7034"
+              data-tiara-author="OncoAzim"
+              data-tiara-author_id="@@wdm">
+              <div className="wrap_item_award_cover">
+                <img className="img_cover" src="http://t1.daumcdn.net/lbook/image/6430811?timestamp=20230905184640" />
+                <div className="border_left"></div>
+              </div>
+              <p className="title">3분 진료 공장의 세계</p>
+              <p className="author">
+                <span className="by">by</span>&nbsp;
+                <a target="_blank" href="/@@wdm">
+                  OncoAzim
+                </a>
+              </p>
+              <span className="open_marker"></span>
+            </li>
+            <li
+              className="item_award"
+              data-no="7043"
+              data-tiara-action-name="브런치스토리 책방 > 브런치북 출간 프로젝트 수상작 영역 클릭"
+              data-tiara-action-kind="ClickContent"
+              data-tiara-layer="awarded_books"
+              data-tiara-copy="어디에나 있고 어디에도 없는 나나랜드"
+              data-tiara-image="http://t1.daumcdn.net/lbook/image/6432436?timestamp=20230907132022"
+              data-tiara-id="7043"
+              data-tiara-author="개화걸 김도희"
+              data-tiara-author_id="@@akp">
+              <div className="wrap_item_award_cover">
+                <img className="img_cover" src="http://t1.daumcdn.net/lbook/image/6432436?timestamp=20230907132022" />
+                <div className="border_left"></div>
+              </div>
+              <p className="title">어디에나 있고 어디에도 없는 나나랜드</p>
+              <p className="author">
+                <span className="by">by</span>&nbsp;
+                <a target="_blank" href="/@@akp">
+                  개화걸 김도희
+                </a>
+              </p>
+              <span className="open_marker">*****</span>
+            </li>
           </ul>
         </div>
       </section>
 
-      {eventBooks &&
-        eventBooks.map((item, index) => (
-          <section
-            key={item.itemId}
-            className={`${Number(itemAward) == index ? "wrap_book_info open" : "wrap_book_info"}`}>
-            <div className="wrap_inner_book_info #pc">
-              <div className="wrap_book">
-                <div className="wrap_title">
-                  <h3 className="title_book">{item.title}</h3>
-                </div>
-                <div className="wrap_book_desc">
-                  <div className="wrap_book_desc_buy">
-                    <p className="book_description">{item.description}</p>
-                    <a href="https://gift.kakao.com/product/7656368" target="_blank" className="#buybook">
-                      {/* <button className="btn_buy_book" type="button">
-                      책 구매하기
-                    </button> */}
-                      <Button itemId={item.id} quantity={cartQuantity} />
-                    </a>
-                  </div>
-                  <a href="https://gift.kakao.com/product/7656368" target="_blank" className="#buybook">
-                    <div
-                      className="wrap_book_image"
-                      style={{
-                        backgroundImage: `url(${item.cover})`,
-                      }}>
-                      <div className="border_left"></div>
-                    </div>
-                  </a>
-                  <div className="wrap_book_share_sentence">
-                    <div
-                      className="wrap_book_sentence"
-                      style={{
-                        backgroundImage: `url(${item.textSentence})`,
-                      }}>
-                      <p className="layer_dimmed"></p>
-                      <img
-                        src="//t1.daumcdn.net/brunch/static/img/help/pc/publish/quotation_pc.png"
-                        className="quotation"
-                      />
-                      <p className="wrap_text_sentence">{item.textSentence}</p>
-                      <p className="ment_sentence">작가가 사랑한 한 문장</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="/@brunch78ko" target="_blank">
-                <div className="wrap_author">
-                  <div
-                    className="user_image"
-                    style={{
-                      backgroundImage: `url(${item.authorImage})`,
-                    }}></div>
-                  <div className="user_name">{item.author}</div>
-                  <span className="publisher_book">{item.publisher}</span>
-                  <div className="user_description">{item.authorDescription}</div>
-                  <div className="user_follow">작가 구독하기</div>
-                </div>
-              </a>
-            </div>
-          </section>
-        ))}
-
-      {/* <section className={`${itemAward == "0" ? "wrap_book_info open" : "wrap_book_info"}`}>
+      <section className="wrap_book_info">
         <div className="wrap_inner_book_info #pc">
           <div className="wrap_book">
             <div className="wrap_title">
@@ -224,7 +257,7 @@ const PublisherBook = () => {
           </a>
         </div>
       </section>
-      <section className={`${itemAward == "1" ? "wrap_book_info open" : "wrap_book_info"}`}>
+      <section className="wrap_book_info">
         <div className="wrap_inner_book_info #pc">
           <div className="wrap_book">
             <div className="wrap_title">
@@ -285,7 +318,7 @@ const PublisherBook = () => {
             </div>
           </a>
         </div>
-      </section> */}
+      </section>
 
       <section className="wrap_list_sentence">
         <div className="wrap_banner">
