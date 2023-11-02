@@ -1,14 +1,16 @@
 import { ShoppingCart } from "@mui/icons-material";
-import { ButtonStyle } from "./styles";
-import { CartData, createCartData } from "@/modules/cart/cartdata";
+import { CartButtonStyle } from "./styles";
+import { useCartData } from "@/modules/cart/CartForm/data";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import http from "@/utils/http";
 import { getCookie } from "@/utils/cookie";
 
-const Button = ({ itemId, quantity }: CartData) => {
+const CartButton = ({ itemId, quantity }: CartData) => {
   const token = getCookie("token");
   const navigate = useNavigate();
+
+  const { cartData, createCartData } = useCartData();
 
   const handleAddCart = (event) => {
     event.preventDefault();
@@ -66,7 +68,7 @@ const Button = ({ itemId, quantity }: CartData) => {
   );
 
   return (
-    <ButtonStyle>
+    <CartButtonStyle>
       <div key={itemId}>
         <span
           onClick={(e) => {
@@ -76,8 +78,8 @@ const Button = ({ itemId, quantity }: CartData) => {
           장바구니
         </span>
       </div>
-    </ButtonStyle>
+    </CartButtonStyle>
   );
 };
 
-export default Button;
+export default CartButton;

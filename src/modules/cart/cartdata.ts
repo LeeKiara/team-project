@@ -30,7 +30,7 @@ export const createCartData = async (cart: CartData) => {
     return response.status;
   } catch (e: any) {
     console.log(e);
-    return null;
+    return e;
   }
 };
 

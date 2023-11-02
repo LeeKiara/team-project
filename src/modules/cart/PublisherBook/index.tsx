@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { PublisherBookContainer } from "./styles";
 import Button from "@/components/Button";
 import http from "@/utils/http";
-import { EventBookResponse } from "../../eventBookData";
 import { Link } from "react-router-dom";
+import CartButton from "@/components/CartButton";
 
 interface EventBookResponse {
   itemId: number;
@@ -119,6 +119,8 @@ const PublisherBook = () => {
                         <button className="btn_book_detail" type="button">
                           도서 상세
                         </button>
+                        <br />
+                        <CartButton itemId={item.itemId} quantity={1} />
                       </Link>
                     </a>
                   </div>

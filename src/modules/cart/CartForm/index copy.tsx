@@ -1,7 +1,7 @@
 import { MutableRefObject, useRef, useState, useEffect } from "react";
 import { CartFormContainer } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartData } from "@/modules/cart/CartForm/data";
+import { useCartData } from "../cartdata";
 import OrderButton from "@/components/OrderButton";
 import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
@@ -12,7 +12,7 @@ import eventBanner1 from "@/assets/event-banner.gif";
 const CartForm = () => {
   // 장바구니 캐시 데이터
   // const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
-  const { cartData: cartlist, isCartDataValidating } = useCartData();
+  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData(true);
 
   // 장바구니 삭제 item 상태관리
   const [deletedItemId, setDeletedItemId] = useState(null);
@@ -156,7 +156,7 @@ const CartForm = () => {
       });
 
       // updatedCartList를 사용하여 cartlist를 업데이트
-      // mutateCartDataFunction(updatedCartList, false);
+      mutateCartDataFunction(updatedCartList, false);
     }
   }, [deletedItemId, cartlist]);
 
