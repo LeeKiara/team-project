@@ -172,6 +172,7 @@ const BookSearch = () => {
         );
         if (response.status === 200) {
           console.log(response.data);
+          console.log(response.data.content);
           // setTotalPages(response.data.totalPages);
           // setSearchList(response.data.content);
         }
