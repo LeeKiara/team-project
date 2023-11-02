@@ -7,6 +7,7 @@ import ShowMessageModal from "@/components/ShowMessageModal";
 import CalcuTotalPayment from "./CalcuTotalPayment";
 import http from "@/utils/http";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import eventBanner1 from "@/assets/event-banner.gif";
 
 const CartForm = () => {
   // 장바구니 캐시 데이터
@@ -44,6 +45,25 @@ const CartForm = () => {
   // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
   console.log("---validating---");
   console.log(isCartDataValidating);
+
+  useEffect(() => {
+    if (cartlist) {
+      console.log(" ★★★ 1.장바구니 데이터 있음 ");
+
+      if (cartlist.length > 0) {
+        cartlist.map((item, index) => {
+          console.log(index + "," + item.title);
+        });
+      } else {
+        console.log(" ★★★ cartlist.length === 0  ");
+        // mutateCartDataFunction(cartlist, false);
+      }
+
+      console.log(" ★★★ 2.장바구니 데이터 있음 ");
+    } else {
+      console.log(" ★★★ 장바구니 데이터 없음, 없음, 없음 ");
+    }
+  }, [cartlist]);
 
   // 장바구니 데이터로 수량/정가/할인가 초기화 배열 설정
   useEffect(() => {
@@ -452,7 +472,19 @@ const CartForm = () => {
             )}
 
             {/* 이벤트 레이어 */}
-            <article className="event-layer">
+            <article className="event-layer1">
+              <div>
+                <div>
+                  <a href="/eventbook">
+                    <img src={eventBanner1} />
+                  </a>
+                </div>
+                <div className="event-layer-sub">
+                  <a href="/eventbook">상세보기</a>
+                </div>
+              </div>
+            </article>
+            <article className="event-layer2">
               <div>
                 <div>
                   <a href="https://shopping.naver.com/plan/details/687714" target="new">

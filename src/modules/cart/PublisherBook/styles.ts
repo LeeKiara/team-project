@@ -24,13 +24,13 @@ export const PublisherBookContainer = styled.div`
     margin-right: 20%; */
   }
 
-  .service_header .wrap_custom_now {
+  /* .service_header .wrap_custom_now {
     display: none;
   }
 
   .service_header.beyond_content .wrap_custom_now {
     display: block;
-  }
+  } */
 
   .wrap_list_banner {
     height: 400px;
@@ -256,19 +256,25 @@ export const PublisherBookContainer = styled.div`
   }
 
   .wrap_list_award .wrap_title {
-    margin-top: 70px;
+    margin-top: 30px;
+    margin-bottom: 50px;
     width: 100%;
     position: relative;
   }
 
-  .wrap_list_award .wrap_title .title {
-    font-size: 14px;
-    font-weight: 300;
+  .wrap_list_award .wrap_title .publisher {
+    font-size: 20px;
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.29;
     text-align: left;
-    color: #333333;
+    color: ${grayColor};
+    margin-right: 20px;
+  }
+
+  .wrap_list_award .wrap_title .description {
+    font-style: italic;
   }
 
   .wrap_list_award .wrap_title .sub_title {
@@ -535,16 +541,15 @@ export const PublisherBookContainer = styled.div`
     color: #959595;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
     max-height: 314px;
-    -webkit-box-orient: vertical;
   }
 
-  .wrap_inner_book_info .wrap_book_desc .btn_buy_book {
+  .wrap_inner_book_info .wrap_book_desc .btn_book_detail {
     margin-top: 45px;
     width: 130px;
     height: 40px;
-    border-radius: 1px;
+    /* border: 0px; */
+    border-radius: 5px;
     background-color: #333333;
     font-size: 13px;
     font-weight: 300;
@@ -554,6 +559,13 @@ export const PublisherBookContainer = styled.div`
     letter-spacing: -0.3px;
     color: #ffffff;
     left: 0;
+    cursor: pointer;
+
+    /* 마우스 호버 시 스타일 변경 */
+    /* &:hover {
+      background: ${grayColor};
+      color: white;
+    } */
   }
 
   .wrap_inner_book_info .wrap_book_desc .wrap_book_image {
@@ -610,17 +622,14 @@ export const PublisherBookContainer = styled.div`
     left: 58px;
     width: 314px;
     height: 151px;
-    font-family: Nanum Myeongjo;
+    /* font-family: Nanum Myeongjo; */
     font-size: 26px;
     line-height: 1.46;
     letter-spacing: -0.7px;
     color: #ffffff;
     position: absolute;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
     max-height: 314px;
-    -webkit-box-orient: vertical;
   }
 
   .wrap_inner_book_info .wrap_book_desc .wrap_book_sentence .quotation {
@@ -808,7 +817,7 @@ export const PublisherBookContainer = styled.div`
   }
 
   .wrap_list_sentence .layerBook {
-    cursor: pointer;
+    /* cursor: pointer; */
   }
 
   /*********** 모든 책 *********/

@@ -207,12 +207,34 @@ export const CartFormContainer = styled.div`
     }
   }
 
-  .event-layer {
+  .event-layer1 {
     > div {
       display: flex;
       gap: 10px;
       align-items: center; /* 가로 중앙 정렬 */
       margin-top: 50px;
+      flex-direction: column;
+      width: 900px;
+      height: 360px;
+      border: 1px solid ${grayColor};
+      border-radius: 10px;
+      text-align: center;
+      img {
+        max-width: 98%;
+        max-height: 98%;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .event-layer2 {
+    > div {
+      display: flex;
+      gap: 10px;
+      align-items: center; /* 가로 중앙 정렬 */
+      margin-top: 10px;
       margin-bottom: 50px;
 
       > div:nth-of-type(1),
