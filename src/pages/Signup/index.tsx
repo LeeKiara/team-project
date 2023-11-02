@@ -12,7 +12,7 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { SignUpContainer } from "./styles";
-import signup from "../../../assets/signup.gif";
+import signup from "../../assets/signup.gif";
 
 const SignUp = () => {
   const navigate = useNavigate();

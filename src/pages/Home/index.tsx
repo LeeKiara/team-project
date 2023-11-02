@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
 import { BookData, BookItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
-import { ArrowBack, ArrowForward, Transform } from "@mui/icons-material";
 import axios from "axios";
-import Slider from "react-slick";
 import { Settings } from "react-slick";
-import { SidebarContainer } from "@/modules/books/BookSidebar/styles";
 import SlideBanner from "@/components/SlideBanner";
 
 interface MainBanner {
@@ -25,51 +22,23 @@ interface TodayBook {
 }
 
 const Home = () => {
-  const settings: Settings = {
-    slide: "img",
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    useTransform: false,
-  };
-
   const [todayLetter, setTodayLetter] = useState<TodayBook | null>(null);
   const [best, setBest] = useState<BookItem[]>([]);
-  const [showButton, setShowButton] = useState(true);
-  const [image, setImage] = useState("https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg");
-  const [bannerBackground, setBannerBackground] = useState("");
 
   const [banner, setBanner] = useState([]);
 
-  const handleMouseOver = () => {
-    setShowButton(true);
-  };
-  const handleMouseOut = () => {
-    setShowButton(false);
-  };
-
-  //다음 배너 화살표
-  const nextBanner = () => {
-    const currentIndex = banner.findIndex((item) => item.img === image);
-    const nextIndex = (currentIndex + 1) % banner.length;
-    setImage(banner[nextIndex].img);
-  };
-  //이전 배너 화살표
-  const previousBanner = () => {
-    const currentIndex = banner.findIndex((item) => item.img === image);
-    const previousIndex = (currentIndex - 1 + banner.length) % banner.length;
-    setImage(banner[previousIndex].img);
-  };
-
-  useEffect(() => {
-    const currentIndex = banner.findIndex((item) => item.img === image);
-    setBannerBackground(`banner-background${currentIndex}`);
-  }, [image]);
+  // //다음 배너 화살표
+  // const nextBanner = () => {
+  //   const currentIndex = banner.findIndex((item) => item.img === image);
+  //   const nextIndex = (currentIndex + 1) % banner.length;
+  //   setImage(banner[nextIndex].img);
+  // };
+  // //이전 배너 화살표
+  // const previousBanner = () => {
+  //   const currentIndex = banner.findIndex((item) => item.img === image);
+  //   const previousIndex = (currentIndex - 1 + banner.length) % banner.length;
+  //   setImage(banner[previousIndex].img);
+  // };
 
   useEffect(() => {
     (async () => {
@@ -99,7 +68,6 @@ const Home = () => {
         console.log(e);
       }
     })();
-    setBannerBackground("banner-background0");
     setBanner([
       { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
       { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
@@ -177,7 +145,7 @@ const renderBook = (books) => {
         <h5>{item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title}</h5>
         <h6>{item.author.length > 15 ? item.author.slice(0, 15) + "..." : item.author}</h6>
         <span>{item.publisher}</span>
-        <span>판매가: {item.priceSales}원</span>
+        <span>판매가: {`${item.priceSales.toLocaleString()}`}원</span>
       </Link>
     </li>
   ));

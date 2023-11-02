@@ -233,28 +233,31 @@ const BookPage = () => {
   }, [likeList]);
 
   //회원정보 담기
-  useEffect(() => {
-    if (token) {
-      (async () => {
-        try {
-          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setProfile(response.data);
-        } catch (e: any) {
-          console.log(e);
-        }
-      })();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (token) {
+  //     (async () => {
+  //       try {
+  //         const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         });
+  //         setProfile(response.data);
+  //       } catch (e: any) {
+  //         console.log(e);
+  //       }
+  //     })();
+  //   }
+  // }, []);
 
   //서버 화면 조회
   useEffect(() => {
-    const fetchBookDetail = async (itemId: string, isNew: boolean) => {
+    const fetchBookDetail = async (itemId: string, isNew: boolean, profileId?) => {
       try {
-        const url = `http://localhost:8081/books/${isNew ? "new/" : ""}${itemId}`;
+        const url = `http://localhost:8081/books/${isNew ? "new/" : ""}${itemId}?${
+          profileId ? `profileId=${profileId}` : ""
+        }`;
+        console.log(profileId);
         const response = await axios.get<BookItem>(url);
 
         if (response.status === 200) {
@@ -267,13 +270,37 @@ const BookPage = () => {
         console.log(e);
       }
     };
-
-    if (id) {
-      console.log(id + "도서");
-      fetchBookDetail(id, false);
-    } else if (newId) {
-      console.log(newId + "신간");
-      fetchBookDetail(newId, true);
+    //회원 정보 담고 profileId 설정
+    let profileId = 0;
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfile(response.data);
+          profileId = response.data.profileId;
+          if (id) {
+            console.log(id + "도서");
+            fetchBookDetail(id, false, profileId);
+          } else if (newId) {
+            console.log(newId + "신간");
+            fetchBookDetail(newId, true, profileId);
+          }
+        } catch (e: any) {
+          console.log(e);
+        }
+      })();
+    } else {
+      if (id) {
+        console.log(id + "도서");
+        fetchBookDetail(id, false);
+      } else if (newId) {
+        console.log(newId + "신간");
+        fetchBookDetail(newId, true);
+      }
     }
   }, []);
 
