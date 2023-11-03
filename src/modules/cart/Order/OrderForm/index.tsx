@@ -342,14 +342,17 @@ const OrderForm = () => {
                           <div className="link-detail">
                             <span className="image">
                               <a href="" target="_blank">
-                                <img src={cartCashData.cover} alt={cartCashData.title} />
+                                <Link to={`/page?id=${cartCashData.id}`}>
+                                  {" "}
+                                  <img src={cartCashData.cover} alt={cartCashData.title} />
+                                </Link>
                               </a>
                             </span>
                             <div className="text">
                               <div>{cartCashData.categoryName}</div>
                               <br />
                               <p>
-                                <Link to={`/page?keyword=${cartCashData.itemId}`}>{cartCashData.title}</Link>
+                                <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
                                 <br />
                               </p>
                             </div>

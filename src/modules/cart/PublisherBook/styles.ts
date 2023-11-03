@@ -532,6 +532,9 @@ export const PublisherBookContainer = styled.div`
     color: #959595;
     float: left;
     padding-top: 21px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .wrap_inner_book_info .wrap_book_desc .book_description {
@@ -546,11 +549,13 @@ export const PublisherBookContainer = styled.div`
 
   .wrap_inner_book_info .wrap_book_desc .btn_book_detail {
     margin-top: 45px;
-    width: 130px;
-    height: 40px;
+    width: 182px;
+    height: 51px;
     /* border: 0px; */
     border-radius: 5px;
-    background-color: #333333;
+    border-color: #e97171;
+    background-color: #e97171;
+    /* background-color: #333333; */
     font-size: 13px;
     font-weight: 300;
     font-style: normal;

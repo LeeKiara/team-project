@@ -1,10 +1,11 @@
 import Home from "@/pages/Home";
 import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 
 const OrderList = () => {
   const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문접수(입금대기)/취소)
@@ -160,10 +161,31 @@ const OrderList = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [blinkCount, setBlinkCount] = useState(0);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 2000);
+
+  //   return () => {
+  //     clearTimeout(timer); // 컴포넌트가 언마운트될 때 타이머를 정리합니다.
+  //     setIsLoading(false);
+  //   };
+  // }, [isOrderList]);
+
+  // const handleBlinkEnd = () => {
+  //   // setBlinkCount(blinkCount + 1);
+  //   // if (blinkCount >= 4) {
+  //   //   setIsLoading(false); // 3번 깜빡인 후 아이콘을 숨깁니다.
+  //   // }
+  // };
+
   return (
     <>
       <OrderListContainer>
-        <section>
+        <section className="container">
           <article>
             <div className="order-header">
               <h3 className="title">주문/결제 내역</h3>
@@ -249,6 +271,11 @@ const OrderList = () => {
               </div>
             </div>
           </article>
+          {/* {isLoading && (
+            <div className={`loading-container ${isLoading ? "blink" : ""}`} onAnimationEnd={handleBlinkEnd}>
+              {isLoading && <HourglassEmptyIcon sx={{ color: "pink", fontSize: "100px" }} />}
+            </div>
+          )} */}
           {/* 주문내역 (Loop) */}
           {orderResultList &&
             orderResultList.map((orderData, index) => (
@@ -260,9 +287,10 @@ const OrderList = () => {
                     {/* 도서이미지 */}
                     <span className="image">
                       {/* {orderData.orderItems[0].cover} */}
-                      <a href="" target="_blank">
-                        <img src={orderData.orderItems.cover} />
-                      </a>
+                      <Link to={`/page?id=${orderData.orderItems.id}`}>
+                        {" "}
+                        <img src={orderData.orderItems.cover} alt={orderData.orderItems.title} />
+                      </Link>
                     </span>
                   </figure>
                   <div>
@@ -276,7 +304,9 @@ const OrderList = () => {
                       <span>국내도서 에세이 한국에세이</span>
                     </div> */}
                     {/* 도서제목 */}
-                    <p className="subject">{orderData.orderItems.title}</p>
+                    <p className="subject">
+                      <Link to={`/page?id=${orderData.orderItems.id}`}>{orderData.orderItems.title}</Link>
+                    </p>
                     <br />
                     {/* 주문번호 */}
                     <p className="order-number">

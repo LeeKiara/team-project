@@ -27,6 +27,7 @@ export const OrderFormContainer = styled.div`
 
   .contain-payment-header {
     margin-bottom: 20px;
+    /* border: 1px solid black; */
 
     .title {
       display: inline-block;
@@ -44,7 +45,9 @@ export const OrderFormContainer = styled.div`
     display: flex;
     justify-content: space-between;
 
+    /* 주문결제 입력 폼 */
     .contain-payment-body {
+      flex: 1;
       width: 640px;
       /* border: 1px solid red; */
     }
@@ -55,7 +58,7 @@ export const OrderFormContainer = styled.div`
 
   .box-list-payment {
     position: relative;
-    height: auto;
+    /* height: auto; */
     overflow: hidden;
     width: 627px;
     border: 2px solid #f5f6f9;
@@ -94,7 +97,7 @@ export const OrderFormContainer = styled.div`
           font-size: 13px;
           font-weight: 400;
           color: white;
-          border: 1px solid #bfc1cd;
+          /* border: 1px solid #bfc1cd; */
           border-radius: 4px;
           background-color: #bfc1cd;
           text-align: center;
@@ -152,11 +155,12 @@ export const OrderFormContainer = styled.div`
 
   /* 주문자 정보 */
   .title-order {
-    margin: 0 0 24px 0;
+    margin: 0 10px 24px 0;
     padding: 12px 0 12px 24px;
     font-size: 16px;
     font-weight: 700;
-    background: #f5f6f9;
+    background: ${lightgrayColor};
+    border-radius: 8px;
   }
 
   .box-information-order {
@@ -310,25 +314,25 @@ export const OrderFormContainer = styled.div`
 
   /* 결제 예정금액 sidebar */
   .wrap-payment .box-payment-sidebar {
-    /* position: absolute; */
     position: sticky;
+    width: 300px;
+    height: 260px;
     right: 0;
     top: 0; /* 뷰포트 상단에서 고정하기위해 top을 0으로 설정 */
     z-index: 1;
     width: 258px;
     margin-left: auto;
-
-    /* 그리고 필요에 따라 다른 스크롤 가능한 부모 요소에 높이(height)를 설정하세요. */
-    /* 예를 들어, .wrap-payment에 height를 설정해 스크롤 가능한 부모를 만들 수 있습니다. */
+    /* border: 1px solid blue; */
 
     .contain-calcpay {
       display: block;
       position: relative;
       padding: 24px;
-      border: 1px solid #e1e1e1;
+      border: 2px solid #e1e1e1;
       box-sizing: border-box;
       background: #fff;
       border-radius: 8px;
+      /* border: 1px solid red; */
     }
 
     .title {

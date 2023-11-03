@@ -1,18 +1,17 @@
-/*--------------------------
+/*--------------------------------------------------------------------------
 카카오 주소검색 Api 연동
 설정 : 
 npm install react-daum-postcode
 npm install styled-components
----------------------------
+
+- DaumPostcode component에서 http://postcode.map.daum.net/search 호출하는 구조임
+--------------------------------------------------------------------------------
 */
 import DaumPostcode from "react-daum-postcode";
 import { getAddress } from "../../../utils/getAddress";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { Input, Button } from "@chakra-ui/react";
 import styled from "styled-components";
-import { AddressSearchStyle } from "./styles";
-import AddressSearch from "./Search";
 
 interface AddressSearchModalProps {
   onCancel: () => void;

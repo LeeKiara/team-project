@@ -27,6 +27,7 @@ export interface OrderDeliveryResponse {
 }
 
 export interface OrderItemResponse2 {
+  id: number; // 도서 id
   orderId: number; // 주문 id
   itemId: number;
   orderPrice: number;

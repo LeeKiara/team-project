@@ -5,15 +5,19 @@ import { useEffect, useState } from "react";
 import http from "@/utils/http";
 import { OrderDeliveryResponse, useOrderDetailData } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
+import OrderCancel from "../Order/OrderCancel";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
 
   // 주문번호 파라메터 받음
   const { orderId } = useParams();
-  // const testOrderId = "2023123456789";
 
-  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
+  // 페이지를 직접 테스트 할 경우 사용
+  const testOrderId = "2023123456821";
+  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
+
+  // const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
   const [stateOrderData, setStateOrderData] = useState(orderDetailData);
   const [isUpdateOrderData, setIsUpdateOrderData] = useState(false);
 
@@ -80,6 +84,17 @@ const OrderDetail = () => {
     }
   };
 
+  const [showModal, setShowModal] = useState(false);
+
+  // 주문취소 신청
+  const handleApplyOrderCancel = () => {
+    setShowModal(true);
+  };
+
+  const handleHiddenModal = () => {
+    setShowModal(false);
+  };
+
   // 주문목록 화면으로 이동
   const handleOrderList = () => {
     navigate(`/order/list`);
@@ -118,7 +133,8 @@ const OrderDetail = () => {
                   {stateOrderData.orderStatus === "2" ? (
                     <p style={{ color: "red" }}>주문취소완료</p>
                   ) : (
-                    <button onClick={handleOrderCancel}>주문취소</button>
+                    // <button onClick={handleOrderCancel}>주문취소</button>
+                    <button onClick={handleApplyOrderCancel}>취소신청</button>
                   )}
                   {/* {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>} */}
                   {/* {stateOrderData.orderStatus === "2" && <p style={{ color: "red" }}>주문취소완료</p>} */}
@@ -138,13 +154,6 @@ const OrderDetail = () => {
                     <span>{sumOrderPrice.toLocaleString()}원</span>
                   </dd>
                 </dl>
-                {/* <dl>
-                  <dt>상품금액</dt>
-                  <dd>
-                    <span></span>
-                    <span>원</span>
-                  </dd>
-                </dl> */}
                 <dl>
                   <dt>배송비</dt>
                   <dd>
@@ -170,7 +179,7 @@ const OrderDetail = () => {
                         ? "신용카드"
                         : orderDetailData.paymentMethod === "2"
                         ? "실시간 계좌이체"
-                        : "무통장입금"}
+                        : "온라인입금"}
                     </span>
                     <span></span>
                   </dd>
@@ -187,12 +196,12 @@ const OrderDetail = () => {
                 <div className="bookinfo" key={`item-${bookItem.itemId}`}>
                   <div className="link-detail">
                     <span className="image">
-                      <a href="" target="_blank">
+                      <Link to={`/page?id=${bookItem.id}`}>
                         <img src={bookItem.cover} />
-                      </a>
+                      </Link>
                     </span>
                     <div className="bookItem-title">
-                      <Link to="">{bookItem.title} </Link>
+                      <Link to={`/page?id=${bookItem.id}`}>{bookItem.title}</Link>
                     </div>
                     <div className="bookItem-quantity">수량 : {bookItem.quantity}</div>
                   </div>
@@ -256,6 +265,10 @@ const OrderDetail = () => {
           </article>
         </section>
       </OrderDetailContainer>
+
+      {/* 주문취소 모달창 띄우기 */}
+      {/* 자식의 이벤트를 처리하는 함수를 속성으로 넘겨줘야 함 */}
+      {showModal && <OrderCancel orderId={orderId} onCancel={handleHiddenModal} />}
     </>
   );
 };

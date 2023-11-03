@@ -48,6 +48,20 @@ const PublisherBook = () => {
   const handleItemAward = (index) => {
     // alert("handleWrapListItem:" + index);
     setItemAward(index);
+
+    scrollToTargetDiv();
+  };
+
+  const scrollToTargetDiv = () => {
+    const targetDiv = document.querySelector(".wrap_book_desc") as HTMLElement;
+
+    if (targetDiv) {
+      targetDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
 
   return (
@@ -72,6 +86,7 @@ const PublisherBook = () => {
           </span> */}
           {/* <span className="sub_title">brunchbook project</span> */}
         </div>
+        <div onClick={scrollToBottom}>here</div>
         <div className="wrap_list_item">
           <ul id="gradeItemList_all" style={{ width: "1400px" }} data-page="1">
             {eventBooks &&
@@ -114,33 +129,32 @@ const PublisherBook = () => {
                 <div className="wrap_book_desc">
                   <div className="wrap_book_desc_buy">
                     <p className="book_description">{item.description}</p>
-                    <a href="https://gift.kakao.com/product/7656368" target="_blank" className="#buybook">
-                      <Link to={`/page?id=${item.id}`}>
-                        <button className="btn_book_detail" type="button">
-                          도서 상세
-                        </button>
-                      </Link>
-                      <br />
-                      {/* 장바구니 담기 버튼 */}
-                      <CartButton
-                        itemId={item.itemId}
-                        quantity={1}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={20000}
-                        priceSales={10000}
-                      />
-                    </a>
+
+                    <Link to={`/page?id=${item.id}`}>
+                      <button className="btn_book_detail" type="button">
+                        도서 상세
+                      </button>
+                    </Link>
+
+                    {/* 장바구니 담기 버튼 */}
+                    <CartButton
+                      itemId={item.itemId}
+                      quantity={1}
+                      title={item.title}
+                      cover={item.cover}
+                      priceStandard={20000}
+                      priceSales={10000}
+                    />
                   </div>
-                  <a href="https://gift.kakao.com/product/7656368" target="_blank" className="#buybook">
-                    <div
-                      className="wrap_book_image"
-                      style={{
-                        backgroundImage: `url(${item.cover})`,
-                      }}>
-                      <div className="border_left"></div>
-                    </div>
-                  </a>
+
+                  <div
+                    className="wrap_book_image"
+                    style={{
+                      backgroundImage: `url(${item.cover})`,
+                    }}>
+                    <div className="border_left"></div>
+                  </div>
+
                   <div className="wrap_book_share_sentence">
                     <div
                       className="wrap_book_sentence"

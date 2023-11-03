@@ -1,6 +1,6 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { CartButtonStyle } from "./styles";
-import { useCartData } from "@/modules/cart/CartForm/data";
+import { CartData, useCartData } from "@/modules/cart/CartForm/data";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import http from "@/utils/http";
