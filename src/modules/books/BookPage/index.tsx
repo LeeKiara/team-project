@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
 import { ProfileData } from "@/modules/cart/userdata";
+import CartButton from "@/components/CartButton";
 
 const BookPage = () => {
   const token = getCookie("token");
@@ -411,7 +412,16 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  {detail.stockStatus !== "품절" && <Button itemId={detail.itemId} quantity={number} />}
+                  {detail.stockStatus !== "품절" && (
+                    <CartButton
+                      itemId={detail.itemId}
+                      quantity={1}
+                      title={detail.title}
+                      cover={detail.cover}
+                      priceStandard={detail.priceStandard}
+                      priceSales={detail.priceSales}
+                    />
+                  )}
                 </ul>
               </nav>
             </article>
