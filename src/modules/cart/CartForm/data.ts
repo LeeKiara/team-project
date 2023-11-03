@@ -36,7 +36,7 @@ const cartFetcher = async ([key, page]) => {
 export const useCartData = () => {
   const {
     data: cartData,
-    mutate,
+    mutate: mutateCartDataFunction,
     isValidating: isCartDataValidating,
   } = useSWR<CartData[]>([CART_DATA_KEY], cartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
@@ -57,12 +57,12 @@ export const useCartData = () => {
     // mutate 함수
     // 데이터를 변경하고 변경된 데이터를 반환
     // mutate((이전데이터) => {... return 변경된데이터})
-    mutate(
+    mutateCartDataFunction(
       async (
         // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
         prevData: CartData[] = [...INIT_DATA],
       ) => {
-        // console.log("--cart-prev-data--");
+        console.log("--cart-prev-data--");
         console.log(prevData);
 
         // 기존 데이터로 신규 배열 생성
@@ -80,8 +80,11 @@ export const useCartData = () => {
           if (response.status === 201) {
             // 배열 앞쪽에 추가
             // 서버에서 추가된 데이터로 상태 변경
+            // nextData.unshift({
+            //   ...response.data,
+            // });
             nextData.unshift({
-              ...response.data,
+              ...cartdata,
             });
           }
         } catch (e: any) {
@@ -99,6 +102,7 @@ export const useCartData = () => {
 
   return {
     cartData,
+    mutateCartDataFunction,
     createCartData,
     isCartDataValidating,
   };

@@ -12,7 +12,7 @@ import eventBanner1 from "@/assets/event-banner.gif";
 const CartForm = () => {
   // 장바구니 캐시 데이터
   // const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
-  const { cartData: cartlist, isCartDataValidating } = useCartData();
+  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData();
 
   // 장바구니 삭제 item 상태관리
   const [deletedItemId, setDeletedItemId] = useState(null);
@@ -46,24 +46,24 @@ const CartForm = () => {
   console.log("---validating---");
   console.log(isCartDataValidating);
 
-  useEffect(() => {
-    if (cartlist) {
-      console.log(" ★★★ 1.장바구니 데이터 있음 ");
+  // useEffect(() => {
+  //   if (cartlist) {
+  //     console.log(" ★★★ 1.장바구니 데이터 있음 ");
 
-      if (cartlist.length > 0) {
-        cartlist.map((item, index) => {
-          console.log(index + "," + item.title);
-        });
-      } else {
-        console.log(" ★★★ cartlist.length === 0  ");
-        // mutateCartDataFunction(cartlist, false);
-      }
+  //     if (cartlist.length > 0) {
+  //       cartlist.map((item, index) => {
+  //         console.log(index + "," + item.title);
+  //       });
+  //     } else {
+  //       console.log(" ★★★ cartlist.length === 0  ");
+  //       // mutateCartDataFunction(cartlist, false);
+  //     }
 
-      console.log(" ★★★ 2.장바구니 데이터 있음 ");
-    } else {
-      console.log(" ★★★ 장바구니 데이터 없음, 없음, 없음 ");
-    }
-  }, [cartlist]);
+  //     console.log(" ★★★ 2.장바구니 데이터 있음 ");
+  //   } else {
+  //     console.log(" ★★★ 장바구니 데이터 없음, 없음, 없음 ");
+  //   }
+  // }, [cartlist]);
 
   // 장바구니 데이터로 수량/정가/할인가 초기화 배열 설정
   useEffect(() => {
@@ -156,7 +156,7 @@ const CartForm = () => {
       });
 
       // updatedCartList를 사용하여 cartlist를 업데이트
-      // mutateCartDataFunction(updatedCartList, false);
+      mutateCartDataFunction(updatedCartList, false);
     }
   }, [deletedItemId, cartlist]);
 

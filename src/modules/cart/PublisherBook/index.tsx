@@ -119,9 +119,17 @@ const PublisherBook = () => {
                         <button className="btn_book_detail" type="button">
                           도서 상세
                         </button>
-                        <br />
-                        <CartButton itemId={item.itemId} quantity={1} />
                       </Link>
+                      <br />
+                      {/* 장바구니 담기 버튼 */}
+                      <CartButton
+                        itemId={item.itemId}
+                        quantity={1}
+                        title={item.title}
+                        cover={item.cover}
+                        priceStandard={20000}
+                        priceSales={10000}
+                      />
                     </a>
                   </div>
                   <a href="https://gift.kakao.com/product/7656368" target="_blank" className="#buybook">

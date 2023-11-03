@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import http from "@/utils/http";
 import { getCookie } from "@/utils/cookie";
 
-const CartButton = ({ itemId, quantity }: CartData) => {
+const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales }: CartData) => {
   const token = getCookie("token");
   const navigate = useNavigate();
 
@@ -37,6 +37,10 @@ const CartButton = ({ itemId, quantity }: CartData) => {
             createCartData({
               itemId,
               quantity,
+              title,
+              cover,
+              priceStandard,
+              priceSales,
             });
             const isCartConfirmed = window.confirm("상품을 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
             if (isCartConfirmed) {
