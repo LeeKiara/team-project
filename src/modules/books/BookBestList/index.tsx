@@ -8,6 +8,7 @@ import axios from "axios";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
+import CartButton from "@/components/CartButton";
 
 const BookBestList = () => {
   const token = getCookie("token");
@@ -159,7 +160,14 @@ const BookBestList = () => {
                       판매가: {`${item.priceSales.toLocaleString()}`}원
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
-                    <Button itemId={item.itemId} quantity={1} />
+                    <CartButton
+                      itemId={item.itemId}
+                      quantity={1}
+                      title={item.title}
+                      cover={item.cover}
+                      priceStandard={item.priceStandard}
+                      priceSales={item.priceSales}
+                    />
                   </ul>
                 </article>
               ))

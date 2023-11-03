@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import axios from "axios";
 import { ButtonStyle } from "@/components/Button/styles";
 import { ShoppingCart } from "@mui/icons-material";
+import CartButton from "@/components/CartButton";
 
 const BookNewList = () => {
   const [newBookList, setNewBookList] = useState<BookItem[]>([]);
@@ -98,7 +99,14 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <Button itemId={item.itemId} quantity={1} />
+                      <CartButton
+                        itemId={item.itemId}
+                        quantity={1}
+                        title={item.title}
+                        cover={item.cover}
+                        priceStandard={item.priceStandard}
+                        priceSales={item.priceSales}
+                      />
                     </div>
                   </li>
                 ))
