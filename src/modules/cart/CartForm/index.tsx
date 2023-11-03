@@ -111,7 +111,14 @@ const CartForm = () => {
 
     checkedCartItems.map((item, index) => {
       console.log(
-        " qtys useEffect에서 setStateCartData 확인 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked,
+        " qtys useEffect에서 setStateCartData 확인 >>> id:" +
+          item.id +
+          ",title:" +
+          item.title +
+          ", quantity:" +
+          item.quantity +
+          ", isChecked:" +
+          item.isChecked,
       );
     });
 
@@ -166,6 +173,7 @@ const CartForm = () => {
 
     const checkedCartItems = cartlist
       .map((selectedItem, index) => ({
+        id: selectedItem.id,
         itemId: selectedItem.itemId,
         title: selectedItem.title,
         cover: selectedItem.cover,
@@ -180,7 +188,13 @@ const CartForm = () => {
 
     checkedCartItems.map((item, index) => {
       console.log(
-        "  createSelectedCartList 최종 장바구니 상품 목록 >>> " +
+        "  createSelectedCartList 최종 장바구니 상품 목록 >>> id:" +
+          item.id +
+          ",title:" +
+          item.title +
+          ", quantity:" +
+          item.quantity +
+          ", isChecked:" +
           item.title +
           ", " +
           item.quantity +
@@ -288,6 +302,7 @@ const CartForm = () => {
       setSelectedItems(cartlist.map((item) => item.itemId)); // 모든 아이템을 선택
 
       const checkedCartItems = cartlist.map((selectedItem, index) => ({
+        id: selectedItem.id,
         itemId: selectedItem.itemId,
         title: selectedItem.title,
         cover: selectedItem.cover,
@@ -299,7 +314,20 @@ const CartForm = () => {
       }));
 
       checkedCartItems.map((item, index) => {
-        console.log("  최종 장바구니 상품 목록 >>> " + item.title + ", " + item.quantity + ", " + item.isChecked);
+        console.log(
+          " 전체 체크박스 선택 >> 최종 장바구니 상품 목록 >>> id:" +
+            item.id +
+            ",title:" +
+            item.title +
+            ", quantity:" +
+            item.quantity +
+            ", isChecked:" +
+            item.title +
+            ", " +
+            item.quantity +
+            ", " +
+            item.isChecked,
+        );
       });
 
       setStateCartData(checkedCartItems);
@@ -359,7 +387,7 @@ const CartForm = () => {
                     </label>
                     <div>
                       <span className="image">
-                        <Link to={`/page?keyword=${cartCashData.itemId}`}>
+                        <Link to={`/page?id=${cartCashData.id}`}>
                           <img src={`${cartCashData.cover}`} alt={`${cartCashData.title}`} />
                         </Link>
                       </span>
@@ -370,7 +398,7 @@ const CartForm = () => {
                     </div> */}
                       <div>{cartCashData.categoryName}</div>
                       <p>
-                        <Link to={`/page?keyword=${cartCashData.itemId}`}>{cartCashData.title}</Link>
+                        <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
                         <br />
                         {/* (할인가:
                       {cartCashData.priceSales},정가:
