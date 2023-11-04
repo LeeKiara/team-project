@@ -418,8 +418,8 @@ const BookPage = () => {
                       quantity={1}
                       title={detail.title}
                       cover={detail.cover}
-                      priceStandard={detail.priceStandard}
-                      priceSales={detail.priceSales}
+                      priceStandard={detail.priceStandard.toString()}
+                      priceSales={detail.priceSales.toString()}
                     />
                   )}
                 </ul>

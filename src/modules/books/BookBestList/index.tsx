@@ -165,8 +165,8 @@ const BookBestList = () => {
                       quantity={1}
                       title={item.title}
                       cover={item.cover}
-                      priceStandard={item.priceStandard}
-                      priceSales={item.priceSales}
+                      priceStandard={item.priceStandard.toString()}
+                      priceSales={item.priceSales.toString()}
                     />
                   </ul>
                 </article>

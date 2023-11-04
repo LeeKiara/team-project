@@ -274,8 +274,8 @@ const BookList = ({ fetchUrl }) => {
                         quantity={1}
                         title={item.title}
                         cover={item.cover}
-                        priceStandard={item.priceStandard}
-                        priceSales={item.priceSales}
+                        priceStandard={item.priceStandard.toString()}
+                        priceSales={item.priceSales.toString()}
                       />
                     </li>
                   </ul>

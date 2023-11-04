@@ -36,10 +36,10 @@ export interface BookItem {
   stockStatus: string;
   cover: string;
   customerReviewRank: number;
-  seriesInfo: SeriesInfo;
-  commentCount: number;
-  bookComment: BookComment[];
-  likedBook: LikesItem[];
+  seriesInfo?: SeriesInfo;
+  commentCount?: number;
+  bookComment?: BookComment[];
+  likedBook?: LikesItem[];
 }
 
 export interface LikesItem {
