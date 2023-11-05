@@ -176,7 +176,7 @@ const BookSearch = () => {
                       <td>
                         <del>{`${item.priceStandard}`} 원</del>
                       </td>
-                      <td>{`${item.priceSales}`} 원</td>
+                      <td>{`${item.priceSales.toLocaleString()}`} 원</td>
                       <td>
                         {item.seriesInfo && (
                           <Link to={item.seriesInfo.seriesLink}>{`${item.seriesInfo.seriesName}`}</Link>
