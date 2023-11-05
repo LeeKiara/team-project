@@ -14,10 +14,10 @@ const OrderDetail = () => {
   const { orderId } = useParams();
 
   // 페이지를 직접 테스트 할 경우 사용
-  const testOrderId = "2023123456821";
-  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
+  // const testOrderId = "13";
+  // const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(testOrderId));
 
-  // const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
+  const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
   const [stateOrderData, setStateOrderData] = useState(orderDetailData);
   const [isUpdateOrderData, setIsUpdateOrderData] = useState(false);
 
@@ -40,6 +40,7 @@ const OrderDetail = () => {
         ",postcode:" +
         stateOrderData.postcode,
       ",stateOrderData orderStatus:" + stateOrderData.orderStatus,
+      ",stateOrderData cancelMemo:" + stateOrderData.cancelMemo,
     );
   }
 
@@ -57,13 +58,22 @@ const OrderDetail = () => {
   }
 
   // 주문취소 처리
-  const handleOrderCancel = () => {
+  const handleOrderCancel = ({ cancelMemo }: { cancelMemo: string }) => {
     const isConfirmed = window.confirm("주문을 취소하시겠습니까?");
     if (isConfirmed) {
       (async () => {
         try {
-          // http://localhost:8081/order/detail/cancel/2023123456789
-          const response = await http.put(`/order/detail/cancel/${orderId}`);
+          interface OrderModityRequest {
+            orderId: number; // 주문 id
+            orderStatus: string; // 주문상태
+            cancelMemo: string; // 주문 취소 메모
+          }
+
+          const response = await http.put<OrderModityRequest>(`/order/detail/cancel`, {
+            orderId: Number(orderId),
+            orderStatus: "2",
+            cancelMemo: cancelMemo,
+          });
 
           if (response.status === 200) {
             console.log("주문 취소 완료" + response.data);
@@ -71,9 +81,9 @@ const OrderDetail = () => {
             alert("주문이 취소 되었습니다.");
 
             orderDetailData.orderStatus = "2";
+            orderDetailData.cancelMemo = cancelMemo;
             setIsUpdateOrderData(true);
-
-            // navigate(`/order/done/${orderId}`);
+            handleHiddenModal();
           }
         } catch (e: any) {
           console.log(e);
@@ -133,7 +143,6 @@ const OrderDetail = () => {
                   {stateOrderData.orderStatus === "2" ? (
                     <p style={{ color: "red" }}>주문취소완료</p>
                   ) : (
-                    // <button onClick={handleOrderCancel}>주문취소</button>
                     <button onClick={handleApplyOrderCancel}>취소신청</button>
                   )}
                   {/* {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>} */}
@@ -142,10 +151,14 @@ const OrderDetail = () => {
               </div>
             </div>
           </article>
-          <article>
+
+          {/* 결제 정보 */}
+          <article
+            className={`${
+              stateOrderData.orderStatus != "2" ? "box-payment-container active" : "box-payment-container"
+            }`}>
             <div className="article-layer-title">결제정보</div>
             <div className="box-payment-wrap">
-              {/* 주문 정보 */}
               <div className="box-order-info">
                 <dl>
                   <dt>주문금액</dt>
@@ -187,6 +200,58 @@ const OrderDetail = () => {
               </div>
             </div>
           </article>
+
+          <article
+            className={`${
+              stateOrderData.orderStatus === "2" ? "box-cancel-container active" : "box-cancel-container"
+            }`}>
+            <div className="article-layer-title">환불정보</div>
+            <div className="box-payment-wrap">
+              <div className="box-order-info">
+                <dl>
+                  <dt>최초 주문금액</dt>
+                  <dd>
+                    <span></span>
+                    <span>{sumOrderPrice.toLocaleString()}원</span>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>배송비</dt>
+                  <dd>
+                    <span></span>
+                    <span>{deliveryAmt.toLocaleString()}원</span>
+                  </dd>
+                </dl>
+              </div>
+              {/* 환불 정보 */}
+              <div className="box-payment-info">
+                <dl>
+                  <dt>환불금액</dt>
+                  <dd>
+                    <span>{orderDetailData.paymentPrice.toLocaleString()}</span>
+                    <span>원</span>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>결제수단</dt>
+                  <dd>
+                    <span>
+                      {orderDetailData.paymentMethod === "1"
+                        ? "신용카드"
+                        : orderDetailData.paymentMethod === "2"
+                        ? "실시간 계좌이체"
+                        : "온라인입금"}
+                    </span>
+                    <span></span>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <div>
+              취소 사유 : <span style={{ marginLeft: "10px" }}>{stateOrderData.cancelMemo}</span>
+            </div>
+          </article>
+
           <div className="article-layer-orderitems">
             <article>
               <div>주문 상품</div>
@@ -268,7 +333,7 @@ const OrderDetail = () => {
 
       {/* 주문취소 모달창 띄우기 */}
       {/* 자식의 이벤트를 처리하는 함수를 속성으로 넘겨줘야 함 */}
-      {showModal && <OrderCancel orderId={orderId} onCancel={handleHiddenModal} />}
+      {showModal && <OrderCancel orderId={orderId} onConfirm={handleOrderCancel} onCancel={handleHiddenModal} />}
     </>
   );
 };

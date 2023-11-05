@@ -373,6 +373,33 @@ export const OrderListContainer = styled.div`
     }
   }
 
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1); /* 아주 흐리게 처리된 배경 */
+    z-index: 999;
+    margin-bottom: 70px;
+  }
+
+  .loading-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1); /* 아주 흐리게 처리된 배경 */
+    padding: 20px;
+    transform: scale(1.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+    transition: transform 0.3s;
+    position: relative; /* 상위 요소에 대한 상대 위치로 설정 */
+  }
+
+  .PuffLoader {
+    z-index: 1000; /* PuffLoader의 레이어 인덱스를 높여 더 돋보이게 함 */
+  }
+
   /* 모바일 스타일 */
   @media (max-width: 768px) {
     .payment-layer {

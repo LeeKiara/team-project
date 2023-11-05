@@ -18,8 +18,8 @@ export const CartButtonStyle = styled.div`
     border: 1px solid transparent;
     border-radius: 4px;
     width: 150px;
-    /* background-color: #e97171; */
-    background-color: gray;
+    background-color: #e97171;
+    /* background-color: gray; */
     color: #fff;
     font-size: 18px;
   }

@@ -5,7 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
-import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+
+// npm install --save react-spinners
+import { PuffLoader } from "react-spinners";
 
 const OrderList = () => {
   const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문접수(입금대기)/취소)
@@ -15,6 +17,7 @@ const OrderList = () => {
   const [startDate, setStartDate] = useState(""); // 시작일에 대한 상태 추가
   const [endDate, setEndDate] = useState(""); // 종료일에 대한 상태 추가
   const [isOrderList, setIsOrderList] = useState(true); // 주문조회 가능 여부
+  const [isLoading, setIsLoading] = useState(false);
 
   //현재 페이지
   const [currentPage, setCurrentPage] = useState(0);
@@ -27,6 +30,8 @@ const OrderList = () => {
   const [showArrowLeft, setShowArrowLeft] = useState(false);
   const [showArrowRight, setShowArrowRight] = useState(true);
   const navigate = useNavigate();
+
+  const progressvalue = 0.66;
 
   // 조회 기간 선택구분에 따른 부가 처리
   useEffect(() => {
@@ -74,11 +79,16 @@ const OrderList = () => {
           }
         } catch (e: any) {
           console.log(e);
+        } finally {
+          // 데이터 로딩이 완료되면 "isLoading"를 false로 설정하여 "조회 중" 메시지를 숨깁니다.
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 300); // 0.5초(500ms) 지연
         }
       })();
     }
     // }, [isOrderList, startDate, endDate, currentPage]);
-  }, [isOrderList, selectedStatus, startDate, currentPage]);
+  }, [isOrderList, selectedStatus, startDate, currentPage, isLoading]);
 
   //화살표 상태에 따라 변화
   useEffect(() => {
@@ -119,7 +129,13 @@ const OrderList = () => {
 
   // 조회기간별 주문 목록 조회 버튼 처리
   const handleOrderList = () => {
-    setIsOrderList(true);
+    setIsLoading(true); // 조회 중 메시지를 표시
+    setSelectedStatus("A"); // 주문상태(전체)
+
+    // 데이터 로딩을 지연시킵니다.
+    setTimeout(() => {
+      setIsOrderList(true); // 주문 조회 시작
+    }, 300); // 0.5초(500ms) 지연
   };
 
   // const formatDate = (date) => {
@@ -161,7 +177,6 @@ const OrderList = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  // const [isLoading, setIsLoading] = useState(false);
   // const [blinkCount, setBlinkCount] = useState(0);
 
   // useEffect(() => {
@@ -271,13 +286,17 @@ const OrderList = () => {
               </div>
             </div>
           </article>
-          {/* {isLoading && (
-            <div className={`loading-container ${isLoading ? "blink" : ""}`} onAnimationEnd={handleBlinkEnd}>
-              {isLoading && <HourglassEmptyIcon sx={{ color: "pink", fontSize: "100px" }} />}
+
+          {isLoading && (
+            <div className="loading-container">
+              <div className="loading-content">
+                <PuffLoader size={100} color="#368ed6" />
+              </div>
             </div>
-          )} */}
+          )}
           {/* 주문내역 (Loop) */}
-          {orderResultList &&
+          {!isLoading &&
+            orderResultList &&
             orderResultList.map((orderData, index) => (
               <article className="orders-layer" key={`item-${orderData.orderId}`}>
                 {/* 도서정보(책이미지/도서명) */}
@@ -362,7 +381,7 @@ const OrderList = () => {
               </article>
             ))}
 
-          {totalPages > 1 && (
+          {!isLoading && totalPages > 1 && (
             <nav>
               <ol>
                 {showArrowLeft && (
