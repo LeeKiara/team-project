@@ -189,7 +189,7 @@ const BookBestList = () => {
           <section>
             <p>Best 1위부터 10위까지</p>
             {bookList.length > 0 ? (
-              bookList.map((item) => (
+              bookList.map((item, index) => (
                 <article key={`${item.id}`}>
                   <div>
                     <figure>
@@ -198,7 +198,7 @@ const BookBestList = () => {
                       </Link>
                     </figure>
                     <div>
-                      <h2>{}</h2>
+                      <h2>{index + 1}위</h2>
                       <h3>
                         <Link to={`/page?id=${item.id}`}>{`${item.title}`}</Link>
                       </h3>
@@ -208,8 +208,7 @@ const BookBestList = () => {
                         <dt>출판사:</dt>
                         <p>{`${item.publisher}`}</p>
                       </dl>
-                      {/* <h4>책 소개</h4>
-                      <p>{`${item.description}`}</p> */}
+                      <p>{`${item.description}`}</p>
                     </div>
                   </div>
                   <ul>
