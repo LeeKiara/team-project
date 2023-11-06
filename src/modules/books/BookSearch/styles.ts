@@ -76,6 +76,9 @@ export const SearchContainer = styled.div`
   table > tbody > tr > td:nth-of-type(6) {
     width: 7%;
   }
+  table > tbody > tr > td:nth-of-type(6) > a:hover {
+    text-decoration: underline;
+  }
   table > tbody > tr > td:nth-of-type(7) {
     width: 7%;
   }
@@ -85,10 +88,10 @@ export const SearchContainer = styled.div`
     font-weight: bold;
   }
   table > tbody > tr > td:nth-of-type(9) {
-    width: 4%;
-  }
-  table > tbody > tr > td:last-child {
     width: 7%;
+  }
+  table > tbody > tr > td:nth-of-type(9) > a:hover {
+    color: crimson;
   }
   nav {
     display: flex;

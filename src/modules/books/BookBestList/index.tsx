@@ -9,9 +9,22 @@ import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
+import PagingButton from "@/components/PagingButton";
 
 const BookBestList = () => {
   const token = getCookie("token");
+  const MAX_LIST = 5; // 고정된 리스트 갯수
+
+  //페이징 화살표 상태값
+  const [showArrowLeft, setShowArrowLeft] = useState(false);
+  const [showArrowRight, setShowArrowRight] = useState(true);
+
+  //페이징 숫자 처리
+  const [arrowNumberList, setArrowNumberList] = useState([]);
+  //현재 페이지
+  const [currentPage, setCurrentPage] = useState(0);
+  //총페이지
+  const [totalPages, setTotalPages] = useState(0);
 
   const [bookList, setBookList] = useState<BookItem[]>([]);
   //카테고리 상태값
@@ -21,6 +34,50 @@ const BookBestList = () => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
+
+  //페이징
+  const handleSetPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  //페이징 화살표 마이너스
+  const handlePageMinus = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  //페이징 화살표 플러스
+  const handlePagePlus = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  //화살표 상태에 따라 변화 및 페이징 숫자 처리
+  useEffect(() => {
+    if (currentPage > 0) {
+      setShowArrowLeft(true);
+    } else if (currentPage === 0) {
+      setShowArrowLeft(false);
+    }
+    if (currentPage >= totalPages - 1) {
+      setShowArrowRight(false);
+    } else {
+      setShowArrowRight(true);
+    }
+
+    // 페이지당 아이템 수 (예: 5)
+    const itemsPerPage = 5;
+    const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
+    const lst = [];
+    if (totalPages === 1) {
+      for (let i = startIndex; i <= endIndex; i++) {
+        lst.push(i);
+      }
+    } else {
+      for (let i = startIndex; i < endIndex; i++) {
+        lst.push(i);
+      }
+    }
+
+    setArrowNumberList(lst);
+  }, [currentPage, totalPages]);
 
   //선호작품 추가
   const handleBookSave = async (itemId: number) => {
@@ -96,10 +153,11 @@ const BookBestList = () => {
       (async () => {
         try {
           const response = await axios.get<BookData>(
-            `http://localhost:8081/books/category?&option=국내도서>${query}&size=8&page=0`,
+            `http://localhost:8081/books/best/category?&option=국내도서>${query}&size=${MAX_LIST}&page=${currentPage}`,
           );
           if (response.status === 200) {
             setBookList(response.data.content);
+            setTotalPages(response.data.totalPages);
           }
         } catch (e: any) {
           console.log(e);
@@ -108,16 +166,19 @@ const BookBestList = () => {
     } else {
       (async () => {
         try {
-          const response = await axios.get<BookData>(`http://localhost:8081/books/best?page=0&size=8`);
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/books/best?size=${MAX_LIST}&page=${currentPage}`,
+          );
           if (response.status === 200) {
             setBookList(response.data.content);
+            setTotalPages(response.data.totalPages);
           }
         } catch (e: any) {
           console.log(e);
         }
       })();
     }
-  }, [searchQuery, params]);
+  }, [searchQuery, currentPage, params]);
 
   return (
     <>
@@ -126,8 +187,9 @@ const BookBestList = () => {
           <p>로딩 중...</p>
         ) : (
           <section>
+            <p>Best 1위부터 10위까지</p>
             {bookList.length > 0 ? (
-              bookList.slice(0, 5).map((item) => (
+              bookList.map((item, index) => (
                 <article key={`${item.id}`}>
                   <div>
                     <figure>
@@ -136,6 +198,7 @@ const BookBestList = () => {
                       </Link>
                     </figure>
                     <div>
+                      <h2>{index + 1}위</h2>
                       <h3>
                         <Link to={`/page?id=${item.id}`}>{`${item.title}`}</Link>
                       </h3>
@@ -145,7 +208,6 @@ const BookBestList = () => {
                         <dt>출판사:</dt>
                         <p>{`${item.publisher}`}</p>
                       </dl>
-                      <h4>책 소개</h4>
                       <p>{`${item.description}`}</p>
                     </div>
                   </div>
@@ -173,6 +235,16 @@ const BookBestList = () => {
               ))
             ) : (
               <p>책을 찾을 수 없습니다.</p>
+            )}
+            {totalPages >= 1 && (
+              <PagingButton
+                showArrowLeft={showArrowLeft}
+                showArrowRight={showArrowRight}
+                arrowNumberList={arrowNumberList}
+                handlePageMinus={handlePageMinus}
+                handlePagePlus={handlePagePlus}
+                handleSetPage={handleSetPage}
+              />
             )}
           </section>
         )}

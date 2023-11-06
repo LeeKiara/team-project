@@ -268,14 +268,14 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
-                      {/* <CartButton
+                      <CartButton
                         itemId={item.itemId}
                         quantity={1}
                         title={item.title}
                         cover={item.cover}
                         priceStandard={item.priceStandard.toString()}
                         priceSales={item.priceSales.toString()}
-                      /> */}
+                      />
                     </li>
                   </ul>
                 </article>
