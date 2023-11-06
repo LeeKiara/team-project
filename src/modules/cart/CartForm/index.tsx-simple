@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useCartData } from "./data";
 import { CartFormContainer } from "./styles";
-import { useBookCartData } from "../AddCart/data";
 
 const CartForm = () => {
   const [page, setPage] = useState(0);
 
   // 장바구니 캐시 데이터
-  const { bookCartData: cartlist, isBookCartDataValidating } = useBookCartData(page);
+  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData(page);
 
   console.log("***CartForm : " + cartlist.length);
 
@@ -22,12 +21,7 @@ const CartForm = () => {
           {cartlist.map((cartCashData, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <span>{index},</span>
-              <span>
-                <img src={cartCashData.cover} style={{ width: "50px", height: "50px" }} />
-              </span>
-              <span>{cartCashData.title},</span>
-              <span>{cartCashData.priceStandard},</span>
-              <span>{cartCashData.priceSales},</span>
+              <span>{cartCashData.title}</span>
             </div>
           ))}
 

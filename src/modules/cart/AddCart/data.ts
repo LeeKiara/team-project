@@ -2,15 +2,7 @@ import { getCookie } from "@/utils/cookie";
 import http from "@/utils/http";
 import useSWR from "swr";
 
-/*------------------------------------------------------------------------
- 장바구니 데이터처리 useSWR 사용
- - 데이터를 자동으로 캐싱하여 불필요한 중복 요청 방지
- - 데이터 요청과 관련된 복잡한 로직을 추상화하여 코드를 간소화 함
- - revalidateOnFocus 옵션은 false 
-   : 자동 리로딩이 발생하지 않도록 하였으며, 
-     다만 장바구니 삭제 등 데이터 업데이트를 수동으로 트리거 하기 위해 mutate 함수를 사용함
- --------------------------------------------------------------------------*/
-export interface CartData {
+interface BookCartData {
   id?: number; // id값은 나중에 생성
   itemId: number;
   gubun?: string;
@@ -20,44 +12,46 @@ export interface CartData {
   priceSales?: string;
   quantity: number;
   isChecked?: boolean;
-  // isFetch?: boolean;
 }
 
-const INIT_DATA: CartData[] = [];
-const CART_DATA_KEY = "/cart";
+const INIT_DATA: BookCartData[] = [];
+const BOOKCART_DATA_KEY = "/cart";
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
-const cartFetcher = async ([key, page]) => {
-  console.log("--call new cartFetcher--");
+const bookCartFetcher = async ([key, page]) => {
+  console.log("--call bookCartFetcher--");
+
   const token = getCookie("token");
   console.log("---token(call new cartFetcher)---");
   console.log(token);
 
-  // if (token) {
-  //   shouldFetchData = true;
-  //   console.log("--call new cartFetcher : shouldFetchData is true--");
-  // }
+  let shouldFetchData = false;
+  if (token) {
+    shouldFetchData = true;
+    console.log("--call new cartFetcher : shouldFetchData is true--");
+  }
 
   try {
-    // if (shouldFetchData) {
-    const response = await http.get<CartData[]>(`${key}?_sort=id?&_order=desc`);
+    if (shouldFetchData) {
+      const response = await http.get<BookCartData[]>(`${key}?_sort=id?_sort=id&_order=desc`);
 
-    console.log("--call new cartFetcher response data   --");
-    console.log(response.data);
+      console.log("--call bookCartFetcher 결과 : --" + response.data.length);
 
-    return response.data;
-    // }
+      return response.data;
+    } else {
+      return INIT_DATA;
+    }
   } catch (e: any) {
     return INIT_DATA;
   }
 };
 
-export const useCartData = (page: number) => {
+export const useBookCartData = (page: number) => {
   const {
-    data: cartData,
-    mutate: mutateCartDataFunction,
-    isValidating: isCartDataValidating,
-  } = useSWR<CartData[]>([CART_DATA_KEY, page], cartFetcher, {
+    data: bookCartData,
+    mutate,
+    isValidating: isBookCartDataValidating,
+  } = useSWR<BookCartData[]>([BOOKCART_DATA_KEY, page], bookCartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
     fallbackData: INIT_DATA,
     // 포커스될때 fetcher로 가져오기 해제
@@ -67,7 +61,7 @@ export const useCartData = (page: number) => {
     // refreshInterval: 5000,
   });
 
-  function createCartData(cartdata: CartData) {
+  function createBookCartData(contact: BookCartData) {
     // 배열데이터 변경(mutation)
     // 기존배열에 매개변수로 받은 객체를 추가하고 새로운 배열 반환
 
@@ -76,12 +70,12 @@ export const useCartData = (page: number) => {
     // mutate 함수
     // 데이터를 변경하고 변경된 데이터를 반환
     // mutate((이전데이터) => {... return 변경된데이터})
-    mutateCartDataFunction(
+    mutate(
       async (
         // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
-        prevData: CartData[] = [...INIT_DATA],
+        prevData: BookCartData[] = [...INIT_DATA],
       ) => {
-        console.log("--cart-prev-data--(" + prevData.length + ")");
+        // console.log("--bookCart-prev-data--");
         console.log(prevData);
 
         // 기존 데이터로 신규 배열 생성
@@ -89,24 +83,17 @@ export const useCartData = (page: number) => {
 
         try {
           // ex) 서버연동 fetch post contact -> id
-          // const response = await cartApi.post(CART_DATA_KEY, contact);
-          const response = await http.post(CART_DATA_KEY + "/add", cartdata);
-
-          console.log("--call new createCartData response data   --");
-          console.log("[status] " + response.status);
-          console.log("[response.data] " + response.data);
+          const response = await http.post(BOOKCART_DATA_KEY + "/add", contact);
 
           if (response.status === 201) {
             // 배열 앞쪽에 추가
             // 서버에서 추가된 데이터로 상태 변경
-            // nextData.unshift({
-            //   ...response.data,
-            // });
             nextData.unshift({
-              ...cartdata,
+              // ...response.data,
+              ...contact,
             });
 
-            console.log("--cart-next-data--(" + nextData.length + ")");
+            console.log("--bookCart-next-data--");
             console.log(nextData);
           }
         } catch (e: any) {
@@ -123,9 +110,8 @@ export const useCartData = (page: number) => {
   }
 
   return {
-    cartData,
-    mutateCartDataFunction,
-    createCartData,
-    isCartDataValidating,
+    bookCartData,
+    createBookCartData,
+    isBookCartDataValidating,
   };
 };
