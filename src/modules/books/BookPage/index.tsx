@@ -412,16 +412,16 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  {detail.stockStatus !== "품절" && (
+                  {/* {detail.stockStatus !== "품절" && (
                     <CartButton
                       itemId={detail.itemId}
                       quantity={1}
                       title={detail.title}
                       cover={detail.cover}
-                      priceStandard={detail.priceStandard}
-                      priceSales={detail.priceSales}
+                      priceStandard={detail.priceStandard.toString()}
+                      priceSales={detail.priceSales.toString()}
                     />
-                  )}
+                  )} */}
                 </ul>
               </nav>
             </article>
