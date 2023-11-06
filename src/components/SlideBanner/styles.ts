@@ -5,19 +5,22 @@ export const BannerContainer = styled.div`
     display: flex;
     padding-bottom: 40px;
   }
-  .banner-background0 {
+  .banner-background1 {
     background-color: #dff5ff;
   }
-  .banner-background1 {
+  .banner-background2 {
     background-color: #7b306b;
   }
-  .banner-background2 {
+  .banner-background3 {
     background-color: #ffebed;
   }
-  .banner-background3 {
+  .banner-background4 {
     background-color: #fff1da;
   }
-  .banner-background4 {
+  .banner-background0 {
+    background-color: #fffadd;
+  }
+  .banner-background5 {
     background-color: #fffadd;
   }
   .banner-center {

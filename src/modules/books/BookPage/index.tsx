@@ -412,16 +412,17 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  {/* {detail.stockStatus !== "품절" && (
-                    <CartButton
-                      itemId={detail.itemId}
-                      quantity={1}
-                      title={detail.title}
-                      cover={detail.cover}
-                      priceStandard={detail.priceStandard.toString()}
-                      priceSales={detail.priceSales.toString()}
-                    />
-                  )} */}
+                  {Number(detail.stockStatus) > 0 ||
+                    (detail.stockStatus !== "품절" && (
+                      <CartButton
+                        itemId={detail.itemId}
+                        quantity={1}
+                        title={detail.title}
+                        cover={detail.cover}
+                        priceStandard={detail.priceStandard.toString()}
+                        priceSales={detail.priceSales.toString()}
+                      />
+                    ))}
                 </ul>
               </nav>
             </article>
@@ -431,6 +432,12 @@ const BookPage = () => {
           <section>
             <h2>도서정보</h2>
             <hr />
+            {detail?.categoryName ? (
+              <span>
+                <p>&lt; 카테고리 &gt;</p>
+                <p>{detail.categoryName}</p>
+              </span>
+            ) : null}
             <figure style={{ display: "flex", justifyContent: "center" }}>
               <img
                 style={{ margin: "auto" }}

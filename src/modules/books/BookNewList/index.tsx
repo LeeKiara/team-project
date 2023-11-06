@@ -130,14 +130,14 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      {/* <CartButton
+                      <CartButton
                         itemId={item.itemId}
                         quantity={1}
                         title={item.title}
                         cover={item.cover}
                         priceStandard={item.priceStandard.toString()}
                         priceSales={item.priceSales.toString()}
-                      /> */}
+                      />
                     </div>
                   </li>
                 ))

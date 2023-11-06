@@ -150,6 +150,12 @@ export const PageContainer = styled.div`
     padding-top: 5px;
     padding-bottom: 5px;
   }
+  section > span:nth-of-type(1) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
   section > article {
     margin: 40px;
     width: 90%;
