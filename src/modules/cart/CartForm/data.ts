@@ -1,3 +1,4 @@
+import { getCookie } from "@/utils/cookie";
 import http from "@/utils/http";
 import useSWR from "swr";
 
@@ -26,32 +27,42 @@ const INIT_DATA: CartData[] = [];
 const CART_DATA_KEY = "/cart";
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
-const cartFetcher = async ([key, page]) => {
+const cartFetcher = async ([key, shouldFetchData]) => {
   console.log("--call new cartFetcher--");
+  const token = getCookie("token");
+  console.log("---token(call new cartFetcher)---");
+  console.log(token);
+
+  if (token) {
+    shouldFetchData = true;
+    console.log("--call new cartFetcher : shouldFetchData is true--");
+  }
 
   try {
-    const response = await http.get<CartData[]>(`${key}?_sort=id?&_order=desc`);
+    if (shouldFetchData) {
+      const response = await http.get<CartData[]>(`${key}?_sort=id?&_order=desc`);
 
-    console.log("--call new cartFetcher response data   --");
-    console.log(response.data);
+      console.log("--call new cartFetcher response data   --");
+      console.log(response.data);
 
-    return response.data;
+      return response.data;
+    }
   } catch (e: any) {
     return INIT_DATA;
   }
 };
 
-export const useCartData = () => {
+export const useCartData = (shouldFetchData?: boolean) => {
   const {
     data: cartData,
     mutate: mutateCartDataFunction,
     isValidating: isCartDataValidating,
-  } = useSWR<CartData[]>([CART_DATA_KEY], cartFetcher, {
+  } = useSWR<CartData[]>([CART_DATA_KEY, shouldFetchData], cartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
     fallbackData: INIT_DATA,
     // 포커스될때 fetcher로 가져오기 해제
     // rebalidate: 캐시와 fetcher로 가져온 데이터를 비교 후 반환
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
     // // 특정 주기별로 데이터 가져오기
     // refreshInterval: 5000,
   });

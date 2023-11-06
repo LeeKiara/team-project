@@ -378,18 +378,21 @@ export const OrderListContainer = styled.div`
     justify-content: center;
     align-items: center;
     position: absolute;
+    top: 180px;
     bottom: 0;
     left: 0;
     right: 0;
     background: rgba(255, 255, 255, 0.1); /* 아주 흐리게 처리된 배경 */
     z-index: 999;
-    margin-bottom: 70px;
+    height: 800px;
+    /* border: 1px solid red; */
+    margin-bottom: 100px;
   }
 
   .loading-content {
     text-align: center;
     background: rgba(255, 255, 255, 0.1); /* 아주 흐리게 처리된 배경 */
-    padding: 20px;
+    /* padding: 20px; */
     transform: scale(1.1);
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
     transition: transform 0.3s;

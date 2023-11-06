@@ -7,7 +7,9 @@ import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 
 // npm install --save react-spinners
-import { PuffLoader } from "react-spinners";
+// import { PuffLoader } from "react-spinners";
+
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 
 const OrderList = () => {
   const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문접수(입금대기)/취소)
@@ -288,10 +290,14 @@ const OrderList = () => {
           </article>
 
           {isLoading && (
-            <div className="loading-container">
-              <div className="loading-content">
-                <PuffLoader size={100} color="#368ed6" />
+            <div>
+              <div className="loading-container">
+                <div className="loading-content">
+                  <HourglassEmptyIcon sx={{ color: "pink", fontSize: "100px" }} />
+                  {/* <PuffLoader size={100} color="#368ed6" /> */}
+                </div>
               </div>
+              <div style={{ height: "250px" }}>&nbsp;</div>
             </div>
           )}
           {/* 주문내역 (Loop) */}
