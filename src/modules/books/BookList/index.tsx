@@ -268,14 +268,14 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
-                      <CartButton
+                      {/* <CartButton
                         itemId={item.itemId}
                         quantity={1}
                         title={item.title}
                         cover={item.cover}
                         priceStandard={item.priceStandard.toString()}
                         priceSales={item.priceSales.toString()}
-                      />
+                      /> */}
                     </li>
                   </ul>
                 </article>
@@ -284,7 +284,7 @@ const BookList = ({ fetchUrl }) => {
               // 데이터가 없거나 오류 상태를 처리하는 부분
               <p>책을 찾을 수 없습니다.</p>
             )}
-            {totalPages > 2 && (
+            {totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
                 showArrowRight={showArrowRight}

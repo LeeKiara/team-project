@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 
 export const BookNewContainer = styled.div`
+  section {
+    padding-bottom: 20px;
+  }
   section > ul {
     height: auto;
     display: flex;

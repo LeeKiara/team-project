@@ -54,7 +54,7 @@ const BookNewList = () => {
     }
 
     // 페이지당 아이템 수 (예: 5)
-    const itemsPerPage = MAX_LIST;
+    const itemsPerPage = 5;
     const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
 
@@ -76,11 +76,12 @@ const BookNewList = () => {
     if (queryKeyword) {
       (async () => {
         try {
-          const response = await axios.get<BookItem[]>(`http://localhost:8081/books/new/category?option=${query}`);
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/redis/category?size=${MAX_LIST}&page=${currentPage}&option=${query}`,
+          );
           if (response.status === 200) {
-            setNewBookList([...response.data]);
-            setTotalPages(response.data.length / MAX_LIST);
-            console.log(response.data.length / MAX_LIST + "총페이지");
+            setNewBookList([...response.data.content]);
+            setTotalPages(response.data.totalPages);
           }
         } catch (e: any) {
           console.log(e);
@@ -90,7 +91,7 @@ const BookNewList = () => {
       (async () => {
         try {
           const response = await axios.get<BookData>(
-            `http://localhost:8081/books/new?size=${MAX_LIST}&page=${currentPage}`,
+            `http://localhost:8081/redis/new?size=${MAX_LIST}&page=${currentPage}`,
           );
           if (response.status === 200) {
             setNewBookList([...response.data.content]);
@@ -101,20 +102,7 @@ const BookNewList = () => {
         }
       })();
     }
-  }, [searchQuery, params]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
-  //       if (response.status === 200) {
-  //         setNewBookList(response.data.content);
-  //       }
-  //     } catch (e: any) {
-  //       console.log(e);
-  //     }
-  //   })();
-  // }, []);
+  }, [searchQuery, currentPage, params]);
 
   return (
     <>
@@ -142,14 +130,14 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <CartButton
+                      {/* <CartButton
                         itemId={item.itemId}
                         quantity={1}
                         title={item.title}
                         cover={item.cover}
                         priceStandard={item.priceStandard.toString()}
                         priceSales={item.priceSales.toString()}
-                      />
+                      /> */}
                     </div>
                   </li>
                 ))
@@ -157,7 +145,7 @@ const BookNewList = () => {
                 <p>책을 찾을 수 없습니다.</p>
               )}
             </ul>
-            {totalPages > 0 && (
+            {totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
                 showArrowRight={showArrowRight}

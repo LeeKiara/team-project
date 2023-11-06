@@ -412,7 +412,7 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  {detail.stockStatus !== "품절" && (
+                  {/* {detail.stockStatus !== "품절" && (
                     <CartButton
                       itemId={detail.itemId}
                       quantity={1}
@@ -421,7 +421,7 @@ const BookPage = () => {
                       priceStandard={detail.priceStandard.toString()}
                       priceSales={detail.priceSales.toString()}
                     />
-                  )}
+                  )} */}
                 </ul>
               </nav>
             </article>
