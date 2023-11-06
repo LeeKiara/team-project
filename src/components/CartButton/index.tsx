@@ -60,6 +60,7 @@ const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales 
       e.preventDefault();
       if (!token) {
         alert("로그인 후 이용해주세요.");
+        navigate("/login");
       } else {
         const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
         if (isConfirmed) {

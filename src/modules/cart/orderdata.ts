@@ -23,6 +23,7 @@ export interface OrderDeliveryResponse {
   address: string; // 기본주소
   detailAddress: string; // 상세주소
   deliveryMemo: string; //배송요청사항
+  cancelMemo: string; // 취소 사유
   orderItems: OrderItemResponse2[]; // 주문도서정보
 }
 

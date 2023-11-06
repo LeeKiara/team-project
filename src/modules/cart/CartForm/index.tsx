@@ -12,7 +12,7 @@ import eventBanner1 from "@/assets/event-banner.gif";
 const CartForm = () => {
   // 장바구니 캐시 데이터
   // const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
-  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData();
+  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData(true);
 
   // 장바구니 삭제 item 상태관리
   const [deletedItemId, setDeletedItemId] = useState(null);

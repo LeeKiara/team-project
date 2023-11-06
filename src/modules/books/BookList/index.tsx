@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import Button from "@/components/Button";
+// import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";

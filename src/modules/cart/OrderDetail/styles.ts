@@ -81,7 +81,7 @@ export const OrderDetailContainer = styled.div`
     height: 60px;
     line-height: 60px;
     font-weight: 600;
-    padding-left: 50px;
+    padding-left: 40px;
     margin-top: 30px;
     display: flex;
     flex-direction: row;
@@ -163,20 +163,43 @@ export const OrderDetailContainer = styled.div`
     }
   }
 
+  .box-payment-container:not(.active) > div {
+    display: none;
+  }
+  .box-cancel-container:not(.active) > div {
+    display: none;
+  }
+  .box-payment-container {
+    div {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  .box-cancel-container {
+    div {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    div:nth-of-type(3) {
+      padding-left: 38px;
+      font-weight: 600;
+    }
+  }
+
   .box-payment-wrap {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     padding-top: 30px;
-    border-top: 1px solid #000;
-    border-bottom: 1px dotted #eaeaea;
     box-sizing: border-box;
-    margin-bottom: 30px;
+    gap: 30px;
+    /* border: 1px dotted black; */
 
-    div {
-      /* border: 1px solid red; */
-      /* width: 80%; */
-      padding-right: 80px;
+    div:nth-of-type(1) {
+      flex: 50%;
+    }
+    div:nth-of-type(2) {
+      flex: 50%;
     }
     div dl {
       /* border: 1px dotted gray; */
@@ -396,54 +419,6 @@ export const OrderDetailContainer = styled.div`
   @media (max-width: 768px) {
     section {
       width: 320px;
-    }
-    .article-layer-title-title {
-      display: none;
-    }
-
-    .article-layer-title {
-      flex-direction: column;
-      height: 180px;
-      align-items: center; /* 수직 가운데 정렬 추가 */
-    }
-    .bookinfo {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      width: 300px;
-    }
-    .priceinfo {
-      display: flex;
-      flex-direction: row;
-      align-items: center; /* 수직 가운데 정렬 추가 */
-      gap: 30px;
-      margin: 10px 20px;
-    }
-  }
-
-  /* 모바일 스타일 */
-  @media (max-width: 768px) {
-    .payment-layer {
-      height: 50px;
-    }
-    .box-period-payment {
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-
-      .total-text {
-        /* border-bottom: 1px dotted gray; */
-        height: 30px;
-      }
-      .total-sum strong {
-        display: inline;
-        text-align: left;
-      }
-
-      .total-price {
-        display: inline;
-        text-align: left;
-      }
     }
   }
 `;
