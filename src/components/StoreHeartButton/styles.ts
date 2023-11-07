@@ -5,11 +5,10 @@ export const StoreHeartContainer = styled.div`
     display: inline-block;
     padding: 12px 15px;
     margin-bottom: 0;
-    font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
-    vertical-align: middle;
+    vertical-align: top;
     touch-action: manipulation;
     cursor: pointer;
     -moz-user-select: none;
@@ -21,11 +20,13 @@ export const StoreHeartContainer = styled.div`
     background-color: #708b95;
     color: #fff;
     font-size: 18px;
+    font-weight: 400;
+    font-family: "Noto Sans KR", sans-serif;
   }
   .btn > svg {
     vertical-align: top;
     font-size: 20px;
-    margin-top: 2px;
+    margin-top: 3px;
     margin-right: 5px;
   }
 `;

@@ -8,7 +8,7 @@ import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
-import { BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem } from "../data";
 import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 
 const BookList = ({ fetchUrl }) => {
@@ -71,12 +71,32 @@ const BookList = ({ fetchUrl }) => {
     }
   };
 
-  //알림설정
-  const handleBell = (itemId: number) => {
-    setStoreBellStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  //알림설정 등록 및 수정
+  const handleBell = async (itemId: number) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      setStoreBellStates((prevStates) => ({
+        ...prevStates,
+        [itemId]: !prevStates[itemId],
+      }));
+      const alamDisplay = !storeBelltStates[itemId];
+      const newAlamDisplay = {
+        alamDisplay: alamDisplay,
+      };
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림설정 수정/등록 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 오류");
+      }
+    }
   };
 
   //페이징
@@ -213,6 +233,11 @@ const BookList = ({ fetchUrl }) => {
     }
   }, [bookList]);
 
+  //카테고리 이동시 현재 페이지 0 설정
+  useEffect(() => {
+    setCurrentPage(0); // 카테고리 이동할 때 현재 페이지를 0으로 설정
+  }, [params]);
+
   //페이징/카테고리 조회 통합
   useEffect(() => {
     const queryKeyword = params.get("option") || "";
@@ -236,6 +261,28 @@ const BookList = ({ fetchUrl }) => {
         }
       } catch (e: any) {
         console.log(e);
+      }
+    })();
+
+    //알림설정 디스플레이 조회
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          response.data.forEach((data) => {
+            setStoreBellStates((prev) => ({
+              ...prev,
+              [data.bookItemId]: data.alamDisplay,
+            }));
+          });
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
       }
     })();
   }, [searchQuery, currentPage, params, fetchUrl]);
@@ -294,7 +341,7 @@ const BookList = ({ fetchUrl }) => {
                         )}
                       {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
                         <button
-                          className="btn bell"
+                          className="bell"
                           onClick={() => {
                             handleBell(item.itemId);
                           }}>

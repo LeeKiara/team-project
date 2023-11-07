@@ -1,15 +1,17 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem } from "../data";
 import Button from "@/components/Button";
 import axios from "axios";
 import { ButtonStyle } from "@/components/Button/styles";
 import { Notifications, NotificationsOutlined, ShoppingCart } from "@mui/icons-material";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
+import { getCookie } from "@/utils/cookie";
 
 const BookNewList = () => {
+  const token = getCookie("token");
   const MAX_LIST = 8; // 고정된 리스트 갯수
   const [newBookList, setNewBookList] = useState<BookItem[]>([]);
   //카테고리 상태값
@@ -30,12 +32,32 @@ const BookNewList = () => {
   //알림설정
   const [storeBelltStates, setStoreBellStates] = useState({});
 
-  //알림설정
-  const handleBell = (itemId: number) => {
-    setStoreBellStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  //알림설정 등록 및 수정
+  const handleBell = async (itemId: number) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      setStoreBellStates((prevStates) => ({
+        ...prevStates,
+        [itemId]: !prevStates[itemId],
+      }));
+      const alamDisplay = !storeBelltStates[itemId];
+      const newAlamDisplay = {
+        alamDisplay: alamDisplay,
+      };
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림설정 수정/등록 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 오류");
+      }
+    }
   };
 
   //페이징
@@ -76,6 +98,11 @@ const BookNewList = () => {
     setArrowNumberList(lst);
   }, [currentPage, totalPages]);
 
+  //카테고리 이동시 현재 페이지 0 설정
+  useEffect(() => {
+    setCurrentPage(0); // 카테고리 이동할 때 현재 페이지를 0으로 설정
+  }, [params]);
+
   //카테고리 이동
   useEffect(() => {
     console.log(params);
@@ -113,6 +140,27 @@ const BookNewList = () => {
         }
       })();
     }
+    //알림설정 디스플레이 조회
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          response.data.forEach((data) => {
+            setStoreBellStates((prev) => ({
+              ...prev,
+              [data.bookItemId]: data.alamDisplay,
+            }));
+          });
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
+      }
+    })();
   }, [searchQuery, currentPage, params]);
 
   return (
@@ -156,7 +204,7 @@ const BookNewList = () => {
                         )}
                       {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
                         <button
-                          className="btn"
+                          className="bell"
                           onClick={() => {
                             handleBell(item.itemId);
                           }}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
-import { BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem } from "../data";
 import Button from "@/components/Button";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
@@ -9,13 +9,7 @@ import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
-import {
-  EmojiEventsOutlined,
-  MilitaryTech,
-  MilitaryTechOutlined,
-  Notifications,
-  NotificationsOutlined,
-} from "@mui/icons-material";
+import { EmojiEvents, Notifications, NotificationsOutlined } from "@mui/icons-material";
 
 const BookBestList = () => {
   const token = getCookie("token");
@@ -44,14 +38,32 @@ const BookBestList = () => {
   //알림설정
   const [storeBelltStates, setStoreBellStates] = useState({});
 
-  const [winnerCup, setWinnerCup] = useState([]);
-
-  //알림설정
-  const handleBell = (itemId: number) => {
-    setStoreBellStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  //알림설정 등록 및 수정
+  const handleBell = async (itemId: number) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      setStoreBellStates((prevStates) => ({
+        ...prevStates,
+        [itemId]: !prevStates[itemId],
+      }));
+      const alamDisplay = !storeBelltStates[itemId];
+      const newAlamDisplay = {
+        alamDisplay: alamDisplay,
+      };
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림설정 수정/등록 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 오류");
+      }
+    }
   };
 
   //페이징
@@ -160,6 +172,11 @@ const BookBestList = () => {
     }
   }, [bookList]);
 
+  //카테고리 이동시 현재 페이지 0 설정
+  useEffect(() => {
+    setCurrentPage(0); // 카테고리 이동할 때 현재 페이지를 0으로 설정
+  }, [params]);
+
   //카테고리 이동
   useEffect(() => {
     console.log(params);
@@ -197,7 +214,29 @@ const BookBestList = () => {
         }
       })();
     }
-  }, [searchQuery, currentPage, params]);
+
+    //알림설정 디스플레이 조회
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          response.data.forEach((data) => {
+            setStoreBellStates((prev) => ({
+              ...prev,
+              [data.bookItemId]: data.alamDisplay,
+            }));
+          });
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
+      }
+    })();
+  }, [searchQuery, totalPages, currentPage, params]);
 
   return (
     <>
@@ -218,8 +257,11 @@ const BookBestList = () => {
                     </figure>
                     <div>
                       <span className="winner-cup">
-                        {index < 3 && <MilitaryTech className="material-icons-outlined" />}
-                        <h2>{index + 1}위</h2>
+                        {(currentPage === 0 || currentPage === 1) && (
+                          <EmojiEvents className="material-icons-outlined" />
+                        )}
+                        {currentPage === 0 && <h2>{index + 1}위</h2>}
+                        {currentPage === 1 && <h2>{index + 6}위</h2>}
                       </span>
                       <h3>
                         <Link to={`/page?id=${item.id}`}>{`${item.title}`}</Link>
@@ -259,7 +301,7 @@ const BookBestList = () => {
                       )}
                     {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
                       <button
-                        className="btn bell"
+                        className="bell"
                         onClick={() => {
                           handleBell(item.itemId);
                         }}>

@@ -48,7 +48,6 @@ const SlideBanner = ({ images }) => {
 
   const handleChange = (currentSlide, nextSlide) => {
     const currentIndex = nextSlide % images.length; // 현재 슬라이드 번호를 이미지 배열 길이에 맞게 조정
-    console.log("현재 인덱스는 " + currentIndex);
     setBannerBackground(`banner-background${currentIndex}`);
   };
 
