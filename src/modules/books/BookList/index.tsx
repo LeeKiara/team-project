@@ -9,6 +9,7 @@ import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
 import { BookData, BookItem } from "../data";
+import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
@@ -27,6 +28,8 @@ const BookList = ({ fetchUrl }) => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
   const [profile, setProfile] = useState<ProfileData | null>(null);
+  //알림설정
+  const [storeBelltStates, setStoreBellStates] = useState({});
 
   //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
@@ -66,6 +69,14 @@ const BookList = ({ fetchUrl }) => {
         console.log(e + "선호작품 오류");
       }
     }
+  };
+
+  //알림설정
+  const handleBell = (itemId: number) => {
+    setStoreBellStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
   };
 
   //페이징
@@ -268,14 +279,33 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
-                      <CartButton
-                        itemId={item.itemId}
-                        quantity={1}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={item.priceStandard.toString()}
-                        priceSales={item.priceSales.toString()}
-                      />
+                      {item.stockStatus !== "" &&
+                        item.stockStatus !== "0" &&
+                        item.stockStatus !== "예약판매" &&
+                        item.stockStatus !== "품절" && (
+                          <CartButton
+                            itemId={item.itemId}
+                            quantity={1}
+                            title={item.title}
+                            cover={item.cover}
+                            priceStandard={item.priceStandard.toString()}
+                            priceSales={item.priceSales.toString()}
+                          />
+                        )}
+                      {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
+                        <button
+                          className="btn bell"
+                          onClick={() => {
+                            handleBell(item.itemId);
+                          }}>
+                          {storeBelltStates[item.itemId] ? (
+                            <Notifications className="material-icons-outlined" />
+                          ) : (
+                            <NotificationsOutlined className="material-icons-outlined" />
+                          )}
+                          알림설정
+                        </button>
+                      )}
                     </li>
                   </ul>
                 </article>

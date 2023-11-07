@@ -3,12 +3,22 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
 import { BookComment, BookItem, LikesItem, ReplyComment } from "../data";
 import axios from "axios";
-import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorder,
+  Notifications,
+  NotificationsOutlined,
+  ThumbDown,
+  ThumbDownOffAlt,
+  ThumbUp,
+  ThumbUpOffAlt,
+} from "@mui/icons-material";
 import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
 import { ProfileData } from "@/modules/cart/userdata";
 import CartButton from "@/components/CartButton";
+import StoreHeartButton from "@/components/StoreHeartButton";
 
 const BookPage = () => {
   const token = getCookie("token");
@@ -24,6 +34,9 @@ const BookPage = () => {
 
   //카트데이터 수량값
   const [number, setNumber] = useState(1);
+
+  //알림설정
+  const [storeBelltStates, setStoreBellStates] = useState({});
 
   //선호작품 상태값
   const [showHeartState, setShowHeartState] = useState(false);
@@ -80,6 +93,14 @@ const BookPage = () => {
         console.log(e + "선호작품 오류");
       }
     }
+  };
+
+  //알림설정
+  const handleBell = (itemId: number) => {
+    setStoreBellStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
   };
 
   //추천
@@ -373,19 +394,7 @@ const BookPage = () => {
               </aside>
               <nav>
                 <ul>
-                  <li
-                    onClick={() => {
-                      handleBookSave(detail.id);
-                    }}>
-                    <button className="btn">
-                      {showHeartState ? (
-                        <Favorite className="material-icons-outlined heart" />
-                      ) : (
-                        <FavoriteBorder className="material-icons-outlined" />
-                      )}
-                      선호작품
-                    </button>
-                  </li>
+                  <StoreHeartButton id={detail.id} onClick={handleBookSave} liked={showHeartState} />
                   <li
                     onClick={() => {
                       handleThumbUp(detail.itemId);
@@ -412,8 +421,10 @@ const BookPage = () => {
                       싫어요
                     </button>
                   </li>
-                  {Number(detail.stockStatus) > 0 ||
-                    (detail.stockStatus !== "품절" && (
+                  {detail.stockStatus !== "" &&
+                    detail.stockStatus !== "0" &&
+                    detail.stockStatus !== "예약판매" &&
+                    detail.stockStatus !== "품절" && (
                       <CartButton
                         itemId={detail.itemId}
                         quantity={1}
@@ -422,7 +433,23 @@ const BookPage = () => {
                         priceStandard={detail.priceStandard.toString()}
                         priceSales={detail.priceSales.toString()}
                       />
-                    ))}
+                    )}
+                  {(detail.stockStatus === "예약판매" ||
+                    detail.stockStatus === "품절" ||
+                    detail.stockStatus === "") && (
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        handleBell(detail.itemId);
+                      }}>
+                      {storeBelltStates[detail.itemId] ? (
+                        <Notifications className="material-icons-outlined" />
+                      ) : (
+                        <NotificationsOutlined className="material-icons-outlined" />
+                      )}
+                      알림설정
+                    </button>
+                  )}
                 </ul>
               </nav>
             </article>
