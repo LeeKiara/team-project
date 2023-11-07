@@ -48,12 +48,13 @@ export const AddCartContainer = styled.div`
     display: flex;
     flex-direction: row;
     background-color: ${lightgrayColor};
-    width: 880px;
+    width: 890px;
     height: 50px;
     align-items: center;
     padding-left: 11px;
     color: ${primaryColor};
-    font-weight: 400;
+    font-weight: 600;
+    border-radius: 8px;
 
     div {
       /* border: 1px solid black; */
@@ -111,9 +112,12 @@ export const AddCartContainer = styled.div`
       line-height: 20px;
       font-size: 12px;
       font-weight: 400;
-      color: ${lightblueColor};
-      border: 1px solid ${lightblueColor};
+      border: 1px solid green;
       border-radius: 4px;
+
+      p {
+        color: green;
+      }
     }
 
     .image {
@@ -311,6 +315,7 @@ export const AddCartContainer = styled.div`
     color: ${primaryColor};
     border: 1px solid #999aa9;
     justify-content: space-between;
+    border-radius: 6px;
 
     .total-text {
       width: 80px;

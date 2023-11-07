@@ -166,6 +166,7 @@ const AddCart = () => {
         // isChecked: checkboxes[index], // 체크박스 상태 사용
         isChecked: selectedItems.includes(selectedItem.itemId),
         gubun: "",
+        stockStatus: selectedItem.stockStatus,
       }))
       .filter((selectedItem) => selectedItem.isChecked);
 
@@ -178,11 +179,9 @@ const AddCart = () => {
           ", quantity:" +
           item.quantity +
           ", isChecked:" +
-          item.title +
-          ", " +
-          item.quantity +
-          ", " +
-          item.isChecked,
+          item.isChecked +
+          ", stockStatus:" +
+          item.stockStatus,
       );
     });
 
@@ -294,6 +293,7 @@ const AddCart = () => {
         quantity: qtys[index],
         isChecked: true,
         gubun: "",
+        stockStatus: selectedItem.stockStatus,
       }));
 
       checkedCartItems.map((item, index) => {
@@ -305,11 +305,9 @@ const AddCart = () => {
             ", quantity:" +
             item.quantity +
             ", isChecked:" +
-            item.title +
-            ", " +
-            item.quantity +
-            ", " +
-            item.isChecked,
+            item.isChecked +
+            ", stockStatus:" +
+            item.stockStatus,
         );
       });
 
@@ -373,16 +371,14 @@ const AddCart = () => {
                     </span>
                   </div>
                   <div className="bookinfo-title">
-                    {/* <div className="box-bookgubun">
-                <span className="icon-bookgubun">{cartCashData.categoryName}</span>
-              </div> */}
-                    <div></div>
+                    {cartCashData.stockStatus === "품절" && (
+                      <div className="icon-bookgubun">
+                        <p>{cartCashData.stockStatus}</p>
+                      </div>
+                    )}
                     <p>
                       <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
                       <br />
-                      {/* (할인가:
-                {cartCashData.priceSales},정가:
-                {cartCashData.priceStandard}) */}
                     </p>
                   </div>
                 </div>
@@ -398,12 +394,6 @@ const AddCart = () => {
                       onChange={(e) => handleQtyChange(e, index)}
                     />
                     <div className="btn-qty-change">
-                      {/* <button onClick={() => handleIncrement(index)}>
-                  1 증가
-                </button>
-                <button onClick={() => handleDecrement(index)}>
-                  1 감소
-                </button> */}
                       <img
                         onClick={() => handleIncrement(index)}
                         src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"

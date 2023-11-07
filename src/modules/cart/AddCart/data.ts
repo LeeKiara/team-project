@@ -21,6 +21,7 @@ interface BookCartData {
   priceSales?: string;
   quantity: number;
   isChecked?: boolean;
+  stockStatus: string;
 }
 
 const INIT_DATA: BookCartData[] = [];

@@ -29,15 +29,6 @@ const ShowMessageModal = ({ message, onCancel }: ShowMessageModalProps) => {
     // </div>
     <ShowMessageModalStyle>
       <div className="dialog_contents_layout">
-        {/* style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        backgroundColor: "white",
-        padding: "20px",
-        boxShadow: "0px 0px 10px gray",
-      }}> */}
         <div className="ui-dialog-content">
           <div className="dialog_contents">
             <p className="alert_text_sm">{message}</p>
@@ -45,7 +36,7 @@ const ShowMessageModal = ({ message, onCancel }: ShowMessageModalProps) => {
           <div className="dialog_footer">
             {/* <span className="text">확인</span> */}
             <button onClick={onCancel} className="btn-confirm">
-              <p className="alert_text_sm">확인</p>
+              확인
             </button>
           </div>
         </div>

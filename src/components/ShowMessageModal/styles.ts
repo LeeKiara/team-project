@@ -11,27 +11,48 @@ const darkRedColor = "#e02020";
 
 export const ShowMessageModalStyle = styled.div`
   .dialog_contents_layout {
-    position: fixed;
+    /* position: fixed;
     top: 30%;
     left: 30%;
     transform: translate(-50% -50%);
     background-color: white;
-    /* background-color: rgba(0, 0, 0, 0.7); */
     padding: 20px;
     box-shadow: 0px 0px 10px gray;
     width: 500px;
     height: 180px;
-    border-radius: 30px;
+    border-radius: 30px; */
 
-    .dialog_contents {
-      margin-top: 40px;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9990;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    .ui-dialog-content {
+      width: 500px;
+      height: 300px;
+      background-color: white;
+      border-radius: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: row;
-      align-items: stretch;
-      min-height: 45px;
-      text-align: center;
+      flex-direction: column;
+
+      div:nth-of-type(1) {
+        flex: 65%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      div:nth-of-type(2) {
+        flex: 35%;
+      }
     }
 
     .dialog_footer {
@@ -39,9 +60,9 @@ export const ShowMessageModalStyle = styled.div`
       justify-content: center;
       align-items: center;
       flex-direction: row;
-      flex-shrink: 0;
-      flex-wrap: wrap;
-      margin-top: 34px;
+      /* flex-shrink: 0;
+      flex-wrap: wrap; */
+      /* margin-top: 34px; */
     }
 
     .btn-confirm {
@@ -51,9 +72,10 @@ export const ShowMessageModalStyle = styled.div`
       width: 150px;
       height: 45px;
       border-radius: 10px;
+      font-size: 14px;
 
       &:hover {
-        background: ${grayColor};
+        background: ${blueColor};
         color: white;
       }
     }
