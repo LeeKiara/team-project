@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { BookData, BookItem } from "../data";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Button from "@/components/Button";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
@@ -10,6 +9,13 @@ import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
+import {
+  EmojiEventsOutlined,
+  MilitaryTech,
+  MilitaryTechOutlined,
+  Notifications,
+  NotificationsOutlined,
+} from "@mui/icons-material";
 
 const BookBestList = () => {
   const token = getCookie("token");
@@ -34,6 +40,19 @@ const BookBestList = () => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
+
+  //알림설정
+  const [storeBelltStates, setStoreBellStates] = useState({});
+
+  const [winnerCup, setWinnerCup] = useState([]);
+
+  //알림설정
+  const handleBell = (itemId: number) => {
+    setStoreBellStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
 
   //페이징
   const handleSetPage = (pageNumber) => {
@@ -198,7 +217,10 @@ const BookBestList = () => {
                       </Link>
                     </figure>
                     <div>
-                      <h2>{index + 1}위</h2>
+                      <span className="winner-cup">
+                        {index < 3 && <MilitaryTech className="material-icons-outlined" />}
+                        <h2>{index + 1}위</h2>
+                      </span>
                       <h3>
                         <Link to={`/page?id=${item.id}`}>{`${item.title}`}</Link>
                       </h3>
@@ -222,14 +244,33 @@ const BookBestList = () => {
                       판매가: {`${item.priceSales.toLocaleString()}`}원
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
-                    <CartButton
-                      itemId={item.itemId}
-                      quantity={1}
-                      title={item.title}
-                      cover={item.cover}
-                      priceStandard={item.priceStandard.toString()}
-                      priceSales={item.priceSales.toString()}
-                    />
+                    {item.stockStatus !== "" &&
+                      item.stockStatus !== "0" &&
+                      item.stockStatus !== "예약판매" &&
+                      item.stockStatus !== "품절" && (
+                        <CartButton
+                          itemId={item.itemId}
+                          quantity={1}
+                          title={item.title}
+                          cover={item.cover}
+                          priceStandard={item.priceStandard.toString()}
+                          priceSales={item.priceSales.toString()}
+                        />
+                      )}
+                    {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
+                      <button
+                        className="btn bell"
+                        onClick={() => {
+                          handleBell(item.itemId);
+                        }}>
+                        {storeBelltStates[item.itemId] ? (
+                          <Notifications className="material-icons-outlined" />
+                        ) : (
+                          <NotificationsOutlined className="material-icons-outlined" />
+                        )}
+                        알림설정
+                      </button>
+                    )}
                   </ul>
                 </article>
               ))
