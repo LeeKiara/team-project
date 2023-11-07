@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import useSWR, { mutate } from "swr";
 
 const booksApi = axios.create({
@@ -35,11 +36,13 @@ export interface BookItem {
   priceStandard: number;
   stockStatus: string;
   cover: string;
+  categoryId: number;
+  categoryName: string;
   customerReviewRank: number;
-  seriesInfo: SeriesInfo;
-  commentCount: number;
-  bookComment: BookComment[];
-  likedBook: LikesItem[];
+  seriesInfo?: SeriesInfo;
+  commentCount?: number;
+  bookComment?: BookComment[];
+  likedBook?: LikesItem[];
 }
 
 export interface LikesItem {
@@ -68,19 +71,6 @@ export interface SeriesInfo {
   seriesId: number;
   seriesLink: string;
   seriesName: string;
-}
-
-export interface BestBookData {
-  itemId?: number;
-  cover: string;
-  title: string;
-  author: string;
-  priceSales: string;
-  priceStandard: string;
-  publisher: string;
-  link: string;
-  description: string;
-  isbn: string;
 }
 
 const INIT_DATA: BookItem[] = [];

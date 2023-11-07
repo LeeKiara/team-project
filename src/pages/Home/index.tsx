@@ -120,6 +120,7 @@ const Home = () => {
                     <small>판매가: </small>
                     <h4>{todayLetter.priceSales.toLocaleString()}원</h4>
                   </span>
+                  <small>[ MD 추천 멘트 ]</small>
                   <p>{todayLetter.todayLetter}</p>
                 </div>
               </div>

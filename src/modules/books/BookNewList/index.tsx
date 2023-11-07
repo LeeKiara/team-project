@@ -5,27 +5,76 @@ import { BookData, BookItem } from "../data";
 import Button from "@/components/Button";
 import axios from "axios";
 import { ButtonStyle } from "@/components/Button/styles";
-import { ShoppingCart } from "@mui/icons-material";
+import { Notifications, NotificationsOutlined, ShoppingCart } from "@mui/icons-material";
 import CartButton from "@/components/CartButton";
+import PagingButton from "@/components/PagingButton";
 
 const BookNewList = () => {
+  const MAX_LIST = 8; // 고정된 리스트 갯수
   const [newBookList, setNewBookList] = useState<BookItem[]>([]);
   //카테고리 상태값
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
 
-  // const [showButton, setShowButton] = useState(false);
-  // const [confirmed, setConfirmed] = useState(false);
+  //페이징 화살표 상태값
+  const [showArrowLeft, setShowArrowLeft] = useState(false);
+  const [showArrowRight, setShowArrowRight] = useState(true);
 
-  // const handleShow = () => {
-  //   const isConfirmed = window.confirm("장바구니에 추가하시겠습니까?");
+  //페이징 숫자 처리
+  const [arrowNumberList, setArrowNumberList] = useState([]);
+  //현재 페이지
+  const [currentPage, setCurrentPage] = useState(0);
+  //총페이지
+  const [totalPages, setTotalPages] = useState(0);
 
-  //   if (isConfirmed) {
-  //     setConfirmed(true); // 확인을 받았다면 confirmed 상태를 true로 설정
-  //   }
+  //알림설정
+  const [storeBelltStates, setStoreBellStates] = useState({});
 
-  //   setShowButton(true); // 버튼을 표시
-  // };
+  //알림설정
+  const handleBell = (itemId: number) => {
+    setStoreBellStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
+  };
+
+  //페이징
+  const handleSetPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  //페이징 화살표 마이너스
+  const handlePageMinus = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  //페이징 화살표 플러스
+  const handlePagePlus = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  //화살표 상태에 따라 변화 및 페이징 숫자 처리
+  useEffect(() => {
+    if (currentPage > 0) {
+      setShowArrowLeft(true);
+    } else if (currentPage === 0) {
+      setShowArrowLeft(false);
+    }
+    if (currentPage >= totalPages - 1) {
+      setShowArrowRight(false);
+    } else {
+      setShowArrowRight(true);
+    }
+
+    // 페이지당 아이템 수 (예: 5)
+    const itemsPerPage = 5;
+    const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
+
+    const lst = [];
+    for (let i = startIndex; i < endIndex; i++) {
+      lst.push(i);
+    }
+    setArrowNumberList(lst);
+  }, [currentPage, totalPages]);
 
   //카테고리 이동
   useEffect(() => {
@@ -38,9 +87,12 @@ const BookNewList = () => {
     if (queryKeyword) {
       (async () => {
         try {
-          const response = await axios.get<BookItem[]>(`http://localhost:8081/books/new/category?option=${query}`);
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/redis/category?size=${MAX_LIST}&page=${currentPage}&option=${query}`,
+          );
           if (response.status === 200) {
-            setNewBookList([...response.data]);
+            setNewBookList([...response.data.content]);
+            setTotalPages(response.data.totalPages);
           }
         } catch (e: any) {
           console.log(e);
@@ -49,29 +101,19 @@ const BookNewList = () => {
     } else {
       (async () => {
         try {
-          const response = await axios.get<BookItem[]>(`http://localhost:8081/books/new`);
+          const response = await axios.get<BookData>(
+            `http://localhost:8081/redis/new?size=${MAX_LIST}&page=${currentPage}`,
+          );
           if (response.status === 200) {
-            setNewBookList([...response.data]);
+            setNewBookList([...response.data.content]);
+            setTotalPages(response.data.totalPages);
           }
         } catch (e: any) {
           console.log(e);
         }
       })();
     }
-  }, [searchQuery, params]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await axios.get<BookData>(`http://localhost:8081/books/new?page=0&size=8`);
-  //       if (response.status === 200) {
-  //         setNewBookList(response.data.content);
-  //       }
-  //     } catch (e: any) {
-  //       console.log(e);
-  //     }
-  //   })();
-  // }, []);
+  }, [searchQuery, currentPage, params]);
 
   return (
     <>
@@ -82,7 +124,7 @@ const BookNewList = () => {
           <section>
             <ul>
               {newBookList.length > 0 ? (
-                newBookList.slice(0, 8).map((item) => (
+                newBookList.map((item) => (
                   <li key={`${item.id}`}>
                     <figure>
                       <Link to={`/page?new=${item.id}`}>
@@ -99,14 +141,33 @@ const BookNewList = () => {
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
                       <dl>판매가: {`${item.priceSales}`}원</dl>
-                      <CartButton
-                        itemId={item.itemId}
-                        quantity={1}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={item.priceStandard}
-                        priceSales={item.priceSales}
-                      />
+                      {item.stockStatus !== "" &&
+                        item.stockStatus !== "0" &&
+                        item.stockStatus !== "예약판매" &&
+                        item.stockStatus !== "품절" && (
+                          <CartButton
+                            itemId={item.itemId}
+                            quantity={1}
+                            title={item.title}
+                            cover={item.cover}
+                            priceStandard={item.priceStandard.toString()}
+                            priceSales={item.priceSales.toString()}
+                          />
+                        )}
+                      {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
+                        <button
+                          className="btn"
+                          onClick={() => {
+                            handleBell(item.itemId);
+                          }}>
+                          {storeBelltStates[item.itemId] ? (
+                            <Notifications className="material-icons-outlined" />
+                          ) : (
+                            <NotificationsOutlined className="material-icons-outlined" />
+                          )}
+                          알림설정
+                        </button>
+                      )}
                     </div>
                   </li>
                 ))
@@ -114,6 +175,16 @@ const BookNewList = () => {
                 <p>책을 찾을 수 없습니다.</p>
               )}
             </ul>
+            {totalPages > 1 && (
+              <PagingButton
+                showArrowLeft={showArrowLeft}
+                showArrowRight={showArrowRight}
+                arrowNumberList={arrowNumberList}
+                handlePageMinus={handlePageMinus}
+                handlePagePlus={handlePagePlus}
+                handleSetPage={handleSetPage}
+              />
+            )}
           </section>
         )}
       </BookNewContainer>

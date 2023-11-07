@@ -97,6 +97,16 @@ export const BookBestContainer = styled.div`
     font-size: 20px;
     margin-right: 5px;
   }
+  .bell {
+    background-color: #ae7ac2;
+  }
+  .winner-cup {
+    display: flex;
+  }
+  .winner-cup > svg {
+    vertical-align: top;
+    margin-top: -3px;
+  }
 
   @media (min-width: 80rem) {
     section > article {

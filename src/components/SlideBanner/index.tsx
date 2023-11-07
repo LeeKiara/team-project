@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const SlideBanner = ({ images }) => {
   const settings: Settings = {
-    dots: false, // 캐러셀의 점을 보여줄 것 인지
+    dots: true, // 캐러셀의 점을 보여줄 것 인지
     infinite: true, // 마지막장 다음에 첫장이 나오게 할 지
     speed: 0, // 넘어가는 속도
     arrows: false,
@@ -29,7 +29,7 @@ const SlideBanner = ({ images }) => {
 
   const sliderRef = useRef<Slider | null>(null);
   const [showButton, setShowButton] = useState(true);
-  const [bannerBackground, setBannerBackground] = useState("banner-background4");
+  const [bannerBackground, setBannerBackground] = useState("banner-background0");
 
   const handleMouseOver = () => {
     setShowButton(true);
@@ -46,8 +46,8 @@ const SlideBanner = ({ images }) => {
     sliderRef.current.slickPrev();
   };
 
-  const handleChange = (currentSlide) => {
-    const currentIndex = currentSlide % images.length; // 현재 슬라이드 번호를 이미지 배열 길이에 맞게 조정
+  const handleChange = (currentSlide, nextSlide) => {
+    const currentIndex = nextSlide % images.length; // 현재 슬라이드 번호를 이미지 배열 길이에 맞게 조정
     console.log("현재 인덱스는 " + currentIndex);
     setBannerBackground(`banner-background${currentIndex}`);
   };

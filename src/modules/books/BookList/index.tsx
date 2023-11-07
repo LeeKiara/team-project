@@ -1,15 +1,15 @@
-import Home from "@/pages/Home";
 import { useEffect, useState } from "react";
 import { BookListContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
-import { BookData, BookItem, LikesItem } from "../data";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import axios from "axios";
 // import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
+import PagingButton from "@/components/PagingButton";
+import { BookData, BookItem } from "../data";
+import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
@@ -28,6 +28,8 @@ const BookList = ({ fetchUrl }) => {
   const [storeHeartStates, setStoreHeartStates] = useState({});
   //유저정보
   const [profile, setProfile] = useState<ProfileData | null>(null);
+  //알림설정
+  const [storeBelltStates, setStoreBellStates] = useState({});
 
   //책 리스트
   const [bookList, setBookList] = useState<BookItem[]>([]);
@@ -67,6 +69,14 @@ const BookList = ({ fetchUrl }) => {
         console.log(e + "선호작품 오류");
       }
     }
+  };
+
+  //알림설정
+  const handleBell = (itemId: number) => {
+    setStoreBellStates((prevStates) => ({
+      ...prevStates,
+      [itemId]: !prevStates[itemId],
+    }));
   };
 
   //페이징
@@ -122,7 +132,7 @@ const BookList = ({ fetchUrl }) => {
     }
 
     // 페이지당 아이템 수 (예: 5)
-    const itemsPerPage = 5;
+    const itemsPerPage = MAX_LIST;
     const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
 
@@ -269,14 +279,33 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
-                      <CartButton
-                        itemId={item.itemId}
-                        quantity={1}
-                        title={item.title}
-                        cover={item.cover}
-                        priceStandard={item.priceStandard}
-                        priceSales={item.priceSales}
-                      />
+                      {item.stockStatus !== "" &&
+                        item.stockStatus !== "0" &&
+                        item.stockStatus !== "예약판매" &&
+                        item.stockStatus !== "품절" && (
+                          <CartButton
+                            itemId={item.itemId}
+                            quantity={1}
+                            title={item.title}
+                            cover={item.cover}
+                            priceStandard={item.priceStandard.toString()}
+                            priceSales={item.priceSales.toString()}
+                          />
+                        )}
+                      {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
+                        <button
+                          className="btn bell"
+                          onClick={() => {
+                            handleBell(item.itemId);
+                          }}>
+                          {storeBelltStates[item.itemId] ? (
+                            <Notifications className="material-icons-outlined" />
+                          ) : (
+                            <NotificationsOutlined className="material-icons-outlined" />
+                          )}
+                          알림설정
+                        </button>
+                      )}
                     </li>
                   </ul>
                 </article>
@@ -285,31 +314,15 @@ const BookList = ({ fetchUrl }) => {
               // 데이터가 없거나 오류 상태를 처리하는 부분
               <p>책을 찾을 수 없습니다.</p>
             )}
-            {totalPages > 2 && (
-              <nav>
-                <ol>
-                  {showArrowLeft && (
-                    <li className="numberbox">
-                      <button onClick={handlePageMinus}>{`<`}</button>
-                    </li>
-                  )}
-                  {arrowNumberList.map((num) => (
-                    <li
-                      key={num}
-                      className="numberbox"
-                      onClick={() => {
-                        handleSetPage(num);
-                      }}>
-                      {num + 1}
-                    </li>
-                  ))}
-                  {showArrowRight && (
-                    <li className="numberbox">
-                      <button onClick={handlePagePlus}>{`>`}</button>
-                    </li>
-                  )}
-                </ol>
-              </nav>
+            {totalPages > 1 && (
+              <PagingButton
+                showArrowLeft={showArrowLeft}
+                showArrowRight={showArrowRight}
+                arrowNumberList={arrowNumberList}
+                handlePageMinus={handlePageMinus}
+                handlePagePlus={handlePagePlus}
+                handleSetPage={handleSetPage}
+              />
             )}
           </section>
         )}

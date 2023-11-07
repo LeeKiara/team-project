@@ -5,35 +5,6 @@ export const SearchContainer = styled.div`
     width: 100%;
     color: black;
   }
-  .heart {
-    color: red;
-  }
-  .btn {
-    display: inline-block;
-    padding: 12px 15px;
-    margin-bottom: 0;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    width: 180px;
-    background-color: #708b95;
-    color: #fff;
-    font-size: 18px;
-  }
-  button > svg {
-    vertical-align: middle;
-    font-size: 20px;
-    margin-right: 5px;
-  }
   section {
     padding: 20px;
     margin: auto;
@@ -76,7 +47,7 @@ export const SearchContainer = styled.div`
     text-align: center;
     font-size: 18px;
   }
-  table > tbody > tr > td:nth-of-type(5) > a {
+  table > tbody > tr > td:nth-of-type(6) > a {
     color: blue;
   }
   table > tbody > tr > td:nth-of-type(1) {
@@ -100,10 +71,13 @@ export const SearchContainer = styled.div`
     width: 7%;
   }
   table > tbody > tr > td:nth-of-type(5) {
-    width: 15%;
+    width: 20%;
   }
   table > tbody > tr > td:nth-of-type(6) {
-    width: 4%;
+    width: 7%;
+  }
+  table > tbody > tr > td:nth-of-type(6) > a:hover {
+    text-decoration: underline;
   }
   table > tbody > tr > td:nth-of-type(7) {
     width: 7%;
@@ -114,13 +88,10 @@ export const SearchContainer = styled.div`
     font-weight: bold;
   }
   table > tbody > tr > td:nth-of-type(9) {
-    width: 4%;
-  }
-  table > tbody > tr > td:last-child {
     width: 7%;
-    padding: 20px;
-    vertical-align: middle;
-    text-align: left;
+  }
+  table > tbody > tr > td:nth-of-type(9) > a:hover {
+    color: crimson;
   }
   nav {
     display: flex;

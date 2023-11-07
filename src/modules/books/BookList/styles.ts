@@ -83,10 +83,14 @@ export const BookListContainer = styled.div`
     color: #fff;
     font-size: 18px;
   }
-  button > svg {
+  .btn > svg {
     vertical-align: middle;
     font-size: 20px;
     margin-right: 5px;
+    margin-top: -5px;
+  }
+  .bell {
+    background-color: #ae7ac2;
   }
   .heart {
     color: red;
