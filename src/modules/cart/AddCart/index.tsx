@@ -1,18 +1,27 @@
-import { MutableRefObject, useRef, useState, useEffect } from "react";
-import { CartFormContainer } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartData } from "@/modules/cart/CartForm/data";
-import OrderButton from "@/components/OrderButton";
-import ShowMessageModal from "@/components/ShowMessageModal";
-import CalcuTotalPayment from "./CalcuTotalPayment";
+import { useEffect, useState } from "react";
+import { AddCartContainer } from "./styles";
+import { useBookCartData } from "../AddCart/data";
 import http from "@/utils/http";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import eventBanner1 from "@/assets/event-banner.gif";
+import CalcuTotalPayment from "./CalcuTotalPayment";
+import OrderButton from "@/components/OrderButton";
+import ShowMessageModal from "@/components/ShowMessageModal";
 
-const CartForm = () => {
+const AddCart = () => {
+  const [page, setPage] = useState(0);
+
+  const navigate = useNavigate();
+
   // 장바구니 캐시 데이터
-  // const { cartData: cartlist, mutateCartData, isCartDataValidating } = useCartData(true);
-  const { cartData: cartlist, mutateCartDataFunction, isCartDataValidating } = useCartData(true);
+  const { bookCartData: cartlist, mutateCartDataFunction, isBookCartDataValidating } = useBookCartData(page);
+
+  console.log("***CartForm : " + cartlist.length);
+
+  cartlist.map((item, index) => {
+    console.log(index + "," + item.title);
+  });
 
   // 장바구니 삭제 item 상태관리
   const [deletedItemId, setDeletedItemId] = useState(null);
@@ -33,43 +42,19 @@ const CartForm = () => {
   // 장바구니 상품 선택 박스
   const [checkboxes, setCheckboxes] = useState([]);
 
-  const [selectedItems, setSelectedItems] = useState([]); // 선택된 아이템들을 담는 배열
+  // 선택된 아이템들을 담는 배열
+  const [selectedItems, setSelectedItems] = useState([]);
 
   // 전체 체크박스 선택 상태를 관리
   const [selectAll, setSelectAll] = useState(false);
 
   const [showMessageModal, setShowMessageModal] = useState(false);
 
-  const navigate = useNavigate();
-
-  // 서버/스토리지의 데이터와 캐시데이터 비교중인지 여부를 표시
-  console.log("---validating---");
-  console.log(isCartDataValidating);
-
-  // useEffect(() => {
-  //   if (cartlist) {
-  //     console.log(" ★★★ 1.장바구니 데이터 있음 ");
-
-  //     if (cartlist.length > 0) {
-  //       cartlist.map((item, index) => {
-  //         console.log(index + "," + item.title);
-  //       });
-  //     } else {
-  //       console.log(" ★★★ cartlist.length === 0  ");
-  //       // mutateCartDataFunction(cartlist, false);
-  //     }
-
-  //     console.log(" ★★★ 2.장바구니 데이터 있음 ");
-  //   } else {
-  //     console.log(" ★★★ 장바구니 데이터 없음, 없음, 없음 ");
-  //   }
-  // }, [cartlist]);
-
   // 장바구니 데이터로 수량/정가/할인가 초기화 배열 설정
   useEffect(() => {
     if (cartlist && cartlist.length > 0) {
       // 장바구니 수량 cartData에 저장된 값으로 초기화
-      const initialNumbers = cartlist.map((item) => parseInt(item.quantity, 10));
+      const initialNumbers = cartlist.map((item) => item.quantity);
       setQtys(initialNumbers);
 
       // 정가
@@ -94,17 +79,15 @@ const CartForm = () => {
 
     setPriceStandards(calcuPriceStandard);
 
-    console.log("calcuPriceStandard:", calcuPriceStandard);
-    console.log("priceStandards:", priceStandards);
+    // console.log("calcuPriceStandard:", calcuPriceStandard);
+    // console.log("priceStandards:", priceStandards);
 
     // 할인가 다시 계산
     const calcuPriceSales = qtys.map((item, index) => {
       return item * Number(cartlist[index].priceSales);
     });
 
-    console.log("1");
     setPriceSales(calcuPriceSales);
-    console.log("2");
 
     // 주문상품 상태 관리
     const checkedCartItems = createSelectedCartList(stateCartData, qtys);
@@ -169,7 +152,7 @@ const CartForm = () => {
 
   // 체크박스 선택 및 수량 변경에 따른 대상 최종 정보 생성
   function createSelectedCartList(stateCartData, qtys) {
-    console.log("createSelectedCartList:" + checkboxes[0] + "," + checkboxes[1]);
+    // console.log("createSelectedCartList:" + checkboxes[0] + "," + checkboxes[1]);
 
     const checkedCartItems = cartlist
       .map((selectedItem, index) => ({
@@ -346,201 +329,197 @@ const CartForm = () => {
 
   return (
     <>
-      <CartFormContainer>
-        {!cartlist ? (
-          <p></p>
-        ) : (
-          <section>
-            {cartlist.length > 0 && (
-              <article className="cart-layer-title">
-                {/* 전체 선택 */}
-                <div className="cart-checkbox">
-                  <input
-                    type="checkbox"
-                    name="productall_seq"
-                    className="listCheckBox"
-                    onChange={handleSelectAll}
-                    checked={selectAll}
-                  />
-                </div>
-                <div>상품정보</div>
-                <div>수량</div>
-                <div>판매가(정가)</div>
-              </article>
-            )}
+      <AddCartContainer>
+        <section>
+          {cartlist.length > 0 && (
+            <article className="cart-layer-title">
+              {/* 전체 선택 */}
+              <div className="cart-checkbox">
+                <input
+                  type="checkbox"
+                  name="productall_seq"
+                  className="listCheckBox"
+                  onChange={handleSelectAll}
+                  checked={selectAll}
+                />
+              </div>
+              <div>상품정보</div>
+              <div>수량</div>
+              <div>판매가(정가)</div>
+            </article>
+          )}
 
-            {/* 장바구니 도서 loop */}
-            {cartlist.length > 0 ? (
-              cartlist.map((cartCashData, index) => (
-                <article className="cart-layer" key={`item-${cartCashData.itemId}`}>
-                  {/* 도서정보(책이미지/도서명) */}
-                  <div className="bookinfo">
-                    <label className="cart-checkbox">
-                      <input
-                        type="checkbox"
-                        name="product_seq"
-                        className="listCheckBox"
-                        key={cartCashData.itemId}
-                        onChange={() => handleCheckboxChange(index, cartCashData.itemId)}
-                        checked={selectedItems.includes(cartCashData.itemId)}
-                      />
-                    </label>
-                    <div>
-                      <span className="image">
-                        <Link to={`/page?id=${cartCashData.id}`}>
-                          <img src={`${cartCashData.cover}`} alt={`${cartCashData.title}`} />
-                        </Link>
-                      </span>
-                    </div>
-                    <div className="bookinfo-title">
-                      {/* <div className="box-bookgubun">
-                      <span className="icon-bookgubun">{cartCashData.categoryName}</span>
-                    </div> */}
-                      <div>{cartCashData.categoryName}</div>
-                      <p>
-                        <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
-                        <br />
-                        {/* (할인가:
-                      {cartCashData.priceSales},정가:
-                      {cartCashData.priceStandard}) */}
-                      </p>
-                    </div>
-                  </div>
-                  {/* 가격정보 */}
-
-                  {/* 수량 */}
-                  <div className="priceinfo">
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="0"
-                        value={qtys[index]}
-                        onChange={(e) => handleQtyChange(e, index)}
-                      />
-                      <div className="btn-qty-change">
-                        {/* <button onClick={() => handleIncrement(index)}>
-                        1 증가
-                      </button>
-                      <button onClick={() => handleDecrement(index)}>
-                        1 감소
-                      </button> */}
-                        <img
-                          onClick={() => handleIncrement(index)}
-                          src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
-                          alt="위 화살표"
-                        />
-                        <img
-                          onClick={() => handleDecrement(index)}
-                          src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
-                          alt="아래화살표"
-                        />
-                      </div>
-                    </div>
-
-                    {/* 할인가/정가 */}
-                    <div>
-                      <div className="box-price">
-                        <div>
-                          <strong>{priceSales[index] && priceSales[index].toLocaleString()}</strong>
-                          <p>원</p>
-                        </div>
-                        <del>정가{priceStandards[index] && priceStandards[index].toLocaleString()}원</del>
-                      </div>
-                      {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
-                    </div>
-
-                    {/* 삭제버튼 */}
-                    <div className="cart-item-delete" onClick={() => handleDeleteCartItem(`${cartCashData.itemId}`)}>
-                      X
-                    </div>
-                  </div>
-                </article>
-              ))
-            ) : (
-              // 장바구니가 비어있을 경우
-              <article className="cart-layer-title-off">
-                <div>
+          {/* 장바구니 도서 loop */}
+          {cartlist.length > 0 ? (
+            cartlist.map((cartCashData, index) => (
+              <article className="cart-layer" key={`item-${cartCashData.itemId}`}>
+                {/* 도서정보(책이미지/도서명) */}
+                <div className="bookinfo">
+                  <label className="cart-checkbox">
+                    <input
+                      type="checkbox"
+                      name="product_seq"
+                      className="listCheckBox"
+                      key={cartCashData.itemId}
+                      onChange={() => handleCheckboxChange(index, cartCashData.itemId)}
+                      checked={selectedItems.includes(cartCashData.itemId)}
+                    />
+                  </label>
                   <div>
-                    <ErrorOutlineIcon sx={{ fontSize: 60, color: "gray" }}></ErrorOutlineIcon>
+                    <span className="image">
+                      <Link to={`/page?id=${cartCashData.id}`}>
+                        <img src={`${cartCashData.cover}`} alt={`${cartCashData.title}`} />
+                      </Link>
+                    </span>
                   </div>
-                  <div>장바구니가 비어있습니다.</div>
+                  <div className="bookinfo-title">
+                    {/* <div className="box-bookgubun">
+                <span className="icon-bookgubun">{cartCashData.categoryName}</span>
+              </div> */}
+                    <div></div>
+                    <p>
+                      <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
+                      <br />
+                      {/* (할인가:
+                {cartCashData.priceSales},정가:
+                {cartCashData.priceStandard}) */}
+                    </p>
+                  </div>
+                </div>
+                {/* 가격정보 */}
+
+                {/* 수량 */}
+                <div className="priceinfo">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="0"
+                      value={qtys[index]}
+                      onChange={(e) => handleQtyChange(e, index)}
+                    />
+                    <div className="btn-qty-change">
+                      {/* <button onClick={() => handleIncrement(index)}>
+                  1 증가
+                </button>
+                <button onClick={() => handleDecrement(index)}>
+                  1 감소
+                </button> */}
+                      <img
+                        onClick={() => handleIncrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
+                        alt="위 화살표"
+                      />
+                      <img
+                        onClick={() => handleDecrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
+                        alt="아래화살표"
+                      />
+                    </div>
+                  </div>
+
+                  {/* 할인가/정가 */}
+                  <div>
+                    <div className="box-price">
+                      <div>
+                        <strong>{priceSales[index] && priceSales[index].toLocaleString()}</strong>
+                        <p>원</p>
+                      </div>
+                      <del>정가{priceStandards[index] && priceStandards[index].toLocaleString()}원</del>
+                    </div>
+                    {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
+                  </div>
+
+                  {/* 삭제버튼 */}
+                  <div className="cart-item-delete" onClick={() => handleDeleteCartItem(`${cartCashData.itemId}`)}>
+                    X
+                  </div>
                 </div>
               </article>
-            )}
+            ))
+          ) : (
+            // 장바구니가 비어있을 경우
+            <article className="cart-layer-title-off">
+              <div>
+                <div>
+                  <ErrorOutlineIcon sx={{ fontSize: 60, color: "gray" }}></ErrorOutlineIcon>
+                </div>
+                <div>장바구니가 비어있습니다.</div>
+              </div>
+            </article>
+          )}
 
-            {/* 주문합계 */}
-            {cartlist.length > 0 && <article>{<CalcuTotalPayment cartBooks={stateCartData} />}</article>}
+          {/* 주문합계 */}
+          {cartlist.length > 0 && <article>{<CalcuTotalPayment cartBooks={stateCartData} />}</article>}
 
-            {/* 주문버튼 */}
-            {cartlist.length > 0 && (
-              <article>
-                <div className="box-submit-payment">
-                  <dl>
-                    <dt>
-                      <ErrorOutlineIcon></ErrorOutlineIcon>&nbsp;&nbsp;주의하세요.
-                    </dt>
-                    <dd> 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
-                  </dl>
+          {/* 주문버튼 */}
+          {cartlist.length > 0 && (
+            <article>
+              <div className="box-submit-payment">
+                <dl>
+                  <dt>
+                    <ErrorOutlineIcon></ErrorOutlineIcon>&nbsp;&nbsp;주의하세요.
+                  </dt>
+                  <dd> 주문 총액 2만원 이상이면 배송비가 무료입니다.</dd>
+                </dl>
 
-                  {/* <span className="btn-order">
+                {/* <span className="btn-order">
                 <button onClick={handleOrder}>주문하기</button>
               </span> */}
-                  {!isOrder && (
-                    <button className={"box-blue"} onClick={handleOrder}>
-                      주문하기
-                    </button>
-                  )}
+                {!isOrder && (
+                  <button className={"box-blue"} onClick={handleOrder}>
+                    주문하기
+                  </button>
+                )}
 
-                  {/* 주문하기 버튼 */}
-                  {isOrder && <OrderButton cartBooks={stateCartData} />}
+                {/* 주문하기 버튼 */}
+                {isOrder && <OrderButton cartBooks={stateCartData} />}
 
-                  {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
-                </div>
-              </article>
-            )}
+                {showMessageModal && <ShowMessageModal message="상품을 선택하세요." onCancel={handleCancel} />}
+              </div>
+            </article>
+          )}
 
-            {/* 이벤트 레이어 */}
-            <article className="event-layer1">
+          {/* 이벤트 레이어 */}
+          <article className="event-layer1">
+            <div>
               <div>
-                <div>
-                  <a href="/eventbook">
-                    <img src={eventBanner1} />
-                  </a>
-                </div>
+                <a href="/eventbook">
+                  <img src={eventBanner1} />
+                </a>
+              </div>
+              <div className="event-layer-sub">
+                <a href="/eventbook">상세보기</a>
+              </div>
+            </div>
+          </article>
+          <article className="event-layer2">
+            <div>
+              <div>
+                <a href="https://shopping.naver.com/plan/details/687714" target="new">
+                  <img src="https://s.pstatic.net/static/www/mobile/edit/20231016_1095/upload_1697416662735yT2fo.png" />
+                </a>
                 <div className="event-layer-sub">
-                  <a href="/eventbook">상세보기</a>
-                </div>
-              </div>
-            </article>
-            <article className="event-layer2">
-              <div>
-                <div>
                   <a href="https://shopping.naver.com/plan/details/687714" target="new">
-                    <img src="https://s.pstatic.net/static/www/mobile/edit/20231016_1095/upload_1697416662735yT2fo.png" />
+                    상세보기
                   </a>
-                  <div className="event-layer-sub">
-                    <a href="https://shopping.naver.com/plan/details/687714" target="new">
-                      상세보기
-                    </a>
-                  </div>
-                </div>
-                <div>
-                  <a href="https://shopping.naver.com/plan/details/687711" target="new">
-                    <img src="https://s.pstatic.net/static/www/mobile/edit/20230524_1095/upload_1684893984366Ka03q.jpg" />
-                  </a>
-                  <div className="event-layer-sub">
-                    <a href="https://shopping.naver.com/plan/details/687711" target="new">
-                      상세보기
-                    </a>
-                  </div>
                 </div>
               </div>
-            </article>
-          </section>
-        )}
-      </CartFormContainer>
+              <div>
+                <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                  <img src="https://s.pstatic.net/static/www/mobile/edit/20230524_1095/upload_1684893984366Ka03q.jpg" />
+                </a>
+                <div className="event-layer-sub">
+                  <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                    상세보기
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </AddCartContainer>
     </>
   );
 };
 
-export default CartForm;
+export default AddCart;

@@ -9,7 +9,7 @@ import PublisherBook from "./PublisherBook";
 import OrderCancel from "./Order/OrderCancel";
 import Test from "./test/Test";
 
-const CartForm = lazy(() => import("@/modules/cart/CartForm"));
+const AddCart = lazy(() => import("@/modules/cart/AddCart"));
 const Payment = lazy(() => import("@/modules/cart/Order/Payment"));
 const OrderDone = lazy(() => import("@/modules/cart/Order/OrderDone"));
 const OrderList = lazy(() => import("@/modules/cart/OrderList"));
@@ -18,7 +18,7 @@ const OrderDetail = lazy(() => import("@/modules/cart/OrderDetail"));
 export const cartRoutes = [
   <Route key="cart" path="cart" element={<CartSidebar />}>
     ,
-    <Route element={<CartForm />} index />,
+    <Route element={<AddCart />} index />,
   </Route>,
   <Route key="order" path="order" element={<CartSidebar />}>
     ,
