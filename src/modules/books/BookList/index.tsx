@@ -10,7 +10,6 @@ import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
-import AddCartButton from "@/modules/cart/AddCartButton/AddCartButton";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
@@ -270,7 +269,7 @@ const BookList = ({ fetchUrl }) => {
                     </li>
                     <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
-                      <AddCartButton
+                      <CartButton
                         itemId={item.itemId}
                         quantity={1}
                         title={item.title}

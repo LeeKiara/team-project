@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { PublisherBookContainer } from "./styles";
-import Button from "@/components/Button";
 import http from "@/utils/http";
 import { Link } from "react-router-dom";
 import CartButton from "@/components/CartButton";
-import ContactButton from "../AddCart/ContactButton";
-import AddCartButton from "../AddCartButton/AddCartButton";
 
 interface EventBookResponse {
   itemId: number;
@@ -139,7 +136,7 @@ const PublisherBook = () => {
                     </Link>
 
                     {/* 장바구니 담기 버튼 */}
-                    <AddCartButton
+                    <CartButton
                       itemId={item.itemId}
                       quantity={1}
                       title={item.title}

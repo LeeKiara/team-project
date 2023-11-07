@@ -2,6 +2,15 @@ import { getCookie } from "@/utils/cookie";
 import http from "@/utils/http";
 import useSWR from "swr";
 
+/*------------------------------------------------------------------------
+ 장바구니 데이터처리 useSWR 사용
+ - 데이터를 자동으로 캐싱하여 불필요한 중복 요청 방지
+ - 데이터 요청과 관련된 복잡한 로직을 추상화하여 코드를 간소화 함
+ - revalidateOnFocus 옵션은 false 
+   : 자동 리로딩이 발생하지 않도록 하였으며, 
+     다만 장바구니 삭제 등 데이터 업데이트를 수동으로 트리거 하기 위해 mutate 함수를 사용함
+ --------------------------------------------------------------------------*/
+
 interface BookCartData {
   id?: number; // id값은 나중에 생성
   itemId: number;
@@ -49,7 +58,7 @@ const bookCartFetcher = async ([key, page]) => {
 export const useBookCartData = (page: number) => {
   const {
     data: bookCartData,
-    mutate,
+    mutate: mutateCartDataFunction,
     isValidating: isBookCartDataValidating,
   } = useSWR<BookCartData[]>([BOOKCART_DATA_KEY, page], bookCartFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
@@ -70,7 +79,7 @@ export const useBookCartData = (page: number) => {
     // mutate 함수
     // 데이터를 변경하고 변경된 데이터를 반환
     // mutate((이전데이터) => {... return 변경된데이터})
-    mutate(
+    mutateCartDataFunction(
       async (
         // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
         prevData: BookCartData[] = [...INIT_DATA],
@@ -111,6 +120,7 @@ export const useBookCartData = (page: number) => {
 
   return {
     bookCartData,
+    mutateCartDataFunction,
     createBookCartData,
     isBookCartDataValidating,
   };
