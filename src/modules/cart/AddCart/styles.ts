@@ -9,7 +9,7 @@ const blueColor = "#3d4ed7";
 const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
 
-export const CartFormContainer = styled.div`
+export const AddCartContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;

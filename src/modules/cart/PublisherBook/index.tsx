@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { PublisherBookContainer } from "./styles";
-import Button from "@/components/Button";
 import http from "@/utils/http";
 import { Link } from "react-router-dom";
 import CartButton from "@/components/CartButton";
