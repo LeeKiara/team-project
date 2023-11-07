@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
-import { BookData, BookItem } from "@/modules/books/data";
+import { AlamData, BookData, BookItem } from "@/modules/books/data";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Settings } from "react-slick";
 import SlideBanner from "@/components/SlideBanner";
+import { getCookie } from "@/utils/cookie";
 
 interface MainBanner {
   id: number;
@@ -22,6 +23,7 @@ interface TodayBook {
 }
 
 const Home = () => {
+  const token = getCookie("token");
   const [todayLetter, setTodayLetter] = useState<TodayBook | null>(null);
   const [best, setBest] = useState<BookItem[]>([]);
 
@@ -82,6 +84,27 @@ const Home = () => {
     //   "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg",
     //   "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg",
     // ]);
+    //알림설정 디스플레이 조회
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          response.data.forEach((data) => {
+            if (data.alam) {
+              const title = data.bookTitle.substring(0, 8);
+              alert(`${title}도서가 입고되었습니다.`);
+            }
+          });
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
+      }
+    })();
   }, []);
 
   return (

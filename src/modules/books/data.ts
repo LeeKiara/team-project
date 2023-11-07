@@ -73,6 +73,14 @@ export interface SeriesInfo {
   seriesName: string;
 }
 
+export interface AlamData {
+  bookItemId: number;
+  profileId: number;
+  alamDisplay: boolean;
+  alam: boolean;
+  bookTitle: string;
+}
+
 const INIT_DATA: BookItem[] = [];
 
 export const BOOKS_DATA_KEY = "/books";

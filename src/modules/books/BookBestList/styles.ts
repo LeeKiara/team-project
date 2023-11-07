@@ -71,11 +71,10 @@ export const BookBestContainer = styled.div`
   .heart {
     color: red;
   }
-  .btn {
+  .bell {
     display: inline-block;
     padding: 12px 15px;
     margin-bottom: 0;
-    font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
@@ -88,17 +87,17 @@ export const BookBestContainer = styled.div`
     border: 1px solid transparent;
     border-radius: 4px;
     width: 180px;
-    background-color: #708b95;
-    color: #fff;
+    background-color: #c0d6d8;
+    color: #333333;
     font-size: 18px;
+    font-weight: 400;
+    font-family: "Noto Sans KR", sans-serif;
   }
-  button > svg {
-    vertical-align: middle;
+  .bell > svg {
+    vertical-align: top;
     font-size: 20px;
     margin-right: 5px;
-  }
-  .bell {
-    background-color: #ae7ac2;
+    margin-top: 3px;
   }
   .winner-cup {
     display: flex;
@@ -106,6 +105,7 @@ export const BookBestContainer = styled.div`
   .winner-cup > svg {
     vertical-align: top;
     margin-top: -3px;
+    color: gold;
   }
 
   @media (min-width: 80rem) {

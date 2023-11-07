@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { BookComment, BookItem, LikesItem, ReplyComment } from "../data";
+import { AlamData, BookComment, BookItem, LikesItem, ReplyComment } from "../data";
 import axios from "axios";
 import {
   Notifications,
@@ -22,6 +22,8 @@ const BookPage = () => {
   const token = getCookie("token");
   const navigate = useNavigate();
 
+  //북 itemId
+  const [itemId, setItemId] = useState(null);
   //유저 정보
   const [profile, setProfile] = useState<ProfileData | null>(null);
 
@@ -33,8 +35,8 @@ const BookPage = () => {
   //카트데이터 수량값
   const [number, setNumber] = useState(1);
 
-  //알림설정
-  const [storeBelltStates, setStoreBellStates] = useState({});
+  //알림설정 디스플레이
+  const [storeBelltStates, setStoreBellStates] = useState(false);
 
   //선호작품 상태값
   const [showHeartState, setShowHeartState] = useState(false);
@@ -93,12 +95,29 @@ const BookPage = () => {
     }
   };
 
-  //알림설정
-  const handleBell = (itemId: number) => {
-    setStoreBellStates((prevStates) => ({
-      ...prevStates,
-      [itemId]: !prevStates[itemId],
-    }));
+  //알림설정 등록 및 수정
+  const handleBell = async (itemId: number) => {
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+    } else {
+      const alamDisplay = !storeBelltStates;
+      const newAlamDisplay = {
+        alamDisplay: alamDisplay,
+      };
+      setStoreBellStates(alamDisplay);
+      try {
+        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림설정 수정/등록 성공..!");
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 오류");
+      }
+    }
   };
 
   //추천
@@ -282,6 +301,7 @@ const BookPage = () => {
 
         if (response.status === 200) {
           setDetail(response.data);
+          setItemId(response.data.itemId);
           const sortedComments = [...response.data.bookComment].sort((a, b) => b.id - a.id);
           setCommentList(sortedComments);
           setLikeList(response.data.likedBook);
@@ -323,6 +343,26 @@ const BookPage = () => {
       }
     }
   }, []);
+
+  //알림설정 디스플레이 조회
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          const findedAlam = response.data.find((data) => (data.bookItemId = itemId));
+          setStoreBellStates(findedAlam.alamDisplay);
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
+      }
+    })();
+  }, [itemId, setItemId]);
 
   return (
     <>
@@ -436,11 +476,11 @@ const BookPage = () => {
                     detail.stockStatus === "품절" ||
                     detail.stockStatus === "") && (
                     <button
-                      className="btn"
+                      className="bell"
                       onClick={() => {
                         handleBell(detail.itemId);
                       }}>
-                      {storeBelltStates[detail.itemId] ? (
+                      {storeBelltStates ? (
                         <Notifications className="material-icons-outlined" />
                       ) : (
                         <NotificationsOutlined className="material-icons-outlined" />
