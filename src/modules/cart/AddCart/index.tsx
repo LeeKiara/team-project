@@ -485,21 +485,21 @@ const AddCart = () => {
           <article className="event-layer2">
             <div>
               <div>
-                <a href="https://shopping.naver.com/plan/details/687714" target="new">
+                <a href="https://shopping.naver.com/plan/details/688948" target="new">
                   <img src="https://s.pstatic.net/static/www/mobile/edit/20231016_1095/upload_1697416662735yT2fo.png" />
                 </a>
                 <div className="event-layer-sub">
-                  <a href="https://shopping.naver.com/plan/details/687714" target="new">
+                  <a href="https://shopping.naver.com/plan/details/688948" target="new">
                     상세보기
                   </a>
                 </div>
               </div>
               <div>
-                <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                <a href="https://shopping.naver.com/plan/details/688947" target="new">
                   <img src="https://s.pstatic.net/static/www/mobile/edit/20230524_1095/upload_1684893984366Ka03q.jpg" />
                 </a>
                 <div className="event-layer-sub">
-                  <a href="https://shopping.naver.com/plan/details/687711" target="new">
+                  <a href="https://shopping.naver.com/plan/details/688947" target="new">
                     상세보기
                   </a>
                 </div>

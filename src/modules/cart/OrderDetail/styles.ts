@@ -55,17 +55,23 @@ export const OrderDetailContainer = styled.div`
   }
 
   .box_header .order-cancel button {
-    width: 80px;
+    width: 160px;
     height: 40px;
     line-height: 1;
     text-align: center;
     font-size: 14px;
     font-weight: 500;
     border-radius: 4px;
-    background: ${blueColor};
+    background: ${lightblueColor};
     color: white;
     border: 0;
     cursor: pointer;
+
+    /* 마우스 호버 시 스타일 변경 */
+    &:hover {
+      background: ${blueColor};
+      color: white;
+    }
   }
 
   .order_date {

@@ -231,17 +231,14 @@ export const OrderFormContainer = styled.div`
       button {
         padding: 0 28px;
         width: 130px;
-        /* height: 56px; */
         text-align: center;
         font-size: 15px;
         font-weight: 500;
-        /* line-height: 54px; */
-        border: 1px solid #3d4ed7;
         border-radius: 4px;
-        box-sizing: border-box;
         cursor: pointer;
-        color: #3d4ed7;
-        background-color: white;
+        border: 1px solid ${lightblueColor};
+        background: ${lightblueColor};
+        color: white;
 
         /* 마우스 호버 시 스타일 변경 */
         &:hover {
@@ -332,6 +329,7 @@ export const OrderFormContainer = styled.div`
       box-sizing: border-box;
       background: #fff;
       border-radius: 8px;
+      box-shadow: 4px 18px 18px 3px #00000020;
       /* border: 1px solid red; */
     }
 
@@ -385,7 +383,7 @@ export const OrderFormContainer = styled.div`
     .btn-payment {
       width: 218px;
       height: 44px;
-      background: #3d4ed7;
+      /* background: #3d4ed7; */
       border: 0;
       border-radius: 4px;
       color: #fff;
@@ -395,6 +393,14 @@ export const OrderFormContainer = styled.div`
       font-size: 16px;
       font-weight: 500;
       text-align: center;
+
+      background: ${lightblueColor};
+
+      /* 마우스 호버 시 스타일 변경 */
+      &:hover {
+        background: ${blueColor};
+        color: white;
+      }
     }
   }
 

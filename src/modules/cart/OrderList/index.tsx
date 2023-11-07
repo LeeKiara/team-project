@@ -33,8 +33,6 @@ const OrderList = () => {
   const [showArrowRight, setShowArrowRight] = useState(true);
   const navigate = useNavigate();
 
-  const progressvalue = 0.66;
-
   // 조회 기간 선택구분에 따른 부가 처리
   useEffect(() => {
     const currentDate = new Date();
@@ -333,7 +331,7 @@ const OrderList = () => {
                       <Link to={`/page?id=${orderData.orderItems.id}`}>{orderData.orderItems.title}</Link>
                     </p>
                     <br />
-                    {/* 주문번호 */}
+                    {/* 주문번호 (주문상세로 이동) */}
                     <p className="order-number">
                       <strong>주문번호</strong>
                       &nbsp;&nbsp;
@@ -342,7 +340,7 @@ const OrderList = () => {
                         onClick={() => {
                           handleOrderDtail(`${orderData.orderId}`);
                         }}>
-                        {orderData.orderId}
+                        {orderData.orderId} &gt;&gt; 주문 상세 보기
                       </span>
                     </p>
                   </div>
@@ -379,7 +377,7 @@ const OrderList = () => {
                       {orderData.paymentMethod === "1"
                         ? "신용카드"
                         : orderData.paymentMethod === "2"
-                        ? "실시간 계좌이체"
+                        ? "실시간계좌이체"
                         : "온라인 입금"}
                     </strong>
                   </div>
@@ -391,7 +389,7 @@ const OrderList = () => {
             <nav>
               <ol>
                 {showArrowLeft && (
-                  <li className="numberbox">
+                  <li className="numberbox btn_prev">
                     <button onClick={handlePageMinus}>{`<`}</button>
                   </li>
                 )}

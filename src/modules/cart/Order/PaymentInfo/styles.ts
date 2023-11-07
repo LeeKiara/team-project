@@ -76,14 +76,14 @@ export const PaymentInfoContainer = styled.div`
       font-weight: 500;
       border: 1px;
       border-radius: 4px;
-      border-color: ${grayColor};
-      background: ${lightgrayColor};
+      /* border-color: ${grayColor}; */
+      background: ${lightblueColor};
       color: black;
       cursor: pointer;
 
       /* 마우스 호버 시 스타일 변경 */
       &:hover {
-        background: ${grayColor};
+        background: ${blueColor};
         color: white;
       }
     }

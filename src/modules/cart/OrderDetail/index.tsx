@@ -141,9 +141,9 @@ const OrderDetail = () => {
                 </div>
                 <div className="order-cancel">
                   {stateOrderData.orderStatus === "2" ? (
-                    <p style={{ color: "red" }}>주문취소완료</p>
+                    <p style={{ color: "red" }}>주문 취소 완료</p>
                   ) : (
-                    <button onClick={handleApplyOrderCancel}>취소신청</button>
+                    <button onClick={handleApplyOrderCancel}>취소 신청</button>
                   )}
                   {/* {stateOrderData.orderStatus === "1" && <button onClick={handleOrderCancel}>주문취소</button>} */}
                   {/* {stateOrderData.orderStatus === "2" && <p style={{ color: "red" }}>주문취소완료</p>} */}

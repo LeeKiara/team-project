@@ -140,9 +140,10 @@ export const OrderListContainer = styled.div`
       font-size: 14px;
       font-weight: 500;
       padding: 0 28px;
-      border: 1px solid #3d4ed7;
-      color: #3d4ed7;
-      background-color: white;
+      border: 1px solid ${lightblueColor};
+      color: white;
+      /* background-color: white; */
+      background: ${lightblueColor};
 
       /* 마우스 호버 시 스타일 변경 */
       &:hover {
@@ -205,10 +206,25 @@ export const OrderListContainer = styled.div`
     height: 150px;
     align-items: center;
     justify-content: space-between;
+    /* border: 1px solid black; */
+
+    div:nth-of-type(1) {
+      flex: 60%;
+    }
+    div:nth-of-type(2) {
+      flex: 10%;
+      text-align: center;
+    }
+    div:nth-of-type(3) {
+      flex: 15%;
+    }
+    div:nth-of-type(4) {
+      flex: 15%;
+      margin-right: 5px;
+    }
   }
 
   .bookinfo {
-    /* flex: 1; */
     display: flex;
     flex-direction: row;
     /* border: 1px solid red; */
@@ -285,7 +301,6 @@ export const OrderListContainer = styled.div`
     letter-spacing: -0.5px;
     font-weight: 500;
     color: ${blueColor};
-    margin-right: 20px;
   }
 
   nav {
@@ -299,6 +314,7 @@ export const OrderListContainer = styled.div`
     font-size: 16px;
     justify-content: center;
   }
+
   .numberbox {
     cursor: pointer;
     width: 34px;

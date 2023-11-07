@@ -4,24 +4,13 @@ import styled from "@emotion/styled";
 const primaryColor = "#36364b";
 const borderColor = "#e1e1e1";
 const grayColor = "#999aa9";
-const lightgrayColor = "#f5f6f9";
+const lightgrayColor = "#e9ecef";
 const blueColor = "#3d4ed7";
 const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
 
 export const ShowMessageModalStyle = styled.div`
   .dialog_contents_layout {
-    /* position: fixed;
-    top: 30%;
-    left: 30%;
-    transform: translate(-50% -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px gray;
-    width: 500px;
-    height: 180px;
-    border-radius: 30px; */
-
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -34,8 +23,8 @@ export const ShowMessageModalStyle = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
 
     .ui-dialog-content {
-      width: 500px;
-      height: 300px;
+      width: 350px;
+      height: 200px;
       background-color: white;
       border-radius: 10px;
       display: flex;
@@ -55,14 +44,25 @@ export const ShowMessageModalStyle = styled.div`
       }
     }
 
+    /* background-color: #e9ecef; */
+
     .dialog_footer {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: row;
-      /* flex-shrink: 0;
-      flex-wrap: wrap; */
-      /* margin-top: 34px; */
+      background-color: ${lightgrayColor};
+      width: 100%;
+      border-radius: 0px 0px 8px 8px;
+      > span {
+        /* border-top: 1px solid ${lightgrayColor}; */
+        font-weight: 500;
+        cursor: pointer;
+      }
+      &:hover {
+        background: ${grayColor};
+        color: white;
+      }
     }
 
     .btn-confirm {

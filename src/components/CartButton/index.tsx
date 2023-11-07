@@ -39,7 +39,7 @@ const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales 
 
         <span onClick={handleSave}>
           <ShoppingCart className="material-icons-outlined" />
-          장바구니(new)
+          장바구니
         </span>
       </div>
     </CartButtonStyle>

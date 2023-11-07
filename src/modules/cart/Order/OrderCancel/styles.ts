@@ -271,9 +271,18 @@ export const OrderCancelContainer = styled.div`
         color: white;
       } */
       .box-blue {
-        border-color: ${blueColor};
+        /* border-color: ${blueColor};
         background: ${blueColor};
-        border: 1px solid #5055b1;
+        border: 1px solid #5055b1; */
+
+        background: ${lightblueColor};
+        color: white;
+
+        /* 마우스 호버 시 스타일 변경 */
+        &:hover {
+          background: ${blueColor};
+          color: white;
+        }
       }
       .box-gray {
         border-color: ${grayColor};
