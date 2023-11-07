@@ -4,8 +4,6 @@ import { PageContainer } from "./styles";
 import { BookComment, BookItem, LikesItem, ReplyComment } from "../data";
 import axios from "axios";
 import {
-  Favorite,
-  FavoriteBorder,
   Notifications,
   NotificationsOutlined,
   ThumbDown,
@@ -427,7 +425,7 @@ const BookPage = () => {
                     detail.stockStatus !== "품절" && (
                       <CartButton
                         itemId={detail.itemId}
-                        quantity={1}
+                        quantity={number.toString()}
                         title={detail.title}
                         cover={detail.cover}
                         priceStandard={detail.priceStandard.toString()}
