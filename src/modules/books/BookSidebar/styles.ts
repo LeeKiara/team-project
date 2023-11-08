@@ -13,9 +13,7 @@ export const SidebarContainer = styled.div`
     font-size: 14px;
   }
   main > aside {
-    width: 200px;
-    height: 500px;
-    border: 2px solid black;
+    display: none;
   }
   main > aside > ul {
     padding-left: 20px;
@@ -34,7 +32,16 @@ export const SidebarContainer = styled.div`
   main > section {
     width: 100%;
   }
+  /* .selectedCategory {
+    font-weight: bold;
+  } */
   @media (min-width: 55rem) {
+    main > aside {
+      display: block;
+      width: 200px;
+      height: 500px;
+      border: 2px solid black;
+    }
     main {
       width: 60%;
       font-size: 16px;
