@@ -81,41 +81,41 @@ export interface AlamData {
   bookTitle: string;
 }
 
-const INIT_DATA: BookItem[] = [];
+// const INIT_DATA: BookItem[] = [];
 
-export const BOOKS_DATA_KEY = "/books";
+// export const BOOKS_DATA_KEY = "/books";
 
-const BOOK_COMMENTS_KEY = "/bookComments";
+// const BOOK_COMMENTS_KEY = "/bookComments";
 
-const bookFetcher = async ([key, page]: string | number[]) => {
-  try {
-    // const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
-    const response = await booksApi.get<BookItem[]>(`${key}`);
-    // return response.data[0].item;
-    return response.data;
-  } catch (e: any) {
-    return INIT_DATA;
-  }
-};
+// const bookFetcher = async ([key, page]: string | number[]) => {
+//   try {
+//     // const response = await booksApi.get<BookItem[]>(`${key}?_sort=id&_order=desc`);
+//     const response = await booksApi.get<BookItem[]>(`${key}`);
+//     // return response.data[0].item;
+//     return response.data;
+//   } catch (e: any) {
+//     return INIT_DATA;
+//   }
+// };
 
-const commentFetcher = async (bookId: number) => {
-  try {
-    const response = await booksApi.get<BookComment[]>(`${BOOK_COMMENTS_KEY}/${bookId}`);
-    return response.data;
-  } catch (e: any) {
-    return [];
-  }
-};
+// const commentFetcher = async (bookId: number) => {
+//   try {
+//     const response = await booksApi.get<BookComment[]>(`${BOOK_COMMENTS_KEY}/${bookId}`);
+//     return response.data;
+//   } catch (e: any) {
+//     return [];
+//   }
+// };
 
-export const useBooksItem = (page?: number) => {
-  const {
-    data: booksItem,
-    mutate,
-    isValidating: isBookItemValidating,
-  } = useSWR<BookItem[]>([BOOKS_DATA_KEY, page], bookFetcher, {
-    fallbackData: INIT_DATA,
-    revalidateOnFocus: false,
-  });
+// export const useBooksItem = (page?: number) => {
+//   const {
+//     data: booksItem,
+//     mutate,
+//     isValidating: isBookItemValidating,
+//   } = useSWR<BookItem[]>([BOOKS_DATA_KEY, page], bookFetcher, {
+//     fallbackData: INIT_DATA,
+//     revalidateOnFocus: false,
+//   });
 
-  return { booksItem, isBookItemValidating };
-};
+//   return { booksItem, isBookItemValidating };
+// };
