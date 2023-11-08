@@ -13,7 +13,7 @@ import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
-  const MAX_LIST = 5; // 고정된 리스트 갯수
+  const MAX_LIST = 3; // 고정된 리스트 갯수
 
   //페이징 숫자 처리
   const [arrowNumberList, setArrowNumberList] = useState([]);
@@ -152,7 +152,7 @@ const BookList = ({ fetchUrl }) => {
     }
 
     // 페이지당 아이템 수 (예: 5)
-    const itemsPerPage = MAX_LIST;
+    const itemsPerPage = 5;
     const startIndex = Math.floor(currentPage / itemsPerPage) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalPages);
 
@@ -295,6 +295,12 @@ const BookList = ({ fetchUrl }) => {
           <p>로딩 중...</p>
         ) : (
           <section>
+            {searchQuery && (
+              <div style={{ display: "flex", gap: "5px" }}>
+                <p>[ 카테고리 ]</p>
+                <p>{searchQuery.split(">")[1]}</p>
+              </div>
+            )}
             {bookList.length > 0 ? (
               bookList.map((item) => (
                 <article key={`${item.id}`}>

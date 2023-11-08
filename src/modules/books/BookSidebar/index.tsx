@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import { SidebarContainer } from "./styles";
 import CategoryButton from "@/components/CategoryButton";
+import { Style } from "@mui/icons-material";
 
 const BookSidebar = () => {
   const location = useLocation();

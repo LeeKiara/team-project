@@ -170,6 +170,12 @@ const BookNewList = () => {
           <p>로딩 중...</p>
         ) : (
           <section>
+            {searchQuery && (
+              <div style={{ display: "flex", gap: "5px" }}>
+                <p>[ 카테고리 ]</p>
+                <p>{searchQuery}</p>
+              </div>
+            )}
             <ul>
               {newBookList.length > 0 ? (
                 newBookList.map((item) => (

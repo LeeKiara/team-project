@@ -245,6 +245,12 @@ const BookBestList = () => {
           <p>로딩 중...</p>
         ) : (
           <section>
+            {searchQuery && (
+              <div style={{ display: "flex", gap: "5px" }}>
+                <p>[ 카테고리 ]</p>
+                <p>{searchQuery}</p>
+              </div>
+            )}
             {bookList.length > 0 ? (
               bookList.map((item, index) => (
                 <article key={`${item.id}`}>
