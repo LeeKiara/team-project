@@ -5,7 +5,6 @@ import CartSidebar from "./CartSidebar";
 import AddressSearch from "./AddressSearch/Search";
 import AddressSucceed from "./AddressSearch/Success";
 import PublisherBook from "./PublisherBook";
-import Modal from "./test/Modal";
 
 const AddCart = lazy(() => import("@/modules/cart/AddCart"));
 const Payment = lazy(() => import("@/modules/cart/Order/Payment"));
@@ -33,6 +32,6 @@ export const cartRoutes = [
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
-  <Route key="test" path="test" element={<Modal />} />,
+  // <Route key="test" path="test" element={<ConfirmModalEx />} />,
   <Route key="eventbook" path="eventbook" element={<PublisherBook />} />,
 ];

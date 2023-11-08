@@ -4,7 +4,9 @@ import styled from "@emotion/styled";
 const primaryColor = "#36364b";
 const borderColor = "#e1e1e1";
 const grayColor = "#999aa9";
-const lightgrayColor = "#f5f6f9";
+// const lightgrayColor = "#f5f6f9";
+const lightgrayColor = "#eaeaea;";
+
 const blueColor = "#3d4ed7";
 const lightblueColor = "#0c9cff";
 const darkRedColor = "#e02020";
@@ -74,6 +76,156 @@ export const AddCartContainer = styled.div`
     }
   }
 
+  /* 장바구니 도서리스트 프레임 */
+  .cart-frame {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid ${lightgrayColor};
+    height: 150px;
+    padding-top: 10px;
+
+    /* 첫번째 div(checkbox/도서이미지) */
+    > div:nth-of-type(1) {
+      width: 20%;
+      padding-left: 10px;
+
+      display: flex;
+      flex-direction: row;
+    }
+    /* 두번째 div(도서명/{수량/가격/삭제button}) */
+    > div:nth-of-type(2) {
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      /* border: 1px solid red; */
+
+      /* 도서명 div */
+      > div:nth-of-type(1) {
+        width: 60%;
+        padding-top: 10px;
+      }
+      /* {수량/가격/삭제button} div */
+      > div:nth-of-type(2) {
+        width: 40%;
+        /* padding-top: 20px; */
+
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        /* {수량} div */
+        > div:nth-of-type(1) {
+          width: 40%;
+        }
+        /* {가격} div */
+        > div:nth-of-type(2) {
+          width: 40%;
+        }
+        /* {삭제button} div */
+        > div:nth-of-type(3) {
+          width: 20%;
+        }
+      }
+    }
+  }
+
+  .cart-frame .cart-checkbox {
+    margin-right: 10px;
+    label.cart-checkbox {
+      display: inline-block;
+      position: relative;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+
+      &:checked {
+        border: 2px solid ${blueColor};
+      }
+    }
+  }
+
+  .cart-frame .book-image img {
+    display: block;
+    width: 110px;
+    height: 124px;
+    border: 1px solid ${lightgrayColor};
+  }
+
+  .cart-frame .bookinfo-title {
+    > div {
+      margin-top: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: ${grayColor};
+    }
+  }
+  .icon-bookgubun {
+    display: inline-block;
+    padding: 0 8px;
+    width: auto;
+    height: 22px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid green;
+    border-radius: 4px;
+
+    p {
+      color: green;
+    }
+  }
+
+  /* 수량 div */
+  .bookinfo-quantity {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      border-radius: 4px 0px 0px 4px;
+      border-right: #fff;
+    }
+  }
+
+  .btn-qty-change {
+    border: 1px solid ${lightgrayColor};
+    background-color: #f6f7fb;
+    border-radius: 0px 4px 4px 0px;
+  }
+
+  /* 가격 div */
+  .box-price {
+    font-size: 16px;
+    letter-spacing: -1px;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+    }
+    strong {
+      font-size: 24px;
+      white-space: nowrap; // Prevent line break
+    }
+
+    p {
+      line-height: 25px;
+      margin-left: 5px;
+      display: inline;
+    }
+
+    del {
+      display: block;
+      font-size: 14px;
+      letter-spacing: -0.5px;
+      color: #bfc1cd;
+      margin-top: 7px;
+    }
+  }
+
   .cart-layer {
     display: flex;
     flex-direction: row;
@@ -81,117 +233,6 @@ export const AddCartContainer = styled.div`
     height: 150px;
     align-items: center;
     justify-content: space-between;
-  }
-
-  /* 장바구니 도서정보 */
-  .bookinfo {
-    /* flex: 1; */
-    display: flex;
-    flex-direction: row;
-    /* border: 1px solid red; */
-    /* gap: 10px; */
-    width: 60%;
-
-    label {
-      margin-top: 0px;
-      margin-left: 10px;
-    }
-    .bookinfo-title {
-      > div {
-        margin-top: 5px;
-        margin-bottom: 15px;
-        font-size: 14px;
-        color: ${grayColor};
-      }
-    }
-    .icon-bookgubun {
-      display: inline-block;
-      padding: 0 8px;
-      width: auto;
-      height: 22px;
-      line-height: 20px;
-      font-size: 12px;
-      font-weight: 400;
-      border: 1px solid green;
-      border-radius: 4px;
-
-      p {
-        color: green;
-      }
-    }
-
-    .image {
-      display: inline-block;
-      margin: 0 10px 0 0;
-      width: 110px;
-      vertical-align: top;
-    }
-
-    .image img {
-      display: block;
-      width: 110px;
-      height: 124px;
-      border: 1px solid ${lightgrayColor};
-    }
-  }
-
-  /* 장바구니 가격정보 */
-  .priceinfo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    margin: 0px 20px;
-
-    div {
-      display: flex;
-      flex-direction: row;
-    }
-    .btn-qty-change {
-      display: flex;
-      flex-direction: column;
-    }
-
-    input {
-      width: 100px;
-    }
-
-    .box-price {
-      font-size: 16px;
-      letter-spacing: -1px;
-      display: flex;
-      flex-direction: column;
-
-      strong {
-        font-size: 24px;
-        white-space: nowrap; // Prevent line break
-      }
-
-      p {
-        line-height: 25px;
-        margin-left: 5px;
-      }
-
-      del {
-        display: block;
-        font-size: 14px;
-        letter-spacing: -0.5px;
-        color: #bfc1cd;
-        margin-top: 7px;
-      }
-    }
-
-    /* .box-price strong {
-      font-size: 24px;
-      white-space: nowrap; // Prevent line break
-    } */
-
-    /* .box-price del {
-      display: block;
-      font-size: 14px;
-      letter-spacing: -0.5px;
-      color: #bfc1cd;
-    } */
   }
 
   .cart-checkbox {
@@ -274,36 +315,6 @@ export const AddCartContainer = styled.div`
     cursor: pointer;
   }
 
-  /* 모바일 스타일 */
-  @media (max-width: 768px) {
-    section {
-      width: 320px;
-    }
-    .cart-layer-title {
-      display: none;
-    }
-
-    .cart-layer {
-      flex-direction: column;
-      height: 180px;
-      align-items: center; /* 수직 가운데 정렬 추가 */
-      justify-content: space-between;
-    }
-    .bookinfo {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      width: 300px;
-    }
-    .priceinfo {
-      display: flex;
-      flex-direction: row;
-      align-items: center; /* 수직 가운데 정렬 추가 */
-      gap: 30px;
-      margin: 10px 20px;
-    }
-  }
-
   /* 합계금액 */
   .box-total-payment {
     display: flex;
@@ -326,27 +337,26 @@ export const AddCartContainer = styled.div`
       line-height: 1;
       text-align: center;
       font-weight: 400;
+      display: flex;
+      flex-direction: row;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
     }
 
     .total-sum strong {
-      display: inline-block;
-      position: relative;
-      top: -2px;
-      margin: 0 0 0 15px;
-      line-height: 1.5;
-      vertical-align: middle;
+      margin-left: 15px;
       font-size: 18px;
       letter-spacing: -1px;
       color: #0091ff;
     }
 
     .total-sum i {
-      display: inline-block;
-      position: relative;
-      top: -2px;
       margin: 0 20px;
       font-weight: 400;
-      vertical-align: middle;
       font-style: normal;
       font-size: 20px;
       color: #8d99ae;
@@ -411,27 +421,188 @@ export const AddCartContainer = styled.div`
   .cart-item-delete {
     cursor: pointer;
   }
-  /* 모바일 스타일 */
+
+  /* 모바일(mobile) 스타일 start */
   @media (max-width: 768px) {
+    section {
+      width: 380px;
+      font-size: 14px;
+    }
+
+    .cart-layer-title {
+      display: none;
+      margin-top: 5px;
+    }
+
+    /* 장바구니 도서리스트 프레임 */
+    .cart-frame {
+      display: flex;
+      flex-direction: row;
+      border: 2px solid ${lightgrayColor};
+      /* height: 150px; */
+      /* border: 1px solid red; */
+      border-radius: 8px;
+      height: 80px;
+      margin-top: 10px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      /* 첫번째 div(checkbox/도서이미지) */
+      > div:nth-of-type(1) {
+        width: 35%;
+
+        display: flex;
+        flex-direction: row;
+      }
+      /* 두번째 div(도서명/{수량/가격/삭제button}) */
+      > div:nth-of-type(2) {
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid red; */
+
+        /* 도서명 div */
+        > div:nth-of-type(1) {
+          height: 50%;
+          width: 100%;
+          padding-top: 0px;
+        }
+
+        /* {수량/가격/삭제button} div */
+        > div:nth-of-type(2) {
+          display: flex;
+          flex-direction: row;
+          height: 50%;
+          width: 100%;
+          align-items: center;
+
+          /* {수량} div */
+          > div:nth-of-type(1) {
+            /* width: 35%; */
+          }
+          /* {가격} div */
+          > div:nth-of-type(2) {
+            /* width: 35%; */
+          }
+          /* {삭제button} div */
+          > div:nth-of-type(3) {
+            /* width: 30%; */
+          }
+        }
+      }
+    }
+
+    .cart-frame .book-image img {
+      display: block;
+      width: 80px;
+      height: 80px;
+      border: 1px solid ${lightgrayColor};
+      /* border: 1px solid red; */
+    }
+
+    /* 수량 div */
+    .bookinfo-quantity {
+      > input {
+        /* width: 50px; */
+        height: 32px;
+      }
+    }
+
+    /* 가격 div */
+    .box-price {
+      font-size: 16px;
+      letter-spacing: -1px;
+      display: flex;
+      flex-direction: column;
+
+      > div {
+      }
+      /* 정가 */
+      strong {
+        font-size: 16px;
+        white-space: nowrap; // Prevent line break
+      }
+
+      p {
+        line-height: 25px;
+        margin-left: 5px;
+        display: inline;
+      }
+
+      /* 할인가 */
+      del {
+        display: block;
+        font-size: 12px;
+        letter-spacing: -0.5px;
+        color: #bfc1cd;
+        margin-top: 3px;
+      }
+    }
+
+    .btn-qty-change {
+      border: 1px solid ${lightgrayColor};
+      img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    .event-layer1 {
+      align-items: top;
+      justify-content: top;
+      height: 200px;
+      > div {
+        margin-top: 0px;
+        width: 380px;
+        height: 200px;
+        /* height: 400px; */
+      }
+    }
+
     .payment-layer {
       height: 50px;
     }
     .box-total-payment {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       padding: 0;
 
+      > div:nth-of-type(1) {
+        width: 40%;
+        border-right: 1px solid ${lightgrayColor};
+      }
+      > div:nth-of-type(2) {
+        width: 60%;
+        border: 1px solid ${lightgrayColor};
+      }
       .total-text {
         /* border-bottom: 1px dotted gray; */
         height: 30px;
+        display: none;
+      }
+
+      .total-sum {
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+
+        i {
+          display: none;
+        }
+
+        /*  배송비 margin */
+        > div:nth-of-type(3) {
+          dl {
+            margin-left: 10px;
+          }
+        }
       }
       .total-sum strong {
-        display: inline;
-        text-align: left;
       }
 
       .total-price {
-        display: inline;
+        padding-top: 10px;
+        padding-left: 10px;
         text-align: left;
       }
     }
@@ -442,9 +613,9 @@ export const AddCartContainer = styled.div`
       flex-direction: column;
       /* margin-top: 32px; */
 
-      .btn-order button {
+      button {
         display: block;
-        width: 330px;
+        width: 380px;
         height: 60px;
         line-height: 1;
         text-align: center;
@@ -462,4 +633,5 @@ export const AddCartContainer = styled.div`
       }
     }
   }
+  /* 모바일 스타일 end */
 `;

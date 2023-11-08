@@ -573,7 +573,7 @@ const OrderForm = () => {
               </div>
 
               {/* 사이드 메뉴 */}
-              <div className="box-payment-sidebar" style={{ top: "0px" }}>
+              <div className="box-payment-sidebar">
                 <div className="contain-calcpay">
                   {/* <h4 className="title">결제 예정 금액</h4> */}
                   <dl className="payment-item">

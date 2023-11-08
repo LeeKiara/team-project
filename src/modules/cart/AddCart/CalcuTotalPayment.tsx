@@ -46,11 +46,32 @@ const CalcuTotalPayment = ({ cartBooks }: { cartBooks: OrderCartItemData[] }) =>
     <div>
       <div className="box-total-payment">
         <div className="total-text">주문합계</div>
-        <div className="total-sum">
+        {/* <div className="total-sum">
           상품금액 <strong id="fixedsum">{sumPriceStandard.toLocaleString()}</strong>원 <i>-</i>
           할인금액 <strong id="discountsum">{sumPriceSales.toLocaleString()}</strong>원 <i>+</i>
           배송비 <strong id="deliveryfee">{deliveryAmt.toLocaleString()}</strong>원
+        </div> */}
+        <div className="total-sum">
+          <div>
+            <dt>상품금액</dt>
+            <dl>
+              <strong id="fixedsum">{sumPriceStandard.toLocaleString()}</strong>원 <i>-</i>
+            </dl>
+          </div>
+          <div>
+            <dt>할인금액</dt>
+            <dl>
+              <strong id="discountsum">{sumPriceSales.toLocaleString()}</strong>원 <i>+</i>
+            </dl>
+          </div>
+          <div>
+            <dt>배송비</dt>
+            <dl>
+              <strong id="deliveryfee">{deliveryAmt.toLocaleString()}</strong>원
+            </dl>
+          </div>
         </div>
+
         <div className="total-price">
           결제 예정 금액 <strong id="totalsum">{totalOrderAmt.toLocaleString()}</strong>원
         </div>

@@ -350,31 +350,26 @@ const AddCart = () => {
           {/* 장바구니 도서 loop */}
           {cartlist.length > 0 ? (
             cartlist.map((cartCashData, index) => (
-              <article className="cart-frame" key={`item-${cartCashData.itemId}`}>
-                <div>
+              <article className="cart-layer" key={`item-${cartCashData.itemId}`}>
+                {/* 도서정보(책이미지/도서명) */}
+                <div className="bookinfo">
+                  <label className="cart-checkbox">
+                    <input
+                      type="checkbox"
+                      name="product_seq"
+                      className="listCheckBox"
+                      key={cartCashData.itemId}
+                      onChange={() => handleCheckboxChange(index, cartCashData.itemId)}
+                      checked={selectedItems.includes(cartCashData.itemId)}
+                    />
+                  </label>
                   <div>
-                    <label className="cart-checkbox">
-                      <input
-                        type="checkbox"
-                        name="product_seq"
-                        className="listCheckBox"
-                        key={cartCashData.itemId}
-                        onChange={() => handleCheckboxChange(index, cartCashData.itemId)}
-                        checked={selectedItems.includes(cartCashData.itemId)}
-                      />
-                    </label>
-                  </div>
-                  {/* 도서 이미지 */}
-                  <div>
-                    <span className="book-image">
+                    <span className="image">
                       <Link to={`/page?id=${cartCashData.id}`}>
                         <img src={`${cartCashData.cover}`} alt={`${cartCashData.title}`} />
                       </Link>
                     </span>
                   </div>
-                </div>
-                <div>
-                  {/* 도서제목/상태 */}
                   <div className="bookinfo-title">
                     {cartCashData.stockStatus === "품절" && (
                       <div className="icon-bookgubun">
@@ -386,29 +381,34 @@ const AddCart = () => {
                       <br />
                     </p>
                   </div>
+                </div>
+                {/* 가격정보 */}
+
+                {/* 수량 */}
+                <div className="priceinfo">
                   <div>
-                    {/* <div>수량</div> */}
-                    <div className="bookinfo-quantity">
-                      <input
-                        type="text"
-                        placeholder="0"
-                        value={qtys[index]}
-                        onChange={(e) => handleQtyChange(e, index)}
+                    <input
+                      type="text"
+                      placeholder="0"
+                      value={qtys[index]}
+                      onChange={(e) => handleQtyChange(e, index)}
+                    />
+                    <div className="btn-qty-change">
+                      <img
+                        onClick={() => handleIncrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
+                        alt="위 화살표"
                       />
-                      <div className="btn-qty-change">
-                        <img
-                          onClick={() => handleIncrement(index)}
-                          src="https://image.aladin.co.kr/img/shop/2018/icon_Aup.png"
-                          alt="위 화살표"
-                        />
-                        <img
-                          onClick={() => handleDecrement(index)}
-                          src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
-                          alt="아래화살표"
-                        />
-                      </div>
+                      <img
+                        onClick={() => handleDecrement(index)}
+                        src="https://image.aladin.co.kr/img/shop/2018/icon_Adown.png"
+                        alt="아래화살표"
+                      />
                     </div>
-                    {/* <div>가격</div> */}
+                  </div>
+
+                  {/* 할인가/정가 */}
+                  <div>
                     <div className="box-price">
                       <div>
                         <strong>{priceSales[index] && priceSales[index].toLocaleString()}</strong>
@@ -416,10 +416,12 @@ const AddCart = () => {
                       </div>
                       <del>정가{priceStandards[index] && priceStandards[index].toLocaleString()}원</del>
                     </div>
-                    {/* <div>삭제</div> */}
-                    <div className="cart-item-delete" onClick={() => handleDeleteCartItem(`${cartCashData.itemId}`)}>
-                      X
-                    </div>
+                    {/* <div>정가 다시 계산:{priceStandards[index]}</div> */}
+                  </div>
+
+                  {/* 삭제버튼 */}
+                  <div className="cart-item-delete" onClick={() => handleDeleteCartItem(`${cartCashData.itemId}`)}>
+                    X
                   </div>
                 </div>
               </article>

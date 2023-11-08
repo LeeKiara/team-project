@@ -315,7 +315,7 @@ export const OrderFormContainer = styled.div`
     width: 300px;
     height: 260px;
     right: 0;
-    top: 0px; /* 뷰포트 상단에서 고정하기위해 top을 0으로 설정 */
+    top: 0; /* 뷰포트 상단에서 고정하기위해 top을 0으로 설정 */
     z-index: 1;
     width: 258px;
     margin-left: auto;
@@ -430,11 +430,6 @@ export const OrderFormContainer = styled.div`
       align-items: center; /* 수직 가운데 정렬 추가 */
       gap: 30px;
       margin: 0px 20px;
-    }
-
-    /* 결제 예정금액 sidebar */
-    .wrap-payment .box-payment-sidebar {
-      position: relative;
     }
   }
 `;
