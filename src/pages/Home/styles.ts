@@ -43,6 +43,7 @@ export const HomeContainer = styled.div`
     width: 30vw;
     margin-bottom: 0;
     box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.2);
+    margin: auto;
   }
   .today-book > div > h4:nth-of-type(1) {
     font-size: 18px;
