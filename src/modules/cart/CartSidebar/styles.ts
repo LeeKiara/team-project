@@ -92,4 +92,11 @@ export const CartSidebarContainer = styled.div`
   .pointer {
     cursor: pointer;
   }
+
+  /* 모바일(mobile) 스타일 */
+  @media (max-width: 768px) {
+    input[type^="text"] {
+      border: 1px solid ${grayColor};
+    }
+  }
 `;

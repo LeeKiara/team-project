@@ -69,6 +69,9 @@ export const OrderFormContainer = styled.div`
       flex-direction: row;
       justify-content: space-between;
 
+      .text-mobileonly {
+        display: none;
+      }
       .priceinfo {
         /* flex: 1; */
         display: flex;
@@ -129,7 +132,7 @@ export const OrderFormContainer = styled.div`
       border: 1px solid #e1e1e1;
     }
 
-    .text {
+    .text-webonly {
       display: flex;
       flex-direction: column;
       font-weight: 400;
@@ -404,10 +407,32 @@ export const OrderFormContainer = styled.div`
     }
   }
 
-  /* 모바일 스타일 */
+  .box-payment-bottom {
+    height: 100px;
+  }
+
+  /* 모바일 환경에서만 보이는 스타일 */
+  .mobile-only {
+    display: none;
+  }
+
+  /* 웹 환경에서만 보이는 스타일 */
+  .web-only {
+    display: block; /* 웹 환경에서 보임 */
+  }
+
+  .box-list-payment .bookinfo {
+    display: block;
+  }
+  .box-list-payment .bookinfo-mobileonly {
+    display: none;
+  }
+
+  /* 모바일(mobile) 스타일 */
   @media (max-width: 768px) {
     section {
-      width: 320px;
+      width: 370px;
+      margin: 0px;
     }
     .cart-layer-title {
       display: none;
@@ -418,23 +443,32 @@ export const OrderFormContainer = styled.div`
       height: 180px;
       align-items: center; /* 수직 가운데 정렬 추가 */
     }
-    .bookinfo {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      width: 300px;
+
+    .box-list-payment .bookinfo {
+      display: none;
     }
-    .priceinfo {
-      display: flex;
-      flex-direction: row;
-      align-items: center; /* 수직 가운데 정렬 추가 */
-      gap: 30px;
-      margin: 0px 20px;
+    .box-list-payment .bookinfo-mobileonly {
+      display: block;
     }
 
     /* 결제 예정금액 sidebar */
-    .wrap-payment .box-payment-sidebar {
-      position: relative;
+    .mobile-only {
+      display: block; /* 모바일 환경에서 보임 */
+    }
+
+    .web-only {
+      display: none; /* 모바일 환경에서 숨김 */
+    }
+
+    .wrap-payment {
+      /* width: 380px; */
+    }
+    .wrap-payment .contain-payment-body {
+      width: 380px;
+    }
+
+    .box-payment-bottom {
+      height: 0px;
     }
   }
 `;

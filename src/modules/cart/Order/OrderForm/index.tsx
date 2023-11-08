@@ -348,7 +348,7 @@ const OrderForm = () => {
                                 </Link>
                               </a>
                             </span>
-                            <div className="text">
+                            <div className="text-webonly">
                               <div>{cartCashData.categoryName}</div>
                               <br />
                               <p>
@@ -375,6 +375,44 @@ const OrderForm = () => {
                             <div className="icon-tag-pricegubun">주문금액</div>
                             <div>
                               {(Number(cartCashData.priceSales) * Number(cartCashData.quantity)).toLocaleString()}원
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bookinfo-mobileonly">
+                        <div>
+                          <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
+                        </div>
+                        <div>
+                          <div>
+                            {/* 도서 이미지 */}
+                            <span className="image">
+                              <a href="" target="_blank">
+                                <Link to={`/page?id=${cartCashData.id}`}>
+                                  <img src={cartCashData.cover} alt={cartCashData.title} />
+                                </Link>
+                              </a>
+                            </span>
+                          </div>
+                          {/* 가격정보 */}
+                          <div>
+                            <div>
+                              <div className="icon-tag-pricegubun">정가</div>
+                              <div>{cartCashData.priceStandard.toLocaleString()}원</div>
+                            </div>
+                            <div>
+                              <div className="icon-tag-pricegubun">판매가</div>
+                              <div>{cartCashData.priceSales.toLocaleString()}원</div>
+                            </div>
+                            <div>
+                              <div className="icon-tag-pricegubun">수량</div>
+                              <div>{cartCashData.quantity.toLocaleString()}</div>
+                            </div>
+                            <div>
+                              <div className="icon-tag-pricegubun">주문금액</div>
+                              <div>
+                                {(Number(cartCashData.priceSales) * Number(cartCashData.quantity)).toLocaleString()}원
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -567,13 +605,13 @@ const OrderForm = () => {
                   {/* <!-- //온라인 입금 --> */}
                 </div>
 
-                <div style={{ height: "100px" }}>
+                <div className="box-payment-bottom">
                   <h1></h1>
                 </div>
               </div>
 
               {/* 사이드 메뉴 */}
-              <div className="box-payment-sidebar">
+              <div className="box-payment-sidebar web-only">
                 <div className="contain-calcpay">
                   {/* <h4 className="title">결제 예정 금액</h4> */}
                   <dl className="payment-item">
@@ -624,6 +662,45 @@ const OrderForm = () => {
 
                   {/* (주문준비 완료)결제하기 버튼 */}
                   {/* {isOrder && <Payment orderData={stateOrderData} />} */}
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* 결제하기 (모바일 환경에서만 보임) */}
+          <article>
+            <div className="mobile-only">
+              <div className="contain-calcpay-mobile">
+                <dl className="payment-item-mobile">
+                  <dt>상품 금액</dt>
+                  <dd>
+                    <strong>{sumPriceStandard.toLocaleString()}</strong>원
+                  </dd>
+                </dl>
+                <dl className="payment-item">
+                  <dt>배송비</dt>
+                  <dd>
+                    <strong>{deliveryAmt.toLocaleString()}</strong>원
+                  </dd>
+                </dl>
+                <hr className="div-type2" />
+                <dl className="payment-item total">
+                  <dt>결제 예정 금액 </dt>
+
+                  <dd>
+                    <strong id="totalPriceText">{totalOrderAmt.toLocaleString()}</strong>원
+                  </dd>
+                </dl>
+
+                <hr className="div-type2" />
+                <div className="box-submit-payment">
+                  <span className="btn-order">{/* <button onClick={handlePayment}>결제하기</button> */}</span>
+                </div>
+
+                <div className="box-submit-payment">
+                  <button className="btn-payment" onClick={handleOrder}>
+                    결제하기
+                  </button>
                 </div>
               </div>
             </div>
