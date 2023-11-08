@@ -506,7 +506,7 @@ const BookPage = () => {
             <figure style={{ display: "flex", justifyContent: "center" }}>
               <img
                 style={{ margin: "auto" }}
-                src="https://contents.kyobobook.co.kr/sih/fit-in/814x0/dtl/illustrate/151/i9791159242151.jpg"
+                src="https://image.aladin.co.kr/img/img_content/K972830273_01.jpg"
                 alt="이벤트사진"
               />
             </figure>

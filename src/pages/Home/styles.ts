@@ -120,6 +120,11 @@ export const HomeContainer = styled.div`
   }
 
   @media (min-width: 55rem) {
+    .today-book {
+      display: flex;
+      gap: 20px;
+      margin: 10px;
+    }
     div > section > article:nth-of-type(1) {
       width: 80%;
     }

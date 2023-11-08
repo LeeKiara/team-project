@@ -245,7 +245,6 @@ const BookBestList = () => {
           <p>로딩 중...</p>
         ) : (
           <section>
-            <p>Best 1위부터 10위까지</p>
             {bookList.length > 0 ? (
               bookList.map((item, index) => (
                 <article key={`${item.id}`}>

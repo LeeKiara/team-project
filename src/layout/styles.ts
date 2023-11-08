@@ -22,7 +22,7 @@ export const LayoutContainer = styled.div`
   } */
   header > div {
     margin: auto;
-    width: 65vw;
+    width: 75vw;
   }
   header > div > aside {
     display: flex;
@@ -51,14 +51,15 @@ export const LayoutContainer = styled.div`
     padding: 5px;
   }
   .header-nav ul {
-    width: 65vw;
+    width: 100vw;
     margin: auto;
-    padding: 10px;
+    padding: 5px;
     display: flex;
     justify-content: space-evenly;
+    padding-left: 0;
   }
   .header-nav li {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
   }
   #searchForm {
@@ -96,7 +97,7 @@ export const LayoutContainer = styled.div`
     color: #767676;
   }
   #searchForm > form > label > input {
-    width: 45%;
+    width: 35%;
     height: 27px;
     border: none;
     vertical-align: top;
@@ -153,8 +154,15 @@ export const LayoutContainer = styled.div`
     gap: 5px;
   }
   @media (min-width: 55rem) {
+    header > div {
+      width: 65vw;
+    }
     .header-nav li {
       font-size: 20px;
+    }
+    .header-nav ul {
+      width: 65vw;
+      padding: 10px;
     }
     #searchForm {
       flex-direction: row;

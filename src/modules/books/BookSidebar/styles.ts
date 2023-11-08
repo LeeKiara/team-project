@@ -10,6 +10,7 @@ export const SidebarContainer = styled.div`
     display: flex;
     width: 100%;
     gap: 20px;
+    font-size: 14px;
   }
   main > aside {
     width: 200px;
@@ -36,6 +37,7 @@ export const SidebarContainer = styled.div`
   @media (min-width: 55rem) {
     main {
       width: 60%;
+      font-size: 16px;
     }
   }
 `;
