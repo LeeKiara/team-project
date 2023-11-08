@@ -19,7 +19,7 @@ export const SearchContainer = styled.div`
   }
   table {
     border-collapse: collapse;
-    width: 1700px;
+    width: 100%;
   }
   table > thead {
     border: 2px solid #dddddd;
@@ -148,7 +148,6 @@ export const SearchContainer = styled.div`
   .numberbox:last-of-type:hover {
     background-color: #dddddd;
   }
-
   @media (min-width: 100rem) {
     table {
       width: 100%;

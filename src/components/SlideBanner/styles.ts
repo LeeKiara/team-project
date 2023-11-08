@@ -25,19 +25,44 @@ export const BannerContainer = styled.div`
   }
   .banner-center {
     /* margin-top: 20px; */
-    width: 958px;
-    height: 400px;
+    width: 100%;
+  }
+  .banner-center img {
+    width: 100vw;
   }
   article > button {
     border: 1px solid white;
-    height: 65px;
+    height: 30px;
     border-radius: 50px;
-    margin-top: 170px;
+    margin-top: 50px;
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
   }
   article > button > svg {
-    font-size: 50px;
+    font-size: 16px;
     color: white;
+  }
+
+  @media (min-width: 55rem) {
+    .banner-center {
+      /* margin-top: 20px; */
+      width: 958px;
+      height: 400px;
+    }
+    .banner-center img {
+      width: 50vw;
+    }
+    article > button {
+      border: 1px solid white;
+      height: 65px;
+      border-radius: 50px;
+      margin-top: 170px;
+      background-color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+    }
+    article > button > svg {
+      font-size: 50px;
+      color: white;
+    }
   }
 `;

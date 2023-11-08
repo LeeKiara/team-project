@@ -1,7 +1,7 @@
 import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { BookData, BookItem, useBooksItem } from "../data";
+import { BookData, BookItem } from "../data";
 import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
 import Button from "@/components/Button";
 import axios from "axios";
