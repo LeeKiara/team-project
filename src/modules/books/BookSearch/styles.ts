@@ -17,9 +17,13 @@ export const SearchContainer = styled.div`
     display: flex;
     gap: 10px;
   }
+  .web {
+    display: none;
+  }
+
   table {
     border-collapse: collapse;
-    width: 1700px;
+    width: 350px;
   }
   table > thead {
     border: 2px solid #dddddd;
@@ -51,17 +55,13 @@ export const SearchContainer = styled.div`
     color: blue;
   }
   table > tbody > tr > td:nth-of-type(1) {
-    padding: 10px;
+    padding: 0;
   }
   table > tbody > tr > td:nth-of-type(2) {
-    font-size: 18px;
+    font-size: 12px;
   }
   table > tbody > tr > td:nth-of-type(2) > a:hover {
     color: #e97171;
-  }
-  table > tbody > tr > td > a > img {
-    width: 180px;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
   table > tbody > tr > td > div > dl {
     margin: 5px 0;
@@ -93,66 +93,73 @@ export const SearchContainer = styled.div`
   table > tbody > tr > td:nth-of-type(9) > a:hover {
     color: crimson;
   }
-  nav {
-    display: flex;
-    justify-content: center;
+  .mobile {
+    display: block;
   }
-  nav > ol {
-    width: 238px;
-    display: flex;
-    font-size: 16px;
-    justify-content: center;
-  }
-  .numberbox {
-    cursor: pointer;
-    width: 34px;
-    text-align: center;
-    border: 1px solid #e4e4e4;
-    border-right: 1px solid #e4e4e4;
-    height: 30px;
+  .mobile > div {
     display: flex;
     flex-direction: column;
+    gap: 30px;
+  }
+  .mobile > div > span {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mobile > div > span > figure > a {
+    display: flex;
     justify-content: center;
   }
-  .numberbox:nth-of-type(1) {
-    border-radius: 5px 0 0 5px;
+  .mobile > div > span > figure > a > img {
+    width: 200px;
+    margin: auto;
   }
-  .numberbox:last-of-type {
-    border-radius: 0 5px 5px 0;
+  .mobile > div > span > h4 > a {
+    font-size: 16px;
+    font-weight: bold;
   }
-  .numberbox > a {
-    color: #337ab7;
+  .mobile > div > span > p:nth-of-type(1) {
+    text-align: end;
+    color: crimson;
+    font-weight: bold;
+    margin: 10px;
   }
-  .numberbox:hover {
-    background-color: #dddddd;
+  .mobile > div > span > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .numberbox:nth-of-type(1):hover {
-    background-color: #dddddd;
-    border-radius: 5px 0 0 5px;
+  .mobile > div > span > div > p:nth-of-type(1) {
+    font-weight: bold;
+    color: #767676;
   }
-
-  .numberbox > button {
-    border-radius: 5px;
-    border: none;
-    background-color: white;
-    vertical-align: top;
-    font-size: 20px;
-    color: #337ab7;
-    height: 30px;
+  @media (min-width: 55rem) {
+    .web {
+      display: block;
+    }
+    .mobile {
+      display: none;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table > tbody > tr > td:nth-of-type(1) {
+      padding: 10px;
+    }
+    table > tbody > tr > td:nth-of-type(2) {
+      font-size: 18px;
+    }
+    table > tbody > tr > td > a > img {
+      width: 180px;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    }
   }
-  .numberbox > button:hover {
-    background-color: #dddddd;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .numberbox:last-of-type:hover {
-    background-color: #dddddd;
-  }
-
-  @media (min-width: 100rem) {
+  /* @media (min-width: 100rem) {
     table {
       width: 100%;
       margin: auto;
     }
-  }
+  } */
 `;

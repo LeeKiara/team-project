@@ -6,11 +6,11 @@ export const HomeContainer = styled.div`
     justify-content: center;
   }
   div > section {
-    width: 65vw;
+    width: 80vw;
     margin: auto;
   }
   div > section > article:nth-of-type(1) {
-    width: 468px;
+    width: 280px;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -29,18 +29,21 @@ export const HomeContainer = styled.div`
   }
   .today-book {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     margin: 10px;
   }
   .today-book > div {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     justify-content: space-evenly;
   }
   .today-book > img {
-    width: 210px;
+    width: 30vw;
     margin-bottom: 0;
     box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.2);
+    margin: auto;
   }
   .today-book > div > h4:nth-of-type(1) {
     font-size: 18px;
@@ -62,7 +65,7 @@ export const HomeContainer = styled.div`
     line-height: 1.5;
   }
   div > section > article:nth-of-type(2) {
-    width: 510px;
+    width: 320px;
     margin: auto;
     background-color: #f8edeb;
     border-radius: 10px;
@@ -120,8 +123,22 @@ export const HomeContainer = styled.div`
   }
 
   @media (min-width: 55rem) {
+    div > section {
+      width: 65vw;
+    }
+    .today-book {
+      flex-direction: row;
+      gap: 20px;
+      margin: 10px;
+    }
+    .today-book > div {
+      gap: 0;
+    }
     div > section > article:nth-of-type(1) {
       width: 80%;
+    }
+    .today-book > img {
+      width: 210px;
     }
     div > section > article:nth-of-type(2) {
       width: 83%;

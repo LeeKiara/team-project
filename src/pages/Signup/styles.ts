@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const SignUpContainer = styled.div`
   section {
-    width: 500px;
+    width: 300px;
     margin: auto;
   }
   p {
@@ -47,8 +47,8 @@ export const SignUpContainer = styled.div`
     color: #fdbebe;
   }
   input {
-    width: 405px;
-    height: 32px;
+    width: 80%;
+    height: 65%;
     font-size: 16px;
     border: none;
     margin-top: 8px;
@@ -86,5 +86,14 @@ export const SignUpContainer = styled.div`
     border-radius: 6px;
     height: 50px;
     display: flex;
+  }
+  @media (min-width: 55rem) {
+    section {
+      width: 500px;
+    }
+    input {
+      width: 405px;
+      height: 32px;
+    }
   }
 `;

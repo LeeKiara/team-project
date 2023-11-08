@@ -22,7 +22,7 @@ export const LayoutContainer = styled.div`
   } */
   header > div {
     margin: auto;
-    width: 65vw;
+    width: 75vw;
   }
   header > div > aside {
     display: flex;
@@ -51,14 +51,15 @@ export const LayoutContainer = styled.div`
     padding: 5px;
   }
   .header-nav ul {
-    width: 65vw;
+    width: 100vw;
     margin: auto;
-    padding: 10px;
+    padding: 5px;
     display: flex;
     justify-content: space-evenly;
+    padding-left: 0;
   }
   .header-nav li {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
   }
   #searchForm {
@@ -96,7 +97,7 @@ export const LayoutContainer = styled.div`
     color: #767676;
   }
   #searchForm > form > label > input {
-    width: 45%;
+    width: 35%;
     height: 27px;
     border: none;
     vertical-align: top;
@@ -126,23 +127,25 @@ export const LayoutContainer = styled.div`
     width: 80%;
     margin: auto;
     display: flex;
+    gap: 10px;
     justify-content: space-between;
   }
   .cite > div > span {
-    margin-top: -10px;
+    margin-top: 0px;
   }
   .cite > div > span > h1 {
-    font-size: 30px;
+    font-size: 16px;
     font-weight: bold;
   }
   .cite > div > span > h5 {
     margin-top: 10px;
   }
   .cite > div > h2 {
-    font-size: 25px;
+    font-size: 16px;
     font-weight: bold;
   }
   .cite > div > address {
+    font-size: 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -153,8 +156,15 @@ export const LayoutContainer = styled.div`
     gap: 5px;
   }
   @media (min-width: 55rem) {
+    header > div {
+      width: 65vw;
+    }
     .header-nav li {
       font-size: 20px;
+    }
+    .header-nav ul {
+      width: 65vw;
+      padding: 10px;
     }
     #searchForm {
       flex-direction: row;
@@ -176,6 +186,18 @@ export const LayoutContainer = styled.div`
     #searchForm > form > label > input {
       width: 45%;
       height: 62%;
+    }
+    .cite > div > span {
+      margin-top: -10px;
+    }
+    .cite > div > span > h1 {
+      font-size: 30px;
+    }
+    .cite > div > h2 {
+      font-size: 25px;
+    }
+    .cite > div > address {
+      font-size: 16px;
     }
   }
   @media (min-width: 100rem) {

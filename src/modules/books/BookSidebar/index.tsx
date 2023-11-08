@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import { SidebarContainer } from "./styles";
 import CategoryButton from "@/components/CategoryButton";
+import { Style } from "@mui/icons-material";
 
 const BookSidebar = () => {
   const location = useLocation();
@@ -9,6 +10,8 @@ const BookSidebar = () => {
   //구분별 사이드값
   const [option, setOption] = useState<"베스트도서" | "신간도서" | "국내도서" | "외국도서">("국내도서");
   const [categorys, setCategorys] = useState([]);
+
+  // const [selectedCategory, setSelectedCategory] = useState({});
 
   //국내도서 카테고리 키워드
   const keywords = [
@@ -34,6 +37,13 @@ const BookSidebar = () => {
   //외국도서 카테고리 키워드
   const foreignKeywords = ["컴퓨터", "전기/자서전", "인문/사회", "역사", "언어학", "소설/시/희곡", "경제경영"];
 
+  // const handleSelect = (index) => {
+  //   setSelectedCategory((prevStates) => ({
+  //     ...prevStates,
+  //     [index]: !prevStates[index],
+  //   }));
+  // };
+
   //각 구분별 사이드바 상태 변화
   useEffect(() => {
     if (path === "best") {
@@ -58,8 +68,14 @@ const BookSidebar = () => {
           <aside>
             <Sidebar group={`${option}`} />
             <ul>
-              {categorys.map((category) => (
-                <li key={category}>
+              {categorys.map((category, index) => (
+                <li
+                  key={category}
+                  // onClick={() => {
+                  //   handleSelect(index);
+                  // }}
+                  // className={selectedCategory[index] ? "selectedCategory" : ""}
+                >
                   <CategoryButton path={path} option={`${option}>${category}`}>
                     {category}
                   </CategoryButton>

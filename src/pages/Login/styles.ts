@@ -19,7 +19,7 @@ export const LoginCantailner = styled.div`
     margin-bottom: 20px;
   }
   form {
-    width: 340px;
+    width: 200px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -69,7 +69,7 @@ export const LoginCantailner = styled.div`
     margin-top: 40px;
   }
   div > a > button {
-    width: 100%;
+    width: 200px;
     height: 40px;
     border-radius: 5px;
     font-weight: bold;
@@ -82,5 +82,13 @@ export const LoginCantailner = styled.div`
   div > a > button:hover {
     background: #c4c4e3; /* 배경 색상을 변경하는 예시 */
     border-color: #5055b1; /* 테두리 색상을 변경하는 예시 */
+  }
+  @media (min-width: 55rem) {
+    form {
+      width: 340px;
+    }
+    div > a > button {
+      width: 100%;
+    }
   }
 `;

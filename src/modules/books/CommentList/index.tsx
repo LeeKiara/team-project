@@ -306,44 +306,47 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
                         ))}
                       {!item.replyComment ? null : (
                         <div>
-                          {Array.isArray(item.replyComment) && item.replyComment.length > 0 ? (
+                          {/* {Array.isArray(item.replyComment) && item.replyComment.length > 0 ? ( */}
+                          {replyList && replyList.length > 0 ? (
                             <div>
-                              {item.replyComment.map((reply) => (
+                              {replyList.map((reply) => (
                                 <span key={reply.id}>
-                                  {profile && reply.parentId === item.id && reply.nickname === profile.nickname ? (
-                                    <div className="reply-list">
-                                      <span>
-                                        <h5>
-                                          <PortraitOutlined className="material-symbols-outlined" />
-                                          <sub>{reply.nickname}</sub>
-                                        </h5>
-                                        <h6>{timeCheck(reply.createdDate)}</h6>
-                                      </span>
-                                      <span>
-                                        <p>{reply.comment}</p>
-                                        <button
-                                          className="modify-btn"
-                                          onClick={() => {
-                                            handleReplyDelete(item.id, reply.id);
-                                          }}>
-                                          삭제
-                                        </button>
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    <div className="reply-list">
-                                      <span>
-                                        <h5>
-                                          <PortraitOutlined className="material-symbols-outlined" />
-                                          <sub>{reply.nickname}</sub>
-                                        </h5>
-                                        <h6>{timeCheck(reply.createdDate)}</h6>
-                                      </span>
-                                      <span>
-                                        <p>{reply.comment}</p>
-                                      </span>
-                                    </div>
-                                  )}
+                                  {profile &&
+                                    reply.parentId === item.id &&
+                                    (reply.nickname === profile.nickname ? (
+                                      <div className="reply-list">
+                                        <span>
+                                          <h5>
+                                            <PortraitOutlined className="material-symbols-outlined" />
+                                            <sub>{reply.nickname}</sub>
+                                          </h5>
+                                          <h6>{timeCheck(reply.createdDate)}</h6>
+                                        </span>
+                                        <span>
+                                          <p>{reply.comment}</p>
+                                          <button
+                                            className="modify-btn"
+                                            onClick={() => {
+                                              handleReplyDelete(item.id, reply.id);
+                                            }}>
+                                            삭제
+                                          </button>
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <div className="reply-list">
+                                        <span>
+                                          <h5>
+                                            <PortraitOutlined className="material-symbols-outlined" />
+                                            <sub>{reply.nickname}</sub>
+                                          </h5>
+                                          <h6>{timeCheck(reply.createdDate)}</h6>
+                                        </span>
+                                        <span>
+                                          <p>{reply.comment}</p>
+                                        </span>
+                                      </div>
+                                    ))}
                                 </span>
                               ))}
                             </div>
