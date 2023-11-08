@@ -141,7 +141,7 @@ const BookSearch = () => {
               "{searchQuery}"<h4>검색 결과</h4>
               <p>총 {totalPages} 페이지</p>
             </span>
-            <table>
+            <table className="web">
               <thead>
                 <tr>
                   <th>책표지</th>
@@ -206,6 +206,40 @@ const BookSearch = () => {
                 )}
               </tbody>
             </table>
+            <article className="mobile">
+              <div>
+                {searchList.length > 0 ? (
+                  searchList.map((item) => (
+                    <span key={`${item.id}`}>
+                      <figure>
+                        <Link to={`/page?id=${item.id}`}>
+                          <img src={`${item.cover}`} alt={`${item.title}`} />
+                        </Link>
+                      </figure>
+                      <h4>
+                        <Link to={`/page?id=${item.id}`}>" {`${item.title}`} "</Link>
+                      </h4>
+                      <p>{`${item.priceSales.toLocaleString()}`} 원</p>
+                      <p>{`${item.description}`}</p>
+                      <div>
+                        <p>[ 관련 시리즈 ]</p>
+                        <u>
+                          {item.seriesInfo && (
+                            <Link to={item.seriesInfo.seriesLink}>{`${item.seriesInfo.seriesName}`}</Link>
+                          )}
+                        </u>
+                      </div>
+                    </span>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={10}>
+                      <p>책을 찾을 수 없습니다.</p>
+                    </td>
+                  </tr>
+                )}
+              </div>
+            </article>
             {totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
