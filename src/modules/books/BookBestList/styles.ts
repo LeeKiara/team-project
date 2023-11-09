@@ -27,6 +27,8 @@ export const BookBestContainer = styled.div`
   }
   section > article > div > figure {
     margin: 16px;
+    display: flex;
+    justify-content: center;
   }
   section > article > div > figure > a > img {
     width: 140px;
@@ -56,12 +58,27 @@ export const BookBestContainer = styled.div`
     flex-direction: column;
     gap: 10px;
   }
+  section > article > div > div > dl dt {
+    font-weight: bold;
+  }
   section > article > ul {
     margin: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex: 0.2;
+  }
+  section > article > ul > li:nth-of-type(1) {
+    display: flex;
+    justify-content: flex-end;
+  }
+  section > article > ul > li:nth-of-type(2) {
+    display: flex;
+    justify-content: flex-end;
+  }
+  section > article > ul > li:nth-of-type(3) {
+    display: flex;
+    justify-content: center;
   }
   section > article > ul li {
     display: flex;
@@ -123,7 +140,19 @@ export const BookBestContainer = styled.div`
     }
     section > article > ul {
       flex-direction: column;
+      gap: 10px;
       justify-content: space-evenly;
+    }
+    section > article > ul > li:nth-of-type(1) {
+      justify-content: flex-start;
+    }
+    section > article > ul > li:nth-of-type(2) {
+      display: flex;
+      justify-content: flex-start;
+    }
+    section > article > ul > li:nth-of-type(3) {
+      flex-direction: column;
+      gap: 10px;
     }
   }
   /* @media (min-width: 85rem) {
