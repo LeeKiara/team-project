@@ -71,11 +71,31 @@ const Home = () => {
       }
     })();
     setBanner([
-      { id: 1, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg" },
-      { id: 2, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg" },
-      { id: 3, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg" },
-      { id: 4, img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg" },
-      { id: 5, img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg" },
+      {
+        id: 1,
+        img: "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg",
+        link: "https://www.ypbooks.co.kr/event_view.yp?HTMLPage=https://pub.ypbooks.co.kr/ypbooks/event/maintema/mainthema.jsp?evt_no=613",
+      },
+      {
+        id: 2,
+        img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_publisher.jpg",
+        link: "https://www.ypbooks.co.kr/kor_index.yp",
+      },
+      {
+        id: 3,
+        img: "https://img.ypbooks.co.kr/upload/banner/mainb_231001_bookmaster.jpg",
+        link: "https://www.ypbooks.co.kr/kor_index.yp",
+      },
+      {
+        id: 4,
+        img: "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg",
+        link: "https://www.ypbooks.co.kr/event_view.yp?HTMLPage=https://pub.ypbooks.co.kr/ypbooks/event/maintema/mainthema.jsp?evt_no=973",
+      },
+      {
+        id: 5,
+        img: "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg",
+        link: "https://www.ypbooks.co.kr/event_view.yp?HTMLPage=https://pub.ypbooks.co.kr/ypbooks/event/maintema/mainthema.jsp?evt_no=1154",
+      },
     ]);
     // setBanner([
     //   "https://img.ypbooks.co.kr/upload/banner/mainb_231024_kbest.jpg",

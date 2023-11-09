@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "react-slick";
 import Slider from "react-slick";
-import { ArrowBack, ArrowForward, DomainVerification } from "@mui/icons-material";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { BannerContainer } from "./styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 // 환경설정
 // npm install --save @types/react-slick
@@ -63,7 +64,9 @@ const SlideBanner = ({ images }) => {
           <Slider ref={sliderRef} {...settings} beforeChange={handleChange}>
             {images.map((img) => (
               <div key={img.id}>
-                <img key={img.id} src={img.img} alt="메인베너" />
+                <Link to={img.link}>
+                  <img key={img.id} src={img.img} alt="메인베너" />
+                </Link>
               </div>
             ))}
           </Slider>
