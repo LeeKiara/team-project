@@ -43,4 +43,12 @@ export const AddressSearchStyle = styled.div`
       margin-top: 50px;
     }
   }
+
+  /* 모바일(mobile) 스타일 */
+  @media (max-width: 768px) {
+    .modal-box-layer {
+      width: 360px;
+      height: 360px;
+    }
+  }
 `;

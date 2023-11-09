@@ -148,9 +148,22 @@ const AdressWrapper = styled.div`
 
   .kakaoApitForm {
     width: 470px;
-    /* margin: 10px 50px; */
     border: 1px solid gray;
-    /* border-radius: 10px; */
+  }
+
+  /* 모바일(mobile) 스타일 */
+  @media (max-width: 768px) {
+    width: 360px;
+    /* border: 1px solid red; */
+    padding-left: 23px;
+
+    .AdressWrapper-header {
+      width: 320px;
+    }
+    .kakaoApitForm {
+      width: 320px;
+      height: 400px;
+    }
   }
 `;
 

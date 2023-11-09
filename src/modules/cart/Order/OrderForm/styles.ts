@@ -172,6 +172,7 @@ export const OrderFormContainer = styled.div`
 
     .box-name {
       margin-bottom: 16px;
+      width: 316px;
     }
 
     .box-phonenum {
@@ -230,6 +231,16 @@ export const OrderFormContainer = styled.div`
       display: flex;
       flex-direction: column;
       gap: 10px;
+
+      input[name^="zipcode"] {
+        width: 180px;
+      }
+      input[name^="address"] {
+        width: 550px;
+      }
+      input[name^="street_detail"] {
+        width: 550px;
+      }
 
       button {
         padding: 0 28px;
@@ -444,11 +455,107 @@ export const OrderFormContainer = styled.div`
       align-items: center; /* 수직 가운데 정렬 추가 */
     }
 
+    .bookinfo-mobileonly .book-title {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .bookinfo-mobileonly .book-price {
+      display: flex;
+      flex-direction: row;
+
+      img {
+        width: 80px;
+        height: 80px;
+      }
+
+      > div:nth-of-type(1) {
+        width: 15%;
+      }
+      > div:nth-of-type(2) {
+        width: 85%;
+      }
+      > div:nth-of-type(2) > dl {
+        display: flex;
+        flex-direction: row;
+
+        dt {
+          width: 80px;
+        }
+        dd {
+          margin-left: 5px;
+        }
+      }
+    }
+    .icon-tag-pricegubun {
+      display: inline-block;
+      /* padding: 0 8px; */
+      width: 35px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 13px;
+      font-weight: 400;
+      color: ${grayColor};
+      border: 1px solid #bfc1cd;
+      border-radius: 4px;
+      background-color: ${lightgrayColor};
+      text-align: center;
+    }
+
     .box-list-payment .bookinfo {
       display: none;
     }
     .box-list-payment .bookinfo-mobileonly {
       display: block;
+    }
+
+    .box-information-order {
+      padding: 0 0px 10px 0px;
+    }
+
+    /* 주문자명 */
+    .box-information-order .box-name {
+      input {
+        width: 360px;
+      }
+    }
+
+    /* 주문자 전화번호 */
+    .box-information-order .box-phonenum {
+      input {
+        width: 111px;
+      }
+    }
+
+    /* 주문자 이메일 */
+    .box-information-order .box-email {
+      input {
+        width: 165px;
+      }
+    }
+
+    /* 주소 */
+    .box-information-order .box-address {
+      input[name^="zipcode"] {
+        width: 140px;
+      }
+      input[name^="address"] {
+        width: 360px;
+      }
+      input[name^="street_detail"] {
+        width: 360px;
+      }
+    }
+
+    /* 배송 메모 */
+    .box-information-order .box-memo {
+      select {
+        width: 360px;
+      }
+      input[name^="delivery-memo"] {
+        width: 360px;
+      }
     }
 
     /* 결제 예정금액 sidebar */
@@ -469,6 +576,31 @@ export const OrderFormContainer = styled.div`
 
     .box-payment-bottom {
       height: 0px;
+    }
+
+    .mobile-only {
+      > div {
+        margin-top: 10px;
+        /* border: 1px solid ${grayColor}; */
+        /* border-radius: 4px; */
+      }
+    }
+
+    .payment-item-mobile {
+      display: flex;
+      flex-direction: row;
+
+      dt {
+        width: 150px;
+      }
+    }
+
+    .box-submit-payment {
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    .box-submit-payment .btn-payment {
+      width: 360px;
     }
   }
 `;

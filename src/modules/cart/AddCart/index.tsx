@@ -329,6 +329,11 @@ const AddCart = () => {
     <>
       <AddCartContainer>
         <section>
+          <article>
+            <div className="contain-cart-header-mobile">
+              <h3 className="title">장바구니</h3>
+            </div>
+          </article>
           {cartlist.length > 0 && (
             <article className="cart-layer-title">
               {/* 전체 선택 */}
@@ -437,7 +442,9 @@ const AddCart = () => {
           )}
 
           {/* 주문합계 */}
-          {cartlist.length > 0 && <article>{<CalcuTotalPayment cartBooks={stateCartData} />}</article>}
+          {cartlist.length > 0 && (
+            <article className="total-payment-layer">{<CalcuTotalPayment cartBooks={stateCartData} />}</article>
+          )}
 
           {/* 주문버튼 */}
           {cartlist.length > 0 && (

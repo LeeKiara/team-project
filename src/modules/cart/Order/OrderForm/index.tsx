@@ -103,10 +103,12 @@ const OrderForm = () => {
 
     cartBooks && setStateCartBooks(cartBooks);
 
-    console.log(" //////////// 렌더링이 되더라도 장바구니 데이터가 유지되는지... //////////////");
-    stateCartBooks.map((item) => {
-      console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
-    });
+    if (stateCartBooks) {
+      console.log(" //////////// 장바구니 데이터 상태 관리(렌더링이 되더라도 데이터가 유지되는지... //////////////");
+      stateCartBooks.map((item) => {
+        console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+      });
+    }
   }, [postcode, address]);
 
   let sumPriceStandard = 0;
@@ -174,29 +176,6 @@ const OrderForm = () => {
     setDeliveryMemo(selectedValue);
   };
 
-  // useEffect(() => {
-  //   alert("useEffect:orderNumber " + orderNumber);
-
-  //   if (orderNumber) {
-  //     navigate("/order/done", {
-  //       state: {
-  //         orderNumber: orderNumber,
-  //       },
-  //     });
-  //   }
-  // }, [orderNumber]);
-
-  // const handleOrderComplete = () => {
-  //   // 주문 완료 로직...
-
-  //   // 주문이 성공적으로 완료되면 orderNumber 값을 설정
-  //   const orderId = "12345"; // 예시 주문번호
-  //   // setOrderNumber(newOrderNumber);
-
-  //   // 페이지 이동
-  //   navigate(`/order/done/${orderId}`);
-  // };
-
   function checkFormData() {
     if (deliveryNameRef.current.value === "") {
       alert("배송자명을 입력하세요.");
@@ -231,11 +210,18 @@ const OrderForm = () => {
       return;
     }
 
+    if (!stateCartBooks) {
+      return null;
+    }
+
     // 장바구니 데이터에서 상품id, 수량, 주문가격을 담는다.
     // 객체를 반환하기 위해서 (안에 {}를 사용함 => 객체 리터럴을 생성
-    stateCartBooks.map((item) => {
-      console.log(`${item.itemId}, ${item.priceSales}, ${item.quantity} `);
-    });
+    if (stateCartBooks) {
+      console.log(" //////////// 주문하기 Data ... //////////////");
+      stateCartBooks.map((item) => {
+        console.log(item.id + ", " + item.itemId + "," + item.title + "," + item.quantity);
+      });
+    }
 
     const calcuOrderItemData: OrderItemData[] = stateCartBooks.map((item) => ({
       itemId: item.itemId,
@@ -380,10 +366,10 @@ const OrderForm = () => {
                         </div>
                       </div>
                       <div className="bookinfo-mobileonly">
-                        <div>
+                        <div className="book-title">
                           <Link to={`/page?id=${cartCashData.id}`}>{cartCashData.title}</Link>
                         </div>
-                        <div>
+                        <div className="book-price">
                           <div>
                             {/* 도서 이미지 */}
                             <span className="image">
@@ -396,24 +382,26 @@ const OrderForm = () => {
                           </div>
                           {/* 가격정보 */}
                           <div>
-                            <div>
-                              <div className="icon-tag-pricegubun">정가</div>
-                              <div>{cartCashData.priceStandard.toLocaleString()}원</div>
-                            </div>
-                            <div>
-                              <div className="icon-tag-pricegubun">판매가</div>
-                              <div>{cartCashData.priceSales.toLocaleString()}원</div>
-                            </div>
-                            <div>
-                              <div className="icon-tag-pricegubun">수량</div>
-                              <div>{cartCashData.quantity.toLocaleString()}</div>
-                            </div>
-                            <div>
-                              <div className="icon-tag-pricegubun">주문금액</div>
-                              <div>
+                            <dl>
+                              <dt className="icon-tag-pricegubun">정가</dt>
+                              <dd>{cartCashData.priceStandard.toLocaleString()}원</dd>
+                            </dl>
+                            <dl>
+                              <dt className="icon-tag-pricegubun">판매가</dt>
+                              <dd style={{ color: "green" }}>{cartCashData.priceSales.toLocaleString()}원</dd>
+                            </dl>
+                            <dl>
+                              <dt className="icon-tag-pricegubun">수량</dt>
+                              <dd>{cartCashData.quantity.toLocaleString()}</dd>
+                            </dl>
+                            <dl>
+                              <dt className="icon-tag-pricegubun" style={{ fontWeight: "600" }}>
+                                주문금액
+                              </dt>
+                              <dd style={{ color: "red" }}>
                                 {(Number(cartCashData.priceSales) * Number(cartCashData.quantity)).toLocaleString()}원
-                              </div>
-                            </div>
+                              </dd>
+                            </dl>
                           </div>
                         </div>
                       </div>
@@ -430,7 +418,7 @@ const OrderForm = () => {
                         type="text"
                         name="oname"
                         placeholder="이름"
-                        style={{ width: "316px" }}
+                        // style={{ width: "316px" }}
                         // ref={orderNameRef}
                         value={profileData.nickname}
                       />
@@ -483,7 +471,7 @@ const OrderForm = () => {
                         type="text"
                         name="delivery-name"
                         placeholder="이름"
-                        style={{ width: "316px" }}
+                        // style={{ width: "316px" }}
                         ref={deliveryNameRef}
                       />
                     </span>
@@ -508,7 +496,7 @@ const OrderForm = () => {
                         name="zipcode"
                         placeholder="우편번호"
                         readOnly={true}
-                        style={{ width: "180px" }}
+                        // style={{ width: "180px" }}
                         value={postcode}
                       />
                     </div>
@@ -518,14 +506,14 @@ const OrderForm = () => {
                       name="address"
                       placeholder="기본주소"
                       readOnly={true}
-                      style={{ width: "550px" }}
+                      // style={{ width: "550px" }}
                       value={address}
                     />
                     <input
                       type="text"
                       name="street_detail"
                       placeholder="상세 주소 및 상세 건물명"
-                      style={{ width: "550px" }}
+                      // style={{ width: "550px" }}
                       ref={deliveryAddr2Ref}
                     />
                   </div>
@@ -565,7 +553,7 @@ const OrderForm = () => {
                       type="button"
                       onClick={handleBankTransferSelect}
                       className={`${isBankTransferSelected ? "button-selected" : ""}`}>
-                      실시간 계좌 이체
+                      실시간 계좌이체
                     </button>
                     <button
                       type="button"
@@ -579,7 +567,9 @@ const OrderForm = () => {
                   <div className={`payment-tab-cont kind1 ${isCardSelected ? "visible" : ""}`}>
                     <p className="text">
                       <br />
-                      <strong>신용카드를 선택하셨습니다.</strong> 보유하신 신용카드로 결제하시는 방법입니다.
+                      <strong>신용카드를 선택하셨습니다.</strong> <br />
+                      <br />
+                      보유하신 신용카드로 결제하시는 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //신용카드 --> */}
@@ -588,8 +578,9 @@ const OrderForm = () => {
                   <div className={`payment-tab-cont kind2 ${isBankTransferSelected ? "visible" : ""}`}>
                     <p className="text">
                       <br />
-                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> 고객님 계좌에서 바로 이체시키는 결제
-                      방법입니다.
+                      <strong>실시간 계좌 이체를 선택하셨습니다.</strong> <br />
+                      <br />
+                      고객님 계좌에서 바로 이체시키는 결제 방법입니다.
                     </p>
                   </div>
                   {/* <!-- //실시간 계좌 이체 --> */}
@@ -598,7 +589,8 @@ const OrderForm = () => {
                   <div className={`payment-tab-cont kind3 ${isBankDepositSelected ? "visible" : ""}`}>
                     <p className="text">
                       <br />
-                      <strong>온라인 입금을 선택하셨습니다.</strong>
+                      <strong>온라인 입금을 선택하셨습니다.</strong> <br />
+                      <br />
                       가상 계좌로 입금해 주시는 결제 방법입니다.
                     </p>
                   </div>
@@ -677,16 +669,16 @@ const OrderForm = () => {
                     <strong>{sumPriceStandard.toLocaleString()}</strong>원
                   </dd>
                 </dl>
-                <dl className="payment-item">
+                <dl className="payment-item-mobile">
                   <dt>배송비</dt>
                   <dd>
                     <strong>{deliveryAmt.toLocaleString()}</strong>원
                   </dd>
                 </dl>
                 <hr className="div-type2" />
-                <dl className="payment-item total">
+                {/* <dl className="payment-item total"> */}
+                <dl className="payment-item-mobile">
                   <dt>결제 예정 금액 </dt>
-
                   <dd>
                     <strong id="totalPriceText">{totalOrderAmt.toLocaleString()}</strong>원
                   </dd>

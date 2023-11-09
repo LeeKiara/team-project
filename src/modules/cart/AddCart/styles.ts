@@ -422,11 +422,24 @@ export const AddCartContainer = styled.div`
     cursor: pointer;
   }
 
+  .contain-cart-header-mobile {
+    display: none;
+  }
   /* 모바일(mobile) 스타일 start */
   @media (max-width: 768px) {
     section {
       width: 380px;
       font-size: 14px;
+      margin-left: 15px;
+    }
+
+    .contain-cart-header-mobile {
+      display: inline-block;
+      margin: 0 15px 0 0;
+      font-size: 28px;
+      font-weight: 600;
+      vertical-align: top;
+      line-height: 1;
     }
 
     .cart-layer-title {
@@ -446,6 +459,7 @@ export const AddCartContainer = styled.div`
       margin-top: 10px;
       padding-top: 15px;
       padding-bottom: 15px;
+      width: 360px;
 
       /* 첫번째 div(checkbox/도서이미지) */
       > div:nth-of-type(1) {
@@ -559,6 +573,17 @@ export const AddCartContainer = styled.div`
       }
     }
 
+    .total-payment-layer {
+      /* height: 100px;
+      margin-top: 0px;
+      margin-bottom: 0px; */
+      > div {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
     .payment-layer {
       height: 50px;
     }
@@ -566,6 +591,8 @@ export const AddCartContainer = styled.div`
       display: flex;
       flex-direction: row;
       padding: 0;
+      height: 40px;
+      width: 360px;
 
       > div:nth-of-type(1) {
         width: 40%;
@@ -582,28 +609,13 @@ export const AddCartContainer = styled.div`
       }
 
       .total-sum {
-        display: flex;
-        flex-direction: column;
-        padding-left: 10px;
-
-        i {
-          display: none;
-        }
-
-        /*  배송비 margin */
-        > div:nth-of-type(3) {
-          dl {
-            margin-left: 10px;
-          }
-        }
-      }
-      .total-sum strong {
+        display: none;
       }
 
       .total-price {
         padding-top: 10px;
         padding-left: 10px;
-        text-align: left;
+        text-align: center;
       }
     }
 
@@ -611,11 +623,12 @@ export const AddCartContainer = styled.div`
       /* position: relative; */
       display: flex;
       flex-direction: column;
-      /* margin-top: 32px; */
+      margin-top: 0px;
+      height: 100px;
 
       button {
         display: block;
-        width: 380px;
+        width: 360px;
         height: 60px;
         line-height: 1;
         text-align: center;

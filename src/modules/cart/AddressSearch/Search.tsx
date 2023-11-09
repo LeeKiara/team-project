@@ -17,19 +17,29 @@ const AddressSearch = () => {
   };
 
   return (
-    <div>
-      {/* <input type="text" style={{ width: "500px" }} /> */}* 주소 찾기
-      {/* <Text fontSize="3xl">주소 찾기</Text> */}
-      <div style={{ width: "500px" }}>
-        <DaumPostcode onComplete={handleComplete} />
+    <Container>
+      <div>
+        * 주소 찾기
+        <div>
+          <DaumPostcode onComplete={handleComplete} />
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
 const Container = styled.div`
-  height: 100vh;
-  text-align: center;
+  /* height: 100vh;
+  text-align: center; */
+  width: 500px;
+
+  /* 모바일(mobile) 스타일 */
+  @media (max-width: 768px) {
+    /* > div {
+      width: 360px;
+      height: 360px;
+    } */
+  }
 `;
 
 export default AddressSearch;
