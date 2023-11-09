@@ -290,34 +290,36 @@ const BookBestList = () => {
                     <li style={{ color: "crimson", fontWeight: "bold" }}>
                       판매가: {`${item.priceSales.toLocaleString()}`}원
                     </li>
-                    <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
-                    {item.stockStatus !== "" &&
-                      item.stockStatus !== "0" &&
-                      item.stockStatus !== "예약판매" &&
-                      item.stockStatus !== "품절" && (
-                        <CartButton
-                          itemId={item.itemId}
-                          quantity={1}
-                          title={item.title}
-                          cover={item.cover}
-                          priceStandard={item.priceStandard.toString()}
-                          priceSales={item.priceSales.toString()}
-                        />
-                      )}
-                    {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
-                      <button
-                        className="bell"
-                        onClick={() => {
-                          handleBell(item.itemId);
-                        }}>
-                        {storeBelltStates[item.itemId] ? (
-                          <Notifications className="material-icons-outlined" />
-                        ) : (
-                          <NotificationsOutlined className="material-icons-outlined" />
+                    <li>
+                      <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
+                      {item.stockStatus !== "" &&
+                        item.stockStatus !== "0" &&
+                        item.stockStatus !== "예약판매" &&
+                        item.stockStatus !== "품절" && (
+                          <CartButton
+                            itemId={item.itemId}
+                            quantity={1}
+                            title={item.title}
+                            cover={item.cover}
+                            priceStandard={item.priceStandard.toString()}
+                            priceSales={item.priceSales.toString()}
+                          />
                         )}
-                        알림설정
-                      </button>
-                    )}
+                      {(item.stockStatus === "예약판매" || item.stockStatus === "품절" || item.stockStatus === "") && (
+                        <button
+                          className="bell"
+                          onClick={() => {
+                            handleBell(item.itemId);
+                          }}>
+                          {storeBelltStates[item.itemId] ? (
+                            <Notifications className="material-icons-outlined" />
+                          ) : (
+                            <NotificationsOutlined className="material-icons-outlined" />
+                          )}
+                          알림설정
+                        </button>
+                      )}
+                    </li>
                   </ul>
                 </article>
               ))

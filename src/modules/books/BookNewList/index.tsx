@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { AlamData, BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem, useRedisData } from "../data";
 import Button from "@/components/Button";
 import axios from "axios";
 import { ButtonStyle } from "@/components/Button/styles";
@@ -31,6 +31,8 @@ const BookNewList = () => {
 
   //알림설정
   const [storeBelltStates, setStoreBellStates] = useState({});
+
+  // const { bookData: books } = useRedisData(MAX_LIST, currentPage);
 
   //알림설정 등록 및 수정
   const handleBell = async (itemId: number) => {
@@ -126,6 +128,11 @@ const BookNewList = () => {
         }
       })();
     } else {
+      // if (books !== null) {
+      //   setTotalPages(books.totalPages);
+      //   setNewBookList(books.content);
+      //   console.log("swr 잘 작동중");
+      // }
       (async () => {
         try {
           const response = await axios.get<BookData>(
@@ -171,7 +178,7 @@ const BookNewList = () => {
         ) : (
           <section>
             {searchQuery && (
-              <div style={{ display: "flex", gap: "5px" }}>
+              <div style={{ display: "flex", gap: "5px", marginBottom: "8px" }}>
                 <p>[ 카테고리 ]</p>
                 <p>{searchQuery}</p>
               </div>
@@ -194,7 +201,7 @@ const BookNewList = () => {
                         정가
                         <del>{`${item.priceStandard}`}원</del>
                       </dl>
-                      <dl>판매가: {`${item.priceSales}`}원</dl>
+                      <dl>판매가: {`${item.priceSales.toLocaleString()}`}원</dl>
                       {item.stockStatus !== "" &&
                         item.stockStatus !== "0" &&
                         item.stockStatus !== "예약판매" &&
@@ -229,7 +236,7 @@ const BookNewList = () => {
                 <p>책을 찾을 수 없습니다.</p>
               )}
             </ul>
-            {totalPages > 1 && (
+            {totalPages && totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
                 showArrowRight={showArrowRight}

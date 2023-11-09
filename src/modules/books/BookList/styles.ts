@@ -57,6 +57,18 @@ export const BookListContainer = styled.div`
     gap: 2px;
     cursor: auto;
   }
+  section > article > ul > li:nth-of-type(1) {
+    display: flex;
+    justify-content: flex-end;
+  }
+  section > article > ul > li:nth-of-type(2) {
+    display: flex;
+    justify-content: flex-end;
+  }
+  section > article > ul > li:nth-of-type(3) {
+    display: flex;
+    justify-content: center;
+  }
   /* section > article > ul > li:nth-of-type(3) {
     cursor: pointer;
     display: flex;
@@ -153,6 +165,16 @@ export const BookListContainer = styled.div`
   @media (min-width: 55rem) {
     section > article > div {
       flex-direction: row;
+    }
+    section > article > ul > li:nth-of-type(3) {
+      flex-direction: column;
+      gap: 10px;
+    }
+    section > article > ul > li:nth-of-type(1) {
+      justify-content: flex-start;
+    }
+    section > article > ul > li:nth-of-type(2) {
+      justify-content: flex-start;
     }
   }
   @media (min-width: 85rem) {

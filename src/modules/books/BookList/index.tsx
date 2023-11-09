@@ -330,8 +330,8 @@ const BookList = ({ fetchUrl }) => {
                     <li style={{ color: "crimson", fontWeight: "bold" }}>
                       판매가: {`${item.priceSales.toLocaleString()}`}원
                     </li>
-                    <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                     <li>
+                      <StoreHeartButton id={item.id} onClick={handleBookSave} liked={storeHeartStates[item.id]} />
                       {item.stockStatus !== "" &&
                         item.stockStatus !== "0" &&
                         item.stockStatus !== "예약판매" &&
