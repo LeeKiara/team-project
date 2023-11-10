@@ -54,6 +54,8 @@ const BookPage = () => {
   const id = searchParams.get("id");
   //디테일 페이지 id값 가져오기
   const newId = searchParams.get("new");
+  //검색된 페이지 id값 가져오기
+  const searchItemId = searchParams.get("itemId");
 
   //수량
   // const numberValue = useRef() as MutableRefObject<HTMLInputElement>;
@@ -328,6 +330,25 @@ const BookPage = () => {
           } else if (newId) {
             console.log(newId + "신간");
             fetchBookDetail(newId, true, profileId);
+          }
+          if (searchItemId) {
+            console.log(searchItemId + "검색 도서");
+            try {
+              const response = await axios.get<BookItem>(`http://localhost:8081/books/itemId?itemId=${searchItemId}`);
+              if (response.status === 200) {
+                setDetail(response.data);
+                setItemId(response.data.itemId);
+                const sortedComments = [...response.data.bookComment].sort((a, b) => b.id - a.id);
+                setCommentList(sortedComments);
+                setLikeList(response.data.likedBook);
+              }
+            } catch (e: any) {
+              console.log(e.message + "검색도서 조회 에러");
+              if (e.message.includes("404")) {
+                alert("해당 도서는 재고가 없습니다.");
+                navigate("/");
+              }
+            }
           }
         } catch (e: any) {
           console.log(e);

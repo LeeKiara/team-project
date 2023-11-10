@@ -158,14 +158,14 @@ const BookSearch = () => {
               <tbody>
                 {searchList.length > 0 ? (
                   searchList.map((item) => (
-                    <tr key={`${item.id}`}>
+                    <tr key={`${item.itemId}`}>
                       <td>
-                        <Link to={`/page?id=${item.id}`}>
+                        <Link to={`/page?itemId=${item.itemId}`}>
                           <img src={`${item.cover}`} alt={`${item.title}`} />
                         </Link>
                       </td>
                       <td>
-                        <Link to={`/page?id=${item.id}`}>" {`${item.title}`} "</Link>
+                        <Link to={`/page?itemId=${item.itemId}`}>" {`${item.title}`} "</Link>
                       </td>
                       <td>{`${item.author}`}</td>
                       <td>{`${item.publisher}`}</td>
@@ -210,14 +210,14 @@ const BookSearch = () => {
               <div>
                 {searchList.length > 0 ? (
                   searchList.map((item) => (
-                    <span key={`${item.id}`}>
+                    <span key={`${item.itemId}`}>
                       <figure>
-                        <Link to={`/page?id=${item.id}`}>
+                        <Link to={`/page?id=${item.itemId}`}>
                           <img src={`${item.cover}`} alt={`${item.title}`} />
                         </Link>
                       </figure>
                       <h4>
-                        <Link to={`/page?id=${item.id}`}>" {`${item.title}`} "</Link>
+                        <Link to={`/page?id=${item.itemId}`}>" {`${item.title}`} "</Link>
                       </h4>
                       <p>{`${item.priceSales.toLocaleString()}`} 원</p>
                       <p>{`${item.description}`}</p>
