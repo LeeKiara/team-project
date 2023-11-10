@@ -39,13 +39,17 @@ export const HomeContainer = styled.div`
     gap: 10px;
     justify-content: space-evenly;
   }
-  .today-book > img {
+  .today-book > a {
+    display: flex;
+    justify-content: center;
+  }
+  .today-book > a > img {
     width: 30vw;
     margin-bottom: 0;
     box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.2);
     margin: auto;
   }
-  .today-book > div > h4:nth-of-type(1) {
+  .today-book > div > a > h4:nth-of-type(1) {
     font-size: 18px;
     font-weight: bold;
   }
@@ -137,8 +141,8 @@ export const HomeContainer = styled.div`
     div > section > article:nth-of-type(1) {
       width: 80%;
     }
-    .today-book > img {
-      width: 210px;
+    .today-book > a > img {
+      width: 150px;
     }
     div > section > article:nth-of-type(2) {
       width: 83%;

@@ -18,7 +18,7 @@ interface TodayBook {
   author: string;
   priceSales: number;
   todayLetter: string;
-  itmeId: number;
+  itemId: number;
   createdDate: string;
 }
 
@@ -155,9 +155,13 @@ const Home = () => {
             <article>
               <h3>오늘의 책</h3>
               <div className="today-book">
-                <img src={todayLetter.cover} alt={todayLetter.title} />
+                <Link to={`/page?itemId=${todayLetter.itemId}`}>
+                  <img src={todayLetter.cover} alt={todayLetter.title} />
+                </Link>
                 <div>
-                  <h4>{todayLetter.title}</h4>
+                  <Link to={`/page?itemId=${todayLetter.itemId}`}>
+                    <h4>{todayLetter.title}</h4>
+                  </Link>
                   <h4>{todayLetter.author}</h4>
                   <span>
                     <small>판매가: </small>
