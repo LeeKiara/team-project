@@ -321,6 +321,31 @@ export const OrderCancelContainer = styled.div`
   .scroll-container::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  /* 모바일 스타일 */
+  @media (max-width: 768px) {
+    section {
+      width: 380px;
+    }
+
+    .box-cancel-form-wrap {
+      li:nth-of-type(1) {
+        flex: 20%;
+        padding-top: 20px;
+      }
+      li:nth-of-type(2) {
+        flex: 80%;
+        select {
+          width: 282px;
+        }
+      }
+
+      .cancel-memo input[type="text"] {
+        width: 265px;
+        height: 150px;
+      }
+    }
+  }
 `;
 
 export const Wrapper = styled.div`

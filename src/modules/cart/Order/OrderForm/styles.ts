@@ -439,6 +439,19 @@ export const OrderFormContainer = styled.div`
     display: none;
   }
 
+  .dodal-message-bankdeposit {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+  .dodal-message-bankdeposit .bank-account {
+    color: #0057be;
+    padding-left: 3px;
+  }
+
   /* 모바일(mobile) 스타일 */
   @media (max-width: 768px) {
     section {

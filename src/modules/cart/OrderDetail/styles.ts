@@ -424,7 +424,23 @@ export const OrderDetailContainer = styled.div`
   /* 모바일 스타일 */
   @media (max-width: 768px) {
     section {
-      width: 320px;
+      width: 370px;
+    }
+
+    .box_header {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .box_header .order-cancel button {
+      width: 340px;
+    }
+    .box-payment-wrap {
+      flex-direction: column;
+      gap: 5px;
+    }
+    .box-submit-payment .btn-order button {
+      width: 340px;
     }
   }
 `;

@@ -285,6 +285,20 @@ export const OrderListContainer = styled.div`
   .order-number {
     /* font-family: Roboto; */
     color: #717fa3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+
+    span {
+      display: flex;
+      flex-direction: row;
+      align-items: top;
+      justify-content: top;
+      cursor: pointer;
+      color: ${lightblueColor};
+      line-height: 23px;
+    }
   }
 
   .order-state {
@@ -363,27 +377,31 @@ export const OrderListContainer = styled.div`
   /* 모바일 스타일 */
   @media (max-width: 768px) {
     section {
-      width: 320px;
+      width: 380px;
     }
+
+    .contain-search-layer,
     .order-layer-title {
       display: none;
     }
 
-    .order-layer {
-      flex-direction: column;
-      height: 180px;
-      align-items: center; /* 수직 가운데 정렬 추가 */
+    .order-header {
+      margin-top: 20px;
+      margin-left: 5px;
+    }
+    .orders-layer {
+      flex-direction: row;
+      border-right: 1px;
+      width: 380px;
     }
     .bookinfo {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      width: 300px;
     }
+    .bookinfo .subject {
+      margin-bottom: 0px;
+    }
+
     .priceinfo {
-      display: flex;
-      flex-direction: row;
-      align-items: center; /* 수직 가운데 정렬 추가 */
+      align-items: left;
       gap: 30px;
       margin: 10px 20px;
     }
