@@ -260,19 +260,6 @@ const BookPage = () => {
   //   })();
   // }, [keyword]);
 
-  useEffect(() => {
-    if (token) {
-      if (likeList && likeList.length > 0) {
-        const likeItem = likeList.find((item) => item.profileId === profile.profileId);
-        if (likeItem && likeItem.likes) {
-          setShowHeartState(true);
-        } else {
-          setShowHeartState(false);
-        }
-      }
-    }
-  }, [likeList]);
-
   //회원정보 담기
   // useEffect(() => {
   //   if (token) {
@@ -291,14 +278,46 @@ const BookPage = () => {
   //   }
   // }, []);
 
+  //알림설정 디스플레이 조회
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("알림 설정값 조회 성공");
+          const findedAlam = response.data.find((data) => (data.bookItemId = itemId));
+          setStoreBellStates(findedAlam.alamDisplay);
+        }
+      } catch (e: any) {
+        console.log(e + "알림설정 조회 오류");
+      }
+    })();
+  }, [itemId, setItemId]);
+
+  useEffect(() => {
+    if (token) {
+      if (likeList && likeList.length > 0) {
+        const likeItem = likeList.find((item) => item.profileId === profile.profileId);
+        if (likeItem && likeItem.likes) {
+          setShowHeartState(true);
+        } else {
+          setShowHeartState(false);
+        }
+      }
+    }
+  }, [likeList]);
+
   //서버 화면 조회
   useEffect(() => {
-    const fetchBookDetail = async (itemId: string, isNew: boolean, profileId?) => {
+    const fetchBookDetail = async (itemId: string, isNew: boolean) => {
       try {
         const url = `http://localhost:8081/books/${isNew ? "new/" : ""}${itemId}?${
           profileId ? `profileId=${profileId}` : ""
         }`;
-        console.log(profileId);
         const response = await axios.get<BookItem>(url);
 
         if (response.status === 200) {
@@ -326,10 +345,10 @@ const BookPage = () => {
           profileId = response.data.profileId;
           if (id) {
             console.log(id + "도서");
-            fetchBookDetail(id, false, profileId);
+            fetchBookDetail(id, false);
           } else if (newId) {
             console.log(newId + "신간");
-            fetchBookDetail(newId, true, profileId);
+            fetchBookDetail(newId, true);
           }
           if (searchItemId) {
             console.log(searchItemId + "검색 도서");
@@ -361,29 +380,29 @@ const BookPage = () => {
       } else if (newId) {
         console.log(newId + "신간");
         fetchBookDetail(newId, true);
+      } else if (searchItemId) {
+        (async () => {
+          console.log(searchItemId + "검색 도서");
+          try {
+            const response = await axios.get<BookItem>(`http://localhost:8081/books/itemId?itemId=${searchItemId}`);
+            if (response.status === 200) {
+              setDetail(response.data);
+              setItemId(response.data.itemId);
+              const sortedComments = [...response.data.bookComment].sort((a, b) => b.id - a.id);
+              setCommentList(sortedComments);
+              setLikeList(response.data.likedBook);
+            }
+          } catch (e: any) {
+            console.log(e.message + "검색도서 조회 에러");
+            if (e.message.includes("404")) {
+              alert("해당 도서는 재고가 없습니다.");
+              navigate("/");
+            }
+          }
+        })();
       }
     }
   }, []);
-
-  //알림설정 디스플레이 조회
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log("알림 설정값 조회 성공");
-          const findedAlam = response.data.find((data) => (data.bookItemId = itemId));
-          setStoreBellStates(findedAlam.alamDisplay);
-        }
-      } catch (e: any) {
-        console.log(e + "알림설정 조회 오류");
-      }
-    })();
-  }, [itemId, setItemId]);
 
   return (
     <>

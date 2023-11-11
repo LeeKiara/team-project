@@ -53,7 +53,9 @@ const Home = () => {
           setTodayLetter(response.data);
         }
       } catch (e: any) {
-        console.log(e + "오늘의 책 가져오기 오류");
+        if (e.message.includes("404")) {
+          console.log(e + "오늘의 책 가져오기 오류");
+        }
       }
     })();
   }, []);
@@ -122,7 +124,9 @@ const Home = () => {
           });
         }
       } catch (e: any) {
-        console.log(e + "알림설정 조회 오류");
+        if (e.message.includes("404")) {
+          console.log("알림설정 데이터가 없습니다.");
+        }
       }
     })();
   }, []);
@@ -173,7 +177,7 @@ const Home = () => {
               </div>
             </article>
           )}
-          <article>
+          <article className="best-list">
             <Link to="books/best">
               <h3>베스트셀러</h3>
             </Link>

@@ -2,12 +2,8 @@ import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { BookData, BookItem } from "../data";
-import { Favorite, FavoriteBorder, ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from "@mui/icons-material";
-import Button from "@/components/Button";
 import axios from "axios";
-import StoreHeartButton from "@/components/StoreHeartButton";
 import { getCookie } from "@/utils/cookie";
-import { ProfileData } from "@/modules/cart/userdata";
 import PagingButton from "@/components/PagingButton";
 
 const BookSearch = () => {
@@ -232,11 +228,11 @@ const BookSearch = () => {
                     </span>
                   ))
                 ) : (
-                  <tr>
-                    <td colSpan={10}>
+                  <div>
+                    <span>
                       <p>책을 찾을 수 없습니다.</p>
-                    </td>
-                  </tr>
+                    </span>
+                  </div>
                 )}
               </div>
             </article>

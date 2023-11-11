@@ -68,7 +68,7 @@ export const HomeContainer = styled.div`
   .today-book > div > p {
     line-height: 1.5;
   }
-  div > section > article:nth-of-type(2) {
+  .best-list {
     width: 320px;
     margin: auto;
     background-color: #f8edeb;
@@ -76,14 +76,14 @@ export const HomeContainer = styled.div`
     padding-bottom: 50px;
     margin-bottom: 50px;
   }
-  div > section > article:nth-of-type(2) > a > h3 {
+  .best-list > a > h3 {
     margin-left: 51px;
     font-size: 20px;
     font-weight: bold;
     color: #575757;
     padding-top: 35px;
   }
-  div > section > article:nth-of-type(2) > ul {
+  .best-list > ul {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -94,7 +94,7 @@ export const HomeContainer = styled.div`
     justify-content: space-evenly; /* 요소들을 가로로 균등하게 배치 */
     white-space: nowrap; /* 내용을 한 줄로 유지 */
   }
-  div > section > article:nth-of-type(2) > ul > li {
+  .best-list > ul > li {
     width: 200px;
     height: 360px;
     padding: 15px;
@@ -104,22 +104,22 @@ export const HomeContainer = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  div > section > article:nth-of-type(2) > ul > li > a {
+  .best-list > ul > li > a {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-  div > section > article:nth-of-type(2) > ul > li > a > h5 {
+  .best-list > ul > li > a > h5 {
     font-weight: bold;
   }
-  div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(1) {
+  .best-list > ul > li > a > span:nth-of-type(1) {
     font-size: small;
   }
-  div > section > article:nth-of-type(2) > ul > li > a > span:nth-of-type(2) {
+  .best-list > ul > li > a > span:nth-of-type(2) {
     font-weight: bold;
     color: crimson;
   }
-  div > section > article:nth-of-type(2) > ul > li > a > img {
+  .best-list > ul > li > a > img {
     margin: auto;
     width: 200px;
     height: 270px;
@@ -144,21 +144,21 @@ export const HomeContainer = styled.div`
     .today-book > a > img {
       width: 150px;
     }
-    div > section > article:nth-of-type(2) {
+    .best-list {
       width: 83%;
     }
-    div > section > article:nth-of-type(2) > ul {
+    .best-list > ul {
       flex-direction: row;
       gap: 0;
     }
   }
   @media (min-width: 85rem) {
-    div > section > article:nth-of-type(2) > ul {
+    .best-list > ul {
       padding: 10px;
     }
   }
   @media (min-width: 120rem) {
-    div > section > article:nth-of-type(2) > ul {
+    .best-list > ul {
       padding: 20px;
     }
   }
