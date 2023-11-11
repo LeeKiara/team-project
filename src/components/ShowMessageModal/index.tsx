@@ -3,10 +3,11 @@ import { ShowMessageModalStyle } from "./styles";
 
 interface ShowMessageModalProps {
   message: string;
+  messageTag?: React.ReactNode;
   onCancel?: () => void;
 }
 
-const ShowMessageModal = ({ message, onCancel }: ShowMessageModalProps) => {
+const ShowMessageModal = ({ message, messageTag, onCancel }: ShowMessageModalProps) => {
   return (
     // <div
     //   style={{
@@ -32,6 +33,7 @@ const ShowMessageModal = ({ message, onCancel }: ShowMessageModalProps) => {
         <div className="ui-dialog-content">
           <div className="dialog_contents">
             <p className="alert_text_sm">{message}</p>
+            {messageTag}
           </div>
           <div className="dialog_footer">
             <span className="text" onClick={onCancel}>

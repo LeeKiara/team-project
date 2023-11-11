@@ -32,6 +32,6 @@ export const cartRoutes = [
     <Route key="succeed" path="succeed" element={<AddressSucceed />} />,
   </Route>,
   <Route key="detail" path="detail" element={<OrderDetail />} />,
-  // <Route key="test" path="test" element={<ConfirmModalEx />} />,
+  <Route key="test" path="test" element={<OrderList />} />,
   <Route key="eventbook" path="eventbook" element={<PublisherBook />} />,
 ];

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import http from "@/utils/http";
 import { OrderData, OrderResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 // npm install --save react-spinners
 // import { PuffLoader } from "react-spinners";
@@ -209,7 +210,7 @@ const OrderList = () => {
             </div>
           </article>
 
-          <article>
+          <article className="contain-search-layer">
             <div></div>
             {/* 조회기간 별 주문내역 조회 */}
             <div className="contain-search-date">
@@ -336,11 +337,11 @@ const OrderList = () => {
                       <strong>주문번호</strong>
                       &nbsp;&nbsp;
                       <span
-                        style={{ cursor: "pointer" }}
                         onClick={() => {
                           handleOrderDtail(`${orderData.orderId}`);
                         }}>
-                        {orderData.orderId} &gt;&gt; 주문 상세 보기
+                        <p>{orderData.orderId} 주문 상세 보기</p>
+                        <DoubleArrowIcon />
                       </span>
                     </p>
                   </div>

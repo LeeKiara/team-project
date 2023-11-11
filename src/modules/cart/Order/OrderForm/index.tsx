@@ -5,6 +5,7 @@ import { useProfileData } from "@/modules/cart/userdata";
 import AddressSearchForm from "../../AddressSearch";
 import { OrderData, OrderItemData, OrderAddressData } from "@/modules/cart/orderdata";
 import http from "@/utils/http";
+import ShowMessageModal from "@/components/ShowMessageModal";
 
 const OrderForm = () => {
   // 회원정보
@@ -54,6 +55,11 @@ const OrderForm = () => {
   const [isBankTransferSelected, setIsBankTransferSelected] = useState(false);
   // 결제수단 "DEPOSIT" 상태
   const [isBankDepositSelected, setIsBankDepositSelected] = useState(false);
+
+  // 주문완료 주문id
+  const [successOrderId, setSuccessOrderId] = useState("");
+  const [successOrderStatus, setSuccessOrderStatus] = useState("");
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   // 주문자 정보
   const orderNameRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -284,17 +290,17 @@ const OrderForm = () => {
         if (response.status === 201) {
           console.log("주문하기 성공!!!:" + response.data);
 
-          const orderId = response.data;
-          // alert("주문하기 성공!!! orderId:" + orderId);
+          setSuccessOrderId(response.data);
+          setSuccessOrderStatus(createOrderData.orderStatus);
 
-          // navigate(`/order/done/${orderId}`);
+          setShowMessageModal(true);
 
-          navigate("/order/done", {
-            state: {
-              orderId: orderId,
-              orderStatus: createOrderData.orderStatus,
-            },
-          });
+          // navigate("/order/done", {
+          //   state: {
+          //     orderId: orderId,
+          //     orderStatus: createOrderData.orderStatus,
+          //   },
+          // });
         }
       } catch (e: any) {
         console.log(e);
@@ -304,8 +310,16 @@ const OrderForm = () => {
     })();
   };
 
-  const handleOrderCancel = () => {
-    setModalVisible(false);
+  // 주문완료 후 페이지 이동
+  const handleOrderDone = () => {
+    setShowMessageModal(false);
+
+    navigate("/order/done", {
+      state: {
+        orderId: successOrderId,
+        orderStatus: successOrderStatus,
+      },
+    });
   };
 
   return (
@@ -686,7 +700,7 @@ const OrderForm = () => {
 
                 <hr className="div-type2" />
                 <div className="box-submit-payment">
-                  <span className="btn-order">{/* <button onClick={handlePayment}>결제하기</button> */}</span>
+                  <span className="btn-order"></span>
                 </div>
 
                 <div className="box-submit-payment">
@@ -703,6 +717,27 @@ const OrderForm = () => {
       {/* <!-- layer : 주소 검색 --> */}
       {/* {addrSearchVisible && <AddressSearchForm onConfirm={handleConfirm} onCancel={handleCancel} />} */}
       {addressFormVisible && <AddressSearchForm onCancel={handleConfirm} />}
+
+      {/* {showMessageModal && <ShowMessageModal message="주문 결제가 완료 되었습니다." onCancel={handleOrderDone} />} */}
+      {showMessageModal && successOrderStatus === "0" && (
+        <ShowMessageModal
+          message=""
+          messageTag={
+            <div className="dodal-message-bankdeposit">
+              <p>주문이 접수 되었습니다.</p>
+              <p>10일 이내 입금이 되지 않을 경우,</p>
+              <p>주문이 자동취소됩니다.</p>
+              <p>
+                입금계좌 : <span className="bank-account">신한은행 637-90-132345-689</span>
+              </p>
+            </div>
+          }
+          onCancel={handleOrderDone}
+        />
+      )}
+      {showMessageModal && successOrderStatus === "1" && (
+        <ShowMessageModal message="주문결제가 완료되었습니다." onCancel={handleOrderDone} />
+      )}
     </OrderFormContainer>
   );
 };
