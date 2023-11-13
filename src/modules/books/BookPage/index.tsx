@@ -11,7 +11,6 @@ import {
   ThumbUp,
   ThumbUpOffAlt,
 } from "@mui/icons-material";
-import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
 import CommentList from "../CommentList";
 import { ProfileData } from "@/modules/cart/userdata";

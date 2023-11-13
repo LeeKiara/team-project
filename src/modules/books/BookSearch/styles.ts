@@ -12,6 +12,8 @@ export const SearchContainer = styled.div`
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
   }
   section > span {
     display: flex;
@@ -24,6 +26,7 @@ export const SearchContainer = styled.div`
   table {
     border-collapse: collapse;
     width: 350px;
+    font-family: "Noto Sans KR", sans-serif;
   }
   table > thead {
     border: 2px solid #dddddd;
@@ -53,12 +56,14 @@ export const SearchContainer = styled.div`
   }
   table > tbody > tr > td:nth-of-type(6) > a {
     color: blue;
+    font-size: 14px;
   }
   table > tbody > tr > td:nth-of-type(1) {
     padding: 0;
   }
-  table > tbody > tr > td:nth-of-type(2) {
-    font-size: 12px;
+  table > tbody > tr > td:nth-of-type(2) > a {
+    font-size: 16px;
+    font-weight: bolder;
   }
   table > tbody > tr > td:nth-of-type(2) > a:hover {
     color: #e97171;
@@ -67,20 +72,25 @@ export const SearchContainer = styled.div`
     margin: 5px 0;
     cursor: pointer;
   }
+  table > tbody > tr > td:nth-of-type(2) {
+    width: 12%;
+  }
+  table > tbody > tr > td:nth-of-type(3) {
+    width: 7%;
+    font-size: 16px;
+  }
   table > tbody > tr > td:nth-of-type(4) {
     width: 7%;
+    font-size: 16px;
   }
   table > tbody > tr > td:nth-of-type(5) {
-    width: 20%;
-  }
-  table > tbody > tr > td:nth-of-type(6) {
-    width: 7%;
+    font-size: 14px;
   }
   table > tbody > tr > td:nth-of-type(6) > a:hover {
     text-decoration: underline;
   }
   table > tbody > tr > td:nth-of-type(7) {
-    width: 7%;
+    width: 6%;
   }
   table > tbody > tr > td:nth-of-type(8) {
     width: 7%;
@@ -152,7 +162,8 @@ export const SearchContainer = styled.div`
       font-size: 18px;
     }
     table > tbody > tr > td > a > img {
-      width: 180px;
+      width: 120px;
+      height: 150px;
       box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
     }
   }

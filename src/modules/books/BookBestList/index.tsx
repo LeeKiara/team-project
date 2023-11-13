@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useSearchParams } from "react-router-dom";
 import { AlamData, BookData, BookItem } from "../data";
-import Button from "@/components/Button";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
