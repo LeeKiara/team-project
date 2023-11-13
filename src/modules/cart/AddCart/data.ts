@@ -11,17 +11,16 @@ import useSWR from "swr";
      다만 장바구니 삭제 등 데이터 업데이트를 수동으로 트리거 하기 위해 mutate 함수를 사용함
  --------------------------------------------------------------------------*/
 
-interface BookCartData {
+export interface BookCartData {
   id?: number; // id값은 나중에 생성
   itemId: number;
-  gubun?: string;
   title?: string;
   cover?: string;
   priceStandard?: string;
   priceSales?: string;
   quantity: number;
   isChecked?: boolean;
-  stockStatus: string;
+  stockStatus?: string;
 }
 
 const INIT_DATA: BookCartData[] = [];

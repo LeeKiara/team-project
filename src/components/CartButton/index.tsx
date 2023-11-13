@@ -1,10 +1,10 @@
-import { useBookCartData } from "@/modules/cart/AddCart/data";
+import { BookCartData, useBookCartData } from "@/modules/cart/AddCart/data";
 import { useNavigate } from "react-router-dom";
 import { CartButtonStyle } from "./styles";
 import { getCookie } from "@/utils/cookie";
 import { ShoppingCart } from "@mui/icons-material";
 
-const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales }) => {
+const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales }: BookCartData) => {
   const navigate = useNavigate();
   const token = getCookie("token");
 
@@ -19,11 +19,11 @@ const CartButton = ({ itemId, quantity, title, cover, priceStandard, priceSales 
       if (isConfirmed) {
         createBookCartData({
           itemId: Number(itemId),
-          quantity: Number(quantity),
           title: title,
           cover: cover,
           priceStandard: priceStandard,
           priceSales: priceSales,
+          quantity: Number(quantity),
         });
 
         // 완료가 되면 목록 화면으로 이동
