@@ -46,7 +46,7 @@ export const HomeContainer = styled.div`
   .today-book > a > img {
     width: 30vw;
     margin-bottom: 0;
-    box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
     margin: auto;
   }
   .today-book > div > a > h4:nth-of-type(1) {
