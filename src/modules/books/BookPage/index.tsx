@@ -504,7 +504,7 @@ const BookPage = () => {
                     detail.stockStatus !== "품절" && (
                       <CartButton
                         itemId={detail.itemId}
-                        quantity={number.toString()}
+                        quantity={number}
                         title={detail.title}
                         cover={detail.cover}
                         priceStandard={detail.priceStandard.toString()}
