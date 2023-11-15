@@ -111,40 +111,19 @@ const BookNewList = () => {
     const query = queryKeyword.split(">")[1];
     console.log(query);
     setSearchQuery(query);
-    if (queryKeyword) {
-      (async () => {
-        try {
-          const response = await axios.get<BookData>(
-            `http://localhost:8081/redis/category?size=${MAX_LIST}&page=${currentPage}&option=${query}`,
-          );
-          if (response.status === 200) {
-            setNewBookList([...response.data.content]);
-            setTotalPages(response.data.totalPages);
-          }
-        } catch (e: any) {
-          console.log(e);
+    (async () => {
+      try {
+        const response = await axios.get<BookData>(
+          `http://localhost:8081/redis/category?size=${MAX_LIST}&page=${currentPage}${query ? `&option=${query}` : ""}`,
+        );
+        if (response.status === 200) {
+          setNewBookList([...response.data.content]);
+          setTotalPages(response.data.totalPages);
         }
-      })();
-    } else {
-      // if (books !== null) {
-      //   setTotalPages(books.totalPages);
-      //   setNewBookList(books.content);
-      //   console.log("swr 잘 작동중");
-      // }
-      (async () => {
-        try {
-          const response = await axios.get<BookData>(
-            `http://localhost:8081/redis/new?size=${MAX_LIST}&page=${currentPage}`,
-          );
-          if (response.status === 200) {
-            setNewBookList([...response.data.content]);
-            setTotalPages(response.data.totalPages);
-          }
-        } catch (e: any) {
-          console.log(e);
-        }
-      })();
-    }
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
     //알림설정 디스플레이 조회
     (async () => {
       try {
