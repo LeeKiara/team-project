@@ -13,10 +13,8 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="/" element={<Layout />}>
-          {/* index: 해당경로의 기본 화면 */}
           <Route element={<Home />} index />
           {booksRouts}
-          {/* 장바구니/주문 Route */}
           {cartRoutes}
         </Route>
       </Routes>
