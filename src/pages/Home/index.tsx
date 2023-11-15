@@ -64,9 +64,9 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get<BookData>(`http://localhost:8081/books/best?page=0&size=8`);
+        const response = await axios.get<BookItem[]>(`http://localhost:8081/redis/best`);
         if (response.status === 200) {
-          setBest(response.data.content);
+          setBest(response.data);
         }
       } catch (e: any) {
         console.log(e);
