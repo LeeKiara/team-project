@@ -8,6 +8,11 @@
 //   orderAddress: OrderAddressData; // 배송지
 // }
 
+export interface BankDepositResponse {
+  orderId: number; // 주문 id
+  deposit: string; // 무통장 입금여부
+}
+
 import http from "@/utils/http";
 import useSWR from "swr";
 

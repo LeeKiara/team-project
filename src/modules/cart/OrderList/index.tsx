@@ -3,7 +3,7 @@ import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import http from "@/utils/http";
-import { OrderData, OrderResponse } from "../orderdata";
+import { OrderData, OrderResponse, BankDepositData } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
@@ -11,8 +11,11 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 // import { PuffLoader } from "react-spinners";
 
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import { getCookie } from "@/utils/cookie";
 
 const OrderList = () => {
+  const token = getCookie("token");
+
   const [selectedStatus, setSelectedStatus] = useState("A"); // 조회조건 : 주문상태(전체/주문완료/주문접수(입금대기)/취소)
   const [isPeriodType1, setPeriodType1] = useState(true); // 조회기간 3개월
   const [isPeriodType2, setPeriodType2] = useState(false); // 조회기간 6개월
@@ -178,25 +181,35 @@ const OrderList = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  // const [blinkCount, setBlinkCount] = useState(0);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 2000);
-
-  //   return () => {
-  //     clearTimeout(timer); // 컴포넌트가 언마운트될 때 타이머를 정리합니다.
-  //     setIsLoading(false);
-  //   };
-  // }, [isOrderList]);
-
-  // const handleBlinkEnd = () => {
-  //   // setBlinkCount(blinkCount + 1);
-  //   // if (blinkCount >= 4) {
-  //   //   setIsLoading(false); // 3번 깜빡인 후 아이콘을 숨깁니다.
-  //   // }
-  // };
+  //알림설정 디스플레이 조회
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await http.get<BankDepositData[]>(`http://localhost:8081/payment/redis`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        // if (response.status === 200) {
+        response.data.forEach((data) => {
+          console.log("Redis 정보 조회");
+          console.log(data);
+          alert(
+            "[주문알림] 온라인입금 결제 건이 입금되어 주문 완료 되었습니다. \n- 주문일자 : 2023-11-17 \n- 주문번호:" +
+              data.orderId +
+              "",
+          );
+          // if (data.alam) {
+          //   const title = data.bookTitle.substring(0, 8);
+          //   alert(`${title}도서가 입고되었습니다.`);
+          // }
+        });
+        // }
+      } catch (e: any) {
+        console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
+      }
+    })();
+  }, []);
 
   return (
     <>
