@@ -71,6 +71,10 @@ const BookPage = () => {
   const handleBookSave = async (itemId: number) => {
     if (!token) {
       alert("로그인 후 이용해주세요.");
+      const loginCheck = confirm("로그인 페이지로 이동하시겠습니까?");
+      if (loginCheck) {
+        navigate("/login");
+      }
     } else {
       const newParam = newId ? 0 : null;
       const likes = !showHeartState;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookListContainer } from "./styles";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 // import Button from "@/components/Button";
 import { getCookie } from "@/utils/cookie";
@@ -14,6 +14,7 @@ import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
   const MAX_LIST = 3; // 고정된 리스트 갯수
+  const navigate = useNavigate();
 
   //페이징 숫자 처리
   const [arrowNumberList, setArrowNumberList] = useState([]);
@@ -45,7 +46,10 @@ const BookList = ({ fetchUrl }) => {
   const handleBookSave = async (itemId: number) => {
     if (!token) {
       alert("로그인 후 이용해주세요.");
-      return;
+      const loginCheck = confirm("로그인 페이지로 이동하시겠습니까?");
+      if (loginCheck) {
+        navigate("/login");
+      }
     } else {
       setStoreHeartStates((prevStates) => ({
         ...prevStates,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { AlamData, BookData, BookItem } from "../data";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
@@ -13,6 +13,7 @@ import { EmojiEvents, Notifications, NotificationsOutlined } from "@mui/icons-ma
 const BookBestList = () => {
   const token = getCookie("token");
   const MAX_LIST = 5; // 고정된 리스트 갯수
+  const navigate = useNavigate();
 
   //페이징 화살표 상태값
   const [showArrowLeft, setShowArrowLeft] = useState(false);
@@ -113,7 +114,10 @@ const BookBestList = () => {
   const handleBookSave = async (itemId: number) => {
     if (!token) {
       alert("로그인 후 이용해주세요.");
-      return;
+      const loginCheck = confirm("로그인 페이지로 이동하시겠습니까?");
+      if (loginCheck) {
+        navigate("/login");
+      }
     } else {
       setStoreHeartStates((prevStates) => ({
         ...prevStates,
@@ -121,6 +125,11 @@ const BookBestList = () => {
       }));
       const likes = !storeHeartStates[itemId];
       console.log(likes);
+      if (likes) {
+        alert("선호작품 등록되었습니다.");
+      } else {
+        alert("선호작품 등록이 취소되었습니다.");
+      }
       const newStoreHearts = {
         like: likes,
       };
