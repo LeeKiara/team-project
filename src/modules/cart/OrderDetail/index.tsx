@@ -3,15 +3,18 @@ import { OrderDetailContainer } from "./styles";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import http from "@/utils/http";
-import { OrderDeliveryResponse, useOrderDetailData } from "../orderdata";
+import { OrderDeliveryResponse, useOrderDetailData, SalesBestBooksResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 import OrderCancel from "../Order/OrderCancel";
+import { getCookie } from "@/utils/cookie";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
 
   // 주문번호 파라메터 받음
   const { orderId } = useParams();
+
+  const token = getCookie("token");
 
   // 페이지를 직접 테스트 할 경우 사용
   // const testOrderId = "13";
@@ -20,6 +23,8 @@ const OrderDetail = () => {
   const { orderDetailData, isOrderDetailValidating } = useOrderDetailData(Number(orderId));
   const [stateOrderData, setStateOrderData] = useState(orderDetailData);
   const [isUpdateOrderData, setIsUpdateOrderData] = useState(false);
+  const [relationBooks, setRelationBooks] = useState([]);
+  const [filterRelationBooks, setFilterRelationBooks] = useState([]);
 
   let sumOrderPrice = 0;
   let deliveryAmt = 0;
@@ -43,6 +48,26 @@ const OrderDetail = () => {
       ",stateOrderData cancelMemo:" + stateOrderData.cancelMemo,
     );
   }
+
+  useEffect(() => {
+    if (orderDetailData) {
+      // orderDetailData의 id에 해당하는 항목을 필터링하여 새로운 배열 생성
+      const filteredBooks = relationBooks.filter((relBook) => {
+        return !orderDetailData.orderItems.some((orderItem) => orderItem.id === relBook.id);
+      });
+
+      // 최대 10개의 항목만 선택
+      const first10FilteredBooks = filteredBooks.slice(0, 10);
+
+      // 필터링된 결과를 출력
+      console.log("-----------first10FilteredBooks");
+      first10FilteredBooks.map((item) => {
+        console.log(item.id + "," + item.title + "," + item.cover);
+      });
+
+      setFilterRelationBooks(first10FilteredBooks);
+    }
+  }, [orderDetailData, relationBooks]); // 필요한 의존성을 명시해줌
 
   // 주문내역 조회 결과
   if (orderDetailData) {
@@ -109,6 +134,40 @@ const OrderDetail = () => {
   const handleOrderList = () => {
     navigate(`/order/list`);
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await http.get<SalesBestBooksResponse[]>(`http://localhost:8081/orders/sales/best-books`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        // if (response.status === 200) {
+        console.log("Redis 정보 조회");
+
+        response.data.forEach((data) => {
+          // console.log(data.id + "," + data.title + "," + data.cover);
+        });
+
+        const redisData = response.data.map((item, index) => ({
+          id: item.id,
+          title: item.title,
+          cover: item.cover,
+        }));
+
+        // orderDetailData.orderItems.forEach((data) => {
+        //   console.log(data.id + ",orderDetailData.title:" + data.title + ",orderDetailData.cover:" + data.cover);
+        //   response.data.filter((item) => item.id !== Number(data.id));
+        // });
+        // }
+
+        setRelationBooks(redisData);
+      } catch (e: any) {
+        console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -317,6 +376,29 @@ const OrderDetail = () => {
               </div>
             </div>
           </article>
+
+          <div className="article-layer-orderitems">
+            <article>
+              <div>*** 함께 많이 구매한 상품 ***</div>
+            </article>
+            <article className="box-bookinfo-wrap">
+              {filterRelationBooks.map((bookItem, index) => (
+                <div className="bookinfo" key={`item-${bookItem.itemId}`}>
+                  <div className="link-detail">
+                    <span className="image">
+                      <Link to={`/page?id=${bookItem.id}`}>
+                        <img src={bookItem.cover} />
+                      </Link>
+                    </span>
+                    <div className="bookItem-title">
+                      <Link to={`/page?id=${bookItem.id}`}>{bookItem.title}</Link>
+                    </div>
+                    <div className="bookItem-quantity"></div>
+                  </div>
+                </div>
+              ))}
+            </article>
+          </div>
 
           <article>
             <div className="box-submit-payment">

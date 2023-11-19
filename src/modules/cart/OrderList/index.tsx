@@ -12,6 +12,7 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import { getCookie } from "@/utils/cookie";
+import OrderNotification from "../Order/OrderNotification/OrderNotification";
 
 const OrderList = () => {
   const token = getCookie("token");
@@ -181,7 +182,10 @@ const OrderList = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  //알림설정 디스플레이 조회
+  // useEffect(() => {
+  //   alert("orderResultList change!!");
+  // }, [orderResultList]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -199,29 +203,27 @@ const OrderList = () => {
               data.orderId +
               "",
           );
-          // if (data.alam) {
-          //   const title = data.bookTitle.substring(0, 8);
-          //   alert(`${title}도서가 입고되었습니다.`);
-          // }
         });
         // }
       } catch (e: any) {
         console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
       }
     })();
-  }, []);
+  }, [orderResultList]);
 
   return (
     <>
       <OrderListContainer>
         <section className="container">
-          <article>
+          {/* <OrderNotification /> */}
+
+          {/* <article>
             <div className="order-header">
               <h3 className="title">주문/결제 내역</h3>
               <br />
               <h6>제목을 클릭하면 주문내역, 결제내역 등 상제정보를 확인할 수 있습니다.</h6>
             </div>
-          </article>
+          </article> */}
 
           <article className="contain-search-layer">
             <div></div>

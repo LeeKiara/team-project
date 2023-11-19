@@ -13,6 +13,27 @@ export interface BankDepositResponse {
   deposit: string; // 무통장 입금여부
 }
 
+export interface SalesBestBooksResponse {
+  id: number;
+  publisher: string;
+  title: string;
+  link: string;
+  author: string;
+  pubDate: string;
+  description: string;
+  isbn: string;
+  isbn13: string;
+  itemId: number;
+  priceSales: number;
+  priceStandard: number;
+  stockStatus: string;
+  cover: string;
+  categoryId: number;
+  categoryName: string;
+  customerReviewRank: number;
+  likedBook: null;
+}
+
 import http from "@/utils/http";
 import useSWR from "swr";
 

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { CartSidebarContainer } from "./styles";
 import { Outlet } from "react-router-dom";
+import OrderNotification from "../Order/OrderNotification/OrderNotification";
 
 const CartSidebar = () => {
   return (
@@ -12,6 +13,8 @@ const CartSidebar = () => {
             <Suspense fallback={<div>Loading...</div>}>
               <Outlet />
             </Suspense>
+
+            <OrderNotification />
           </section>
         </main>
       </div>
