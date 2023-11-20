@@ -210,10 +210,10 @@ const BookNewList = () => {
                   </li>
                 ))
               ) : (
-                <p>책을 찾을 수 없습니다.</p>
+                <p>책이 없습니다.</p>
               )}
             </ul>
-            {totalPages && totalPages > 1 && (
+            {totalPages !== 0 && totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
                 showArrowRight={showArrowRight}

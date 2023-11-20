@@ -369,9 +369,9 @@ const BookList = ({ fetchUrl }) => {
               ))
             ) : (
               // 데이터가 없거나 오류 상태를 처리하는 부분
-              <p>책을 찾을 수 없습니다.</p>
+              <p></p>
             )}
-            {totalPages > 1 && (
+            {totalPages !== 0 && totalPages > 1 && (
               <PagingButton
                 showArrowLeft={showArrowLeft}
                 showArrowRight={showArrowRight}
