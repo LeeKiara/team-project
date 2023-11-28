@@ -34,7 +34,17 @@ const BookSidebar = () => {
   ];
 
   //외국도서 카테고리 키워드
-  const foreignKeywords = ["컴퓨터", "전기/자서전", "인문/사회", "역사", "언어학", "소설/시/희곡", "경제경영"];
+  const foreignKeywords = [
+    "소설/시/희곡",
+    "해외잡지",
+    "인문/사회",
+    "어린이",
+    "자기계발",
+    "컴퓨터",
+    "교육/자료",
+    "종교/명상/점술",
+    "전기/자서전",
+  ];
 
   // const handleSelect = (index) => {
   //   setSelectedCategory((prevStates) => ({
