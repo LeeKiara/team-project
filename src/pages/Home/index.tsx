@@ -50,7 +50,6 @@ const Home = () => {
 
         if (response.status === 200) {
           console.log("오늘의 책 가져오기 성공");
-          console.log(response.data);
           setTodayLetter(response.data);
         }
       } catch (e: any) {
