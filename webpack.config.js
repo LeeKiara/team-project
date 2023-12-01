@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+const { env } = require("process");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -45,10 +47,24 @@ module.exports = {
     new ProvidePlugin({
       React: "react",
     }),
+    // 번들 분석기
+    !env.WEBPACK_SERVE
+      ? new BundleAnalyzerPlugin({
+          analyzerMode: "static",
+          openAnalyzer: false,
+        })
+      : null,
   ],
   devServer: {
     historyApiFallback: true,
     static: "./dist",
     open: true,
+  },
+  // 소스맵 최적화
+  //앞 쪽이 개발 모드용, 뒤쪽은 배포용
+  devtool: env.WEBPACK_SERVE ? "eval-cheap-module-source-map" : false,
+  // 빌드 캐시 최적화
+  cache: {
+    type: env.WEBPACK_SERVE ? "memory" : "filesystem",
   },
 };

@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { PageContainer } from "./styles";
-import { AlamData, BookComment, BookItem, LikesItem, ReplyComment } from "../data";
+import { AlamData, BookComment, BookItem, LikesItem, ReplyComment, isLocalhost } from "../data";
 import axios from "axios";
 import {
   Notifications,
@@ -20,6 +20,7 @@ import StoreHeartButton from "@/components/StoreHeartButton";
 const BookPage = () => {
   const token = getCookie("token");
   const navigate = useNavigate();
+  const serverAddress = isLocalhost();
 
   //북 itemId
   const [itemId, setItemId] = useState(null);
@@ -86,7 +87,7 @@ const BookPage = () => {
 
       setShowHeartState(likes);
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/like`, newStoreHearts, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -111,7 +112,7 @@ const BookPage = () => {
       };
       setStoreBellStates(alamDisplay);
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/alam`, newAlamDisplay, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -168,7 +169,7 @@ const BookPage = () => {
 
       const fetchBookComment = async (itemId: string) => {
         try {
-          const response = await axios.post<BookComment>(`http://localhost:8081/books/${itemId}`, newCommentItem, {
+          const response = await axios.post<BookComment>(`${serverAddress}/books/${itemId}`, newCommentItem, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -199,7 +200,7 @@ const BookPage = () => {
   //댓글 삭제
   const handleDelete = async (itemId) => {
     try {
-      const response = await axios.delete(`http://localhost:8081/books/${itemId}`, {
+      const response = await axios.delete(`${serverAddress}/books/${itemId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -217,7 +218,7 @@ const BookPage = () => {
   const handleModify = async (itemId, modifyValue) => {
     const modifyComment = JSON.stringify({ comment: modifyValue });
     try {
-      const response = await axios.put(`http://localhost:8081/books/${itemId}`, modifyComment, {
+      const response = await axios.put(`${serverAddress}/books/${itemId}`, modifyComment, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -285,7 +286,7 @@ const BookPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -318,7 +319,7 @@ const BookPage = () => {
   useEffect(() => {
     const fetchBookDetail = async (itemId: string, isNew: boolean) => {
       try {
-        const url = `http://localhost:8081/books/${isNew ? "new/" : ""}${itemId}?${
+        const url = `${serverAddress}/books/${isNew ? "new/" : ""}${itemId}?${
           profileId ? `profileId=${profileId}` : ""
         }`;
         const response = await axios.get<BookItem>(url);
@@ -339,7 +340,7 @@ const BookPage = () => {
     if (token) {
       (async () => {
         try {
-          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+          const response = await axios.get<ProfileData>(`${serverAddress}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -356,7 +357,7 @@ const BookPage = () => {
           if (searchItemId) {
             console.log(searchItemId + "검색 도서");
             try {
-              const response = await axios.get<BookItem>(`http://localhost:8081/books/itemId?itemId=${searchItemId}`);
+              const response = await axios.get<BookItem>(`${serverAddress}/books/itemId?itemId=${searchItemId}`);
               if (response.status === 200) {
                 setDetail(response.data);
                 setItemId(response.data.itemId);
@@ -387,7 +388,7 @@ const BookPage = () => {
         (async () => {
           console.log(searchItemId + "검색 도서");
           try {
-            const response = await axios.get<BookItem>(`http://localhost:8081/books/itemId?itemId=${searchItemId}`);
+            const response = await axios.get<BookItem>(`${serverAddress}/books/itemId?itemId=${searchItemId}`);
             if (response.status === 200) {
               setDetail(response.data);
               setItemId(response.data.itemId);

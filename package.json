@@ -41,6 +41,7 @@
     "simplebar": "^6.2.5",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "webpack-bundle-analyzer": "^4.10.1"
   }
 }

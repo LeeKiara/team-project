@@ -145,6 +145,16 @@ export const useRedisData = (MAX_LIST: number, currentPage: number) => {
   return { bookData, isBookDataValidating };
 };
 
+export function isLocalhost() {
+  const currentDomain = window.location.hostname;
+  console.log(`Current Domain: ${currentDomain}`);
+  if (currentDomain === "localhost") {
+    return `http://${currentDomain}:8081/api/book-commerce`;
+  } else {
+    return `https://${currentDomain}/api/book-commerce`;
+  }
+}
+
 // const commentFetcher = async (bookId: number) => {
 //   try {
 //     const response = await booksApi.get<BookComment[]>(`${BOOK_COMMENTS_KEY}/${bookId}`);

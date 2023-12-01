@@ -8,13 +8,15 @@ import { ProfileData } from "@/modules/cart/userdata";
 import StoreHeartButton from "@/components/StoreHeartButton";
 import CartButton from "@/components/CartButton";
 import PagingButton from "@/components/PagingButton";
-import { AlamData, BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem, isLocalhost } from "../data";
 import { NotificationsOutlined, Notifications } from "@mui/icons-material";
 
 const BookList = ({ fetchUrl }) => {
   const token = getCookie("token");
   const MAX_LIST = 3; // 고정된 리스트 갯수
   const navigate = useNavigate();
+
+  const serverAddress = isLocalhost();
 
   //페이징 숫자 처리
   const [arrowNumberList, setArrowNumberList] = useState([]);
@@ -61,7 +63,7 @@ const BookList = ({ fetchUrl }) => {
         like: likes,
       };
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/like`, newStoreHearts, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +91,7 @@ const BookList = ({ fetchUrl }) => {
         alamDisplay: alamDisplay,
       };
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/alam`, newAlamDisplay, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -210,7 +212,7 @@ const BookList = ({ fetchUrl }) => {
     if (token) {
       (async () => {
         try {
-          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+          const response = await axios.get<ProfileData>(`${serverAddress}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -249,7 +251,7 @@ const BookList = ({ fetchUrl }) => {
     setSearchQuery(queryKeyword);
 
     // 현재 queryKeyword와 currentPage에 기반한 URL을 정의합니다
-    const categoryUrl = `http://localhost:8081/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`;
+    const categoryUrl = `${serverAddress}/books/category?option=${queryKeyword}&size=${MAX_LIST}&page=${currentPage}`;
     const listUrl = `${fetchUrl}&size=${MAX_LIST}&page=${currentPage}`;
 
     (async () => {
@@ -271,7 +273,7 @@ const BookList = ({ fetchUrl }) => {
     //알림설정 디스플레이 조회
     (async () => {
       try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

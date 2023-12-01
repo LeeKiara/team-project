@@ -1,7 +1,7 @@
 import { PortraitOutlined } from "@mui/icons-material";
 import { CommnetListContainer } from "./styles";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { BookComment, ReplyComment } from "../data";
+import { BookComment, ReplyComment, isLocalhost } from "../data";
 import { getCookie } from "@/utils/cookie";
 import axios from "axios";
 import { ProfileData } from "@/modules/cart/userdata";
@@ -18,6 +18,7 @@ interface CommentModalProps {
 const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalProps) => {
   const token = getCookie("token");
   const navigate = useNavigate();
+  const serverAddress = isLocalhost();
 
   //댓글 목록
   const [commentList, setCommentList] = useState<BookComment[] | null>(comments);
@@ -106,7 +107,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
       const fetchBookComment = async (commentId: string) => {
         try {
           const response = await axios.post<ReplyComment>(
-            `http://localhost:8081/books/reply/${pageId}/${commentId}`,
+            `${serverAddress}/books/reply/${pageId}/${commentId}`,
             newCommentItem,
             {
               headers: {
@@ -138,7 +139,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
   //답글 삭제
   const handleReplyDelete = async (commentId, id) => {
     try {
-      const response = await axios.delete(`http://localhost:8081/books/reply/${commentId}/${id}`, {
+      const response = await axios.delete(`${serverAddress}/books/reply/${commentId}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -183,7 +184,7 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
     if (token) {
       (async () => {
         try {
-          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+          const response = await axios.get<ProfileData>(`${serverAddress}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

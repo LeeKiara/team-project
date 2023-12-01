@@ -1,7 +1,7 @@
 import { SearchContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { BookData, BookItem } from "../data";
+import { BookData, BookItem, isLocalhost } from "../data";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
 import PagingButton from "@/components/PagingButton";
@@ -15,6 +15,7 @@ const BookSearch = () => {
   //검색어
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  const serverAddress = isLocalhost();
 
   //검색 페이지
   const [searchList, setSearchList] = useState<BookItem[]>([]);
@@ -111,7 +112,7 @@ const BookSearch = () => {
     (async () => {
       try {
         const response = await axios.get<BookData>(
-          `http://localhost:8081/aladin/search?&size=${MAX_SEARCH}&page=${currentPage}&option=${queryOption}&keyword=${queryKeyword}`,
+          `${serverAddress}/aladin/search?&size=${MAX_SEARCH}&page=${currentPage}&option=${queryOption}&keyword=${queryKeyword}`,
         );
 
         if (response.status === 200) {

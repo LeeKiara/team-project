@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { BookNewContainer } from "./styles";
 import { useEffect, useState } from "react";
-import { AlamData, BookData, BookItem, useRedisData } from "../data";
+import { AlamData, BookData, BookItem, isLocalhost, useRedisData } from "../data";
 import axios from "axios";
 import { Notifications, NotificationsOutlined, ShoppingCart } from "@mui/icons-material";
 import CartButton from "@/components/CartButton";
@@ -15,6 +15,7 @@ const BookNewList = () => {
   //카테고리 상태값
   const [searchQuery, setSearchQuery] = useState("");
   const [params] = useSearchParams();
+  const serverAddress = isLocalhost();
 
   //페이징 화살표 상태값
   const [showArrowLeft, setShowArrowLeft] = useState(false);
@@ -46,7 +47,7 @@ const BookNewList = () => {
         alamDisplay: alamDisplay,
       };
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+        const response = await axios.put(`${serverAddress}/${itemId}/alam`, newAlamDisplay, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -114,7 +115,7 @@ const BookNewList = () => {
     (async () => {
       try {
         const response = await axios.get<BookData>(
-          `http://localhost:8081/redis/category?size=${MAX_LIST}&page=${currentPage}${query ? `&option=${query}` : ""}`,
+          `${serverAddress}/redis/category?size=${MAX_LIST}&page=${currentPage}${query ? `&option=${query}` : ""}`,
         );
         if (response.status === 200) {
           setNewBookList([...response.data.content]);
@@ -127,7 +128,7 @@ const BookNewList = () => {
     //알림설정 디스플레이 조회
     (async () => {
       try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

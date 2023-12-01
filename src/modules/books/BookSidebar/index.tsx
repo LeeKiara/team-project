@@ -55,6 +55,7 @@ const BookSidebar = () => {
 
   //각 구분별 사이드바 상태 변화
   useEffect(() => {
+    console.log("패스는" + path);
     if (path === "best") {
       setOption("베스트도서");
       setCategorys(keywords);

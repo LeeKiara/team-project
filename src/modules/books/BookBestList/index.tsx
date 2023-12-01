@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookBestContainer } from "./styles";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { AlamData, BookData, BookItem } from "../data";
+import { AlamData, BookData, BookItem, isLocalhost } from "../data";
 import axios from "axios";
 import { getCookie } from "@/utils/cookie";
 import { ProfileData } from "@/modules/cart/userdata";
@@ -14,6 +14,7 @@ const BookBestList = () => {
   const token = getCookie("token");
   const MAX_LIST = 5; // 고정된 리스트 갯수
   const navigate = useNavigate();
+  const serverAddress = isLocalhost();
 
   //페이징 화살표 상태값
   const [showArrowLeft, setShowArrowLeft] = useState(false);
@@ -52,7 +53,7 @@ const BookBestList = () => {
         alamDisplay: alamDisplay,
       };
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/alam`, newAlamDisplay, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/alam`, newAlamDisplay, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -134,7 +135,7 @@ const BookBestList = () => {
         like: likes,
       };
       try {
-        const response = await axios.put(`http://localhost:8081/books/${itemId}/like`, newStoreHearts, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/like`, newStoreHearts, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -153,7 +154,7 @@ const BookBestList = () => {
     if (token) {
       (async () => {
         try {
-          const response = await axios.get<ProfileData>(`http://localhost:8081/auth/profile`, {
+          const response = await axios.get<ProfileData>(`${serverAddress}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -187,6 +188,7 @@ const BookBestList = () => {
 
   //카테고리 이동
   useEffect(() => {
+    console.log("주소는" + serverAddress);
     console.log(params);
     const queryKeyword = params.get("option") || "";
     console.log(queryKeyword + "카테고리 키워드");
@@ -197,7 +199,7 @@ const BookBestList = () => {
       (async () => {
         try {
           const response = await axios.get<BookData>(
-            `http://localhost:8081/books/best/category?&option=국내도서>${query}&size=${MAX_LIST}&page=${currentPage}`,
+            `${serverAddress}/books/best/category?&option=국내도서>${query}&size=${MAX_LIST}&page=${currentPage}`,
           );
           if (response.status === 200) {
             setBookList(response.data.content);
@@ -211,7 +213,7 @@ const BookBestList = () => {
       (async () => {
         try {
           const response = await axios.get<BookData>(
-            `http://localhost:8081/books/best?size=${MAX_LIST}&page=${currentPage}`,
+            `${serverAddress}/books/best?size=${MAX_LIST}&page=${currentPage}`,
           );
           if (response.status === 200) {
             setBookList(response.data.content);
@@ -226,7 +228,7 @@ const BookBestList = () => {
     //알림설정 디스플레이 조회
     (async () => {
       try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
