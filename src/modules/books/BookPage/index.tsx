@@ -159,7 +159,6 @@ const BookPage = () => {
       const time = new Date().getTime();
       console.log(time);
       const newParam = newId ? 0 : null;
-      console.log(newParam + "신간인가");
       const newCommentItem = {
         new: newParam,
         comment: commentText.current.value,

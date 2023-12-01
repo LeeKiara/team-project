@@ -247,7 +247,6 @@ const BookList = ({ fetchUrl }) => {
   //페이징/카테고리 조회 통합
   useEffect(() => {
     const queryKeyword = params.get("option") || "";
-    console.log(queryKeyword + "카테고리 키워드");
     setSearchQuery(queryKeyword);
 
     // 현재 queryKeyword와 currentPage에 기반한 URL을 정의합니다

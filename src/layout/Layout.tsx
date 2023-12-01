@@ -28,7 +28,6 @@ const Layout = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value + "옵션 선택 결과");
     setSelectedOption(event.target.value);
   };
 

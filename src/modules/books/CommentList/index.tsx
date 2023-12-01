@@ -96,8 +96,6 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
       console.log(time);
       const newParam = newId ? 0 : null;
       const pageId = newId ? newId : id;
-      console.log(newParam + "신간인가");
-      console.log(pageId + "페이지 아이디인가");
       const newCommentItem = {
         new: newParam,
         comment: commentText.current.value,
@@ -170,7 +168,6 @@ const CommentList = ({ comments, onClick, onConfirm, id, newId }: CommentModalPr
     if (comments && comments.length > 0) {
       const sortedComments = [...comments].sort((a, b) => b.id - a.id);
       setCommentList(sortedComments);
-      console.log(sortedComments + "댓글리스트");
       sortedComments.forEach((comment) => {
         if (Array.isArray(comment.replyComment)) {
           const replyComments = [...comment.replyComment].sort((a, b) => b.id - a.id);

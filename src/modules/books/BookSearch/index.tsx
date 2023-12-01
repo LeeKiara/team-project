@@ -104,10 +104,8 @@ const BookSearch = () => {
   //검색어 쿼리
   useEffect(() => {
     const queryKeyword = params.get("keyword") || "";
-    console.log(queryKeyword + "검색어");
     setSearchQuery(queryKeyword);
     const queryOption = params.get("option") || "";
-    console.log(queryOption + "검색어옵션");
 
     (async () => {
       try {

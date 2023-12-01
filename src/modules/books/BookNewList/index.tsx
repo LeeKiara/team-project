@@ -108,7 +108,6 @@ const BookNewList = () => {
   useEffect(() => {
     console.log(params);
     const queryKeyword = params.get("option") || "";
-    console.log(queryKeyword + "카테고리 키워드");
     const query = queryKeyword.split(">")[1];
     console.log(query);
     setSearchQuery(query);
