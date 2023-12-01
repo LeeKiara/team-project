@@ -5,6 +5,7 @@ import ResetStyle from "@/styles/reset";
 import { getCookie } from "@/utils/cookie";
 import { AccountCircleOutlined, ExitToApp, LibraryBooks } from "@mui/icons-material";
 import home_icon from "../assets/homepage-icon.png";
+import { isLocalhost } from "@/modules/books/data";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ const Layout = () => {
   const [cookie, SetCookie] = useState("");
 
   const handleLogout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    const serverAddress = window.location.hostname;
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${serverAddress}`;
     navigate("/");
   };
 
