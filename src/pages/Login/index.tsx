@@ -3,10 +3,13 @@ import { LoginCantailner } from "./styles";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import home_icon from "../../assets/homepage-icon.png";
+import { isLocalhost } from "@/modules/books/data";
 
 const Login = () => {
   const [userid, setUserid] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const serverAddress = isLocalhost();
+  const [loginAddress, setLoginAddress] = useState("");
 
   const handleCheckbox = () => {
     if (checkbox) {
@@ -17,8 +20,6 @@ const Login = () => {
     setCheckbox(!checkbox);
   };
 
-  const handleLogin = () => {};
-
   useEffect(() => {
     const savedUserId = localStorage.getItem("userId");
     if (savedUserId) {
@@ -27,6 +28,10 @@ const Login = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setLoginAddress(serverAddress + "/auth/signin");
+  }, [serverAddress]);
+
   return (
     <>
       <LoginCantailner>
@@ -34,7 +39,7 @@ const Login = () => {
           <Link to="/">
             <img src={home_icon} alt="home icon" height={80} />
           </Link>
-          <form action="http://localhost:8081/auth/signin" method="post">
+          <form action={loginAddress} method="post">
             <label>
               <AccountCircle className="material-icons-outlined" />
               <input
@@ -49,7 +54,7 @@ const Login = () => {
               <Lock className="material-icons-outlined" />
               <input type="password" name="password" placeholder="비밀번호를 입력하세요" />
             </label>
-            <button onClick={handleLogin}>로그인</button>
+            <button>로그인</button>
             <span onClick={handleCheckbox}>
               {checkbox ? (
                 <CheckCircle className="material-icons-outlined" />

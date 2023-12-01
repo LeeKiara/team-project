@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { HomeContainer } from "./styles";
-import { AlamData, BookData, BookItem } from "@/modules/books/data";
+import { AlamData, BookData, BookItem, isLocalhost } from "@/modules/books/data";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Settings } from "react-slick";
@@ -26,6 +26,7 @@ const Home = () => {
   const token = getCookie("token");
   const [todayLetter, setTodayLetter] = useState<TodayBook | null>(null);
   const [best, setBest] = useState<BookItem[]>([]);
+  const serverAddress = isLocalhost();
 
   const [banner, setBanner] = useState([]);
 
@@ -45,7 +46,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get<TodayBook>(`http://localhost:8081/admin-service`);
+        const response = await axios.get<TodayBook>(`${serverAddress}/admin-service`);
 
         if (response.status === 200) {
           console.log("오늘의 책 가져오기 성공");
@@ -64,7 +65,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get<BookItem[]>(`http://localhost:8081/redis/best`);
+        const response = await axios.get<BookItem[]>(`${serverAddress}/redis/best`);
         if (response.status === 200) {
           setBest(response.data);
         }
@@ -109,7 +110,7 @@ const Home = () => {
     //알림설정 디스플레이 조회
     (async () => {
       try {
-        const response = await axios.get<AlamData[]>(`http://localhost:8081/books/alam`, {
+        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

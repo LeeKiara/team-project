@@ -13,9 +13,11 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { SignUpContainer } from "./styles";
 import signup from "../../assets/signup.gif";
+import { isLocalhost } from "@/modules/books/data";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const serverAddress = isLocalhost();
 
   //회원정보값
   const userid = useRef() as MutableRefObject<HTMLInputElement>;
@@ -69,7 +71,7 @@ const SignUp = () => {
         Array.from(birthValue).length < 8
       ) {
         try {
-          const response = await axios.post(`http://localhost:8081/auth/signup`, signupRequest);
+          const response = await axios.post(`${serverAddress}/auth/signup`, signupRequest);
           console.log(response.status);
           if (response.status === 201) {
             alert("회원가입을 축하합니다.");
