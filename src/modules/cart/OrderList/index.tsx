@@ -186,31 +186,31 @@ const OrderList = () => {
   //   alert("orderResultList change!!");
   // }, [orderResultList]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const domain = getDomain();
-        const response = await http.get<BankDepositData[]>(domain + "/payment/redis", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // if (response.status === 200) {
-        response.data.forEach((data) => {
-          console.log("Redis 정보 조회");
-          console.log(data);
-          alert(
-            "[주문알림] 온라인입금 결제 건이 입금되어 주문 완료 되었습니다. \n- 주문일자 : 2023-11-17 \n- 주문번호:" +
-              data.orderId +
-              "",
-          );
-        });
-        // }
-      } catch (e: any) {
-        console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
-      }
-    })();
-  }, [orderResultList]);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const domain = getDomain();
+  //       const response = await http.get<BankDepositData[]>(domain + "/payment/redis", {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       // if (response.status === 200) {
+  //       response.data.forEach((data) => {
+  //         console.log("Redis 정보 조회");
+  //         console.log(data);
+  //         alert(
+  //           "[주문알림] 온라인입금 결제 건이 입금되어 주문 완료 되었습니다. \n- 주문일자 : 2023-11-17 \n- 주문번호:" +
+  //             data.orderId +
+  //             "",
+  //         );
+  //       });
+  //       // }
+  //     } catch (e: any) {
+  //       console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
+  //     }
+  //   })();
+  // }, [orderResultList]);
 
   return (
     <>
