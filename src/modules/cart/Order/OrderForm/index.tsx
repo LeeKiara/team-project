@@ -285,7 +285,7 @@ const OrderForm = () => {
 
     (async () => {
       try {
-        const response = await http.post("/order/add", createOrderData);
+        const response = await http.post("/api/order-commerce/order/add", createOrderData);
 
         if (response.status === 201) {
           console.log("주문하기 성공!!!:" + response.data);

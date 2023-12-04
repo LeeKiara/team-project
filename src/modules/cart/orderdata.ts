@@ -77,7 +77,7 @@ const INIT_DATA: OrderDeliveryResponse = {
   deliveryMemo: "",
   orderItems: [],
 };
-const ORDER_DATA_KEY = "/order/detail";
+const ORDER_DATA_KEY = "/api/order-commerce/order/detail";
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
 const orderDetailFetcher = async ([key, orderId]): Promise<OrderDeliveryResponse> => {
@@ -85,7 +85,7 @@ const orderDetailFetcher = async ([key, orderId]): Promise<OrderDeliveryResponse
 
   try {
     try {
-      // http://localhost:8081/order/detail/2023123456789
+      // /order/detail/2023123456789
       const response = await http.get<OrderDeliveryResponse>(`${key}/${orderId}`);
 
       if (response.status === 200) {

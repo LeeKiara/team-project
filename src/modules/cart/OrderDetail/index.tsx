@@ -94,7 +94,7 @@ const OrderDetail = () => {
             cancelMemo: string; // 주문 취소 메모
           }
 
-          const response = await http.put<OrderModityRequest>(`/order/detail/cancel`, {
+          const response = await http.put<OrderModityRequest>(`/api/order-commerce/order/detail/cancel`, {
             orderId: Number(orderId),
             orderStatus: "2",
             cancelMemo: cancelMemo,

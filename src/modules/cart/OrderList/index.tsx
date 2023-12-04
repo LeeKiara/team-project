@@ -75,7 +75,7 @@ const OrderList = () => {
         try {
           const MAX_SEARCH = 5; // 고정된 검색 리스트 갯수
           const response = await http.get<OrderResponse>(
-            `/order/paging?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}&orderStatus=${selectedStatus}`,
+            `/api/order-commerce/order/paging?size=${MAX_SEARCH}&page=${currentPage}&startDate=${startDate}&endDate=${endDate}&orderStatus=${selectedStatus}`,
           );
           if (response.status === 200) {
             console.log("response.data.totalPages" + response.data.totalPages);

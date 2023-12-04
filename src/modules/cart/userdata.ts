@@ -1,6 +1,7 @@
 import http from "@/utils/http";
 import axios from "axios";
 import useSWR, { mutate } from "swr";
+import { isLocalhost } from "../books/data";
 
 const INIT_DATA: ProfileData = {
   profileId: 0,
@@ -21,8 +22,10 @@ export interface ProfileData {
 const profileFetcher = async () => {
   console.log("--call profileFetcher--");
 
+  const serverAddress = isLocalhost();
+
   try {
-    const response = await http.get<ProfileData>(PROFILE_DATA_KEY);
+    const response = await http.get<ProfileData>(serverAddress + PROFILE_DATA_KEY);
 
     console.log("--call cartFetcher response data--");
     console.log(response.data);
