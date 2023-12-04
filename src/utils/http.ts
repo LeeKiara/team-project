@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-const http = axios.create({ baseURL: "http://localhost:8081" });
+const http = axios.create({ baseURL: getDomain() });
 //요청값에 대해서 사전처리
 http.interceptors.request.use((config) => {
   const token = getCookie("token");
@@ -33,5 +33,14 @@ http.interceptors.response.use(
     return; //이렇게 하면 오류를 캐치만 하고 끝냄.
   },
 );
+
+export function getDomain() {
+  const currentDomain = window.location.hostname;
+  if (currentDomain === "localhost") {
+    return `http://${currentDomain}:8081/`;
+  } else {
+    return `https://${currentDomain}/`;
+  }
+}
 
 export default http;

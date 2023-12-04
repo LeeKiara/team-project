@@ -2,7 +2,7 @@ import Home from "@/pages/Home";
 import { OrderListContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import http from "@/utils/http";
+import http, { getDomain } from "@/utils/http";
 import { OrderData, OrderResponse, BankDepositData } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
@@ -189,7 +189,8 @@ const OrderList = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await http.get<BankDepositData[]>(`http://localhost:8081/payment/redis`, {
+        const domain = getDomain();
+        const response = await http.get<BankDepositData[]>(domain + "/payment/redis", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

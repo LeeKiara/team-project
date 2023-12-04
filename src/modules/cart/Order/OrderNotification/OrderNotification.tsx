@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, ItemContainer, Wrapper } from "./styles";
+import { getDomain } from "@/utils/http";
 
 const OrderNotification = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -9,7 +10,8 @@ const OrderNotification = () => {
     // content-type: text/event-stream
 
     // 배송상태 알림 이벤트소스
-    const eventSource = new EventSource("http://localhost:8082/delivery/notifications");
+    const domain = getDomain();
+    const eventSource = new EventSource(domain + "/delivery/notifications");
 
     // 메시지가 오면 실행
     eventSource.onmessage = (event) => {

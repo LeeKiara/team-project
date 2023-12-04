@@ -2,7 +2,7 @@ import Home from "@/pages/Home";
 import { OrderDetailContainer } from "./styles";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import http from "@/utils/http";
+import http, { getDomain } from "@/utils/http";
 import { OrderDeliveryResponse, useOrderDetailData, SalesBestBooksResponse } from "../orderdata";
 import FormatDate from "@/components/FormatDate";
 import OrderCancel from "../Order/OrderCancel";
@@ -138,7 +138,8 @@ const OrderDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await http.get<SalesBestBooksResponse[]>(`http://localhost:8081/orders/sales/best-books`, {
+        const domain = getDomain();
+        const response = await http.get<SalesBestBooksResponse[]>(domain + "/orders/sales/best-books", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

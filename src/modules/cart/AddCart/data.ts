@@ -24,7 +24,7 @@ export interface BookCartData {
 }
 
 const INIT_DATA: BookCartData[] = [];
-const BOOKCART_DATA_KEY = "/cart";
+const BOOKCART_DATA_KEY = "/api/order-commerce/cart";
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
 const bookCartFetcher = async ([key, page]) => {
