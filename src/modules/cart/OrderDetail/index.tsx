@@ -139,11 +139,14 @@ const OrderDetail = () => {
     (async () => {
       try {
         const domain = getDomain();
-        const response = await http.get<SalesBestBooksResponse[]>(domain + "/orders/sales/best-books", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await http.get<SalesBestBooksResponse[]>(
+          domain + "/api/order-commerce/orders/sales/best-books",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         // if (response.status === 200) {
         console.log("Redis 정보 조회");
 
