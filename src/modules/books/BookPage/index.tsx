@@ -378,7 +378,6 @@ const BookPage = () => {
       })();
     } else {
       if (id) {
-        console.log(id + "도서");
         fetchBookDetail(id, false);
       } else if (newId) {
         console.log(newId + "신간");
