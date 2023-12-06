@@ -347,7 +347,6 @@ const BookPage = () => {
           setProfile(response.data);
           profileId = response.data.profileId;
           if (id) {
-            console.log(id + "도서");
             fetchBookDetail(id, false);
           } else if (newId) {
             console.log(newId + "신간");
