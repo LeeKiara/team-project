@@ -383,7 +383,6 @@ const BookPage = () => {
         fetchBookDetail(newId, true);
       } else if (searchItemId) {
         (async () => {
-          console.log(searchItemId + "검색 도서");
           try {
             const response = await axios.get<BookItem>(`${serverAddress}/books/itemId?itemId=${searchItemId}`);
             if (response.status === 200) {
