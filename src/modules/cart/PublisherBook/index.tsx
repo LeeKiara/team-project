@@ -30,7 +30,7 @@ const PublisherBook = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await http.get<EventBookResponse[]>("publisher/event");
+        const response = await http.get<EventBookResponse[]>("/api/order-commerce/publisher/event");
         if (response.status === 200) {
           console.log("response.data" + response.data);
 
