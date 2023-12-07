@@ -135,40 +135,43 @@ const OrderDetail = () => {
     navigate(`/order/list`);
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const domain = getDomain();
-        const response = await http.get<SalesBestBooksResponse[]>(domain + "/orders/sales/best-books", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // if (response.status === 200) {
-        console.log("Redis 정보 조회");
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const domain = getDomain();
+  //       const response = await http.get<SalesBestBooksResponse[]>(
+  //         domain + "/api/order-commerce/orders/sales/best-books",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         },
+  //       );
+  //       // if (response.status === 200) {
+  //       console.log("Redis 정보 조회");
 
-        response.data.forEach((data) => {
-          // console.log(data.id + "," + data.title + "," + data.cover);
-        });
+  //       response.data.forEach((data) => {
+  //         // console.log(data.id + "," + data.title + "," + data.cover);
+  //       });
 
-        const redisData = response.data.map((item, index) => ({
-          id: item.id,
-          title: item.title,
-          cover: item.cover,
-        }));
+  //       const redisData = response.data.map((item, index) => ({
+  //         id: item.id,
+  //         title: item.title,
+  //         cover: item.cover,
+  //       }));
 
-        // orderDetailData.orderItems.forEach((data) => {
-        //   console.log(data.id + ",orderDetailData.title:" + data.title + ",orderDetailData.cover:" + data.cover);
-        //   response.data.filter((item) => item.id !== Number(data.id));
-        // });
-        // }
+  //       // orderDetailData.orderItems.forEach((data) => {
+  //       //   console.log(data.id + ",orderDetailData.title:" + data.title + ",orderDetailData.cover:" + data.cover);
+  //       //   response.data.filter((item) => item.id !== Number(data.id));
+  //       // });
+  //       // }
 
-        setRelationBooks(redisData);
-      } catch (e: any) {
-        console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
-      }
-    })();
-  }, []);
+  //       setRelationBooks(redisData);
+  //     } catch (e: any) {
+  //       console.log("Redis 정보 조회 시 오류가 발생하였습니다.");
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
