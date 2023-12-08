@@ -90,16 +90,16 @@ const Layout = () => {
           <nav className="header-nav">
             <ul>
               <li>
-                <Link to="/books/best">베스트도서</Link>
+                <Link to="/best">베스트도서</Link>
               </li>
               <li>
-                <Link to="/books/new">신간도서</Link>
+                <Link to="/new">신간도서</Link>
               </li>
               <li>
                 <Link to="/books">국내도서</Link>
               </li>
               <li>
-                <Link to="/books/foreign">외국도서</Link>
+                <Link to="/foreign">외국도서</Link>
               </li>
               <li>
                 <Link to="/cart">장바구니</Link>
