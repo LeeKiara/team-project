@@ -26,7 +26,7 @@ const SignUp = () => {
   const nickname = useRef() as MutableRefObject<HTMLInputElement>;
   const phone = useRef() as MutableRefObject<HTMLInputElement>;
   const email = useRef() as MutableRefObject<HTMLInputElement>;
-  const birth = useRef() as MutableRefObject<HTMLInputElement>;
+  // const birth = useRef() as MutableRefObject<HTMLInputElement>;
 
   //제대로 입력이 됐는지 확인하는 상태값
   const [verify, setVerify] = useState(false);
@@ -38,7 +38,7 @@ const SignUp = () => {
   const [nicknameValue, setNicknameValue] = useState(null);
   const [phoneValue, setPhoneValue] = useState(null);
   const [emailValue, setEmailValue] = useState(null);
-  const [birthValue, setBirthValue] = useState(null);
+  const [birthValue, setBirthValue] = useState("1234567");
   const [bookmarkValue, setBookmarkValue] = useState("");
 
   const handleSignUp = (event) => {
@@ -46,9 +46,9 @@ const SignUp = () => {
     if (bookmarkValue === "") {
       alert("선호장르를 골라주세요.");
     }
-    if (Array.from(birthValue).length > 7) {
-      alert("주민번호 앞 7자리만 입력해주세요");
-    }
+    // if (Array.from(birthValue).length > 7) {
+    //   alert("주민번호 앞 7자리만 입력해주세요");
+    // }
 
     const signupRequest = {
       userid: userIdValue,
@@ -66,9 +66,9 @@ const SignUp = () => {
         nicknameValue !== "" &&
         phoneValue !== "" &&
         emailValue !== "" &&
-        birthValue !== "" &&
-        bookmarkValue !== "" &&
-        Array.from(birthValue).length < 8
+        // birthValue !== "" &&
+        // Array.from(birthValue).length < 8 &&
+        bookmarkValue !== ""
       ) {
         try {
           const response = await axios.post(`${serverAddress}/auth/signup`, signupRequest);
@@ -210,15 +210,15 @@ const SignUp = () => {
                   }}
                 />
               </label>
-              <label className={birthValue === "" ? "verify" : ""}>
+              <label className="birthValue">
                 <CalendarMonth className="material-icons-outlined" />
                 <input
                   type="text"
                   placeholder="생년월일 7자리"
-                  ref={birth}
-                  onChange={(e) => {
-                    setBirthValue(e.target.value);
-                  }}
+                  // ref={birth}
+                  // onChange={(e) => {
+                  //   setBirthValue(e.target.value);
+                  // }}
                 />
               </label>
               <label>
@@ -256,7 +256,7 @@ const SignUp = () => {
                 {nicknameValue === "" && <p>* 닉네임을 입력해주세요.</p>}
                 {phoneValue === "" && <p>* 전화번호를 입력해주세요.</p>}
                 {emailValue === "" && <p>* 이메일을 입력해주세요.</p>}
-                {birthValue === "" && <p>* 생년월일을 입력해주세요.</p>}
+                {/* {birthValue === "" && <p>* 생년월일을 입력해주세요.</p>} */}
               </div>
             </div>
             <button

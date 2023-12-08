@@ -4,6 +4,7 @@ export const SignUpContainer = styled.div`
   section {
     width: 300px;
     margin: auto;
+    font-family: "Noto Sans KR", sans-serif;
   }
   p {
     margin: 0;
@@ -86,6 +87,9 @@ export const SignUpContainer = styled.div`
     border-radius: 6px;
     height: 50px;
     display: flex;
+  }
+  .birthValue {
+    display: none;
   }
   @media (min-width: 55rem) {
     section {
