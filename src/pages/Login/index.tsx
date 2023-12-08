@@ -1,16 +1,16 @@
 import { AccountCircle, CheckCircle, CheckCircleOutline, Lock } from "@mui/icons-material";
 import { LoginCantailner } from "./styles";
-import { useEffect, useState, useRef, MutableRefObject } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import home_icon from "../../assets/homepage-icon.png";
 import { isLocalhost } from "@/modules/books/data";
 
 const Login = () => {
-  const [userid, setUserid] = useState("");
+  const [userid, setUserid] = useState("testID");
   const [checkbox, setCheckbox] = useState(false);
   const serverAddress = isLocalhost();
   const [loginAddress, setLoginAddress] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("password!");
   const formRef = useRef(null);
 
   const handleCheckbox = () => {
