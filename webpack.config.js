@@ -48,12 +48,12 @@ module.exports = {
       React: "react",
     }),
     // 번들 분석기
-    // !env.WEBPACK_SERVE
-    //   ? new BundleAnalyzerPlugin({
-    //       analyzerMode: "static",
-    //       openAnalyzer: false,
-    //     })
-    //   : null,
+    !env.WEBPACK_SERVE
+      ? new BundleAnalyzerPlugin({
+          analyzerMode: "static",
+          openAnalyzer: false,
+        })
+      : null,
   ],
   devServer: {
     historyApiFallback: true,
