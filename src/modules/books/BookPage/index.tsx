@@ -543,7 +543,7 @@ const BookPage = () => {
                 <p>{detail.categoryName}</p>
               </span>
             ) : null}
-            <figure style={{ display: "flex", justifyContent: "center" }}>
+            <figure>
               <img
                 style={{ margin: "auto" }}
                 src="https://image.aladin.co.kr/img/img_content/K972830273_01.jpg"

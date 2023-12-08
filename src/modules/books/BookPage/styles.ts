@@ -6,27 +6,27 @@ export const PageContainer = styled.div`
     color: black;
   }
   p {
-    font-size: 18px;
+    font-size: 16px;
   }
   main {
-    width: 60%;
-    margin: auto;
     margin-top: 20px;
     margin-bottom: 50px;
   }
   main > article {
     display: flex;
+    flex-direction: column;
   }
   main > article > figure {
     border: 1px solid #dddddd;
-    width: 350px;
-    height: 420px;
+    width: 150px;
+    height: 200px;
     display: flex;
     justify-content: center;
+    margin: auto;
   }
   main > article > figure > img {
-    width: 300px;
-    height: 370px;
+    width: 120px;
+    height: 170px;
     margin: auto;
   }
   main > article > aside {
@@ -36,13 +36,11 @@ export const PageContainer = styled.div`
     flex-direction: column;
   }
   main > article > aside > div:nth-of-type(1) {
+    margin-top: 10px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-  }
-  main > article > aside > div:nth-of-type(1) > dl:nth-of-type(3) > p {
-    width: 395px;
+    gap: 10px;
   }
   main > article > aside > div:nth-of-type(1) > dl:nth-of-type(7) > dt {
     margin-top: 3px;
@@ -52,11 +50,36 @@ export const PageContainer = styled.div`
     vertical-align: top;
     color: crimson;
   }
+  main > article > aside > div dl {
+    display: flex;
+    justify-content: space-between;
+  }
+  main > article > aside > div dl:nth-of-type(3) > dt {
+    width: 50px;
+  }
+  main > article > aside > div dl:nth-of-type(4) > dt {
+    width: 50px;
+  }
+  main > article > aside > div dl:nth-of-type(5) > dt {
+    width: 50px;
+  }
+  main > article > aside > div dl:nth-of-type(6) > dt {
+    width: 50px;
+  }
+  main > article > nav {
+    flex: 0.5;
+    padding: 25px;
+    border-left: 2px solid #dddddd;
+  }
+  main > article > aside > h2 {
+    font-size: 30px;
+  }
   #amount {
+    margin-top: 50px;
     flex: 0.1;
     display: flex;
-    gap: 10px;
     justify-content: flex-end;
+    gap: 10px;
     font-size: 20px;
     line-height: 2;
   }
@@ -75,38 +98,17 @@ export const PageContainer = styled.div`
   #amount > div > img {
     cursor: pointer;
   }
-  main > article > aside > div dl:nth-of-type(4) > dt {
-    width: 48px;
-  }
-  main > article > aside > div dl:nth-of-type(5) > dt {
-    width: 48px;
-  }
-  main > article > aside > div dl:nth-of-type(6) > dt {
-    width: 48px;
-  }
-  main > article > aside > div dl {
-    display: flex;
-    gap: 10px;
-  }
-  main > article > aside > div > div {
-    display: flex;
-    gap: 10px;
-  }
-  main > article > nav {
-    flex: 0.5;
-    padding: 25px;
-    border-left: 2px solid #dddddd;
-  }
-  main > article > aside > h2 {
-    font-size: 30px;
-  }
   article > nav > ul {
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
     height: 80%;
-    padding-left: 30px;
     margin: auto;
+  }
+  article > nav > ul > li:nth-of-type(1) {
+    display: none;
+  }
+  article > nav > ul > li:nth-of-type(2) {
+    display: none;
   }
   button {
     font-size: 20px;
@@ -185,13 +187,16 @@ export const PageContainer = styled.div`
     gap: 10px;
     margin-bottom: 20px;
   }
+  section > figure {
+    display: none;
+  }
   section > article {
-    margin: 40px;
-    width: 90%;
     margin-bottom: 60px;
   }
   section > article div {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
   }
@@ -200,7 +205,6 @@ export const PageContainer = styled.div`
     width: 30%;
   }
   section > article > div p {
-    width: 60%;
     line-height: 1.5;
   }
   section > article > div > a {
@@ -209,11 +213,7 @@ export const PageContainer = styled.div`
   section > article > div > a > p {
     line-height: 1.5;
   }
-  /* footer {
-    border: 1px solid cadetblue;
-  } */
   .input-comment > form {
-    width: 70%;
     gap: 10px;
     margin: auto;
     padding: 20px;
@@ -246,5 +246,72 @@ export const PageContainer = styled.div`
   .input-comment > form > label > button {
     font-size: 16px;
     background-color: #fafafa;
+  }
+
+  @media (min-width: 55rem) {
+    p {
+      font-size: 18px;
+    }
+    main {
+      width: 60%;
+      margin: auto;
+    }
+    main > article {
+      flex-direction: row;
+    }
+    main > article > figure {
+      width: 350px;
+      height: 420px;
+      display: flex;
+      justify-content: center;
+    }
+    main > article > figure > img {
+      width: 300px;
+      height: 370px;
+    }
+    main > article > aside > div:nth-of-type(1) {
+      justify-content: space-evenly;
+    }
+    main > article > aside > div dl {
+      gap: 10px;
+      justify-content: flex-start;
+    }
+    main > article > aside > div:nth-of-type(1) > dl:nth-of-type(7) > dt {
+      margin-top: 3px;
+    }
+    main > article > aside > div:nth-of-type(1) > dl:nth-of-type(7) > p {
+      font-size: 23px;
+      vertical-align: top;
+      color: crimson;
+    }
+
+    article > nav > ul {
+      flex-direction: column;
+    }
+    article > nav > ul > li:nth-of-type(1) {
+      display: block;
+    }
+    article > nav > ul > li:nth-of-type(2) {
+      display: block;
+    }
+    section > figure {
+      display: block;
+      display: flex;
+      justify-content: center;
+    }
+    section > article {
+      margin: 40px;
+      width: 90%;
+      margin-bottom: 60px;
+    }
+    section > article div {
+      flex-direction: row;
+    }
+    section > article > div p {
+      width: 60%;
+    }
+    .input-comment > form {
+      width: 70%;
+    }
   }
 `;
