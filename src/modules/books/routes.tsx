@@ -14,6 +14,7 @@ const serverAddress = isLocalhost();
 
 export const bookRoutes = [
   <Route
+    key="side"
     path="/"
     element={
       <>
@@ -21,10 +22,18 @@ export const bookRoutes = [
         <Outlet />
       </>
     }>
-    <Route path="books" element={<BookList fetchUrl={`${serverAddress}/books/paging/search?option=국내도서`} />} />
-    <Route path="best" element={<BookBestList />} />
-    <Route path="new" element={<BookNewList />} />
-    <Route path="foreign" element={<BookList fetchUrl={`${serverAddress}/books/paging/search?option=외국도서`} />} />
+    <Route
+      key="books"
+      path="books"
+      element={<BookList fetchUrl={`${serverAddress}/books/paging/search?option=국내도서`} />}
+    />
+    <Route key="best" path="best" element={<BookBestList />} />
+    <Route key="new" path="new" element={<BookNewList />} />
+    <Route
+      key="foreign"
+      path="foreign"
+      element={<BookList fetchUrl={`${serverAddress}/books/paging/search?option=외국도서`} />}
+    />
   </Route>,
   <Route key="search" path="/search" element={<BookSearch />} />,
   <Route key="page" path="/page" element={<BookPage />} />,
