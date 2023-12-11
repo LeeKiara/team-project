@@ -12,11 +12,11 @@ export const CommnetListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 70%;
+    width: 95%;
     /* height: 90px; */
     background-color: #f8f8f8;
     margin: auto;
-    padding: 20px;
+    padding: 10px 8px;
   }
   .comment-list > div > span:nth-of-type(1) {
     display: flex;
@@ -89,6 +89,10 @@ export const CommnetListContainer = styled.div`
   @media (min-width: 55rem) {
     .comment-main input {
       width: 35vw;
+    }
+    .comment-list > div {
+      width: 70%;
+      padding: 20px;
     }
   }
   @media (min-width: 110rem) {
