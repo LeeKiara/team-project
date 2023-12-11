@@ -49,6 +49,11 @@ const BookBestList = () => {
         [itemId]: !prevStates[itemId],
       }));
       const alamDisplay = !storeBelltStates[itemId];
+      if (alamDisplay) {
+        alert("알림 설정이 등록되었습니다.");
+      } else {
+        alert("알림 설정 등록이 취소되었습니다.");
+      }
       const newAlamDisplay = {
         alamDisplay: alamDisplay,
       };
@@ -63,6 +68,7 @@ const BookBestList = () => {
         }
       } catch (e: any) {
         console.log(e + "알림설정 오류");
+        alert("알림 설정 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };
@@ -144,6 +150,7 @@ const BookBestList = () => {
         }
       } catch (e: any) {
         console.log(e + "선호작품 오류");
+        alert("선호작품 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };

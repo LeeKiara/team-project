@@ -77,6 +77,7 @@ const BookList = ({ fetchUrl }) => {
         }
       } catch (e: any) {
         console.log(e + "선호작품 오류");
+        alert("선호 작품 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };

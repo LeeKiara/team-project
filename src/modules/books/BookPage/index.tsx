@@ -98,7 +98,6 @@ const BookPage = () => {
         });
         if (response.status === 200) {
           console.log("선호작품 등록/수정 성공..!");
-          alert("선호작품 등록이 완료되었습니다.");
         }
       } catch (e: any) {
         console.log(e + "선호작품 오류");
@@ -113,6 +112,11 @@ const BookPage = () => {
       alert("로그인 후 이용해주세요.");
     } else {
       const alamDisplay = !storeBelltStates;
+      if (alamDisplay) {
+        alert("알림 설정이 등록되었습니다.");
+      } else {
+        alert("알림 설정 등록이 취소되었습니다.");
+      }
       const newAlamDisplay = {
         alamDisplay: alamDisplay,
       };
@@ -128,6 +132,7 @@ const BookPage = () => {
         }
       } catch (e: any) {
         console.log(e + "알림설정 오류");
+        alert("알림 설정 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };
