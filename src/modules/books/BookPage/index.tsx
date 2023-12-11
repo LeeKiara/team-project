@@ -79,7 +79,11 @@ const BookPage = () => {
     } else {
       const newParam = newId ? 0 : null;
       const likes = !showHeartState;
-      console.log(likes);
+      if (likes) {
+        alert("선호작품 등록되었습니다.");
+      } else {
+        alert("선호작품 등록이 취소되었습니다.");
+      }
       const newStoreHearts = {
         new: newParam,
         like: likes,
@@ -94,9 +98,11 @@ const BookPage = () => {
         });
         if (response.status === 200) {
           console.log("선호작품 등록/수정 성공..!");
+          alert("선호작품 등록이 완료되었습니다.");
         }
       } catch (e: any) {
         console.log(e + "선호작품 오류");
+        alert("선호작품 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };

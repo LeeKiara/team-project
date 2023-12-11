@@ -58,6 +58,7 @@ const BookNewList = () => {
         }
       } catch (e: any) {
         console.log(e + "알림설정 오류");
+        alert("알림 설정 등록에 실패하였습니다. 다시 시도해주세요.");
       }
     }
   };

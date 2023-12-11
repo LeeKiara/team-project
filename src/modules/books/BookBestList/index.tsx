@@ -125,7 +125,6 @@ const BookBestList = () => {
         [itemId]: !prevStates[itemId],
       }));
       const likes = !storeHeartStates[itemId];
-      console.log(likes);
       if (likes) {
         alert("선호작품 등록되었습니다.");
       } else {

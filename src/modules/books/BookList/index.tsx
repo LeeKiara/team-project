@@ -58,7 +58,11 @@ const BookList = ({ fetchUrl }) => {
         [itemId]: !prevStates[itemId],
       }));
       const likes = !storeHeartStates[itemId];
-      console.log(likes);
+      if (likes) {
+        alert("선호작품 등록되었습니다.");
+      } else {
+        alert("선호작품 등록이 취소되었습니다.");
+      }
       const newStoreHearts = {
         like: likes,
       };
