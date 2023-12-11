@@ -217,7 +217,7 @@ const BookSearch = () => {
                       <p>{`${item.priceSales.toLocaleString()}`} 원</p>
                       <p>{`${item.description}`}</p>
                       <div>
-                        <p>[ 관련 시리즈 ]</p>
+                        <p>{item.seriesInfo && `[ 관련 시리즈 ]`}</p>
                         <u>
                           {item.seriesInfo && (
                             <Link to={item.seriesInfo.seriesLink}>{`${item.seriesInfo.seriesName}`}</Link>
