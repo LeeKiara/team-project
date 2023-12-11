@@ -47,13 +47,14 @@ const BookNewList = () => {
         alamDisplay: alamDisplay,
       };
       try {
-        const response = await axios.put(`${serverAddress}/${itemId}/alam`, newAlamDisplay, {
+        const response = await axios.put(`${serverAddress}/books/${itemId}/alam`, newAlamDisplay, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         if (response.status === 200) {
           console.log("알림설정 수정/등록 성공..!");
+          alert("알림 설정이 등록되었습니다.");
         }
       } catch (e: any) {
         console.log(e + "알림설정 오류");
