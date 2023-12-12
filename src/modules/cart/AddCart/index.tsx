@@ -252,7 +252,7 @@ const AddCart = () => {
     if (isConfirmed) {
       (async () => {
         try {
-          const response = await http.delete(`/cart/delete/${itemId}`);
+          const response = await http.delete(`/api/order-commerce/cart/delete/${itemId}`);
 
           console.log("(sever fetch) 장바구니 item 삭제 결과 : " + response.status);
 
