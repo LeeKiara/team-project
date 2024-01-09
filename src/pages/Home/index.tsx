@@ -44,7 +44,8 @@ const Home = () => {
   // };
 
   useEffect(() => {
-    (async () => {
+    //오늘의 책
+    const todayBooks = async () => {
       try {
         const response = await axios.get<TodayBook>(`${serverAddress}/admin-service`);
 
@@ -57,12 +58,9 @@ const Home = () => {
           console.log(e + "오늘의 책 가져오기 오류");
         }
       }
-    })();
-  }, []);
-
-  //베스트셀러 가져오기
-  useEffect(() => {
-    (async () => {
+    };
+    //베스트셀러 가져오기
+    const bestBooks = async () => {
       try {
         const response = await axios.get<BookItem[]>(`${serverAddress}/redis/best`);
         if (response.status === 200) {
@@ -71,7 +69,39 @@ const Home = () => {
       } catch (e: any) {
         console.log(e);
       }
-    })();
+    };
+    //알림설정 디스플레이 조회
+    const booksBells = async () => {
+      if (token) {
+        try {
+          const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.status === 200) {
+            console.log("알림 설정값 조회 성공");
+            response.data.forEach((data) => {
+              if (data.alam) {
+                const title = data.bookTitle.substring(0, 8);
+                alert(`${title}도서가 입고되었습니다.`);
+              }
+            });
+          }
+        } catch (e: any) {
+          if (e.message.includes("404")) {
+            console.log("알림설정 데이터가 없습니다.");
+          }
+        }
+      }
+    };
+
+    todayBooks();
+    bestBooks();
+    booksBells();
+  }, []);
+
+  useEffect(() => {
     setBanner([
       {
         id: 1,
@@ -106,29 +136,6 @@ const Home = () => {
     //   "https://img.ypbooks.co.kr/upload/banner/mainb_230217_Independent.jpg",
     //   "https://img.ypbooks.co.kr/upload/banner/mainb_231017_fallfoliage.jpg",
     // ]);
-    //알림설정 디스플레이 조회
-    (async () => {
-      try {
-        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log("알림 설정값 조회 성공");
-          response.data.forEach((data) => {
-            if (data.alam) {
-              const title = data.bookTitle.substring(0, 8);
-              alert(`${title}도서가 입고되었습니다.`);
-            }
-          });
-        }
-      } catch (e: any) {
-        if (e.message.includes("404")) {
-          console.log("알림설정 데이터가 없습니다.");
-        }
-      }
-    })();
   }, []);
 
   return (
