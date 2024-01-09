@@ -230,26 +230,30 @@ const BookBestList = () => {
     }
 
     //알림설정 디스플레이 조회
-    (async () => {
-      try {
-        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log("알림 설정값 조회 성공");
-          response.data.forEach((data) => {
-            setStoreBellStates((prev) => ({
-              ...prev,
-              [data.bookItemId]: data.alamDisplay,
-            }));
+    const bookBells = async () => {
+      if (token) {
+        try {
+          const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           });
+          if (response.status === 200) {
+            console.log("알림 설정값 조회 성공");
+            response.data.forEach((data) => {
+              setStoreBellStates((prev) => ({
+                ...prev,
+                [data.bookItemId]: data.alamDisplay,
+              }));
+            });
+          }
+        } catch (e: any) {
+          console.log(e + "알림설정 조회 오류");
         }
-      } catch (e: any) {
-        console.log(e + "알림설정 조회 오류");
       }
-    })();
+    };
+
+    bookBells();
   }, [searchQuery, totalPages, currentPage, params]);
 
   return (

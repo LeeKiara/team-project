@@ -294,22 +294,24 @@ const BookPage = () => {
 
   //알림설정 디스플레이 조회
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log("알림 설정값 조회 성공");
-          const findedAlam = response.data.find((data) => (data.bookItemId = itemId));
-          setStoreBellStates(findedAlam.alamDisplay);
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get<AlamData[]>(`${serverAddress}/books/alam`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.status === 200) {
+            console.log("알림 설정값 조회 성공");
+            const findedAlam = response.data.find((data) => (data.bookItemId = itemId));
+            setStoreBellStates(findedAlam.alamDisplay);
+          }
+        } catch (e: any) {
+          console.log(e + "알림설정 조회 오류");
         }
-      } catch (e: any) {
-        console.log(e + "알림설정 조회 오류");
-      }
-    })();
+      })();
+    }
   }, [itemId, setItemId]);
 
   useEffect(() => {
