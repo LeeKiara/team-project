@@ -150,6 +150,7 @@ export function isLocalhost() {
   if (currentDomain === "localhost") {
     return `http://${currentDomain}:8081/api/book-commerce`;
   } else {
+    console.log(currentDomain);
     return `https://${currentDomain}/api/book-commerce`;
   }
 }
